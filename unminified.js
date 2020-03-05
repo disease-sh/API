@@ -67,9 +67,8 @@ var getcountries = setInterval(async () => {
   const todayCasesColIndex = 2;
   const deathsColIndex = 3;
   const todayDeathsColIndex = 4;
-  const curedColIndex = 5;
-  const criticalColIndex = 6;
-  const regionColIndex = 7;
+  const curedColIndex = 6;
+  const criticalColIndex = 7;
 
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < countriesTableCells.length - totalColumns; i += 1) {
@@ -125,9 +124,9 @@ var getcountries = setInterval(async () => {
     }
     // get cured
     if (i % totalColumns === curedColIndex) {
-      let cured = cell.children[0].data || "";
+      let cured = cell.children[0].data || 0;
       result[result.length - 1].recovered = parseInt(
-        cured.trim().replace(/,/g, "") || "0",
+        cured.trim().replace(/,/g, "") || 0,
         10
       );
     }
@@ -139,15 +138,6 @@ var getcountries = setInterval(async () => {
         10
       );
     }
-    // get region
-    if (i % totalColumns === regionColIndex) {
-      let region =
-        cell.children[0].data ||
-        cell.children[0].children[0].data ||
-        cell.children[0].children[0].children[0].data ||
-        "";
-      result[result.length - 1].region = region.trim() || "";
-    }
   }
 
   db.set("countries", result);
@@ -156,7 +146,9 @@ var getcountries = setInterval(async () => {
 
 app.get("/", async function(request, response) {
   let a = await db.fetch("all");
-  response.send(`${a.cases} cases are reported of the COVID-19 Novel Coronavirus strain<br> ${a.deaths} have died from it <br>\n${a.recovered} have recovered from it <br> Get the endpoint /all to get information for all cases <br> get the endpoint /countries for getting the data sorted country wise`);
+  response.send(
+    `${a.cases} cases are reported of the COVID-19 Novel Coronavirus strain<br> ${a.deaths} have died from it <br>\n${a.recovered} have recovered from it <br> Get the endpoint /all to get information for all cases <br> get the endpoint /countries for getting the data sorted country wise`
+  );
 });
 
 var listener = app.listen(process.env.PORT, function() {
