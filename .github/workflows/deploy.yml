@@ -1,9 +1,10 @@
 name: Deploy
 
 on:
-  push:
-    branches: [ master ]
-
+  release:
+    tags:
+       - v*
+       
 jobs:  
   deploy_to_heroku:
     name: Deploy to Heroku
