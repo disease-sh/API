@@ -5,6 +5,6 @@ Get the endpoint https://coronavirus-19-api.herokuapp.com/all to get information
 
 get the endpoint https://coronavirus-19-api.herokuapp.com/countries for getting the data sorted country wise
 
-an ionic frontend is showing the info nicely at https://coronavirus-19-api.herokuapp.com/
+**The api part is a fork from https://github.com/NovelCOVID/API + some fixes (due to CORS and outdated code was not working)
 
- **This project is a fork from https://github.com/NovelCOVID/API (due to CORS and outdated code was not working)
+an ionic frontend is showing the info nicely at https://coronavirus-19-api.herokuapp.com/ 

@@ -1097,7 +1097,7 @@
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! C:\Projects\coronavirus\src\main.ts */
+    /*! C:\Projects\covid-api\frontend\src\main.ts */
     "./src/main.ts");
     /***/
   }
