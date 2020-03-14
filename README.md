@@ -1,8 +1,8 @@
-# API
-API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
+# COVID API
+API for live information about COVID-19
 
-Get the endpoint https://corona.lmao.ninja/all to get information for all cases
+Get the endpoint http://localhost/all to get information for all cases
 
-get the endpoint https://corona.lmao.ninja/countries for getting the data sorted country wise
+get the endpoint http://localhost/countries for getting the data sorted country wise
 
-10/10 api
+ **This project is a fork from https://github.com/NovelCOVID/API (due to CORS and outdated code was not working)

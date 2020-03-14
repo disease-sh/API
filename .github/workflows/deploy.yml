@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+    branches:    
+      - master
+
+jobs:  
+  deploy_to_heroku:
+    name: Deploy to Heroku
+    runs-on: ubuntu-16.04
+    needs: build
+    steps:
+    - uses: actions/checkout@master
+    - name: Build docker image
+      env:
+        HEROKU_APP: ${{ secrets.HEROKU_APP }}
+      run:
+        docker build -t $HEROKU_APP .
+    - name: Login into Heroku
+      uses: actions/heroku@master
+      with:
+        args: container:login
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_APP: ${{ secrets.HEROKU_APP }}
+    - name: Push to Heroku
+      uses: actions/heroku@master
+      with:
+        args: container:push web
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_APP: ${{ secrets.HEROKU_APP }}
+    - name: Trigger release in Heroku
+      uses: actions/heroku@master
+      with:
+        args: container:release web
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_APP: ${{ secrets.HEROKU_APP }}
