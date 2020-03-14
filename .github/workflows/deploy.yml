@@ -1,4 +1,4 @@
-name: CI
+name: Deploy
 
 on:
   push:
@@ -8,7 +8,6 @@ jobs:
   deploy_to_heroku:
     name: Deploy to Heroku
     runs-on: ubuntu-16.04
-    needs: build
     steps:
     - uses: actions/checkout@master
     - name: Build docker image
