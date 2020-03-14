@@ -8,6 +8,8 @@ var cors = require('cors')
 
 app.use(cors());
 
+app.use('/', express.static('www'));
+
 var getall = setInterval(async () => {
   let response;
   try {

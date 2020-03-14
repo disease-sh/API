@@ -4,7 +4,8 @@
   "description": "A simple Node API for getting coronavirus cases from scraped information.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build-frontend": "cd frontend && ionic build --engine=browser"
   },
   "dependencies": {
     "axios": "^0.19.2",
