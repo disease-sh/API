@@ -147,7 +147,7 @@ var getcountries = setInterval(async () => {
 app.get("/", async function(request, response) {
   let a = await db.fetch("all");
   response.send(
-    `${a.cases} cases are reported of the COVID-19 Novel Coronavirus strain<br> ${a.deaths} have died from it <br>\n${a.recovered} have recovered from it <br> Get the endpoint /all to get information for all cases <br> get the endpoint /countries for getting the data sorted country wise`
+    `${a.cases} cases are reported of the COVID-19 Novel Coronavirus strain<br> ${a.deaths} have died from it <br>\n${a.recovered} have recovered from it <br> Get the endpoint /all to get information for all cases <br> get the endpoint /countries for getting the data sorted country wise <br>get the endpoint /countries/[country-name] for getting the data for a specific country`
   );
 });
 
@@ -174,7 +174,7 @@ app.get("/countries/", async function(req, res) {
 app.get("/countries/:country", async function(req, res) {
   let countries = await db.fetch("countries");
   let country = countries.find(
-    e => e.country.toLowerCase() === req.params.country
+    e => e.country.toLowerCase().includes(req.params.country) // Added this so people dnt have to put the whole country name :)
   );
   if (!country) {
     res.sendStatus(404);
