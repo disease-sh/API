@@ -1,5 +1,6 @@
 var express = require("express");
 var app = express();
+var cors = require("cors");
 var request = require("request");
 var axios = require("axios");
 var cheerio = require("cheerio");
@@ -33,10 +34,10 @@ var getall = setInterval(async () => {
       result.recovered = count;
     }
   });
-
-  db.set("all", result);
+  result.updated = Date.now();
+ db.set("all", result);
   console.log("Updated The Cases", result);
-}, 60000);
+}, 600000);
 
 var getcountries = setInterval(async () => {
   let response;
@@ -139,10 +140,10 @@ var getcountries = setInterval(async () => {
       );
     }
   }
-
+result.updated = Date.now();
   db.set("countries", result);
   console.log("Updated The Countries", result);
-}, 60000);
+}, 600000);
 
 app.get("/", async function(request, response) {
   let a = await db.fetch("all");
@@ -151,9 +152,11 @@ app.get("/", async function(request, response) {
   );
 });
 
-var listener = app.listen(process.env.PORT, function() {
+var listener = app.listen(80, function() {
   console.log("Your app is listening on port " + listener.address().port);
 });
+
+app.use(cors());
 
 app.get("/all/", async function(req, res) {
   let all = await db.fetch("all");
