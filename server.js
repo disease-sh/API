@@ -177,7 +177,6 @@ app.get("/countries/:country", async function(req, res) {
     e => e.country.toLowerCase().includes(req.params.country) // Added this so people dnt have to put the whole country name :)
   );
   if (!country) {
-    res.sendStatus(404);
     res.send("Country not found");
     return;
   }
