@@ -161,10 +161,19 @@ app.get("/all/", async function(req, res) {
 });
 
 app.get("/invite/", async function(req, res) {
-  res.redirect("https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=52224")
+  res.redirect(
+    "https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=52224"
+  );
 });
 
 app.get("/countries/", async function(req, res) {
   let countries = await db.fetch("countries");
   res.send(countries);
+});
+app.get("/countries/:country", async function(req, res) {
+  let countries = await db.fetch("countries");
+  let country = countries.find(
+    e => e.country.toLowerCase() === req.params.country
+  );
+  res.send(country);
 });
