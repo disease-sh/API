@@ -140,7 +140,6 @@ var getcountries = setInterval(async () => {
       );
     }
   }
-result.updated = Date.now();
   db.set("countries", result);
   console.log("Updated The Countries", result);
 }, 600000);
