@@ -163,7 +163,7 @@ app.get("/all/", async function(req, res) {
 });
 
 app.get("/invite/", async function(req, res) {
-  res.redirect("https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=52224")
+  res.redirect("https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880")
 });
 
 app.get("/countries/", async function(req, res) {
