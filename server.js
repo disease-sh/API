@@ -170,10 +170,11 @@ app.get("/countries/", async function(req, res) {
   let countries = await db.fetch("countries");
   res.send(countries);
 });
+
 app.get("/countries/:country", async function(req, res) {
   let countries = await db.fetch("countries");
   let country = countries.find(
     e => e.country.toLowerCase() === req.params.country
   );
-  res.send(country);
+  res.send(country ? country : "Could not find country");
 });
