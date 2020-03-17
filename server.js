@@ -174,7 +174,7 @@ app.get("/countries/", async function(req, res) {
 app.get("/countries/:country", async function(req, res) {
   let countries = await db.fetch("countries");
   let country = countries.find(
-    e => e.country.toLowerCase().includes(req.params.country) // Added this so people dnt have to put the whole country name :)
+    e => e.country.toLowerCase().includes(req.params.country.toLowerCase()) // Added this so people dnt have to put the whole country name :)
   );
   if (!country) {
     res.send("Country not found");
