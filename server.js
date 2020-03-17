@@ -1,7 +1,6 @@
 var express = require("express");
 var app = express();
 var cors = require("cors");
-var request = require("request");
 var axios = require("axios");
 var cheerio = require("cheerio");
 var db = require("quick.db");
@@ -168,6 +167,24 @@ app.get("/invite/", async function(req, res) {
 
 app.get("/countries/", async function(req, res) {
   let countries = await db.fetch("countries");
+  if(req.query['sort']) {
+    try {
+      const sortProp = req.query['sort'];
+      countries.sort((a,b) => {
+        if(a[sortProp] < b[sortProp]) {
+          return -1;
+        }
+        else if(a[sortProp] > b[sortProp]) {
+          return 1;
+        }
+        return 0;
+      })
+    } catch(e) {
+      console.error("ERROR while sorting", e);
+      res.status(422).send(e);
+      return;
+    }
+  }
   res.send(countries);
 });
 
