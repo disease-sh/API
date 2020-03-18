@@ -1,9 +1,11 @@
 # COVID API
 API for live information about COVID-19
 
-Get the endpoint https://coronavirus-19-api.herokuapp.com/all to get information for all cases
+GET https://coronavirus-19-api.herokuapp.com/all -> global info
 
-get the endpoint https://coronavirus-19-api.herokuapp.com/countries for getting the data sorted country wise
+GET https://coronavirus-19-api.herokuapp.com/countries -> all countries info
+
+GET https://coronavirus-19-api.herokuapp.com/countries/{countryName} -> country specific information
 
 **The api part is a fork from https://github.com/NovelCOVID/API + some fixes (due to CORS and outdated code was not working)
 
