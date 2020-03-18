@@ -41,7 +41,7 @@ var getall = setInterval(async () => {
 
   db.set("all", result);
   console.log("Updated The Cases", result);
-}, 600000);
+}, 150000);
 
 var getcountries = setInterval(async () => {
   let response;
@@ -156,7 +156,7 @@ var getcountries = setInterval(async () => {
 
   db.set("countries", result);
   console.log("Updated The Countries", result);
-}, 600000);
+}, 150000);
 
 app.get("/", async function(request, response) {
   let a = await db.fetch("all");
