@@ -59,7 +59,7 @@ var getcountries = setInterval(async () => {
 
   // get HTML and parse death rates
   const html = cheerio.load(response.data);
-  const countriesTable = html("table#main_table_countries");
+  const countriesTable = html("table#main_table_countries_today");
   const countriesTableCells = countriesTable
     .children("tbody")
     .children("tr")
