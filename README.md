@@ -73,5 +73,3 @@ You can read more about **new Date()** [here](https://developer.mozilla.org/en-U
 
 ### Source: 
 > https://www.worldometers.info/coronavirus/ 
-
-[![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
