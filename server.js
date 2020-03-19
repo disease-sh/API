@@ -131,7 +131,7 @@ var getcountries = setInterval(async () => {
     }
     // get cured
     if (i % totalColumns === curedColIndex) {
-      let cured = cell.children.length != 0 ? cell.children[0].data : 0;
+      let cured = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].recovered = parseInt(
         cured.trim().replace(/,/g, "") || 0,
         10
@@ -139,7 +139,7 @@ var getcountries = setInterval(async () => {
     }
     // get active
     if (i % totalColumns === activeColIndex) {
-      let cured =cell.children.length != 0? cell.children[0].data : 0;
+      let cured =cell.children.length != 0? cell.children[0].data : "";
       result[result.length - 1].active = parseInt(
         cured.trim().replace(/,/g, "") || 0,
         10
