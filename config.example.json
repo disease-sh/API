@@ -5,7 +5,7 @@
   },
   "keys": {
     "all": "covidapi:all",
-    "countries": "coviapi:countries"
+    "countries": "covidapi:countries"
   },
   "port": 8080,
   "interval": 600000
