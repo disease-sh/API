@@ -1,3 +1,4 @@
+# Join our Server!
 [![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
 
 # API
@@ -47,12 +48,12 @@ console.log(data);
 **Step 3**:
 Once we have called the API, we can access the data that was given!
 ```js
-let fetch = require('node-fetch');
+let covid = require('novelcovid');
 
 // IMPORTANT: Inorder to access the data, we will need to create an async function.
 
 (async () => {
-let data = fetch('https://corona.lmao.ninja/all');
+let data = await covid.all();
 
 // Since we are using an async function, we need to return the data.
 return console.log(`
