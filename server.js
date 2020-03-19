@@ -80,6 +80,7 @@ var getcountries = async () => {
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < countriesTableCells.length - totalColumns; i += 1) {
     const cell = countriesTableCells[i];
+    var totalCases, totalDeaths;
 
     // get country
     if (i % totalColumns === countryColIndex) {
@@ -100,7 +101,7 @@ var getcountries = async () => {
     // get cases
     if (i % totalColumns === casesColIndex) {
       let cases = cell.children.length != 0 ? cell.children[0].data : "";
-      result[result.length - 1].cases = parseInt(
+      result[result.length - 1].cases, totalCases = parseInt(
         cases.trim().replace(/,/g, "") || "0",
         10
       );
@@ -116,7 +117,7 @@ var getcountries = async () => {
     // get deaths
     if (i % totalColumns === deathsColIndex) {
       let deaths = cell.children.length != 0 ? cell.children[0].data : "";
-      result[result.length - 1].deaths = parseInt(
+      result[result.length - 1].deaths, totalDeaths = parseInt(
         deaths.trim().replace(/,/g, "") || "0",
         10
       );
@@ -161,6 +162,9 @@ var getcountries = async () => {
         10
       );
     }
+
+    // get total death rate
+    result[result.length - 1].deathRate = parseFloat((totalDeaths/totalCases).toFixed(3));
   }
 
   const string = JSON.stringify(result);
