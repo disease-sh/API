@@ -1,3 +1,5 @@
+[![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
+
 # API
 API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
 https://corona.lmao.ninja/
@@ -10,23 +12,28 @@ https://corona.lmao.ninja/
 |  https://corona.lmao.ninja/countries?sort={parameter} | Returns data of each country sorted by the parameter |
 |  https://corona.lmao.ninja/countries/{country-name} | Returns data of a specific country |
 
-# Tutorial
-*Tutorial Made By Apollo#6000*
-> Dependencies
-> [node-fetch](https://www.npmjs.com/package/node-fetch)
+# API Tutorial
+*Tutorial Made By [Apollo#6000](https://discord.gg/EvbMshU)*
+> Packages Needed
+> [novelcovid](https://www.npmjs.com/package/novelcovid)
 
 **Step 1**:
-Install [node=fetch](https://www.npmjs.com/package/node-fetch)
-> npm i node-fetch
+Install [novelcovid](https://www.npmjs.com/package/novelcovid)
+```
+npm i novelcovid
+```
 
 **Step 2**:
-Call the API using node-fetch!
-```js
-// We Require node-fetch
-let fetch = require('node-fetch');
+Use either `.all()` or `.countries()` function to retrieve the given data.
 
-// We then call the API using node-fetch
-let data = fetch('https://corona.lmao.ninja/all');
+```js
+// We define the package
+let covid = require('novelcovid');
+
+// In this case we will be using .all()
+// If you would like a .countries() tutorial, feel free to join our support server
+
+let data = covid.all();
 console.log(data);
 
 /* Returns 
@@ -41,19 +48,28 @@ console.log(data);
 Once we have called the API, we can access the data that was given!
 ```js
 let fetch = require('node-fetch');
+
+// IMPORTANT: Inorder to access the data, we will need to create an async function.
+
+(async () => {
 let data = fetch('https://corona.lmao.ninja/all');
 
-console.log(`
+// Since we are using an async function, we need to return the data.
+return console.log(`
 Total Cases: ${data.cases}
 Total Deaths: ${data.deaths}
 Total Recovered: ${data.recovered}
 Last Updated on: ${data.updated}`);
+})();
 ```
-Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` and it returns an ISO Date 
 
-You can read more about **new Date** [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+**Note**
+Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` as it returns an **ISO Date**
 
-#### Enjoy your new COVID-19 TRACKER!
+You can read more about **new Date()** [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+
+> For further support, you can join our discord server! More Tutorials can be found there too!
+> https://discord.gg/EvbMshU
 
 ### Source: 
 > https://www.worldometers.info/coronavirus/ 
