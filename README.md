@@ -12,7 +12,8 @@ https://corona.lmao.ninja/
 |  https://corona.lmao.ninja/countries | Returns data of all countries that has COVID-19 |
 |  https://corona.lmao.ninja/countries?sort={parameter} | Returns data of each country sorted by the parameter |
 |  https://corona.lmao.ninja/countries/{country-name} | Returns data of a specific country |
-dd
+|  https://corona.lmao.ninja/states | Returns all United States of America and their Corona data |
+
 # API Tutorial
 *Tutorial Made By [Apollo#6000](https://discord.gg/EvbMshU)*
 > Packages Needed
