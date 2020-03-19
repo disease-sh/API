@@ -13,6 +13,7 @@ https://corona.lmao.ninja/
 |  https://corona.lmao.ninja/countries?sort={parameter} | Returns data of each country sorted by the parameter |
 |  https://corona.lmao.ninja/countries/{country-name} | Returns data of a specific country |
 |  https://corona.lmao.ninja/states | Returns all United States of America and their Corona data |
+|  https://corona.lmao.ninja/jhucsse | Return data from the John Hopkins CSSE Data Repository (Provinces and such) |
 
 # API Tutorial
 *Tutorial Made By [Apollo#6000](https://discord.gg/EvbMshU)*
@@ -54,14 +55,14 @@ let covid = require('novelcovid');
 // IMPORTANT: Inorder to access the data, we will need to create an async function.
 
 (async () => {
-let data = await covid.all();
+    let data = await covid.all();
 
-// Since we are using an async function, we need to return the data.
-return console.log(`
-Total Cases: ${data.cases}
-Total Deaths: ${data.deaths}
-Total Recovered: ${data.recovered}
-Last Updated on: ${data.updated}`);
+    // Since we are using an async function, we need to return the data.
+    return console.log(`
+    Total Cases: ${data.cases}
+    Total Deaths: ${data.deaths}
+    Total Recovered: ${data.recovered}
+    Last Updated on: ${data.updated}`);
 })();
 ```
 

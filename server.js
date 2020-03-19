@@ -11,8 +11,8 @@ app.use(cors());
 
 // create redis instance :O
 const redis = new Redis(config.redis.host, {
-  password: config.redis.password || null,
-  port: config.redis.port || null
+  password: config.redis.password,
+  port: config.redis.port
 })
 
 const keys = config.keys;
@@ -21,6 +21,7 @@ const execAll = () => {
     scraper.getCountries(keys, redis);
     scraper.getAll(keys, redis);
     scraper.getStates(keys, redis);
+    scraper.jhuLocations(keys, redis);
 };
 execAll()
 setInterval(execAll, config.interval);
@@ -45,6 +46,12 @@ app.get("/states/", async function (req, res) {
   let states = JSON.parse(await redis.get(keys.states))
   res.send(states);
 });
+
+app.get("/jhucsse/", async function (req, res) {
+  let data = JSON.parse(await redis.get(keys.jhu))
+  res.send(data);
+});
+
 app.get("/countries/:country", async function (req, res) {
   let countries = JSON.parse(await redis.get(keys.countries))
   let country = countries.find(
