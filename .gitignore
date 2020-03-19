@@ -1,3 +1,4 @@
 node_modules/
 json.sqlite
 .vscode/
+config.json
