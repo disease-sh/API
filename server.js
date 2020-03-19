@@ -190,7 +190,17 @@ app.get("/all/", async function (req, res) {
 });
 app.get("/countries/", async function (req, res) {
   let countries = JSON.parse(await redis.get(keys.countries))
+
+  if (req.query.sort != undefined && countries[0].hasOwnProperty(req.query.sort)) {
+
+    let sortParamater = req.query.sort
+    if (req.query.ascending === "true")
+      countries.sort((a, b) => (a[sortParamater] < b[sortParamater]) ? -1 : 1) // sorts in asending order
+    else
+      countries.sort((a, b) => (a[sortParamater] < b[sortParamater]) ? 1 : -1) // sorts in descending order(default)
+  }
   res.send(countries);
+
 });
 app.get("/countries/:country", async function (req, res) {
   let countries = JSON.parse(await redis.get(keys.countries))
