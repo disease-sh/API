@@ -178,7 +178,7 @@ app.get("/", async function (request, response) {
   let a = JSON.parse(await redis.get(keys.all))
   response.send(
     `${a.cases} cases are reported of the COVID-19 Novel Coronavirus strain<br> ${a.deaths} have died from it <br>\n${a.recovered} have recovered from it <br> Get the endpoint /a
-ll to get information for all cases <br> get the endpoint /countries for getting the data sorted country wise<br> join our discord server:<iframe src="https://discordapp.com/widget?id=689535536934813823&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>`
+ll to get information for all cases <br> get the endpoint /countries for getting the data sorted country wise<br><a href="https://discord.gg/EvbMshU">Join our discord server too!</a> `
   );
 });
 var listener = app.listen(config.port, function () {
@@ -208,5 +208,5 @@ app.get("/invite/", async function (req, res) {
 });
 
 app.get("/support/", async function (req, res) {
-  res.redirect("https://discord.gg/6AhjTEd")
+  res.redirect("https://discord.gg/EvbMshU")
 });
