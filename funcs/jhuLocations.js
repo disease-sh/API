@@ -34,7 +34,7 @@ var jhudata = async (keys, redis) => {
         recovered: loc[5]
       },
       coordinates: {
-        lattitude: loc[6],
+        latitude: loc[6],
         longitude: loc[7]
       }
     })
