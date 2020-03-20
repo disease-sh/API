@@ -28,9 +28,7 @@ execAll()
 setInterval(execAll, config.interval);
 
 app.get("/", async function (request, response) {
-  let a = JSON.parse(await redis.get(keys.all))
-  response.send(
-    `${a.cases} cases are reported of the COVID-19 Novel Coronavirus strain<br> ${a.deaths} have died from it <br>\n${a.recovered} have recovered from it <br> Get the endpoint /all to get information for all cases <br> get the endpoint /countries for getting the data sorted country wise<br><a href="https://discord.gg/EvbMshU">Join our discord server too!</a><br> <a href="https://github.com/NovelCOVID/API">Star the GitHub!</a> `);
+  response.redirect('https://github.com/novelcovid/api');
 });
 var listener = app.listen(config.port, function () {
   console.log("Your app is listening on port " + listener.address().port);
