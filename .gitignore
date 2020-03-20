@@ -2,3 +2,5 @@ node_modules/
 json.sqlite
 .vscode/
 config.json
+package-lock.json
+dump.rdb
