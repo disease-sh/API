@@ -27,10 +27,10 @@ var getall = async (keys, redis) => {
       result.recovered = count;
     }
   });
-  result.updated = Date.now()
+  result.updated = new Date(Date.now().toLocaleString);
   const string = JSON.stringify(result);
   redis.set(keys.all, string);
   console.log("Updated The Cases", result);
-}
+};
 
 module.exports = getall;
