@@ -1,12 +1,13 @@
 {
-    "redis": {
-      "host": "localhost",
-      "password": "1234"
-    },
-    "keys": {
-      "all": "covidapi:all",
-      "countries": "covidapi:countries"
-    },
-    "port": 8080,
-    "interval": 600000
+  "redis": {
+    "host": "localhost",
+    "password": "1234"
+  },
+  "keys": {
+    "all": "covidapi:all",
+    "countries": "covidapi:countries",
+    "states": "covidapi:states"
+  },
+  "port": 3000,
+  "interval": 600000
 }
