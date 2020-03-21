@@ -22,7 +22,7 @@ const execAll = () => {
     scraper.getAll(keys, redis);
     scraper.getStates(keys, redis);
     scraper.jhuLocations(keys, redis);
-    scraper.historical(keys, redis);
+    scraper.historical.historical(keys, redis);
 };
 execAll()
 setInterval(execAll, config.interval);
@@ -54,6 +54,12 @@ app.get("/jhucsse/", async function (req, res) {
 app.get("/historical/", async function (req, res) {
   let data = JSON.parse(await redis.get(keys.historical))
   res.send(data);
+});
+
+app.get("/historical/:country", async function (req, res) {
+  let data = JSON.parse(await redis.get(keys.historical))
+  const countryData = await scraper.historical.getHistoricalCountryData(data, req.params.country.toLowerCase());
+  res.send(countryData);
 });
 
 app.get("/countries/:country", async function (req, res) {
