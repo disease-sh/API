@@ -63,8 +63,8 @@ var historical = async (keys, redis) => {
     b++;
   }
 
-  const finalResult = result.splice(1);
-  const string = JSON.stringify(finalResult);
+  const removeFirstObj = result.splice(1);
+  const string = JSON.stringify(removeFirstObj);
   redis.set(keys.historical, string);
   console.log(`Updated JHU CSSE Historical: ${finalResult.length} locations`);
 };
