@@ -6,6 +6,7 @@ var cors = require('cors');
 const config = require('./config.json');
 const Redis = require('ioredis');
 const scraper = require('./scraper');
+const filterCountries = require('./funcs/filterCountries');
 
 app.use(cors());
 
@@ -18,11 +19,11 @@ const redis = new Redis(config.redis.host, {
 const keys = config.keys;
 
 const execAll = () => {
-    scraper.getCountries(keys, redis);
-    scraper.getAll(keys, redis);
-    scraper.getStates(keys, redis);
-    scraper.jhuLocations(keys, redis);
-    scraper.historical(keys, redis);
+  scraper.getCountries(keys, redis);
+  scraper.getAll(keys, redis);
+  scraper.getStates(keys, redis);
+  scraper.jhuLocations(keys, redis);
+  scraper.historical(keys, redis);
 };
 execAll()
 setInterval(execAll, config.interval);
@@ -38,8 +39,13 @@ app.get("/all/", async function (req, res) {
   res.send(all);
 });
 app.get("/countries/", async function (req, res) {
-  let countries = JSON.parse(await redis.get(keys.countries))
+
+  let countries = JSON.parse(await redis.get(keys.countries));
+
+  if (req.query.filter) countries = filterCountries(req.query.filter, countries);
+
   res.send(countries);
+
 });
 app.get("/states/", async function (req, res) {
   let states = JSON.parse(await redis.get(keys.states))
