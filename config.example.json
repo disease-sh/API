@@ -6,7 +6,9 @@
   "keys": {
     "all": "covidapi:all",
     "countries": "covidapi:countries",
-    "states": "covidapi:states"
+    "states": "covidapi:states",
+    "jhu": "covidapi:jhu",
+    "historical": "covidapi:historical"
   },
   "port": 3000,
   "interval": 600000
