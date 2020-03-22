@@ -6,6 +6,7 @@ var cors = require('cors');
 const config = require('./config.json');
 const Redis = require('ioredis');
 const scraper = require('./scraper');
+const countryMap = require('./funcs/countryMap');
 
 app.use(cors());
 
@@ -61,15 +62,16 @@ app.get("/historical/", async function (req, res) {
 });
 
 app.get("/historical/:country", async function (req, res) {
-  let data = JSON.parse(await redis.get(keys.historical))
-  const countryData = await scraper.historical.getHistoricalCountryData(data, req.params.country.toLowerCase());
+  let data = JSON.parse(await redis.get(keys.historical));
+  const countryData = await scraper.historical.getHistoricalCountryData(data, req.params.country.toLowerCase(), redis, keys.states);
   res.send(countryData);
 });
 
 app.get("/countries/:country", async function (req, res) {
   let countries = JSON.parse(await redis.get(keys.countries))
+  const standardizedCountryName = countryMap.standardizeCountryName(req.params.country.toLowerCase());
   let country = countries.find(
-    e => e.country.toLowerCase().includes(req.params.country.toLowerCase())
+    e => e.country.toLowerCase().includes(standardizedCountryName)
   );
   if (!country) {
     res.send("Country not found");
