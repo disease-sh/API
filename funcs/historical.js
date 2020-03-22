@@ -71,13 +71,15 @@ var historical = async (keys, redis) => {
  * Parses data from historical endpoint to and returns data for specific country. US requires more specialized data sanitization.
  * @param {*} data: full historical data returned from /historical endpoint
  * @param {*} country: country query param
+ * @param {*} redis: redis server in case we need state names for USA
+ * @param {*} keys: states keys for redis
  */
-async function getHistoricalCountryData(data, country) {
+async function getHistoricalCountryData(data, country, redis=null, keys=null) {
   var countryData;
   if (country == "us") {
-    // get all valid states from /states endpoint
-    const response = await axios.get(`https://corona.lmao.ninja/states`);
-    const stateData = response.data;
+    // get all valid states from redis
+    let stateData = JSON.parse(await redis.get(keys));
+    // const stateData = response.data;
     const states = stateData.map(obj => {
       return obj.state.toLowerCase();
     });
