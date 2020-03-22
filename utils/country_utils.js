@@ -247,19 +247,21 @@ var isoCountries = [
 ];
 
 const getCountryCode = function (countryName) {
-    for (const element in isoCountries) {
-        if (isoCountries[element].cname.toLowerCase() == countryName.toLowerCase()) {
-            return isoCountries[element].ccode;
+    for (const index in isoCountries) {
+        if (isoCountries[index].cname.toLowerCase() == countryName.toLowerCase()) {
+            return isoCountries[index].ccode;
         }
     }
+    return 'NOT DATA';
 }
 
 const getCountryName = function (countryCode) {
-    for (const element in isoCountries) {
-        if (isoCountries[element].ccode.toLowerCase() == countryCode.toLowerCase()) {
-            return isoCountries[element].cname;
+    for (const index in isoCountries) {
+        if (isoCountries[index].ccode.toLowerCase() == countryCode.toLowerCase()) {
+            return isoCountries[index].cname;
         }
     }
+    return 'NOT DATA';
 }
 
 module.exports = {
