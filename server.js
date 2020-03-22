@@ -38,7 +38,11 @@ app.get("/all/", async function (req, res) {
   res.send(all);
 });
 app.get("/countries/", async function (req, res) {
+  let sort = req.query.sort;
   let countries = JSON.parse(await redis.get(keys.countries))
+  if(sort){
+    countries = countries.sort((a, b) => (a[sort] > b[sort]) ? -1 : 1)
+  }
   res.send(countries);
 });
 app.get("/states/", async function (req, res) {
