@@ -1,5 +1,6 @@
 const axios = require("axios");
 const csv = require("csvtojson");
+const countryMap = require('./countryMap');
 
 var base =
   "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/";
@@ -54,8 +55,8 @@ var historical = async (keys, redis) => {
       timeline.recovered[timelineKey[i]] = r[i];
     }
     result.push({
-      country: parsedCases[b][1],
-      province: parsedCases[b][0] === "" ? null : parsedCases[b][0],
+      country: countryMap.standardizeCountryName(parsedCases[b][1].toLowerCase()),
+      province: parsedCases[b][0] === "" ? null : countryMap.standardizeCountryName(parsedCases[b][0].toLowerCase()),
       timeline
     });
     b++;
@@ -76,7 +77,8 @@ var historical = async (keys, redis) => {
  */
 async function getHistoricalCountryData(data, country, redis=null, keys=null) {
   var countryData;
-  if (country == "us") {
+  const standardizedCountryName = countryMap.standardizeCountryName(country.toLowerCase());
+  if (standardizedCountryName == "usa") {
     // get all valid states from redis
     let stateData = JSON.parse(await redis.get(keys));
     // const stateData = response.data;
@@ -86,14 +88,14 @@ async function getHistoricalCountryData(data, country, redis=null, keys=null) {
     // filter /historical data on country name and all valid US states
     countryData = data.filter(obj => {
       if (obj.province != null) {
-        return obj.country.toLowerCase() == country && states.filter(state => state == obj.province.toLowerCase()).length > 0;
+        return obj.country.toLowerCase() == standardizedCountryName && states.filter(state => state == obj.province.toLowerCase()).length > 0;
       }
     });
   }
   else {
     // countries with null as province have one entry in /historical, but all others have province=country
     countryData = data.filter(obj => {
-      return obj.country.toLowerCase() == country;
+      return obj.country.toLowerCase() == standardizedCountryName;
     });
   }
 
@@ -116,7 +118,7 @@ async function getHistoricalCountryData(data, country, redis=null, keys=null) {
   }
 
   return ({
-    country,
+    standardizedCountryName,
     timeline
   });
 
