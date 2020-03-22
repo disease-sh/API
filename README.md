@@ -28,16 +28,16 @@ npm i novelcovid
 ```
 
 **Step 2**:
-Use either `.all()` or `.countries()` function to retrieve the given data.
+Use either `.getAll()` or `.getCountry()` function to retrieve the given data.
 
 ```js
 // We define the package
 let covid = require('novelcovid');
 
-// In this case we will be using .all()
-// If you would like a .countries() tutorial, feel free to join our support server
+// In this case we will be using .getAll()
+// If you would like a .getCountry() tutorial, feel free to join our support server
 
-let data = covid.all();
+let data = covid.getAll();
 console.log(data);
 
 /* Returns 
@@ -56,7 +56,7 @@ let covid = require('novelcovid');
 // IMPORTANT: Inorder to access the data, we will need to create an async function.
 
 (async () => {
-    let data = await covid.all();
+    let data = await covid.getAll();
 
     // Since we are using an async function, we need to return the data.
     return console.log(`
