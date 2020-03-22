@@ -57,7 +57,7 @@ var historical = async (keys, redis) => {
     }
     result.push({
       country: parsedCases[b][1],
-      province: parsedCases[b][0] === "" ? null : parsedCases[b][0],
+      province: parsedCases[b][0] === "" ? "null" : parsedCases[b][0],
       timeline
     });
     b++;
