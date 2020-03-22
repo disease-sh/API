@@ -15,7 +15,7 @@ var historical = async (keys, redis) => {
     deathsResponse = await axios.get(`${base}time_series_19-covid-Deaths.csv`);
     recResponse = await axios.get(`${base}time_series_19-covid-Recovered.csv`);
   } catch (err) {
-    console.log(err);
+    console.error('Failed to load timeseries data:', err);
     return null;
   }
 
@@ -51,9 +51,17 @@ var historical = async (keys, redis) => {
     const r = recParsed[b].splice(4);
     const d = parsedDeaths[b].splice(4);
     for (let i = 0; i < c.length; i++) {
-      timeline.cases[timelineKey[i]] = c[i];
-      timeline.deaths[timelineKey[i]] = d[i];
-      timeline.recovered[timelineKey[i]] = r[i];
+      // String representation of timeline date, with form `m/d/yy`
+      // (e.g., 3/3/20 for March 3, 2020).
+      const timelineDate = timelineKey[i]
+      try {
+        timeline.cases[timelineDate] = parseInt(c[i], 10);
+        timeline.deaths[timelineDate] = parseInt(d[i], 10);
+        timeline.recovered[timelineDate] = parseInt(r[i], 10);
+      } catch(e) {
+        console.error('Error parsing values for timeseries: ', e)
+        continue
+      }
     }
     result.push({
       country: parsedCases[b][1],
@@ -66,12 +74,12 @@ var historical = async (keys, redis) => {
   const removeFirstObj = result.splice(1);
   const string = JSON.stringify(removeFirstObj);
   redis.set(keys.historical, string);
-  console.log(`Updated JHU CSSE Historical: ${finalResult.length} locations`);
+  console.log(`Updated JHU CSSE Historical: ${removeFirstObj.length} locations`);
 };
 
 /**
- * Parses data from historical endpoint to and returns data for specific country. US requires more specialized data sanitization. 
- * @param {*} data: full historical data returned from /historical endpoint 
+ * Parses data from historical endpoint to and returns data for specific country. US requires more specialized data sanitization.
+ * @param {*} data: full historical data returned from /historical endpoint
  * @param {*} country: country query param
  */
 async function getHistoricalCountryData(data, country) {
