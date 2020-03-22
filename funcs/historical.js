@@ -1,5 +1,4 @@
-var axios = require("axios");
-var cheerio = require("cheerio");
+const axios = require("axios");
 const csv = require("csvtojson");
 
 var base =
@@ -7,7 +6,6 @@ var base =
 
 var historical = async (keys, redis) => {
   let casesResponse, deathsResponse, recResponse;
-  const date = new Date();
   try {
     casesResponse = await axios.get(
       `${base}time_series_19-covid-Confirmed.csv`
@@ -66,12 +64,12 @@ var historical = async (keys, redis) => {
   const removeFirstObj = result.splice(1);
   const string = JSON.stringify(removeFirstObj);
   redis.set(keys.historical, string);
-  console.log(`Updated JHU CSSE Historical: ${finalResult.length} locations`);
+  console.log(`Updated JHU CSSE Historical: ${removeFirstObj.length} locations`);
 };
 
 /**
- * Parses data from historical endpoint to and returns data for specific country. US requires more specialized data sanitization. 
- * @param {*} data: full historical data returned from /historical endpoint 
+ * Parses data from historical endpoint to and returns data for specific country. US requires more specialized data sanitization.
+ * @param {*} data: full historical data returned from /historical endpoint
  * @param {*} country: country query param
  */
 async function getHistoricalCountryData(data, country) {
