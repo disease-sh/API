@@ -1,17 +1,9 @@
-var axios = require("axios");
 var cheerio = require("cheerio");
+const utils = require("../utils");
 
-var getcountries = async (keys, redis) => {
-let response;
-  try {
-    response = await axios.get("https://www.worldometers.info/coronavirus/");
-    if (response.status !== 200) {
-      console.log("Error", response.status);
-    }
-  } catch (err) {
-    return null;
-  }
-  // to store parsed data
+var getCountries = async (s3Client, response) => {
+  const OBJECT_NAME = "world.json";
+
   const result = [];
   // get HTML and parse death rates
   const html = cheerio.load(response.data);
@@ -117,9 +109,22 @@ let response;
     }
   }
 
-  const string = JSON.stringify(result);
-  redis.set(keys.countries, string);
-  console.log(`Updated countries: ${result.length} countries`);
+  // Upload the world overall in details
+  const payload = JSON.stringify(result, 0, 2);
+  s3Client.uploadFile(OBJECT_NAME, payload);
+
+  // Upload each country separatly
+  result.forEach(function(countryPayload) {
+    countryCode = utils.getCountryISO(countryPayload.country);
+    if (countryCode == null) {
+      console.log("Null Country value : " + countryPayload.country);
+    } else {
+      objectName = countryCode + ".json";
+
+      const countryJSONpayload = JSON.stringify(countryPayload, 0, 2);
+      s3Client.uploadFile(objectName, countryJSONpayload);
+    }
+  });
 }
 
-module.exports = getcountries;
+module.exports = getCountries;

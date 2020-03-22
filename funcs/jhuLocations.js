@@ -1,10 +1,11 @@
 var axios = require("axios");
-var cheerio = require("cheerio");
 const csv = require('csvtojson')
 
 var base = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/"
 
-var jhudata = async (keys, redis) => {
+var jhuData = async (s3Client) => {
+  const OBJECT_NAME = "jhucss.json";
+
   let response;
   const date = new Date();
   try {
@@ -39,9 +40,8 @@ var jhudata = async (keys, redis) => {
       }
     })
   }
-  const string = JSON.stringify(result);
-  redis.set(keys.jhu, string);
-  console.log(`Updated JHU CSSE: ${result.length} locations`);
+  const payload = JSON.stringify(result, 0, 2);
+  s3Client.uploadFile(OBJECT_NAME, payload);
 }
 
-module.exports = jhudata;
+module.exports = jhuData;

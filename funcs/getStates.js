@@ -1,7 +1,9 @@
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-var getStates = async (keys, redis) => {
+var getStates = async (s3Client) => {
+  const OBJECT_NAME = "states.json";
+  
   let response;
   try {
     response = await axios.get("https://www.worldometers.info/coronavirus/country/us/");
@@ -100,9 +102,8 @@ var getStates = async (keys, redis) => {
     }
   }
 
-  const string = JSON.stringify(result);
-  redis.set(keys.states, string);
-  console.log(`Updated states: ${result.length} states`);
+  const payload = JSON.stringify(result, 0, 2);
+  s3Client.uploadFile(OBJECT_NAME, payload);
 }
 
 module.exports = getStates;

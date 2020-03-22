@@ -7,12 +7,10 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.643.0",
     "axios": "^0.19.2",
     "cheerio": "^0.22.0",
-    "cors": "^2.8.5",
-    "csvtojson": "^2.0.10",
-    "express": "^4.16.3",
-    "ioredis": "*"
+    "csvtojson": "^2.0.10"
   },
   "repository": {
     "url": "https://github.com/NovelCOVID/API"
