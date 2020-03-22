@@ -69,7 +69,7 @@ app.get("/historical/:country", async function (req, res) {
 app.get("/countries/:country", async function (req, res) {
   let countries = JSON.parse(await redis.get(keys.countries))
   let country = countries.find(
-    e => e.country.toLowerCase().includes(req.params.country.toLowerCase())
+    e => e.country.toLowerCase() === req.params.country.toLowerCase()
   );
   if (!country) {
     res.send("Country not found");
