@@ -1,8 +1,9 @@
 var axios = require("axios");
 var cheerio = require("cheerio");
+var countryUtils = require('./../utils/countryUtils');
 
 var getcountries = async (keys, redis) => {
-let response;
+  let response;
   try {
     response = await axios.get("https://www.worldometers.info/coronavirus/");
     if (response.status !== 200) {
@@ -49,7 +50,8 @@ let response;
         // parse with hyperlink
         country = cell.children[0].next.children[0].data || "";
       }
-      result.push({ country: country.trim() || "" });
+      country = country.trim();
+      result.push({ country: country || "", code: countryUtils.getCountryCode(country) });
     }
     // get cases
     if (i % totalColumns === casesColIndex) {
