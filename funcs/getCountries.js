@@ -1,6 +1,6 @@
 var axios = require("axios");
 var cheerio = require("cheerio");
-var countryUtils = require('./../utils/countryUtils');
+var countryUtils = require('./../utils/country_utils');
 
 var getcountries = async (keys, redis) => {
   let response;
