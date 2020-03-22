@@ -15,6 +15,7 @@ https://corona.lmao.ninja/
 |  https://corona.lmao.ninja/states | Returns all United States of America and their Corona data |
 |  https://corona.lmao.ninja/jhucsse | Return data from the Johns Hopkins CSSE Data Repository (Provinces and such) |
 | https://corona.lmao.ninja/historical | Get historical data from the start of 2020. (JHU CSSE GISand Data) |
+| https://corona.lmao.ninja/historical/{country-name} | Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
 # API Tutorial
 *Tutorial Made By [Apollo#6000](https://discord.gg/EvbMshU)*
 > Packages Needed
