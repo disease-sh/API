@@ -38,11 +38,7 @@ app.get("/all/", async function (req, res) {
   res.send(all);
 });
 app.get("/countries/", async function (req, res) {
-  let sort = req.query.sort;
   let countries = JSON.parse(await redis.get(keys.countries))
-  if(sort){
-    countries = countries.sort((a, b) => (a[sort] > b[sort]) ? -1 : 1)
-  }
   res.send(countries);
 });
 app.get("/states/", async function (req, res) {
@@ -69,7 +65,7 @@ app.get("/historical/:country", async function (req, res) {
 app.get("/countries/:country", async function (req, res) {
   let countries = JSON.parse(await redis.get(keys.countries))
   let country = countries.find(
-    e => e.country.toLowerCase().includes(req.params.country.toLowerCase())
+    e => e.country.toLowerCase() == req.params.country.toLowerCase()
   );
   if (!country) {
     res.send("Country not found");
