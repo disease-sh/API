@@ -550,10 +550,17 @@ const getCountryData = function (countryName) {
     for (const index in countryData) {
         if (countryData[index].country.toLowerCase() == countryName.toLowerCase()) {
             const data = countryData[index]
-            return { iso2: data.iso2, iso3: data.iso3, _id: data._id, lat: data.lat, long: data.long };
+            return {
+                iso2: data.iso2,
+                iso3: data.iso3,
+                _id: data._id,
+                lat: data.lat,
+                long: data.long,
+                flag: `https://raw.githubusercontent.com/buster95/API/master/assets/flags/${data.iso2.toLowerCase()}.png`
+            };
         }
     }
-    return { iso2: 'NO DATA', iso3: 'NO DATA', _id: 'NO DATA', lat: 0, long: 0 };
+    return { iso2: 'NO DATA', iso3: 'NO DATA', _id: 'NO DATA', lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/buster95/API/master/assets/flags/unknow.png' };
 }
 
 module.exports = {
