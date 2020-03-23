@@ -77,3 +77,7 @@ You can read more about **new Date()** [here](https://developer.mozilla.org/en-U
 
 ### Source: 
 > https://www.worldometers.info/coronavirus/ 
+
+# Featured
+
+- [Coronavirus Disease COVID-19 Ressources](http://covirusd.com/resources/)
