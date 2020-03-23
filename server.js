@@ -72,11 +72,7 @@ app.get("/countries/:country", async function (req, res) {
   const standardizedCountryName = countryMap.standardizeCountryName(req.params.country.toLowerCase());
   let country = countries.find(
     e => {
-      if(req.query.strict.toLowerCase() !== 'true'){
-        return e.country.toLowerCase().includes(standardizedCountryName)
-      }else{
-       return e.country.toLowerCase() === standardizedCountryName;
-      }
+      e => e.country.toLowerCase().includes(standardizedCountryName)
     }
   );
   if (!country) {
