@@ -71,6 +71,7 @@ var countryData = [
     { country: 'Eritrea', iso2: 'ER', iso3: 'ERI', _id: 232, lat: 15, long: 39 },
     { country: 'Estonia', iso2: 'EE', iso3: 'EST', _id: 233, lat: 59, long: 26 },
     { country: 'Ethiopia', iso2: 'ET', iso3: 'ETH', _id: 231, lat: 8, long: 38 },
+    { country: 'Ethiopia', iso2: 'ET', iso3: 'ETH', _id: 231, lat: 8, long: 38 },
     { country: 'Falkland Islands (Malvinas)', iso2: 'FK', iso3: 'FLK', _id: 238, lat: -51.75, long: -59, possibleNames: ['Malvinas'] },
     { country: 'Faroe Islands', iso2: 'FO', iso3: 'FRO', _id: 234, lat: 62, long: -7, possibleNames: ['Faeroe Islands'] },
     { country: 'Fiji', iso2: 'FJ', iso3: 'FJI', _id: 242, lat: -18, long: 175 },
@@ -109,7 +110,7 @@ var countryData = [
     { country: 'Ireland', iso2: 'IE', iso3: 'IRL', _id: 372, lat: 53, long: -8 },
     { country: 'Isle of Man', iso2: 'IM', iso3: 'IMN', _id: 833, lat: 54.23, long: -4.55 },
     { country: 'Israel', iso2: 'IL', iso3: 'ISR', _id: 376, lat: 31.5, long: 34.75 },
-    { country: 'Italy', iso2: 'IT', iso3: 'ITA', _id: 380, lat: 42.8333, long: 12.8333 },
+    { country: 'Italy', iso2: 'IT', iso3: 'ITA', _id: 380, lat: 42.8333, long: 12.8333, possibleNames: ['Italia'] },
     { country: 'Jamaica', iso2: 'JM', iso3: 'JAM', _id: 388, lat: 18.25, long: -77.5 },
     { country: 'Japan', iso2: 'JP', iso3: 'JPN', _id: 392, lat: 36, long: 138, possibleNames: ['Japón'] },
     { country: 'Jersey', iso2: 'JE', iso3: 'JEY', _id: 832, lat: 49.21, long: -2.13 },
@@ -213,7 +214,7 @@ var countryData = [
     { country: 'Sudan', iso2: 'SD', iso3: 'SDN', _id: 736, lat: 15, long: 30 },
     { country: 'Suriname', iso2: 'SR', iso3: 'SUR', _id: 740, lat: 4, long: -56 },
     { country: 'Svalbard and Jan Mayen', iso2: 'SJ', iso3: 'SJM', _id: 744, lat: 78, long: 20 },
-    { country: 'Swaziland', iso2: 'SZ', iso3: 'SWZ', _id: 748, lat: -26.5, long: 31.5 },
+    { country: 'Swaziland', iso2: 'SZ', iso3: 'SWZ', _id: 748, lat: -26.5, long: 31.5, possibleNames: ['Esuatini', 'Eswatini'] },
     { country: 'Sweden', iso2: 'SE', iso3: 'SWE', _id: 752, lat: 62, long: 15 },
     { country: 'Switzerland', iso2: 'CH', iso3: 'CHE', _id: 756, lat: 47, long: 8 },
     { country: 'Syrian Arab Republic', iso2: 'SY', iso3: 'SYR', _id: 760, lat: 35, long: 38, possibleNames: ['Syria'] },
@@ -292,9 +293,10 @@ const getCountryData = function (countryName) {
 
         if (found) {
             return {
+                _id: data._id,
+                country: data.country,
                 iso2: data.iso2,
                 iso3: data.iso3,
-                _id: data._id,
                 lat: data.lat,
                 long: data.long,
                 flag: `https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${data.iso2.toLowerCase()}.png`
@@ -302,7 +304,7 @@ const getCountryData = function (countryName) {
         }
     }
 
-    return { iso2: 'NO DATA', iso3: 'NO DATA', _id: 'NO DATA', lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png' };
+    return { country: undefined, iso2: 'NO DATA', iso3: 'NO DATA', _id: -1, lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png' };
 }
 
 module.exports = {
