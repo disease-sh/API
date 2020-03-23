@@ -70,9 +70,15 @@ app.get("/historical/:country", async function (req, res) {
 app.get("/countries/:country", async function (req, res) {
   let countries = JSON.parse(await redis.get(keys.countries))
   const standardizedCountryName = countryMap.standardizeCountryName(req.params.country.toLowerCase());
-  let country = countries.find(
-    e => e.country.toLowerCase().includes(standardizedCountryName)
-  );
+  let country = countries.find(e => {
+    // see if strict was even a parameter
+    if (req.query.strict) {
+      return req.query.strict.toLowerCase() == 'true' ? e.country.toLowerCase() === standardizedCountryName : e.country.toLowerCase().includes(standardizedCountryName)
+    }
+    else {
+      return e.country.toLowerCase().includes(standardizedCountryName);
+    }
+  });
   if (!country) {
     res.send("Country not found");
     return;
