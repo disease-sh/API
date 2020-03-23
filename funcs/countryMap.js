@@ -3,7 +3,7 @@
  */
 const countryMapping = [
     {possibleNames: ["us", "united states of america", "america", "united states"], standardizedName: "usa"},
-    {possibleNames: ["south korea"], standardizedName: "s. korea"},
+    {possibleNames: ["south korea", "korea, south"], standardizedName: "s. korea"},
     {possibleNames: ["united kingdom", "england"], standardizedName: "uk"},
     {possibleNames: ["dr"], standardizedName: "dominican republic"},
     {possibleNames: ["united arab emirates"], standardizedName: "uae"},
