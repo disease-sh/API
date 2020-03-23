@@ -297,12 +297,12 @@ const getCountryData = function (countryName) {
                 _id: data._id,
                 lat: data.lat,
                 long: data.long,
-                flag: `https://raw.githubusercontent.com/buster95/API/master/assets/flags/${data.iso2.toLowerCase()}.png`
+                flag: `https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${data.iso2.toLowerCase()}.png`
             };
         }
     }
-
-    return { iso2: 'NO DATA', iso3: 'NO DATA', _id: 'NO DATA', lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/buster95/API/master/assets/flags/unknow.png' };
+  
+    return { iso2: 'NO DATA', iso3: 'NO DATA', _id: 'NO DATA', lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png' };
 }
 
 module.exports = {
