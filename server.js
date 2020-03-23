@@ -71,9 +71,7 @@ app.get("/countries/:country", async function (req, res) {
   let countries = JSON.parse(await redis.get(keys.countries))
   const standardizedCountryName = countryMap.standardizeCountryName(req.params.country.toLowerCase());
   let country = countries.find(
-    e => {
-      e => e.country.toLowerCase().includes(standardizedCountryName)
-    }
+    e => e.country.toLowerCase().includes(standardizedCountryName)
   );
   if (!country) {
     res.send("Country not found");
