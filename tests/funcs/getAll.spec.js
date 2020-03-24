@@ -12,7 +12,6 @@ describe('getAll API', () => {
   beforeEach(() => {
     axios.get.mockClear()
     redis.set.mockClear()
-    axios.get.mockClear()
   })
   it('scrapes for data', async () => {
     axios.get.mockResolvedValue({ data: fixture, status: 200 })

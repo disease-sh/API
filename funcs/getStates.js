@@ -4,12 +4,14 @@ var cheerio = require("cheerio");
 var getStates = async (keys, redis) => {
   let response;
   try {
-    response = await axios.get("https://www.worldometers.info/coronavirus/country/us/");
+    response = await axios.get(
+      "https://www.worldometers.info/coronavirus/country/us/"
+    );
     if (response.status !== 200) {
       console.log("Error", response.status);
     }
   } catch (err) {
-      console.log(err)
+    console.log(err);
     return null;
   }
   // to store parsed data
@@ -83,7 +85,7 @@ var getStates = async (keys, redis) => {
       );
     }
     // get cured
-   /* if (i % totalColumns === curedColIndex) {
+    /* if (i % totalColumns === curedColIndex) {
       let cured = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].recovered = parseInt(
         cured.trim().replace(/,/g, "") || 0,
@@ -103,6 +105,8 @@ var getStates = async (keys, redis) => {
   const string = JSON.stringify(result);
   redis.set(keys.states, string);
   console.log(`Updated states: ${result.length} states`);
-}
+
+  return result
+};
 
 module.exports = getStates;
