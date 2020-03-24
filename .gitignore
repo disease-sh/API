@@ -5,3 +5,5 @@ config.json
 package-lock.json
 dump.rdb
 yarn.lock
+tests/coverage
+tests/reports
