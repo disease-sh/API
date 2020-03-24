@@ -19,54 +19,63 @@ https://corona.lmao.ninja/
 |  https://corona.lmao.ninja/jhucsse | Return data from the Johns Hopkins CSSE Data Repository (Provinces and such) |
 | https://corona.lmao.ninja/historical | Get historical data from the start of 2020. (JHU CSSE GISand Data) |
 | https://corona.lmao.ninja/historical/{country-name} | Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
-# API Tutorial
-*Tutorial Made By [Apollo#6000](https://discord.gg/EvbMshU)*
-> Packages Needed
-> [novelcovid](https://www.npmjs.com/package/novelcovid)
 
-**Step 1**:
-Install [novelcovid](https://www.npmjs.com/package/novelcovid)
-```
-npm i novelcovid
-```
+## Loading and using our NPM Package
 
-**Step 2**:
-Use either `.getAll()` or `.getCountry()` function to retrieve the given data.
+We suggest you load the module via `require`, pending the stabalizing of es modules in node:
 
 ```js
-// We define the package
-let covid = require('novelcovid');
-
-// In this case we will be using .getAll()
-// If you would like a .getCountry() tutorial, feel free to join our support server
-
-let data = covid.getAll();
-console.log(data);
-
-/* Returns 
-{ cases: 220877,
-  deaths: 8988,
-  recovered: 85782,
-  updated: 1584612112774 }
-*/
+const covid = require('novelcovid');
 ```
 
-**Step 3**:
-Once we have called the API, we can access the data that was given!
-```js
-let covid = require('novelcovid');
+# Documentation
 
-// IMPORTANT: Inorder to access the data, we will need to create an async function.
+To actually use the data, you will need an [async/await](https://javascript.info/async-await).
+
+```js
+// Declare the package
+const covid = require('novelcovid');
+
+// Now we create a async/await
+(async () => {
+
+    // Now we await it.
+    let all = await covid.getAll();
+
+    // Make sure you return it, this usually implies if you are using this inside a function.
+    // Use \n to break lines.
+    return console.log(`Cases: ${all.cases}\nDeaths: ${all.deaths}\nRecovered: ${all.recovered}`)
+})()
+```
+
+#### Sorting the data.
+
+Some [methods](https://www.npmjs.com/package/covidtracker#methods) can be sorted.
+
+```js
+const covid = require('novelcovid');
 
 (async () => {
-    let data = await covid.getAll();
+    let sortedCountries = await covid.getCountry({sort: 'recovered'});
+    return console.log(sortedCountries);
 
-    // Since we are using an async function, we need to return the data.
-    return console.log(`
-    Total Cases: ${data.cases}
-    Total Deaths: ${data.deaths}
-    Total Recovered: ${data.recovered}
-    Last Updated on: ${data.updated}`);
+    let sortedStates = await covid.getState({sort: 'deaths'});
+    return console.log(sortedStates);
+})();
+```
+
+#### Filtering for a specific country/state.
+```js
+const covid = require('novelcovid');
+
+(async () => {
+   // Specific Country
+   let specificCountry = await covid.getCountry({country: 'United States'});
+   return console.log(specificCountry);
+   
+   // Specific State
+   let specificState = await covid.getState({state: 'New York'});
+   return console.log(specificCountry);
 })();
 ```
 
