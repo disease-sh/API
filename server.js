@@ -24,6 +24,7 @@ const execAll = () => {
     scraper.getStates(keys, redis);
     scraper.jhuLocations(keys, redis);
     scraper.historical.historical(keys, redis);
+    scraper.historical.historical_v2(keys, redis);
 };
 execAll()
 setInterval(execAll, config.interval);
@@ -58,6 +59,11 @@ app.get("/jhucsse/", async function (req, res) {
 
 app.get("/historical/", async function (req, res) {
   let data = JSON.parse(await redis.get(keys.historical))
+  res.send(data);
+});
+
+app.get("/historical_v2/", async function (req, res) {
+  let data = JSON.parse(await redis.get(keys.historical_v2))
   res.send(data);
 });
 
