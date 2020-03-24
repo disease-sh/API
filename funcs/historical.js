@@ -184,7 +184,7 @@ async function getHistoricalCountryData_v2(data, country) {
   const countryData = data.filter(obj => obj.country.toLowerCase() == standardizedCountryName);
 
   // overall timeline for country
-  const timeline = {cases: {}, deaths: {}, recovered: {}};
+  const timeline = {cases: {}, deaths: {}};
   // sum over provinces
   for (var province = 0; province < countryData.length; province++) {
     // loop cases, recovered, deaths for each province
