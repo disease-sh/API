@@ -172,11 +172,43 @@ async function getHistoricalCountryData(data, country, redis=null, keys=null) {
     standardizedCountryName,
     timeline
   });
+}
 
+/**
+ * Parses data from historical endpoint to and returns data for specific country. 
+ * @param {*} data: full historical data returned from /historical endpoint
+ * @param {*} country: country query param
+ */
+async function getHistoricalCountryData_v2(data, country) {
+  const standardizedCountryName = countryMap.standardizeCountryName(country.toLowerCase());
+  const countryData = data.filter(obj => obj.country.toLowerCase() == standardizedCountryName);
+
+  // overall timeline for country
+  const timeline = {cases: {}, deaths: {}, recovered: {}};
+  // sum over provinces
+  for (var province = 0; province < countryData.length; province++) {
+    // loop cases, recovered, deaths for each province
+    Object.keys(countryData[province].timeline).forEach(specifier => {
+      Object.keys(countryData[province].timeline[specifier]).forEach(date => {
+        if (timeline[specifier][date]) {
+          timeline[specifier][date] += parseInt(countryData[province].timeline[specifier][date]);
+        }
+        else {
+          timeline[specifier][date] = parseInt(countryData[province].timeline[specifier][date]);
+        }
+      });
+    });
+  }
+
+  return ({
+    country: standardizedCountryName,
+    timeline
+  });
 }
 
 module.exports = {
   historical,
   historical_v2,
-  getHistoricalCountryData
+  getHistoricalCountryData,
+  getHistoricalCountryData_v2
 };
