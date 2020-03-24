@@ -6,13 +6,10 @@ var base =
   "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/";
 
 var historical = async (keys, redis) => {
-  let casesResponse, deathsResponse, recResponse;
+  let casesResponse, deathsResponse;
   try {
-    casesResponse = await axios.get(
-      `${base}time_series_19-covid-Confirmed.csv`
-    );
-    deathsResponse = await axios.get(`${base}time_series_19-covid-Deaths.csv`);
-    recResponse = await axios.get(`${base}time_series_19-covid-Recovered.csv`);
+    casesResponse = await axios.get(`${base}time_series_covid19_confirmed_global.csv`);
+    deathsResponse = await axios.get(`${base}time_series_covid19_deaths_global.csv`);
   } catch (err) {
     console.log(err);
     return null;
@@ -28,31 +25,22 @@ var historical = async (keys, redis) => {
     output: "csv"
   }).fromString(deathsResponse.data);
 
-  const recParsed = await csv({
-    noheader: true,
-    output: "csv"
-  }).fromString(recResponse.data);
-
   // to store parsed data
   const result = [];
+  // dates key for timeline
   const timelineKey = parsedCases[0].splice(4);
-  // parsedCases.pop()
-  // parsedDeaths.pop()
-  // recParsed.pop()
 
+  // loop over all country entries
   for (let b = 0; b < parsedDeaths.length; ) {
     const timeline = {
       cases: {},
       deaths: {},
-      recovered: {}
     };
     const c = parsedCases[b].splice(4);
-    const r = recParsed[b].splice(4);
     const d = parsedDeaths[b].splice(4);
     for (let i = 0; i < c.length; i++) {
-      timeline.cases[timelineKey[i]] = c[i];
-      timeline.deaths[timelineKey[i]] = d[i];
-      timeline.recovered[timelineKey[i]] = r[i];
+      timeline.cases[timelineKey[i]] = parseInt(c[i]);
+      timeline.deaths[timelineKey[i]] = parseInt(d[i]);
     }
     result.push({
       country: countryMap.standardizeCountryName(parsedCases[b][1].toLowerCase()),
