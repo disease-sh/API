@@ -6,21 +6,21 @@
   "commit": false,
   "contributors": [
     {
-      "login": "ebwinters",
-      "name": "Ethan Winters",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/4297028?v=4",
-      "profile": "https://github.com/ebwinters",
-      "contributions": [
-        "bug"
-      ]
-    },
-    {
       "login": "EliteDaMyth",
       "name": "EliteDaMyth",
       "avatar_url": "https://avatars2.githubusercontent.com/u/28687771?v=4",
       "profile": "https://github.com/EliteDaMyth",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "ebwinters",
+      "name": "Ethan Winters",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/4297028?v=4",
+      "profile": "https://github.com/ebwinters",
+      "contributions": [
+        "bug"
       ]
     },
     {
