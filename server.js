@@ -24,6 +24,7 @@ const execAll = () => {
     scraper.getStates(keys, redis);
     scraper.jhuLocations(keys, redis);
     scraper.historical.historical(keys, redis);
+    scraper.historical.historical_v2(keys, redis);
 };
 execAll()
 setInterval(execAll, config.interval);
@@ -85,6 +86,20 @@ app.get("/countries/:country", async function (req, res) {
   }
   res.send(country);
 });
+
+// V2 ROUTES
+app.get("/v2/historical/", async function (req, res) {
+  let data = JSON.parse(await redis.get(keys.historical_v2))
+  res.send(data);
+});
+
+app.get("/v2/historical/:country", async function (req, res) {
+  let data = JSON.parse(await redis.get(keys.historical_v2));
+  const countryData = await scraper.historical.getHistoricalCountryData_v2(data, req.params.country.toLowerCase());
+  res.send(countryData);
+});
+
+
 app.get("/invite/", async function (req, res) {
   res.redirect("https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880")
 });

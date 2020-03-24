@@ -3,5 +3,5 @@ module.exports = {
     getCountries: require('./funcs/getCountries'),
     getStates: require('./funcs/getStates'),
     jhuLocations: require('./funcs/jhuLocations'),
-    historical: require('./funcs/historical')
+    historical: require('./funcs/historical'),
 }
