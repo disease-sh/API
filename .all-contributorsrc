@@ -67,6 +67,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "buster95",
+      "name": "Walter Corrales",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/15637669?v=4",
+      "profile": "https://github.com/buster95",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
