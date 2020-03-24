@@ -87,8 +87,9 @@ You can read more about **new Date()** [here](https://developer.mozilla.org/en-U
 > For further support, you can join our discord server! More Tutorials can be found there too!
 > https://discord.gg/EvbMshU
 
-### Source: 
+### Sources: 
 > https://www.worldometers.info/coronavirus/ 
+> https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
 
 ## Contributors ✨
 
