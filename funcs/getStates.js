@@ -28,8 +28,8 @@ var getStates = async (keys, redis) => {
   const todayCasesColIndex = 2;
   const deathsColIndex = 3;
   const todayDeathsColIndex = 4;
-  const curedColIndex = 5;
-  const activeColIndex = 6;
+ // const curedColIndex = 5; This column has been removed from worldometers
+  const activeColIndex = 5; // active is now in column index 5.
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < tablecells.length - totalColumns; i += 1) {
     const cell = tablecells[i];
@@ -82,7 +82,8 @@ var getStates = async (keys, redis) => {
         10
       );
     }
-    // get cured
+    // get cured - this column has been removed from worldometers, commented out for now in case worldometer re-add this.
+    /*
     if (i % totalColumns === curedColIndex) {
       let cured = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].recovered = parseInt(
@@ -90,6 +91,7 @@ var getStates = async (keys, redis) => {
         10
       );
     }
+    */
     // get active
     if (i % totalColumns === activeColIndex) {
       let cured = cell.children.length != 0 ? cell.children[0].data : "";
