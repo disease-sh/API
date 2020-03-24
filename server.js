@@ -7,6 +7,7 @@ const config = require('./config.json');
 const Redis = require('ioredis');
 const scraper = require('./scraper');
 const countryMap = require('./funcs/countryMap');
+const country_utils = require('./utils/country_utils');
 
 app.use(cors());
 
@@ -19,11 +20,11 @@ const redis = new Redis(config.redis.host, {
 const keys = config.keys;
 
 const execAll = () => {
-    scraper.getCountries(keys, redis);
-    scraper.getAll(keys, redis);
-    scraper.getStates(keys, redis);
-    scraper.jhuLocations(keys, redis);
-    scraper.historical.historical(keys, redis);
+  scraper.getCountries(keys, redis);
+  scraper.getAll(keys, redis);
+  scraper.getStates(keys, redis);
+  scraper.jhuLocations(keys, redis);
+  scraper.historical.historical(keys, redis);
 };
 execAll()
 setInterval(execAll, config.interval);
@@ -41,7 +42,7 @@ app.get("/all/", async function (req, res) {
 app.get("/countries/", async function (req, res) {
   let sort = req.query.sort;
   let countries = JSON.parse(await redis.get(keys.countries))
-  if(sort){
+  if (sort) {
     countries = countries.sort((a, b) => (a[sort] > b[sort]) ? -1 : 1)
   }
   res.send(countries);
@@ -69,18 +70,24 @@ app.get("/historical/:country", async function (req, res) {
 
 app.get("/countries/:country", async function (req, res) {
   let countries = JSON.parse(await redis.get(keys.countries))
-  const standardizedCountryName = countryMap.standardizeCountryName(req.params.country.toLowerCase());
+  const countryData = country_utils.getCountryData(req.params.country);
+
   let country = countries.find(e => {
     // see if strict was even a parameter
     if (req.query.strict) {
-      return req.query.strict.toLowerCase() == 'true' ? e.country.toLowerCase() === standardizedCountryName : e.country.toLowerCase().includes(standardizedCountryName)
-    }
-    else {
-      return e.country.toLowerCase().includes(standardizedCountryName);
+      return req.query.strict.toLowerCase() == 'true' ?
+        e.country.toLowerCase() === countryData.country.toLowerCase() :
+        e.country.toLowerCase().includes(countryData.country)
+    } else {
+      if (countryData.country) {
+        return e.country.toLowerCase().includes(countryData.country.toLowerCase());
+      }
     }
   });
+
   if (!country) {
-    res.send("Country not found");
+    // adding status code 404 not found and sending response
+    res.status(404).send({ message: "Country not found or dosen't have cases" });
     return;
   }
   res.send(country);
