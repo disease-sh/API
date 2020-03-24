@@ -38,17 +38,18 @@ var jhudata = async (keys, redis) => {
 
   for (const loc of parsed.splice(1)) {
     result.push({
-      country: loc[1],
-      province: loc[0] === "" ? null : loc[0],
-      updatedAt: loc[2],
+      country: loc[3],
+      province: loc[2] === "" ? null : loc[2],
+      city: loc[1] === "" ? null : loc[1],
+      updatedAt: loc[4],
       stats: {
-        confirmed: loc[3],
-        deaths: loc[4],
-        recovered: loc[5]
+        confirmed: loc[7],
+        deaths: loc[8],
+        recovered: loc[9]
       },
       coordinates: {
-        latitude: loc[6],
-        longitude: loc[7]
+        latitude: loc[5],
+        longitude: loc[6]
       }
     });
   }

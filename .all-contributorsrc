@@ -6,21 +6,21 @@
   "commit": false,
   "contributors": [
     {
-      "login": "ebwinters",
-      "name": "Ethan Winters",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/4297028?v=4",
-      "profile": "https://github.com/ebwinters",
-      "contributions": [
-        "bug"
-      ]
-    },
-    {
       "login": "EliteDaMyth",
       "name": "EliteDaMyth",
       "avatar_url": "https://avatars2.githubusercontent.com/u/28687771?v=4",
       "profile": "https://github.com/EliteDaMyth",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "ebwinters",
+      "name": "Ethan Winters",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/4297028?v=4",
+      "profile": "https://github.com/ebwinters",
+      "contributions": [
+        "bug"
       ]
     },
     {
@@ -39,6 +39,42 @@
       "profile": "https://404discord.xyz/",
       "contributions": [
         "doc"
+      ]
+    },
+    {
+      "login": "JamesShelley",
+      "name": "James Shelley",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/22616014?v=4",
+      "profile": "https://jshelley.uk",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "RyanHarlow",
+      "name": "Ryan Harlow",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/42226213?v=4",
+      "profile": "http://RyanHarlow.com",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "alitas",
+      "name": "Ali Tas",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1144691?v=4",
+      "profile": "https://github.com/alitas",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "buster95",
+      "name": "Walter Corrales",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/15637669?v=4",
+      "profile": "https://github.com/buster95",
+      "contributions": [
+        "code"
       ]
     }
   ],

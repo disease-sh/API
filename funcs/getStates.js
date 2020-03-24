@@ -22,14 +22,14 @@ var getStates = async (keys, redis) => {
     .children("tr")
     .children("td");
   // NOTE: this will change when table format change in website
-  const totalColumns = 8;
+  const totalColumns = 7;
   const stateColIndex = 0;
   const casesColIndex = 1;
   const todayCasesColIndex = 2;
   const deathsColIndex = 3;
   const todayDeathsColIndex = 4;
-  const curedColIndex = 5;
-  const activeColIndex = 6;
+  //const curedColIndex = 5;
+  const activeColIndex = 5;
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < tablecells.length - totalColumns; i += 1) {
     const cell = tablecells[i];
@@ -83,13 +83,13 @@ var getStates = async (keys, redis) => {
       );
     }
     // get cured
-    if (i % totalColumns === curedColIndex) {
+   /* if (i % totalColumns === curedColIndex) {
       let cured = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].recovered = parseInt(
         cured.trim().replace(/,/g, "") || 0,
         10
       );
-    }
+    }*/ // removed from API
     // get active
     if (i % totalColumns === activeColIndex) {
       let cured = cell.children.length != 0 ? cell.children[0].data : "";

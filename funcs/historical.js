@@ -95,7 +95,7 @@ async function getHistoricalCountryData(data, country, redis=null, keys=null) {
   else {
     // countries with null as province have one entry in /historical, but all others have province=country
     countryData = data.filter(obj => {
-      return obj.country.toLowerCase() == standardizedCountryName;
+      return obj.province == null ? obj.country.toLowerCase() == standardizedCountryName : (obj.country.toLowerCase() == standardizedCountryName && obj.province == standardizedCountryName);
     });
   }
 
