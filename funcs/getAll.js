@@ -31,6 +31,7 @@ var getall = async (keys, redis) => {
   const string = JSON.stringify(result);
   redis.set(keys.all, string);
   console.log("Updated The Cases", result);
+  return result
 }
 
 module.exports = getall;

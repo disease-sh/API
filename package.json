@@ -4,7 +4,8 @@
   "description": "A simple Node API for getting coronavirus cases from scraped information.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -22,5 +23,9 @@
     "API",
     "coronavirus",
     "covid"
-  ]
+  ],
+  "devDependencies": {
+    "jest": "^25.1.0",
+    "lodash": "^4.17.15"
+  }
 }

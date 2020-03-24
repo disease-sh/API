@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getAll API handles empty response from worldometer 1`] = `Object {}`;
+
+exports[`getAll API scrapes for data 1`] = `
+Object {
+  "cases": 399093,
+  "deaths": 17365,
+  "recovered": 103748,
+}
+`;
