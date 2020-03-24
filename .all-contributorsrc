@@ -40,6 +40,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "JamesShelley",
+      "name": "James Shelley",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/22616014?v=4",
+      "profile": "https://jshelley.uk",
+      "contributions": [
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
