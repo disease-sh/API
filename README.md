@@ -9,7 +9,6 @@ API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Str
 https://corona.lmao.ninja/
 
 # Endpoints v2
-# Endpoints v1
 |  GET Request  | Output  |
 | ------------ | ------------ |
 | https://corona.lmao.ninja/v2/historical | Get historical data from the start of 2020. (JHU CSSE GISand Data) |
