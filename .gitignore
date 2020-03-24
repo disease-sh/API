@@ -5,5 +5,6 @@ config.json
 package-lock.json
 dump.rdb
 yarn.lock
+junit.xml
 tests/coverage
 tests/reports

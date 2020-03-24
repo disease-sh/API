@@ -1,0 +1,81 @@
+version: 2.1
+
+# ====================
+# WORKFLOW DECLARATION
+# ====================
+workflows:
+  version: 2
+  main:
+    jobs:
+      - install_dependencies
+      - test:
+          requires:
+            - install_dependencies
+
+# ====================
+# ALIASES
+# ====================
+docker_image: &docker_image
+  docker:
+    - image: node:13
+
+restore_cache: &restore_cache
+  restore_cache:
+    keys:
+      - dependencies-v1-{{ checksum "package-lock.json" }}
+      - dependencies-v1
+
+save_cache: &save_cache
+  save_cache:
+    paths:
+      - node_modules/
+    key: dependencies-v1-{{ checksum "package-lock.json" }}
+
+install_dependencies: &install_dependencies
+  run:
+    name: Install dependencies.
+    command: npm install --silent --no-progress --frozen-lockfile
+
+# ================
+# JOB DECLARATIONS
+# ================
+jobs:
+  install_dependencies:
+    <<: *docker_image
+    steps:
+      - checkout
+      - *restore_cache
+      - *install_dependencies
+      - *save_cache
+
+  lint:
+    <<: *docker_image
+    steps:
+      - checkout
+      - *restore_cache
+      - run:
+          name: Run linter.
+          command: npm run lint
+
+  test:
+    <<: *docker_image
+    steps:
+      - checkout
+      - *restore_cache
+      - run:
+          name: Run jest test suite & upload results.
+          command: npm run ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: "tests/reports/jest/"
+            JEST_JUNIT_OUTPUT_NAME: "results.xml"
+      - store_test_results:
+          path: tests/reports/
+      - store_artifacts:
+          path: tests/reports/
+
+  release:
+    <<: *docker_image
+    steps:
+      - checkout
+      - *restore_cache
+      - run: yarn release

@@ -4,7 +4,7 @@
   "description": "A simple Node API for getting coronavirus cases from scraped information.",
   "main": "server.js",
   "scripts": {
-    "ci": "JEST_JUNIT_OUTPUT_DIR=tests/reports/ JEST_JUNIT_OUTPUT_NAME=junit-test-results.xml jest --ci --runInBand --coverage --reporters=default --reporters=jest-junit",
+    "ci": "jest --ci --runInBand --coverage",
     "start": "node server.js",
     "test": "jest"
   },
