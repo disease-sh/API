@@ -90,14 +90,15 @@ var getStates = async (keys, redis) => {
         10
       );
     } // removed from API
+    */
     // get active
     if (i % totalColumns === activeColIndex) {
-      let cured = cell.children.length != 0 ? cell.children[0].data : "";
+      let active = cell.children.length != 0 ? cell.children[0].data : "";
       result[result.length - 1].active = parseInt(
-        cured.trim().replace(/,/g, "") || 0,
+        active.trim().replace(/,/g, "") || 0,
         10
       );
-    }*/
+    }
   }
 
   const string = JSON.stringify(result);
