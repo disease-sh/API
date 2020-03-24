@@ -1,8 +1,8 @@
-var axios = require("axios");
-var cheerio = require("cheerio");
-var countryUtils = require('./../utils/country_utils');
+const axios = require('axios');
+const cheerio = require('cheerio');
+const countryUtils = require('./../utils/country_utils');
 
-var getcountries = async (keys, redis) => {
+const getcountries = async (keys, redis) => {
     let response;
     try {
         response = await axios.get("https://www.worldometers.info/coronavirus/");
@@ -132,6 +132,6 @@ var getcountries = async (keys, redis) => {
     const string = JSON.stringify(result);
     redis.set(keys.countries, string);
     console.log(`Updated countries: ${result.length} countries`);
-}
+};
 
 module.exports = getcountries;

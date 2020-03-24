@@ -1,7 +1,7 @@
-var axios = require("axios");
-var cheerio = require("cheerio");
+const axios = require('axios');
+const cheerio = require('cheerio');
 
-var getall = async (keys, redis) => {
+const getall = async (keys, redis) => {
   let response;
   try {
     response = await axios.get("https://www.worldometers.info/coronavirus/");
@@ -31,6 +31,6 @@ var getall = async (keys, redis) => {
   const string = JSON.stringify(result);
   redis.set(keys.all, string);
   console.log("Updated The Cases", result);
-}
+};
 
 module.exports = getall;

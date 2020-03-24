@@ -1,12 +1,13 @@
-var express = require('express');
-var app = express();
-var axios = require("axios");
-var cheerio = require("cheerio");
-var cors = require('cors');
-const config = require('./config.json');
+const express = require('express');
+const axios = require('axios');
+const cheerio = require('cheerio');
+const cors = require('cors');
 const Redis = require('ioredis');
+const config = require('./config.json');
 const scraper = require('./scraper');
 const countryMap = require('./funcs/countryMap');
+
+const app = express();
 
 app.use(cors());
 
@@ -32,13 +33,16 @@ setInterval(execAll, config.interval);
 app.get("/", async function (request, response) {
   response.redirect('https://github.com/novelcovid/api');
 });
-var listener = app.listen(config.port, function () {
+
+const listener = app.listen(config.port, function () {
   console.log("Your app is listening on port " + listener.address().port);
 });
+
 app.get("/all/", async function (req, res) {
   let all = JSON.parse(await redis.get(keys.all))
   res.send(all);
 });
+
 app.get("/countries/", async function (req, res) {
   let sort = req.query.sort;
   let countries = JSON.parse(await redis.get(keys.countries))
@@ -47,6 +51,7 @@ app.get("/countries/", async function (req, res) {
   }
   res.send(countries);
 });
+
 app.get("/states/", async function (req, res) {
   let states = JSON.parse(await redis.get(keys.states))
   res.send(states);
@@ -98,7 +103,6 @@ app.get("/v2/historical/:country", async function (req, res) {
   const countryData = await scraper.historical.getHistoricalCountryData_v2(data, req.params.country.toLowerCase());
   res.send(countryData);
 });
-
 
 app.get("/invite/", async function (req, res) {
   res.redirect("https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880")

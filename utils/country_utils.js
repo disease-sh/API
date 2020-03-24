@@ -1,4 +1,4 @@
-var isoCountries = [
+const isoCountries = [
     { 'ccode': 'AF', 'cname': 'Afghanistan' },
     { 'ccode': 'AX', 'cname': 'Aland Islands' },
     { 'ccode': 'AL', 'cname': 'Albania' },
@@ -269,7 +269,7 @@ var isoCountries = [
     { 'ccode': 'ZW', 'cname': 'Zimbabwe' }
 ];
 
-var countryData = [
+const countryData = [
     { country: "Afghanistan", iso2: "AF", iso3: "AFG", _id: 4, lat: 33, long: 65 },
     { country: "Albania", iso2: "AL", iso3: "ALB", _id: 8, lat: 41, long: 20 },
     { country: "Algeria", iso2: "DZ", iso3: "DZA", _id: 12, lat: 28, long: 3 },
@@ -567,4 +567,4 @@ module.exports = {
     getCountryCode,
     getCountryName,
     getCountryData
-}
+};

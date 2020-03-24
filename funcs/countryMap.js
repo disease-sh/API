@@ -25,4 +25,4 @@ function standardizeCountryName(countryName) {
 
 module.exports = {
     standardizeCountryName
-}
+};

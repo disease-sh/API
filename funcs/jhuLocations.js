@@ -1,16 +1,15 @@
-var axios = require("axios");
-var cheerio = require("cheerio");
-const csv = require("csvtojson");
+const axios = require('axios');
+const cheerio = require('cheerio');
+const csv = require('csvtojson');
 
-var base =
-  "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/";
+const BASE_URL = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/';
 
-var jhudata = async (keys, redis) => {
+const jhudata = async (keys, redis) => {
   let response;
   const date = new Date();
   try {
     response = await axios.get(
-      `${base}0${date.getMonth() +
+      `${BASE_URL}0${date.getMonth() +
         1}-${date.getDate()}-${date.getFullYear()}.csv`
     );
     console.log(
@@ -19,7 +18,7 @@ var jhudata = async (keys, redis) => {
     );
   } catch (err) {
     response = await axios.get(
-      `${base}0${date.getMonth() + 1}-${date.getDate() -
+      `${BASE_URL}0${date.getMonth() + 1}-${date.getDate() -
         1}-${date.getFullYear()}.csv`
     );
     console.log(
@@ -53,6 +52,7 @@ var jhudata = async (keys, redis) => {
       }
     });
   }
+
   const string = JSON.stringify(result);
   redis.set(keys.jhu, string);
   console.log(`Updated JHU CSSE: ${result.length} locations`);
