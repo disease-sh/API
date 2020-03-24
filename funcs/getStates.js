@@ -22,7 +22,7 @@ var getStates = async (keys, redis) => {
     .children("tr")
     .children("td");
   // NOTE: this will change when table format change in website
-  const totalColumns = 8;
+  const totalColumns = 7;
   const stateColIndex = 0;
   const casesColIndex = 1;
   const todayCasesColIndex = 2;
