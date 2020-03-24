@@ -49,6 +49,15 @@
       "contributions": [
         "review"
       ]
+    },
+    {
+      "login": "RyanHarlow",
+      "name": "Ryan Harlow",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/42226213?v=4",
+      "profile": "http://RyanHarlow.com",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
