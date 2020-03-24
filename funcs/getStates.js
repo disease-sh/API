@@ -89,7 +89,7 @@ var getStates = async (keys, redis) => {
         cured.trim().replace(/,/g, "") || 0,
         10
       );
-    } // removed from API
+    }*/ // removed from API
     // get active
     if (i % totalColumns === activeColIndex) {
       let cured = cell.children.length != 0 ? cell.children[0].data : "";
@@ -97,7 +97,7 @@ var getStates = async (keys, redis) => {
         cured.trim().replace(/,/g, "") || 0,
         10
       );
-    }*/
+    }
   }
 
   const string = JSON.stringify(result);
