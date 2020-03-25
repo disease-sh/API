@@ -28,13 +28,13 @@ https://corona.lmao.ninja/
 
 ## Loading and using our NPM Package
 
-We suggest you load the module via `require`, pending the stabalizing of es modules in node:
+We suggest you load the module via `require`, considering ES modules in Node.js are not yet stable.
 
 ```js
 const covid = require('novelcovid');
 ```
 
-# Documentation
+## Documentation
 
 To actually use the data, you will need an [async/await](https://javascript.info/async-await).
 
