@@ -534,7 +534,7 @@ const getCountryCode = function (countryName) {
             return isoCountries[index].ccode;
         }
     }
-    return null;
+    return 'NO DATA';
 }
 
 const getCountryName = function (countryCode) {
@@ -543,7 +543,7 @@ const getCountryName = function (countryCode) {
             return isoCountries[index].cname;
         }
     }
-    return null;
+    return 'NO DATA';
 }
 
 const getCountryData = function (countryName) {
@@ -560,7 +560,7 @@ const getCountryData = function (countryName) {
             };
         }
     }
-    return { iso2: null, iso3: null, _id: null, lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png' };
+    return { iso2: 'NO DATA', iso3: 'NO DATA', _id: 'NO DATA', lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png' };
 }
 
 module.exports = {
