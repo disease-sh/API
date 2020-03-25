@@ -236,7 +236,7 @@ var countryData = [
     { country: 'Ukraine', iso2: 'UA', iso3: 'UKR', _id: 804, lat: 49, long: 32 },
     { country: 'UAE', iso2: 'AE', iso3: 'ARE', _id: 784, lat: 24, long: 54, possibleNames: ['United Arab Emirates'] },
     { country: 'UK', iso2: 'GB', iso3: 'GBR', _id: 826, lat: 54, long: -2, possibleNames: ['England', 'United Kingdom'] },
-    { country: 'USA', iso2: 'US', iso3: 'USA', _id: 840, lat: 38, long: -97, possibleNames: ['USA', 'America', 'Estados Unidos', 'United States of America'] },
+    { country: 'USA', iso2: 'US', iso3: 'USA', _id: 840, lat: 38, long: -97, possibleNames: ['USA', 'America', 'Estados Unidos', 'United States', 'United States of America'] },
     { country: 'United States Minor Outlying Islands', iso2: 'UM', iso3: 'UMI', _id: 581, lat: 19.2833, long: 166.6 },
     { country: 'Uruguay', iso2: 'UY', iso3: 'URY', _id: 858, lat: -33, long: -56 },
     { country: 'Uzbekistan', iso2: 'UZ', iso3: 'UZB', _id: 860, lat: 41, long: 64 },
