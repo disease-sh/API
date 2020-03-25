@@ -55,7 +55,7 @@ var getcountries = async (keys, redis) => {
             result.push({
                 country: countryData.country || country.trim(),
                 countryInfo: {
-                    _id: country._id,
+                    _id: countryData._id,
                     lat: countryData.lat,
                     long: countryData.long,
                     flag: countryData.flag,
