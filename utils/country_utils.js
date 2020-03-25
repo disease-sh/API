@@ -41,7 +41,7 @@ var countryData = [
     { country: 'Cambodia', iso2: 'KH', iso3: 'KHM', _id: 116, lat: 13, long: 105 },
     { country: 'Cameroon', iso2: 'CM', iso3: 'CMR', _id: 120, lat: 6, long: 12 },
     { country: 'Canada', iso2: 'CA', iso3: 'CAN', _id: 124, lat: 60, long: -95 },
-    { country: 'Cape Verde', iso2: 'CV', iso3: 'CPV', _id: 132, lat: 16, long: -24 },
+    { country: 'Cabo Verde', iso2: 'CV', iso3: 'CPV', _id: 132, lat: 16, long: -24, possibleNames: ['Cape Verde'] },
     { country: 'Cayman Islands', iso2: 'KY', iso3: 'CYM', _id: 136, lat: 19.5, long: -80.5 },
     { country: 'Central African Republic', iso2: 'CF', iso3: 'CAF', _id: 140, lat: 7, long: 21, possibleNames: ['CAR'] },
     { country: 'Chad', iso2: 'TD', iso3: 'TCD', _id: 148, lat: 15, long: 19 },
@@ -59,7 +59,7 @@ var countryData = [
     { country: 'Croatia', iso2: 'HR', iso3: 'HRV', _id: 191, lat: 45.1667, long: 15.5 },
     { country: 'Cuba', iso2: 'CU', iso3: 'CUB', _id: 192, lat: 21.5, long: -80 },
     { country: 'Cyprus', iso2: 'CY', iso3: 'CYP', _id: 196, lat: 35, long: 33 },
-    { country: 'Czech Republic', iso2: 'CZ', iso3: 'CZE', _id: 203, lat: 49.75, long: 15.5, possibleNames: ['Czechia', 'Chequia'] },
+    { country: 'Czechia', iso2: 'CZ', iso3: 'CZE', _id: 203, lat: 49.75, long: 15.5, possibleNames: ['Czech Republic', 'Chequia'] },
     { country: 'Denmark', iso2: 'DK', iso3: 'DNK', _id: 208, lat: 56, long: 10 },
     { country: 'Djibouti', iso2: 'DJ', iso3: 'DJI', _id: 262, lat: 11.5, long: 43 },
     { country: 'Dominica', iso2: 'DM', iso3: 'DMA', _id: 212, lat: 15.4167, long: -61.3333 },
@@ -234,9 +234,9 @@ var countryData = [
     { country: 'Tuvalu', iso2: 'TV', iso3: 'TUV', _id: 798, lat: -8, long: 178 },
     { country: 'Uganda', iso2: 'UG', iso3: 'UGA', _id: 800, lat: 1, long: 32 },
     { country: 'Ukraine', iso2: 'UA', iso3: 'UKR', _id: 804, lat: 49, long: 32 },
-    { country: 'United Arab Emirates', iso2: 'AE', iso3: 'ARE', _id: 784, lat: 24, long: 54, possibleNames: ['UAE '] },
-    { country: 'United Kingdom', iso2: 'GB', iso3: 'GBR', _id: 826, lat: 54, long: -2, possibleNames: ['England', 'UK'] },
-    { country: 'United States', iso2: 'US', iso3: 'USA', _id: 840, lat: 38, long: -97, possibleNames: ['USA', 'America', 'Estados Unidos'] },
+    { country: 'UAE', iso2: 'AE', iso3: 'ARE', _id: 784, lat: 24, long: 54, possibleNames: ['United Arab Emirates'] },
+    { country: 'UK', iso2: 'GB', iso3: 'GBR', _id: 826, lat: 54, long: -2, possibleNames: ['England', 'United Kingdom'] },
+    { country: 'USA', iso2: 'US', iso3: 'USA', _id: 840, lat: 38, long: -97, possibleNames: ['USA', 'America', 'Estados Unidos', 'United States of America'] },
     { country: 'United States Minor Outlying Islands', iso2: 'UM', iso3: 'UMI', _id: 581, lat: 19.2833, long: 166.6 },
     { country: 'Uruguay', iso2: 'UY', iso3: 'URY', _id: 858, lat: -33, long: -56 },
     { country: 'Uzbekistan', iso2: 'UZ', iso3: 'UZB', _id: 860, lat: 41, long: 64 },
@@ -258,7 +258,7 @@ const getCountryCode = function (countryName) {
             return countryData[index].iso2;
         }
     }
-    return 'NO DATA';
+    return null;
 }
 
 const getCountryName = function (countryCode) {
@@ -267,7 +267,7 @@ const getCountryName = function (countryCode) {
             return countryData[index].country;
         }
     }
-    return 'NO DATA';
+    return null;
 }
 
 const getCountryData = function (countryName) {
@@ -303,7 +303,7 @@ const getCountryData = function (countryName) {
         }
     }
 
-    return { country: undefined, iso2: 'NO DATA', iso3: 'NO DATA', _id: -1, lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png' };
+    return { iso2: null, iso3: null, _id: null, lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png' };
 }
 
 module.exports = {
