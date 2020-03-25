@@ -113,19 +113,13 @@ var getcountries = async (keys, redis) => {
         // get total cases per one million population
         if (i % totalColumns === casesPerOneMillionColIndex) {
             let casesPerOneMillion = cell.children.length != 0 ? cell.children[0].data : "";
-            result[result.length - 1].casesPerOneMillion = parseInt(
-                casesPerOneMillion.trim().replace(/,/g, "") || "0",
-                10
-            );
+            result[result.length - 1].casesPerOneMillion = parseFloat(casesPerOneMillion);
         }
 
         // get total deaths per one million population
         if (i % totalColumns === deathsPerOneMillionColIndex) {
             let deathsPerOneMillion = cell.children.length != 0 ? cell.children[0].data : "";
-            result[result.length - 1].deathsPerOneMillion = parseInt(
-                deathsPerOneMillion.trim().replace(/,/g, "") || "0",
-                10
-            );
+            result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion);
         }
     }
 
