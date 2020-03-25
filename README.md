@@ -8,7 +8,13 @@
 API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
 https://corona.lmao.ninja/
 
-# Endpoints
+# Endpoints v2
+|  GET Request  | Output  |
+| ------------ | ------------ |
+| https://corona.lmao.ninja/v2/historical | Get historical data from the start of 2020. (JHU CSSE GISand Data) |
+| https://corona.lmao.ninja/v2/historical/{country-name} | Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
+
+# Endpoints v1
 |  GET Request  | Output  |
 | ------------ | ------------ |
 |  https://corona.lmao.ninja/all | Returns all total cases, recovery, and deaths. |
@@ -17,8 +23,8 @@ https://corona.lmao.ninja/
 |  https://corona.lmao.ninja/countries/{country-name} | Returns data of a specific country. If an exact name match is desired pass ?strict=true in the query string |
 |  https://corona.lmao.ninja/states | Returns all United States of America and their Corona data |
 |  https://corona.lmao.ninja/jhucsse | Return data from the Johns Hopkins CSSE Data Repository (Provinces and such) |
-| https://corona.lmao.ninja/historical | Get historical data from the start of 2020. (JHU CSSE GISand Data) |
-| https://corona.lmao.ninja/historical/{country-name} | Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
+| https://corona.lmao.ninja/historical | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020. (JHU CSSE GISand Data) |
+| https://corona.lmao.ninja/historical/{country-name} | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
 
 ## Loading and using our NPM Package
 
