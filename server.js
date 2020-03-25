@@ -73,7 +73,6 @@ app.get("/historical/:country", async function (req, res) {
 app.get("/countries/:country", async function (req, res) {
   let countries = JSON.parse(await redis.get(keys.countries));
 
-  // @ebwinters version
   const standardizedCountryName = countryMap.standardizeCountryName(req.params.country.toLowerCase());
   let country = countries.find(e => {
     // see if strict was even a parameter
@@ -84,21 +83,6 @@ app.get("/countries/:country", async function (req, res) {
       return e.country.toLowerCase().includes(standardizedCountryName);
     }
   });
-
-  // @buster95 version
-  // const countryData = country_utils.getCountryData(req.params.country);
-  // let country = countries.find(e => {
-  //   // see if strict was even a parameter
-  //   if (req.query.strict) {
-  //     return req.query.strict.toLowerCase() == 'true' ?
-  //       e.country.toLowerCase() === countryData.country.toLowerCase() :
-  //       e.country.toLowerCase().includes(countryData.country)
-  //   } else {
-  //     if (countryData.country) {
-  //       return e.country.toLowerCase().includes(countryData.country.toLowerCase());
-  //     }
-  //   }
-  // });
 
   if (!country) {
     // adding status code 404 not found and sending response
