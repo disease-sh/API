@@ -8,87 +8,9 @@
 Great and affordable prices! Starting at $0.75. Get started [here](https://primedhosting.com/NovelCovid)
 Join the [Discord server](https://primedhosting.com/discord)
 
-# API
-API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
-https://corona.lmao.ninja/
-
-# Endpoints v2
-|  GET Request  | Output  |
-| ------------ | ------------ |
-| https://corona.lmao.ninja/v2/historical | Get historical data from the start of 2020. (JHU CSSE GISand Data) |
-| https://corona.lmao.ninja/v2/historical/{country-name} | Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
-|  https://corona.lmao.ninja/v2/jhucsse | Return data from the Johns Hopkins CSSE Data Repository (Country, province, confirmed, death, recovered) |
-
-# Endpoints v1
-|  GET Request  | Output  |
-| ------------ | ------------ |
-|  https://corona.lmao.ninja/all | Returns all total cases, recovery, and deaths. |
-|  https://corona.lmao.ninja/countries | Returns data of all countries that has COVID-19 |
-|  https://corona.lmao.ninja/countries?sort={parameter} | Returns data of each country sorted by the parameter |
-|  https://corona.lmao.ninja/countries/{country-name} | Returns data of a specific country. If an exact name match is desired pass ?strict=true in the query string |
-|  https://corona.lmao.ninja/states | Returns all United States of America and their Corona data |
-|  https://corona.lmao.ninja/jhucsse | **DEPRECATED USE V2 ENDPOINT** Return data from the Johns Hopkins CSSE Data Repository (Provinces and such) |
-| https://corona.lmao.ninja/historical | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020. (JHU CSSE GISand Data) |
-| https://corona.lmao.ninja/historical/{country-name} | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
-
-## Loading and using our NPM Package
-
-We suggest you load the module via `require`, considering ES modules in Node.js are not yet stable.
-
-```js
-const covid = require('novelcovid');
-```
-
-## Documentation
-
-To actually use the data, you will need an [async/await](https://javascript.info/async-await).
-
-```js
-// Declare the package
-const covid = require('novelcovid');
-
-// Now we create a async/await
-(async () => {
-
-    // Now we await it.
-    let all = await covid.getAll();
-
-    // Make sure you return it, this usually implies if you are using this inside a function.
-    // Use \n to break lines.
-    return console.log(`Cases: ${all.cases}\nDeaths: ${all.deaths}\nRecovered: ${all.recovered}`)
-})()
-```
-
-#### Sorting the data.
-
-Some [methods](https://www.npmjs.com/package/covidtracker#methods) can be sorted.
-
-```js
-const covid = require('novelcovid');
-
-(async () => {
-    let sortedCountries = await covid.getCountry({sort: 'recovered'});
-    return console.log(sortedCountries);
-
-    let sortedStates = await covid.getState({sort: 'deaths'});
-    return console.log(sortedStates);
-})();
-```
-
-#### Filtering for a specific country/state.
-```js
-const covid = require('novelcovid');
-
-(async () => {
-   // Specific Country
-   let specificCountry = await covid.getCountry({country: 'United States'});
-   return console.log(specificCountry);
-   
-   // Specific State
-   let specificState = await covid.getState({state: 'New York'});
-   return console.log(specificCountry);
-})();
-```
+# Resources
+- [NovelCOVID on npm](https://www.npmjs.com/package/covidtracker#methods)
+- [Documentation][https://www.novelcovid.com]
 
 **Note**
 Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` as it returns an **ISO Date**
