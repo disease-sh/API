@@ -6,7 +6,7 @@ General Use
 
 Using the data requires the use of `async/await <https://javascript.info/async-await>`_:
 
-.. code-block::
+.. code-block:: javascript
 
     // Declare the package
     const covid = require('novelcovid');
@@ -28,7 +28,7 @@ Sorting Methods
 
 Some methods can be sorted.
 
-.. code-block::
+.. code-block:: javascript
 
     const covid = require('novelcovid');
 
@@ -45,7 +45,7 @@ Filtering Methods for a Specific Area
 
 Some methods can be filtered for specific areas.
 
-.. code-block::
+.. code-block:: javascript
 
     const covid = require('novelcovid');
 
