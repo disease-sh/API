@@ -134,7 +134,7 @@ var countryData = [
     { country: 'Lithuania', iso2: 'LT', iso3: 'LTU', _id: 440, lat: 56, long: 24 },
     { country: 'Luxembourg', iso2: 'LU', iso3: 'LUX', _id: 442, lat: 49.75, long: 6.1667 },
     { country: 'Macao', iso2: 'MO', iso3: 'MAC', _id: 446, lat: 22.1667, long: 113.55 },
-    { country: 'Macedonia, the former Yugoslav Republic of', iso2: 'MK', iso3: 'MKD', _id: 807, lat: 41.8333, long: 22, possibleNames: ['north macedonia'] },
+    { country: 'Macedonia', iso2: 'MK', iso3: 'MKD', _id: 807, lat: 41.8333, long: 22, possibleNames: ['North Macedonia', 'Macedonia, the former Yugoslav Republic of'] },
     { country: 'Madagascar', iso2: 'MG', iso3: 'MDG', _id: 450, lat: -20, long: 47 },
     { country: 'Malawi', iso2: 'MW', iso3: 'MWI', _id: 454, lat: -13.5, long: 34 },
     { country: 'Malaysia', iso2: 'MY', iso3: 'MYS', _id: 458, lat: 2.5, long: 112.5 },
