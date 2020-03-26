@@ -6,8 +6,7 @@ Welcome to NovelCOVID's API documentation!
    :caption: Contents:
 
    ./installation
-   ./methods
-   ./endpoints
+   ./method
 
 NovelCOVID API
 ==============
