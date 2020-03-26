@@ -10,5 +10,6 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
+        port: ${{ secrets.PORT }}
         key: ${{ secrets.KEY }}
-        script: cd /home/diced/covidapi && git pull && pm2 restart covidapi
+        script: cd /home/diced/covidapi && git pull && pm2 del covidapi && pm2 start server.js --name=covidapi
