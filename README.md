@@ -36,8 +36,7 @@ const covid = require('novelcovid');
 ```
 
 ## Documentation
-
-To actually use the data, you will need an [async/await](https://javascript.info/async-await).
+Executing a method will return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). The examples here utilise [async/await](https://javascript.info/async-await) to access the data.
 
 ```js
 // Declare the package
