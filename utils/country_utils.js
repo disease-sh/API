@@ -106,7 +106,7 @@ var countryData = [
     { country: 'Iceland', iso2: 'IS', iso3: 'ISL', _id: 352, lat: 65, long: -18 },
     { country: 'India', iso2: 'IN', iso3: 'IND', _id: 356, lat: 20, long: 77 },
     { country: 'Indonesia', iso2: 'ID', iso3: 'IDN', _id: 360, lat: -5, long: 120 },
-    { country: 'Iran, Islamic Republic of', iso2: 'IR', iso3: 'IRN', _id: 364, lat: 32, long: 53, possibleNames: ['iran'] },
+    { country: 'Iran', iso2: 'IR', iso3: 'IRN', _id: 364, lat: 32, long: 53, possibleNames: ['Iran, Islamic Republic of'] },
     { country: 'Iraq', iso2: 'IQ', iso3: 'IRQ', _id: 368, lat: 33, long: 44 },
     { country: 'Ireland', iso2: 'IE', iso3: 'IRL', _id: 372, lat: 53, long: -8 },
     { country: 'Isle of Man', iso2: 'IM', iso3: 'IMN', _id: 833, lat: 54.23, long: -4.55 },
