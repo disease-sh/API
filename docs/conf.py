@@ -15,6 +15,9 @@
 # sys.path.insert(0, os.path.abspath('.'))
 import sphinx_rtd_theme
 
+# ---------Make Sphinx play Nicely with Read the Docs ------------------------
+master_doc = 'index'
+
 
 # -- Project information -----------------------------------------------------
 
