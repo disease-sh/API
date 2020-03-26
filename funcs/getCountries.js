@@ -51,8 +51,18 @@ var getcountries = async (keys, redis) => {
                 // parse with hyperlink
                 country = cell.children[0].next.children[0].data || "";
             }
-            country = country.trim();
-            result.push({ country, countryInfo: countryUtils.getCountryData(country) });
+            const countryData = countryUtils.getCountryData(country.trim());
+            result.push({
+                country: countryData.country || country.trim(),
+                countryInfo: {
+                    _id: countryData._id,
+                    lat: countryData.lat,
+                    long: countryData.long,
+                    flag: countryData.flag,
+                    iso3: countryData.iso3,
+                    iso2: countryData.iso2,
+                }
+            });
         }
         // get cases
         if (i % totalColumns === casesColIndex) {
