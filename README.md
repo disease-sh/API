@@ -10,7 +10,7 @@ Join the [Discord server](https://primedhosting.com/discord)
 
 # Resources
 - [NovelCOVID on npm](https://www.npmjs.com/package/covidtracker#methods)
-- [Documentation][https://www.novelcovid.com]
+- [Documentation][https://www.novelcovid.io]
 
 **Note**
 Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` as it returns an **ISO Date**
