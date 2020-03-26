@@ -1,6 +1,10 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+<!-- Read The Docs Badge -->
+[![Documentation Status](https://readthedocs.org/projects/novelcovid/badge/?version=latest)](https://novelcovid.readthedocs.io/en/latest/?badge=latest)
+<!-- Read The Docs Badge End -->
+
 # Join our Server!
 [![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
 
