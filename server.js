@@ -86,7 +86,7 @@ app.get("/countries/:country", async function (req, res) {
 
   if (!country) {
     // adding status code 404 not found and sending response
-    res.status(404).send({ message: "Country not found or dosen't have cases" });
+    res.status(404).send({ message: "Country not found or doesn't have cases" });
     return;
   }
   res.send(country);
