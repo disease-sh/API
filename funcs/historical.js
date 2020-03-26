@@ -9,10 +9,10 @@ var historical = async (keys, redis) => {
   let casesResponse, deathsResponse, recResponse;
   try {
     casesResponse = await axios.get(
-      `${base}time_series_19-covid-Confirmed.csv`
+      `${base}time_series_covid19_confirmed_global.csv`
     );
-    deathsResponse = await axios.get(`${base}time_series_19-covid-Deaths.csv`);
-    recResponse = await axios.get(`${base}time_series_19-covid-Recovered.csv`);
+    deathsResponse = await axios.get(`${base}time_series_covid19_deaths_global.csv`);
+    recResponse = await axios.get(`${base}time_series_covid19_recovered_global.csv`);
   } catch (err) {
     console.log(err);
     return null;
@@ -40,7 +40,7 @@ var historical = async (keys, redis) => {
   // parsedDeaths.pop()
   // recParsed.pop()
 
-  for (let b = 0; b < parsedDeaths.length; ) {
+  for (let b = 0; b < parsedDeaths.length;) {
     const timeline = {
       cases: {},
       deaths: {},
@@ -67,7 +67,7 @@ var historical = async (keys, redis) => {
   redis.set(keys.historical, string);
   console.log(`Updated JHU CSSE Historical: ${removeFirstObj.length} locations`);
 };
-  
+
 var historical_v2 = async (keys, redis) => {
   let casesResponse, deathsResponse;
   try {
@@ -94,7 +94,7 @@ var historical_v2 = async (keys, redis) => {
   const timelineKey = parsedCases[0].splice(4);
 
   // loop over all country entries
-  for (let b = 0; b < parsedDeaths.length; ) {
+  for (let b = 0; b < parsedDeaths.length;) {
     const timeline = {
       cases: {},
       deaths: {},
@@ -126,7 +126,7 @@ var historical_v2 = async (keys, redis) => {
  * @param {*} redis: redis server in case we need state names for USA
  * @param {*} keys: states keys for redis
  */
-async function getHistoricalCountryData(data, country, redis=null, keys=null) {
+async function getHistoricalCountryData(data, country, redis = null, keys = null) {
   var countryData;
   const standardizedCountryName = countryMap.standardizeCountryName(country.toLowerCase());
   if (standardizedCountryName == "usa") {
@@ -151,7 +151,7 @@ async function getHistoricalCountryData(data, country, redis=null, keys=null) {
   }
 
   // overall timeline for country
-  const timeline = {cases: {}, deaths: {}, recovered: {}};
+  const timeline = { cases: {}, deaths: {}, recovered: {} };
 
   // sum over provinces
   for (var province = 0; province < countryData.length; province++) {
@@ -184,7 +184,7 @@ async function getHistoricalCountryData_v2(data, country) {
   const countryData = data.filter(obj => obj.country.toLowerCase() == standardizedCountryName);
 
   // overall timeline for country
-  const timeline = {cases: {}, deaths: {}};
+  const timeline = { cases: {}, deaths: {} };
   // sum over provinces
   for (var province = 0; province < countryData.length; province++) {
     // loop cases, recovered, deaths for each province

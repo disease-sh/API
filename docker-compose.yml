@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  redis:
+    image: redis:4.0.5-alpine
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "yourpassword"]
+    hostname: redis
+    container_name: covid-api-redis
+    networks:
+      - redis-net
+    volumes:
+      - redis-data:/data
+    ports:
+      - 6379
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 30001:3000
+    container_name: covid-api-app
+    networks:
+      - redis-net
+    depends_on:
+      - redis
+
+networks:
+  redis-net:
+
+volumes:
+  redis-data:
