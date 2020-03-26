@@ -11,4 +11,4 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        script: whoami
+        script: cd /home/diced/covidapi && git pull && pm2 restart covidapi
