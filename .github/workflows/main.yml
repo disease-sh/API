@@ -8,4 +8,6 @@ jobs:
  eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: hallee/eslint-action@1.0.1
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run lint
