@@ -102,7 +102,8 @@ You can read more about **new Date()** [here](https://developer.mozilla.org/en-U
 > https://discord.gg/EvbMshU
 
 ### Sources: 
-> https://www.worldometers.info/coronavirus/ 
+> https://www.worldometers.info/coronavirus/
+
 > https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
 
 ## Contributors ✨
