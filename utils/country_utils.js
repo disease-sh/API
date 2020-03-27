@@ -278,16 +278,16 @@ const getCountryData = (countryName) => {
     for (const index in countryData) {
         const data = countryData[index];
         let found = false;
-        countryName = string_utils.standardizeCI_AI(countryName);
+        countryName = string_utils.wordsStandardize(countryName);
 
-        if (string_utils.standardizeCI_AI(countryData[index].country) == countryName) {
+        if (string_utils.wordsStandardize(countryData[index].country) == countryName) {
             found = true;
         } else {
             if (data.possibleNames) {
                 const synonyms = data.possibleNames;
                 for (const indexName in synonyms) {
                     // console.log(data.possibleNames[indexName], countryName);
-                    if (string_utils.standardizeCI_AI(synonyms[indexName]) === string_utils.standardizeCI_AI(countryName)) {
+                    if (string_utils.wordsStandardize(synonyms[indexName]) === string_utils.wordsStandardize(countryName)) {
                         found = true;
                     }
                 }
@@ -313,7 +313,7 @@ const getCountryData = (countryName) => {
 searchesExcepted = ['UK', 'UAE', 'DR'];
 const isCountryException = (value) => {
     for (let index = 0; index < searchesExcepted.length; index++) {
-        if (string_utils.standardizeCI_AI(value) === string_utils.standardizeCI_AI(searchesExcepted[index])) {
+        if (string_utils.wordsStandardize(value) === string_utils.wordsStandardize(searchesExcepted[index])) {
             return true;
         }
     }
@@ -324,5 +324,5 @@ module.exports = {
     getCountryCode,
     getCountryName,
     getCountryData,
-    isCountryException,
+    isCountryException
 }

@@ -70,11 +70,12 @@ app.get("/historical/:country", async function (req, res) {
   res.send(countryData);
 });
 
-app.get("/countries/:search", async (req, res) => {
+app.get("/countries/:query", async (req, res) => {
   let countries = JSON.parse(await redis.get(keys.countries));
-  const { search } = req.params, isText = isNaN(search);
+  const { search } = req.params,
+    isText = isNaN(search);
 
-  let country = countries.find(ctry => {
+  const country = countries.find(ctry => {
     if (isText) {
       if ((search.length > 3) || country_utils.isCountryException(search)) {
         const standardizedCountryName = countryMap.standardizeCountryName(search.toLowerCase());
@@ -102,7 +103,7 @@ app.get("/countries/:search", async (req, res) => {
     return;
   }
   // adding status code 404 not found and sending response
-  res.status(404).send({ message: "Country not found or doesn't have cases" });
+  res.status(404).send({ message: "Country not found or doesn't have any cases" });
 });
 
 // V2 ROUTES

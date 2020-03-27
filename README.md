@@ -30,8 +30,8 @@ NovelCovid API is recomended by Postman [here](https://covid-19-apis.postman.com
 |  https://corona.lmao.ninja/countries?sort={parameter} | Returns data of each country sorted by the parameter |
 |  https://corona.lmao.ninja/countries/{country-name} | Returns data of a specific country. If an exact name match is desired pass ?strict=true in the query string |
 |  https://corona.lmao.ninja/countries/{country-Id} | Returns the data of a country if it is equal to its country id  |
-|  https://corona.lmao.ninja/countries/{country-iso2} | Returns the data of a country if it is equal to its country ISO2 |
-|  https://corona.lmao.ninja/countries/{country-iso3} | Returns the data of a country if it is equal to its country ISO3 |
+|  https://corona.lmao.ninja/countries/{country-ISO2} | Returns the data of a country if it is equal to its country ISO2 |
+|  https://corona.lmao.ninja/countries/{country-ISO3} | Returns the data of a country if it is equal to its country ISO3 |
 |  https://corona.lmao.ninja/states | Returns all United States of America and their Corona data |
 |  https://corona.lmao.ninja/jhucsse | **DEPRECATED USE V2 ENDPOINT** Return data from the Johns Hopkins CSSE Data Repository (Provinces and such) |
 | https://corona.lmao.ninja/historical | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020. (JHU CSSE GISand Data) |
