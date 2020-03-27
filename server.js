@@ -33,13 +33,16 @@ setInterval(execAll, config.interval);
 app.get("/", async function (request, response) {
   response.redirect('https://github.com/novelcovid/api');
 });
+
 var listener = app.listen(config.port, function () {
   console.log("Your app is listening on port " + listener.address().port);
 });
+
 app.get("/all/", async function (req, res) {
   let all = JSON.parse(await redis.get(keys.all))
   res.send(all);
 });
+
 app.get("/countries/", async function (req, res) {
   let sort = req.query.sort;
   let countries = JSON.parse(await redis.get(keys.countries))
@@ -48,6 +51,7 @@ app.get("/countries/", async function (req, res) {
   }
   res.send(countries);
 });
+
 app.get("/states/", async function (req, res) {
   let states = JSON.parse(await redis.get(keys.states))
   res.send(states);
@@ -66,30 +70,30 @@ app.get("/historical/:country", async function (req, res) {
   res.send({message: "Deprecated, use /v2/historical"});
 });
 
-app.get("/countries/:search", async (req, res) => {
+app.get("/countries/:query", async (req, res) => {
   let countries = JSON.parse(await redis.get(keys.countries));
-  const { search } = req.params, isText = isNaN(search);
+  const { query } = req.params, isText = isNaN(query);
 
   let country = countries.find(ctry => {
+    // either name or ISO
     if (isText) {
-      if ((search.length > 3) || country_utils.isCountryException(search)) {
-        const standardizedCountryName = countryMap.standardizeCountryName(search.toLowerCase());
-        // see if strict was even a parameter
-        if (req.query.strict) {
-          return req.query.strict.toLowerCase() == 'true' ?
-            ctry.country.toLowerCase() === standardizedCountryName :
-            ctry.country.toLowerCase().includes(standardizedCountryName);
-        } else {
-          return ctry.country.toLowerCase().includes(standardizedCountryName);
-        }
+      const standardizedCountryName = countryMap.standardizeCountryName(query.toLowerCase());
+      // check for strict param
+      if (req.query.strict) {
+        return req.query.strict.toLowerCase() == 'true' ?
+          ctry.country.toLowerCase() === standardizedCountryName :
+          ctry.country.toLowerCase().includes(standardizedCountryName);
+      } else {
+        return (
+          ctry.country.toLowerCase().includes(standardizedCountryName) ||
+          (ctry.countryInfo.iso2 || 'null').toLowerCase() === query.toLowerCase() ||
+          (ctry.countryInfo.iso3 || 'null').toLowerCase() === query.toLowerCase()
+        );
       }
-
-      // Look for ISO's standards
-      return ((ctry.countryInfo.iso2 || 'null').toLowerCase() === search.toLowerCase() ||
-        (ctry.countryInfo.iso3 || 'null').toLowerCase() === search.toLowerCase());
-    } else {
-      // Look for country Id
-      return ctry.countryInfo._id === Number(search);
+    } 
+    // number, must be country ID
+    else {
+      return ctry.countryInfo._id === Number(query);
     }
   });
 
