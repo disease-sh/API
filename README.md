@@ -4,10 +4,6 @@
 # Join our Server!
 [![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
 
-# Partners with PrimedHosting
-Great and affordable prices! Starting at $0.75. Get started [here](https://primedhosting.com/NovelCovid)
-Join the [Discord server](https://primedhosting.com/discord)
-
 # API
 API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
 https://corona.lmao.ninja/
@@ -133,3 +129,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+## Partners with PrimedHosting
+Great and affordable prices! Starting at $0.75. Get started [here](https://primedhosting.com/NovelCovid)
+Join the [Discord server](https://primedhosting.com/discord)
+
