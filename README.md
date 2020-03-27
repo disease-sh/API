@@ -42,9 +42,9 @@ Join the [Discord server](https://primedhosting.com/discord)
 | https://corona.lmao.ninja/countries?sort={parameter} | Returns data of each country sorted by the parameter (`deaths`, `cases`, `recovered`)                                |
 | https://corona.lmao.ninja/countries/{country-name}   | Returns data of a specific country. If an exact name match is desired pass ?strict=true in the query string          |
 | https://corona.lmao.ninja/states                     | Returns all United States of America and their Corona data (`deaths`, `cases`, `recovered`)                          |
-| https://corona.lmao.ninja/jhucsse                    | DEPRECATED USE V2 ENDPOINT Return data from the Johns Hopkins CSSE Data Repository (Provinces and such)              |
-| https://corona.lmao.ninja/historical                 | DEPRECATED USE V2 ENDPOINT Get historical data from the start of 2020. (JHU CSSE GISand Data)                        |
-| https://corona.lmao.ninja/historical/{country-name}  | DEPRECATED USE V2 ENDPOINT Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
+| https://corona.lmao.ninja/jhucsse                    | **DEPRECATED USE V2 ENDPOINT** Return data from the Johns Hopkins CSSE Data Repository (Provinces and such)              |
+| https://corona.lmao.ninja/historical                 | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020. (JHU CSSE GISand Data)                        |
+| https://corona.lmao.ninja/historical/{country-name}  | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
 
 **Note**
 Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` to create an **ISO Date**
