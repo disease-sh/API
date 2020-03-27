@@ -84,12 +84,12 @@ app.get("/countries/:country", async function (req, res) {
     }
   });
 
-  if (!country) {
-    // adding status code 404 not found and sending response
-    res.status(404).send({ message: "Country not found or dosen't have cases" });
+  if (country) {
+    res.send(country);
     return;
   }
-  res.send(country);
+  // adding status code 404 not found and sending response
+  res.status(404).send({ message: "Country not found or Has no cases" });
 });
 
 // V2 ROUTES
