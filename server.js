@@ -84,11 +84,11 @@ app.get("/countries/:search", async (req, res) => {
             ctry.country.toLowerCase() === standardizedCountryName :
             ctry.country.toLowerCase().includes(standardizedCountryName);
         } else {
-          // Look for ISO's standards
           return ctry.country.toLowerCase().includes(standardizedCountryName);
         }
       }
 
+      // Look for ISO's standards
       return ((ctry.countryInfo.iso2 || 'null').toLowerCase() === search.toLowerCase() ||
         (ctry.countryInfo.iso3 || 'null').toLowerCase() === search.toLowerCase());
     } else {
