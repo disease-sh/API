@@ -187,8 +187,7 @@ var countryData = [
     { country: 'Qatar', iso2: 'QA', iso3: 'QAT', _id: 634, lat: 25.5, long: 51.25 },
     { country: 'Réunion', iso2: 'RE', iso3: 'REU', _id: 638, lat: -21.1, long: 55.6, possibleNames: ['Reunion'] },
     { country: 'Romania', iso2: 'RO', iso3: 'ROU', _id: 642, lat: 46, long: 25 },
-    { country: 'Russian Federation', iso2: 'RU', iso3: 'RUS', _id: 643, lat: 60, long: 100 },
-    { country: 'Russia', iso2: 'RU', iso3: 'RUS', _id: 643, lat: 60, long: 100 },
+    { country: 'Russia', iso2: 'RU', iso3: 'RUS', _id: 643, lat: 60, long: 100, possibleNames: ['Russian Federation'] },
     { country: 'Rwanda', iso2: 'RW', iso3: 'RWA', _id: 646, lat: -2, long: 30 },
     { country: 'St. Barth', iso2: 'BL', iso3: 'BLM', _id: 652, lat: 17.89, long: -62.82 },
     { country: 'Saint Helena, Ascension and Tristan da Cunha', iso2: 'SH', iso3: 'SHN', _id: 654, lat: -15.9333, long: -5.7 },
@@ -241,7 +240,7 @@ var countryData = [
     { country: 'Ukraine', iso2: 'UA', iso3: 'UKR', _id: 804, lat: 49, long: 32 },
     { country: 'UAE', iso2: 'AE', iso3: 'ARE', _id: 784, lat: 24, long: 54, possibleNames: ['United Arab Emirates'] },
     { country: 'UK', iso2: 'GB', iso3: 'GBR', _id: 826, lat: 54, long: -2, possibleNames: ['England', 'United Kingdom'] },
-    { country: 'USA', iso2: 'US', iso3: 'USA', _id: 840, lat: 38, long: -97, possibleNames: ['USA', 'America', 'Estados Unidos', 'United States', 'United States of America'] },
+    { country: 'USA', iso2: 'US', iso3: 'USA', _id: 840, lat: 38, long: -97, possibleNames: ['USA', 'America', 'Estados Unidos', 'United States of America'] },
     { country: 'United States Minor Outlying Islands', iso2: 'UM', iso3: 'UMI', _id: 581, lat: 19.2833, long: 166.6 },
     { country: 'Uruguay', iso2: 'UY', iso3: 'URY', _id: 858, lat: -33, long: -56 },
     { country: 'Uzbekistan', iso2: 'UZ', iso3: 'UZB', _id: 860, lat: 41, long: 64 },
@@ -275,7 +274,7 @@ const getCountryName = function (countryCode) {
     return null;
 }
 
-const getCountryData = function (countryName) {
+const getCountryData = (countryName) => {
     for (const index in countryData) {
         const data = countryData[index];
         let found = false;

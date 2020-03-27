@@ -70,17 +70,31 @@ app.get("/historical/:country", async function (req, res) {
   res.send(countryData);
 });
 
-app.get("/countries/:country", async function (req, res) {
+app.get("/countries/:search", async (req, res) => {
   let countries = JSON.parse(await redis.get(keys.countries));
+  const { search } = req.params, isText = isNaN(search);
 
-  const standardizedCountryName = countryMap.standardizeCountryName(req.params.country.toLowerCase());
-  let country = countries.find(e => {
-    // see if strict was even a parameter
-    if (req.query.strict) {
-      return req.query.strict.toLowerCase() == 'true' ? e.country.toLowerCase() === standardizedCountryName : e.country.toLowerCase().includes(standardizedCountryName)
-    }
-    else {
-      return e.country.toLowerCase().includes(standardizedCountryName);
+  let country = countries.find(ctry => {
+    if (isText) {
+      const standardizedCountryName = countryMap.standardizeCountryName(search.toLowerCase());
+      // see if strict was even a parameter
+      if (req.query.strict) {
+        return req.query.strict.toLowerCase() == 'true' ?
+          (ctry.country.toLowerCase() === standardizedCountryName ||
+            (ctry.countryInfo.iso2 || 'null').toLowerCase() === search.toLowerCase() ||
+            (ctry.countryInfo.iso3 || 'null').toLowerCase() === search.toLowerCase()) :
+          ctry.country.toLowerCase().includes(standardizedCountryName) ||
+          (ctry.countryInfo.iso2 || 'null').toLowerCase().includes(search.toLowerCase()) ||
+          (ctry.countryInfo.iso3 || 'null').toLowerCase().includes(search.toLowerCase());
+      } else {
+        // Look for ISO's standards
+        return ctry.country.toLowerCase().includes(standardizedCountryName) ||
+          (ctry.countryInfo.iso2 || 'null').toLowerCase().includes(search.toLowerCase()) ||
+          (ctry.countryInfo.iso3 || 'null').toLowerCase().includes(search.toLowerCase());
+      }
+    } else {
+      // Look for country Id
+      return ctry.countryInfo._id === Number(search);
     }
   });
 
@@ -89,56 +103,10 @@ app.get("/countries/:country", async function (req, res) {
     return;
   }
   // adding status code 404 not found and sending response
-  res.status(404).send({ message: "Country not found or Has no cases" });
+  res.status(404).send({ message: "Country not found or doesn't have cases" });
 });
 
 // V2 ROUTES
-app.get('/v2/countries/:search', async (req, res) => {
-  let countries = JSON.parse(await redis.get(keys.countries));
-  const { search } = req.params;
-
-  if (search) {
-    let country = undefined;
-    const countryData = country_utils.getCountryData(search);
-
-    if (Number.isNaN(search)) {
-      if (search.length > 3) {
-        // Loook for name
-        country = countries.find(e => {
-          if (countryData.country) {
-            return e.country.toLowerCase().includes(countryData.country.toLowerCase());
-          }
-        });
-      } else {
-        // Look for ISO's standards
-        country = countries.find(e => {
-          switch (search.length) {
-            case 3:
-              return e.countryInfo.iso3.toLowerCase().includes(countryData.iso3.toLowerCase());
-              break;
-
-            default:
-              return e.countryInfo.iso2.toLowerCase().includes(countryData.iso2.toLowerCase());
-              break;
-          }
-        });
-      }
-    } else {
-      // Look for ID
-      country = countries.find(e => {
-        return e.countryInfo._id == search;
-      });
-    }
-
-    if (country) {
-      res.send(country);
-      return;
-    }
-  }
-
-  res.status(404).send({ message: "Country not found or dosen't have cases" });
-});
-
 app.get("/v2/historical/", async function (req, res) {
   let data = JSON.parse(await redis.get(keys.historical_v2))
   res.send(data);
