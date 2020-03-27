@@ -25,7 +25,6 @@ const execAll = () => {
   scraper.getStates(keys, redis);
   scraper.jhuLocations.jhudata(keys, redis);
   scraper.jhuLocations.jhudata_v2(keys, redis);
-  scraper.historical.historical(keys, redis);
   scraper.historical.historical_v2(keys, redis);
 };
 execAll()
@@ -60,14 +59,11 @@ app.get("/jhucsse/", async function (req, res) {
 });
 
 app.get("/historical/", async function (req, res) {
-  let data = JSON.parse(await redis.get(keys.historical))
-  res.send(data);
+  res.send({message: "Deprecated, use /v2/historical"});
 });
 
 app.get("/historical/:country", async function (req, res) {
-  let data = JSON.parse(await redis.get(keys.historical));
-  const countryData = await scraper.historical.getHistoricalCountryData(data, req.params.country.toLowerCase(), redis, keys.states);
-  res.send(countryData);
+  res.send({message: "Deprecated, use /v2/historical"});
 });
 
 app.get("/countries/:search", async (req, res) => {
