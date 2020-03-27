@@ -65,9 +65,8 @@ app.get("/historical/", async function (req, res) {
 });
 
 app.get("/historical/:country", async function (req, res) {
-  let data = JSON.parse(await redis.get(keys.historical));
-  const countryData = await scraper.historical.getHistoricalCountryData(data, req.params.country.toLowerCase(), redis, keys.states);
-  res.send(countryData);
+  let data = JSON.parse(await redis.get(keys.historical))
+  res.send(data);
 });
 
 app.get("/countries/:country", async function (req, res) {
