@@ -187,8 +187,7 @@ var countryData = [
     { country: 'Qatar', iso2: 'QA', iso3: 'QAT', _id: 634, lat: 25.5, long: 51.25 },
     { country: 'Réunion', iso2: 'RE', iso3: 'REU', _id: 638, lat: -21.1, long: 55.6, possibleNames: ['Reunion'] },
     { country: 'Romania', iso2: 'RO', iso3: 'ROU', _id: 642, lat: 46, long: 25 },
-    { country: 'Russian Federation', iso2: 'RU', iso3: 'RUS', _id: 643, lat: 60, long: 100 },
-    { country: 'Russia', iso2: 'RU', iso3: 'RUS', _id: 643, lat: 60, long: 100 },
+    { country: 'Russia', iso2: 'RU', iso3: 'RUS', _id: 643, lat: 60, long: 100, possibleNames: ['Russian Federation'] },
     { country: 'Rwanda', iso2: 'RW', iso3: 'RWA', _id: 646, lat: -2, long: 30 },
     { country: 'St. Barth', iso2: 'BL', iso3: 'BLM', _id: 652, lat: 17.89, long: -62.82 },
     { country: 'Saint Helena, Ascension and Tristan da Cunha', iso2: 'SH', iso3: 'SHN', _id: 654, lat: -15.9333, long: -5.7 },
@@ -247,7 +246,7 @@ var countryData = [
     { country: 'Uzbekistan', iso2: 'UZ', iso3: 'UZB', _id: 860, lat: 41, long: 64 },
     { country: 'Vanuatu', iso2: 'VU', iso3: 'VUT', _id: 548, lat: -16, long: 167 },
     { country: 'Venezuela, Bolivarian Republic of', iso2: 'VE', iso3: 'VEN', _id: 862, lat: 8, long: -66, possibleNames: ['Venezuela'] },
-    { country: 'Viet Nam', iso2: 'VN', iso3: 'VNM', _id: 704, lat: 16, long: 106, possibleNames: ['Vietnam'] },
+    { country: 'Vietnam', iso2: 'VN', iso3: 'VNM', _id: 704, lat: 16, long: 106, possibleNames: ['Viet Nam'] },
     { country: 'British Virgin Islands', iso2: 'VG', iso3: 'VGB', _id: 92, lat: 18.5, long: -64.5, possibleNames: ['Virgin Islands, British'] },
     { country: 'U.S. Virgin Islands', iso2: 'VI', iso3: 'VIR', _id: 850, lat: 18.3333, long: -64.8333, possibleNames: ['Virgin Islands'] },
     { country: 'Wallis and Futuna', iso2: 'WF', iso3: 'WLF', _id: 876, lat: -13.3, long: -176.2 },
@@ -275,20 +274,20 @@ const getCountryName = function (countryCode) {
     return null;
 }
 
-const getCountryData = function (countryName) {
+const getCountryData = (countryName) => {
     for (const index in countryData) {
         const data = countryData[index];
         let found = false;
-        countryName = string_utils.standardizeCI_AI(countryName);
+        countryName = string_utils.wordsStandardize(countryName);
 
-        if (string_utils.standardizeCI_AI(countryData[index].country) == countryName) {
+        if (string_utils.wordsStandardize(countryData[index].country) == countryName) {
             found = true;
         } else {
             if (data.possibleNames) {
                 const synonyms = data.possibleNames;
                 for (const indexName in synonyms) {
                     // console.log(data.possibleNames[indexName], countryName);
-                    if (string_utils.standardizeCI_AI(synonyms[indexName]) === string_utils.standardizeCI_AI(countryName)) {
+                    if (string_utils.wordsStandardize(synonyms[indexName]) === string_utils.wordsStandardize(countryName)) {
                         found = true;
                     }
                 }
@@ -311,8 +310,19 @@ const getCountryData = function (countryName) {
     return { iso2: null, iso3: null, _id: null, lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png' };
 }
 
+searchesExcepted = ['UK', 'UAE', 'DR'];
+const isCountryException = (value) => {
+    for (let index = 0; index < searchesExcepted.length; index++) {
+        if (string_utils.wordsStandardize(value) === string_utils.wordsStandardize(searchesExcepted[index])) {
+            return true;
+        }
+    }
+    return false;
+}
+
 module.exports = {
     getCountryCode,
     getCountryName,
-    getCountryData
+    getCountryData,
+    isCountryException
 }
