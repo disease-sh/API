@@ -85,9 +85,9 @@ app.get("/countries/:query", async (req, res) => {
           ctry.country.toLowerCase().includes(standardizedCountryName);
       } else {
         return (
-          ctry.country.toLowerCase().includes(standardizedCountryName) ||
+          (ctry.countryInfo.iso3 || 'null').toLowerCase() === query.toLowerCase() ||
           (ctry.countryInfo.iso2 || 'null').toLowerCase() === query.toLowerCase() ||
-          (ctry.countryInfo.iso3 || 'null').toLowerCase() === query.toLowerCase()
+          ((query.length > 3 || country_utils.isCountryException(query.toLowerCase())) && ctry.country.toLowerCase().includes(standardizedCountryName))
         );
       }
     } 
