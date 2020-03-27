@@ -4,9 +4,16 @@
 # Join our Server!
 [![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
 
+# Partners with PrimedHosting
+Great and affordable prices! Starting at $0.75. Get started [here](https://primedhosting.com/NovelCovid)
+Join the [Discord server](https://primedhosting.com/discord)
+
 # API
 API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
 https://corona.lmao.ninja/
+
+# Recommended by Postman
+NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
 # Endpoints v2
 |  GET Request  | Output  |
@@ -36,8 +43,7 @@ const covid = require('novelcovid');
 ```
 
 ## Documentation
-
-To actually use the data, you will need an [async/await](https://javascript.info/async-await).
+Executing a method will return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). The examples here utilise [async/await](https://javascript.info/async-await) to access the data.
 
 ```js
 // Declare the package
@@ -95,7 +101,8 @@ You can read more about **new Date()** [here](https://developer.mozilla.org/en-U
 > https://discord.gg/EvbMshU
 
 ### Sources: 
-> https://www.worldometers.info/coronavirus/ 
+> https://www.worldometers.info/coronavirus/
+
 > https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
 
 ## Contributors ✨
