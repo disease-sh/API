@@ -76,22 +76,21 @@ app.get("/countries/:search", async (req, res) => {
 
   let country = countries.find(ctry => {
     if (isText) {
-      const standardizedCountryName = countryMap.standardizeCountryName(search.toLowerCase());
-      // see if strict was even a parameter
-      if (req.query.strict) {
-        return req.query.strict.toLowerCase() == 'true' ?
-          (ctry.country.toLowerCase() === standardizedCountryName ||
-            (ctry.countryInfo.iso2 || 'null').toLowerCase() === search.toLowerCase() ||
-            (ctry.countryInfo.iso3 || 'null').toLowerCase() === search.toLowerCase()) :
-          ctry.country.toLowerCase().includes(standardizedCountryName) ||
-          (ctry.countryInfo.iso2 || 'null').toLowerCase().includes(search.toLowerCase()) ||
-          (ctry.countryInfo.iso3 || 'null').toLowerCase().includes(search.toLowerCase());
-      } else {
-        // Look for ISO's standards
-        return ctry.country.toLowerCase().includes(standardizedCountryName) ||
-          (ctry.countryInfo.iso2 || 'null').toLowerCase().includes(search.toLowerCase()) ||
-          (ctry.countryInfo.iso3 || 'null').toLowerCase().includes(search.toLowerCase());
+      if ((search.length > 3) || country_utils.isCountryException(search)) {
+        const standardizedCountryName = countryMap.standardizeCountryName(search.toLowerCase());
+        // see if strict was even a parameter
+        if (req.query.strict) {
+          return req.query.strict.toLowerCase() == 'true' ?
+            ctry.country.toLowerCase() === standardizedCountryName :
+            ctry.country.toLowerCase().includes(standardizedCountryName);
+        } else {
+          // Look for ISO's standards
+          return ctry.country.toLowerCase().includes(standardizedCountryName);
+        }
       }
+
+      return ((ctry.countryInfo.iso2 || 'null').toLowerCase() === search.toLowerCase() ||
+        (ctry.countryInfo.iso3 || 'null').toLowerCase() === search.toLowerCase());
     } else {
       // Look for country Id
       return ctry.countryInfo._id === Number(search);

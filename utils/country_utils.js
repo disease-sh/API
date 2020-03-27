@@ -310,8 +310,19 @@ const getCountryData = (countryName) => {
     return { iso2: null, iso3: null, _id: null, lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png' };
 }
 
+searchesExcepted = ['UK', 'UAE', 'DR'];
+const isCountryException = (value) => {
+    for (let index = 0; index < searchesExcepted.length; index++) {
+        if (string_utils.standardizeCI_AI(value) === string_utils.standardizeCI_AI(searchesExcepted[index])) {
+            return true;
+        }
+    }
+    return false;
+}
+
 module.exports = {
     getCountryCode,
     getCountryName,
-    getCountryData
+    getCountryData,
+    isCountryException,
 }
