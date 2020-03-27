@@ -324,5 +324,5 @@ module.exports = {
     getCountryCode,
     getCountryName,
     getCountryData,
-    isCountryException
+    isCountryException,
 }
