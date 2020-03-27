@@ -72,13 +72,13 @@ app.get("/historical/:country", async function (req, res) {
 
 app.get("/countries/:query", async (req, res) => {
   let countries = JSON.parse(await redis.get(keys.countries));
-  const { search } = req.params,
-    isText = isNaN(search);
+  const { query } = req.params,
+    isText = isNaN(query);
 
   const country = countries.find(ctry => {
     if (isText) {
-      if ((search.length > 3) || country_utils.isCountryException(search)) {
-        const standardizedCountryName = countryMap.standardizeCountryName(search.toLowerCase());
+      if ((query.length > 3) || country_utils.isCountryException(query)) {
+        const standardizedCountryName = countryMap.standardizeCountryName(query.toLowerCase());
         // see if strict was even a parameter
         if (req.query.strict) {
           return req.query.strict.toLowerCase() == 'true' ?
@@ -90,11 +90,11 @@ app.get("/countries/:query", async (req, res) => {
       }
 
       // Look for ISO's standards
-      return ((ctry.countryInfo.iso2 || 'null').toLowerCase() === search.toLowerCase() ||
-        (ctry.countryInfo.iso3 || 'null').toLowerCase() === search.toLowerCase());
+      return ((ctry.countryInfo.iso2 || 'null').toLowerCase() === query.toLowerCase() ||
+        (ctry.countryInfo.iso3 || 'null').toLowerCase() === query.toLowerCase());
     } else {
       // Look for country Id
-      return ctry.countryInfo._id === Number(search);
+      return ctry.countryInfo._id === Number(query);
     }
   });
 
