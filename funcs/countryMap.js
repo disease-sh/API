@@ -13,6 +13,8 @@ const countryMapping = [
     {possibleNames: ["méxico"], standardizedName: "mexico"},
     {possibleNames: ["brasil"], standardizedName: "brazil"},
     {possibleNames: ["panamá"], standardizedName: "panama"},
+    {possibleNames: ["iran, islamic republic of"], standardizedName: "iran"},
+    {possibleNames: ["viet nam"], standardizedName: "vietnam"},
 ];
 
 /**

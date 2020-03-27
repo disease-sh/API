@@ -242,7 +242,7 @@ var countryData = [
     { country: 'Uzbekistan', iso2: 'UZ', iso3: 'UZB', _id: 860, lat: 41, long: 64 },
     { country: 'Vanuatu', iso2: 'VU', iso3: 'VUT', _id: 548, lat: -16, long: 167 },
     { country: 'Venezuela, Bolivarian Republic of', iso2: 'VE', iso3: 'VEN', _id: 862, lat: 8, long: -66, possibleNames: ['Venezuela'] },
-    { country: 'Viet Nam', iso2: 'VN', iso3: 'VNM', _id: 704, lat: 16, long: 106, possibleNames: ['Vietnam'] },
+    { country: 'Vietnam', iso2: 'VN', iso3: 'VNM', _id: 704, lat: 16, long: 106, possibleNames: ['Viet Nam'] },
     { country: 'Virgin Islands, British', iso2: 'VG', iso3: 'VGB', _id: 92, lat: 18.5, long: -64.5 },
     { country: 'U.S. Virgin Islands', iso2: 'VI', iso3: 'VIR', _id: 850, lat: 18.3333, long: -64.8333, possibleNames: ['Virgin Islands'] },
     { country: 'Wallis and Futuna', iso2: 'WF', iso3: 'WLF', _id: 876, lat: -13.3, long: -176.2 },
