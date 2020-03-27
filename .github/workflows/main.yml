@@ -1,0 +1,11 @@
+name: Lint
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+ eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hallee/eslint-action@1.0.1
