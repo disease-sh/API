@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const Redis = require('ioredis');
+/* eslint import/no-unresolved: off */
 const config = require('./config.json');
 const scraper = require('./scraper');
 const countryMap = require('./funcs/countryMap');
