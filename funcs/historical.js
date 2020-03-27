@@ -5,10 +5,6 @@ const countryMap = require('./countryMap');
 var base =
   "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/";
 
-var historical = async (keys, redis) => {
-  const string = JSON.stringify({message: "Deprecated, use /v2/historical"});
-  redis.set(keys.historical, string);
-};
 
 var historical_v2 = async (keys, redis) => {
   let casesResponse, deathsResponse;
@@ -94,7 +90,6 @@ async function getHistoricalCountryData_v2(data, country) {
 }
 
 module.exports = {
-  historical,
   historical_v2,
   getHistoricalCountryData_v2
 };
