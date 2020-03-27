@@ -79,15 +79,13 @@ app.get("/countries/:country", async function (req, res) {
     if (req.query.strict) {
       return req.query.strict.toLowerCase() == 'true' ? e.country.toLowerCase() === standardizedCountryName : e.country.toLowerCase().includes(standardizedCountryName)
     }
-    else if(e.country.length > 3 && standardizedCountryName.length == 2 && e.countryInfo && e.countryInfo.iso2){
+    else if(standardizedCountryName.length == 2 && e.countryInfo && e.countryInfo.iso2 && e.countryInfo.iso2.toLowerCase() == standardizedCountryName){
       return e.countryInfo.iso2.toLowerCase() == standardizedCountryName.toLowerCase();
     }
-    else if(e.country.length > 3 && standardizedCountryName.length == 3 && e.countryInfo && e.countryInfo.iso3){
+    else if(standardizedCountryName.length == 3 && e.countryInfo && e.countryInfo.iso3 && e.countryInfo.iso3.toLowerCase() == standardizedCountryName){
       return e.countryInfo.iso3.toLowerCase() == standardizedCountryName.toLowerCase();
     }
-    else {
-      return e.country.toLowerCase() == standardizedCountryName;
-    }
+    return e.country.toLowerCase() == standardizedCountryName;
   });
 
   if (country) {
