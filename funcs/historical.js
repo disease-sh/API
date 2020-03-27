@@ -1,6 +1,7 @@
 const axios = require("axios");
 const csv = require("csvtojson");
 const countryMap = require('./countryMap');
+const countryUtil = require('../utils/country_utils');
 
 var base =
   "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/";
@@ -105,9 +106,11 @@ var historical_v2 = async (keys, redis) => {
       timeline.cases[timelineKey[i]] = parseInt(c[i]);
       timeline.deaths[timelineKey[i]] = parseInt(d[i]);
     }
+    const iso2 = countryUtil.getCountryCode(parsedCases[b][1]);
     result.push({
       country: countryMap.standardizeCountryName(parsedCases[b][1].toLowerCase()),
       province: parsedCases[b][0] === "" ? null : countryMap.standardizeCountryName(parsedCases[b][0].toLowerCase()),
+      iso2,
       timeline
     });
     b++;
