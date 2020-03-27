@@ -39,7 +39,7 @@ Join the [Discord server](https://primedhosting.com/discord)
 | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | https://corona.lmao.ninja/all                        | Returns all total cases, recovery, and deaths.                                                                       |
 | https://corona.lmao.ninja/countries                  | Returns data of all countries that have COVID-19                                                                     |
-| https://corona.lmao.ninja/countries?sort={parameter} | Returns data of each country sorted by the parameter                                                                 |
+| https://corona.lmao.ninja/countries?sort={parameter} | Returns data of each country sorted by the parameter (`deaths`, `cases`, `recovered`)                                       |
 | https://corona.lmao.ninja/countries/{country-name}   | Returns data of a specific country. If an exact name match is desired pass ?strict=true in the query string          |
 | https://corona.lmao.ninja/states                     | Returns all United States of America and their Corona data                                                           |
 | https://corona.lmao.ninja/jhucsse                    | DEPRECATED USE V2 ENDPOINT Return data from the Johns Hopkins CSSE Data Repository (Provinces and such)              |
