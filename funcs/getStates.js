@@ -66,7 +66,7 @@ const parseStateCell = cell => {
 
 const parseNumberCell = cell => {
   const cellValue = cell.children.length != 0 ? cell.children[0].data : "";
-  return parseInt(cellValue.replace(/[,\+\-\s]/g, ""), 10) || 0;
+  return parseFloat(cellValue.replace(/[,\+\-\s]/g, ""), 10) || 0;
 }
 
 module.exports = getStates;
