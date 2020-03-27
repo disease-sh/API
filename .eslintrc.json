@@ -24,6 +24,7 @@
       "func-names": "off",
       "prefer-arrow-callback": "off",
       "no-else-return": "off",
+      "no-unresolved": "off",
       "indent": ["error", 2],
       "max-len": ["error", 120]
   }
