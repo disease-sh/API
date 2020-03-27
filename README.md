@@ -12,6 +12,9 @@ Join the [Discord server](https://primedhosting.com/discord)
 API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
 https://corona.lmao.ninja/
 
+# Recomended by Postman
+NovelCovid API is recomended by Postman [here](https://covid-19-apis.postman.com/)
+
 # Endpoints v2
 |  GET Request  | Output  |
 | ------------ | ------------ |
