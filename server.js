@@ -24,7 +24,7 @@ const execAll = () => {
   scraper.getAll(keys, redis);
   scraper.getStates(keys, redis);
   scraper.jhuLocations.jhudata(keys, redis);
-  scraper.jhuLocations.jhudata_v2(keys, redis);
+  scraper.jhuLocations.jhudataV2(keys, redis);
   scraper.historical.historicalV2(keys, redis);
 };
 execAll();
@@ -73,7 +73,7 @@ app.get('/historical/:country', async function (req, res) {
 app.get('/countries/:query', async (req, res) => {
   const countries = JSON.parse(await redis.get(keys.countries));
   const { query } = req.params;
-  const isText = Number.isNaN(query);
+  const isText = !(Number.isNaN(query));
 
   const country = countries.find((ctry) => {
     if (isText) {
@@ -114,7 +114,7 @@ app.get('/v2/historical/', async function (req, res) {
 
 app.get('/v2/historical/:country', async function (req, res) {
   const data = JSON.parse(await redis.get(keys.historical_v2));
-  const countryData = await scraper.historical.getHistoricalCountryData_v2(data, req.params.country.toLowerCase());
+  const countryData = await scraper.historical.getHistoricalCountryDataV2(data, req.params.country.toLowerCase());
   res.send(countryData);
 });
 

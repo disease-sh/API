@@ -259,19 +259,21 @@ const countryData = [
 ];
 
 const getCountryCode = function (countryName) {
-  countryData.forEach((index) => {
-    if (countryData[index].country.toLowerCase() === countryName.toLowerCase()) {
-      return countryData[index].iso2;
+  countryData.forEach((element) => {
+    if (element.country.toLowerCase() === countryName.toLowerCase()) {
+      return element.iso2;
     }
+    return true;
   });
   return null;
 };
 
 const getCountryName = function (countryCode) {
-  countryData.forEach((index) => {
-    if (countryData[index].iso2.toLowerCase() === countryCode.toLowerCase()) {
-      return countryData[index].country;
+  countryData.forEach((element) => {
+    if (element.iso2.toLowerCase() === countryCode.toLowerCase()) {
+      return element.country;
     }
+    return true;
   });
   return null;
 };
@@ -286,35 +288,35 @@ const getCountryData = (countryNameParam) => {
     flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png',
   };
 
-  countryData.forEach((index) => {
-    const data = countryData[index];
+  for (let i = 0; i < countryData.length; i++) {
+    const element = countryData[i];
     let found = false;
     const countryName = stringUtils.wordsStandardize(countryNameParam);
 
-    if (stringUtils.wordsStandardize(countryData[index].country) === countryName) {
+    if (stringUtils.wordsStandardize(element.country) === countryName) {
       found = true;
     } else {
-      const synonyms = data.possibleNames ? data.possibleNames : [];
-      synonyms.forEach((indexName) => {
-        if (stringUtils.wordsStandardize(synonyms[indexName]) === stringUtils.wordsStandardize(countryName)) {
+      const synonyms = element.possibleNames ? element.possibleNames : [];
+      synonyms.forEach((synonym) => {
+        if (stringUtils.wordsStandardize(synonym) === stringUtils.wordsStandardize(countryName)) {
           found = true;
         }
+        return true;
       });
     }
 
     if (found) {
       return {
-        _id: data._id,
-        country: data.country,
-        iso2: data.iso2,
-        iso3: data.iso3,
-        lat: data.lat,
-        long: data.long,
-        flag: `https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${data.iso2.toLowerCase()}.png`,
+        _id: element._id,
+        country: element.country,
+        iso2: element.iso2,
+        iso3: element.iso3,
+        lat: element.lat,
+        long: element.long,
+        flag: `https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${element.iso2.toLowerCase()}.png`,
       };
     }
-  });
-
+  }
   return nullReturn;
 };
 
