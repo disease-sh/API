@@ -28,7 +28,7 @@ function fillResult(html) {
 	// to store parsed data
 	const result = [];
 	// NOTE: this will change when table format change in website
-	const totalColumns = 10;
+	const totalColumns = 11;
 	const countryColIndex = 0;
 	const casesColIndex = 1;
 	const yesterdaysCasesColIndex = 2;

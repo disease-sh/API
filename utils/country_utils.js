@@ -2,7 +2,7 @@
 /* eslint-disable object-curly-newline */
 const stringUtils = require('./string_utils');
 
-const countryData = [
+var countryData = [
 	{ country: 'Afghanistan', iso2: 'AF', iso3: 'AFG', _id: 4, lat: 33, long: 65 },
 	{ country: 'Albania', iso2: 'AL', iso3: 'ALB', _id: 8, lat: 41, long: 20 },
 	{ country: 'Algeria', iso2: 'DZ', iso3: 'DZA', _id: 12, lat: 28, long: 3 },
@@ -57,7 +57,7 @@ const countryData = [
 	{ country: 'Congo, the Democratic Republic of the', iso2: 'CD', iso3: 'COD', _id: 180, lat: 0, long: 25, possibleNames: ['DRC'] },
 	{ country: 'Cook Islands', iso2: 'CK', iso3: 'COK', _id: 184, lat: -21.2333, long: -159.7667 },
 	{ country: 'Costa Rica', iso2: 'CR', iso3: 'CRI', _id: 188, lat: 10, long: -84 },
-	{ country: 'Coast D\'Ivoire', iso2: 'CI', iso3: 'CIV', _id: 384, lat: 8, long: -5, possibleNames: ['Ivory Coast'] },
+	{ country: 'Côte d\'Ivoire', iso2: 'CI', iso3: 'CIV', _id: 384, lat: 8, long: -5, possibleNames: ['Ivory Coast'] },
 	{ country: 'Croatia', iso2: 'HR', iso3: 'HRV', _id: 191, lat: 45.1667, long: 15.5 },
 	{ country: 'Cuba', iso2: 'CU', iso3: 'CUB', _id: 192, lat: 21.5, long: -80 },
 	{ country: 'Curacao', iso2: 'CW', iso3: 'CUW', _id: 531, lat: 12.15, long: -68.97, possibleNames: ['Curazao'] },
