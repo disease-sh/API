@@ -58,12 +58,10 @@ const historicalV2 = async (keys, redis) => {
 };
 
 /**
- * Parses data from historical endpoint and returns data for specific country || province.
- *
+ * Parses data from historical endpoint and returns data for specific country || province
  * @param   {Array}   data       Full historical data returned from /historical endpoint
  * @param   {String}  qCountry   Country query param
- * @param   {String}  qProvince  Province query param (op)
- *
+ * @param   {String}  qProvince  Province query param (optional)
  * @return  {Object}             The filtered historical data.
  */
 
@@ -73,10 +71,10 @@ async function getHistoricalCountryDataV2(data, qCountry, qProvince) {
 	// get all the country data
 	const countryData = data.filter(obj => obj.country.toLowerCase() === standardizedCountryName);
 	// overall timeline for country
-	const timeline = { cases: {}, deaths: {}, recovered: {} };
+	const timeline = { cases: {}, deaths: {} };
 	// Creates timeline data for specified country or provice.
 	const summarizeData = (provinceIndex) => {
-		// loop cases, recovered, deaths for each province
+		// loop cases, deaths for each province
 		Object.keys(countryData[provinceIndex].timeline).forEach(specifier => {
 			Object.keys(countryData[provinceIndex].timeline[specifier]).forEach(date => {
 				if (timeline[specifier][date]) {
