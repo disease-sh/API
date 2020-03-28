@@ -43,8 +43,7 @@ var getStates = async (keys, redis) => {
     result.push(stateData);
   }
 
-  const string = JSON.stringify(result);
-  redis.set(keys.states, string);
+  await redis.set(keys.states, result);
   console.log(`Updated states: ${result.length} states`);
 }
 

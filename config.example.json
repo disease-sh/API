@@ -1,7 +1,8 @@
 {
   "redis": {
     "host": "localhost",
-    "password": "1234"
+    "password": "1234",
+    "port": 6969
   },
   "keys": {
     "all": "covidapi:all",

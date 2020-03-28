@@ -123,8 +123,7 @@ var getYesterday = async (keys, redis) => {
         }
     }
 
-    const string = JSON.stringify(result);
-    redis.set(keys.yesterday, string);
+    await redis.set(keys.yesterday, result);
     console.log(`Updated yesterdays statistics: ${result.length}`);
 }
 

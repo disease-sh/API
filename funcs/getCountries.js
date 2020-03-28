@@ -137,8 +137,7 @@ var getcountries = async (keys, redis) => {
         }
     }
 
-    const string = JSON.stringify(result);
-    redis.set(keys.countries, string);
+    await redis.set(keys.countries, result);
     console.log(`Updated countries: ${result.length} countries`);
 }
 

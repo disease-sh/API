@@ -11,6 +11,7 @@
     "cheerio": "^0.22.0",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
+    "endb": "^0.21.7",
     "express": "^4.16.3",
     "ioredis": "*"
   },

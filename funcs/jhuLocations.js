@@ -1,5 +1,4 @@
 var axios = require("axios");
-var cheerio = require("cheerio");
 const csv = require("csvtojson");
 
 var base =
@@ -53,8 +52,8 @@ var jhudata = async (keys, redis) => {
       }
     });
   }
-  const string = JSON.stringify(result);
-  redis.set(keys.jhu, string);
+
+  await redis.set(keys.jhu, result);
   console.log(`Updated JHU CSSE: ${result.length} locations`);
 };
 
@@ -136,8 +135,7 @@ var jhudata_v2 = async (keys, redis) => {
   }
   // add US entries
   Object.keys(statesResult).map((state, index) => result.push(statesResult[state]));
-  const string = JSON.stringify(result);
-  redis.set(keys.jhu_v2, string);
+  await redis.set(keys.jhu_v2, result);
   console.log(`Updated JHU CSSE: ${result.length} locations`);
 };
 

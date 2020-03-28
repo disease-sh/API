@@ -29,8 +29,7 @@ var getall = async (keys, redis) => {
   });
   result.updated = Date.now()
   result.active = result.cases - result.deaths - result.recovered
-  const string = JSON.stringify(result);
-  redis.set(keys.all, string);
+  await redis.set(keys.all, result);
   console.log("Updated The Cases", result);
 }
 

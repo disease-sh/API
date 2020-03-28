@@ -1,10 +1,8 @@
 var express = require('express');
 var app = express();
-var axios = require("axios");
-var cheerio = require("cheerio");
 var cors = require('cors');
 const config = require('./config.json');
-const Redis = require('ioredis');
+const Endb = require('endb');
 const scraper = require('./scraper');
 const countryMap = require('./funcs/countryMap');
 const country_utils = require('./utils/country_utils');
@@ -12,10 +10,10 @@ const country_utils = require('./utils/country_utils');
 app.use(cors());
 
 // create redis instance :O
-const redis = new Redis(config.redis.host, {
-  password: config.redis.password,
-  port: config.redis.port
-})
+const redis = new Endb({
+  //uri: `redis://:${config.redis.password}@${config.redis.host}:${config.redis.port}`
+});
+console.log(redis);
 
 const keys = config.keys;
 
