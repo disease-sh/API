@@ -55,51 +55,42 @@ const historicalV2 = async (keys, redis) => {
 
 /**
  * Parses data from historical endpoint and returns data for specific country || province
- * @param   {Array}   data       Full historical data returned from /historical endpoint
- * @param   {String}  qCountry   Country query param
- * @param   {String}  qProvince  Province query param (optional)
- * @return  {Object}             The filtered historical data.
+ * @param   {array}   data       Full historical data returned from /historical endpoint
+ * @param   {string}  country   Country query param
+ * @param   {string}  province  Province query param (optional)
+ * @returns  {onbject}             The filtered historical data.
  */
+async function getHistoricalCountryDataV2(data, country, province = null) {
+	const standardizedCountryName = countryMap.standardizeCountryName(country.toLowerCase());
+	// filter to either specific province, or provinces to sum country over
+	const countryData = data.filter((obj) => {
+		if (province) {
+			return obj.province && obj.province === province && obj.country.toLowerCase() === standardizedCountryName;
+		} else {
+			return obj.country.toLowerCase() === standardizedCountryName;
+		}
+	});
 
-async function getHistoricalCountryDataV2(data, qCountry, qProvince) {
-	// find the standardized country name
-	const standardizedCountryName = countryMap.standardizeCountryName(qCountry.toLowerCase());
-	// get all the country data
-	const countryData = data.filter(obj => obj.country.toLowerCase() === standardizedCountryName);
 	// overall timeline for country
 	const timeline = { cases: {}, deaths: {} };
-	// Creates timeline data for specified country or provice.
-	const summarizeData = (provinceIndex) => {
-		// loop cases, deaths for each province
-		for (var tProp in timeline) {
-			Object.assign(timeline, {
-				[tProp]: [provinceIndex ? countryData[provinceIndex].timeline[tProp] : countryData.map(cData => cData.timeline[tProp])].reduce((acc, cur) => {
-					Object.keys(cur).map(type => (acc[type] = (acc[type] || 0) + cur[type]));
-					return acc;
-				})
+	// sum over provinces
+	for (let prov = 0; prov < countryData.length; prov++) {
+		// loop cases, recovered, deaths for each province
+		Object.keys(countryData[prov].timeline).forEach((specifier) => {
+			Object.keys(countryData[prov].timeline[specifier]).forEach((date) => {
+				if (timeline[specifier][date]) {
+					timeline[specifier][date] += parseInt(countryData[prov].timeline[specifier][date]);
+				} else {
+					timeline[specifier][date] = parseInt(countryData[prov].timeline[specifier][date]);
+				}
 			});
-		}
-	};
-
-	// check if there is matching province in the country data and return its index.
-	const qProvinceMatchIndex = countryData.findIndex(country => country.province && country.province.toLowerCase() === qProvince);
-
-	// if there there is a match province, only summarize the data for it
-	if (!qProvince || qProvinceMatchIndex >= 0) {
-		summarizeData(qProvince && qProvinceMatchIndex >= 0 && qProvinceMatchIndex);
+		});
 	}
 
-	// return the country summarized data including if a province was requested
-	return (
-		Object.assign(
-			// add the province property if its passed and if there is a match, include the timeline data for it
-			qProvince ? { province: qProvinceMatchIndex >= 0 ? countryData[qProvinceMatchIndex].province : qProvince } : {},
-			{
-				country: standardizedCountryName,
-				timeline
-			}
-		)
-	);
+	return {
+		country: standardizedCountryName,
+		timeline
+	};
 }
 
 module.exports = {
