@@ -6,9 +6,9 @@ const historical = require('./funcs/historical');
 
 
 module.exports = {
-  getAll,
-  getCountries,
-  getStates,
-  jhuLocations,
-  historical,
+	getAll,
+	getCountries,
+	getStates,
+	jhuLocations,
+	historical,
 };
