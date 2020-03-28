@@ -258,6 +258,11 @@ var countryData = [
 	{ country: 'Zimbabwe', iso2: 'ZW', iso3: 'ZWE', _id: 716, lat: -20, long: 30 }
 ];
 
+/**
+ * Get iso2 code from country name
+ * @param {string} countryName country name
+ * @returns {string}
+ */
 const getCountryCode = (countryName) => {
 	countryData.forEach((element) => {
 		if (element.country.toLowerCase() === countryName.toLowerCase()) {
@@ -268,6 +273,11 @@ const getCountryCode = (countryName) => {
 	return null;
 };
 
+/**
+ * Get country name from iso2 code
+ * @param {string} countryCode ios2 country code
+ * @returns {string}
+ */
 const getCountryName = (countryCode) => {
 	countryData.forEach((element) => {
 		if (element.iso2.toLowerCase() === countryCode.toLowerCase()) {

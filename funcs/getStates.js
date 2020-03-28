@@ -41,9 +41,8 @@ const getStates = async (keys, redis) => {
 		.children('tbody')
 		.children('tr:not(.total_row)').toArray();
 	// NOTE: this will change when table format change in website
-
-	const stateColIndex = 0;
 	const dataColIndexes = {
+		state: 0,
 		cases: 1,
 		todayCases: 2,
 		deaths: 3,
@@ -53,7 +52,7 @@ const getStates = async (keys, redis) => {
 
 	tableRows.forEach((row) => {
 		const cells = row.children.filter((cell) => cell.name === 'td');
-		const stateData = { state: parseStateCell(cells[stateColIndex]) };
+		const stateData = { state: parseStateCell(cells[dataColIndexes.state]) };
 		Object.keys(dataColIndexes).forEach((property) => {
 			stateData[property] = parseNumberCell(cells[dataColIndexes[property]]);
 		});

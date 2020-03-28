@@ -1,5 +1,5 @@
 /**
- * WIP country mapping for countries that could be spelled differently than what we are expecting
+ * Ccountry mapping for countries that could be spelled differently than what we are expecting in the historical endpt
  */
 const countryMapping = [
 	{ possibleNames: ['us', 'united states of america', 'america', 'united states'], standardizedName: 'usa' },

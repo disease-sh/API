@@ -37,18 +37,19 @@ const listener = app.listen(config.port, () => {
 	console.log(`Your app is listening on port ${listener.address().port}`);
 });
 
+app.get('/invite/', async (req, res) => {
+	/* eslint max-len: off */
+	res.redirect('https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880');
+});
+
+app.get('/support/', async (req, res) => {
+	res.redirect('https://discord.gg/EvbMshU');
+});
+
+// API endpoints
 app.get('/all/', async (req, res) => {
 	const all = JSON.parse(await redis.get(keys.all));
 	res.send(all);
-});
-
-app.get('/countries/', async (req, res) => {
-	const { sort } = req.query;
-	let countries = JSON.parse(await redis.get(keys.countries));
-	if (sort) {
-		countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
-	}
-	res.send(countries);
 });
 
 app.get('/states/', async (req, res) => {
@@ -61,12 +62,13 @@ app.get('/jhucsse/', async (req, res) => {
 	res.send(data);
 });
 
-app.get('/historical/', async (req, res) => {
-	res.send({ message: 'Deprecated, use /v2/historical' });
-});
-
-app.get('/historical/:country', async (req, res) => {
-	res.send({ message: 'Deprecated, use /v2/historical' });
+app.get('/countries/', async (req, res) => {
+	const { sort } = req.query;
+	let countries = JSON.parse(await redis.get(keys.countries));
+	if (sort) {
+		countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
+	}
+	res.send(countries);
 });
 
 app.get('/countries/:query', async (req, res) => {
@@ -106,7 +108,6 @@ app.get('/countries/:query', async (req, res) => {
 	res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 });
 
-// V2 ROUTES
 app.get('/v2/historical/', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.historical_v2));
 	res.send(data);
@@ -123,12 +124,11 @@ app.get('/v2/jhucsse/', async (req, res) => {
 	res.send(data);
 });
 
-
-app.get('/invite/', async (req, res) => {
-	/* eslint max-len: off */
-	res.redirect('https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880');
+// depreciated
+app.get('/historical/', async (req, res) => {
+	res.send({ message: 'Deprecated, use /v2/historical' });
 });
 
-app.get('/support/', async (req, res) => {
-	res.redirect('https://discord.gg/EvbMshU');
+app.get('/historical/:country', async (req, res) => {
+	res.send({ message: 'Deprecated, use /v2/historical' });
 });

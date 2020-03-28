@@ -5,7 +5,6 @@ const countryMap = require('./countryMap');
 // eslint-disable-next-line max-len
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/';
 
-
 const historicalV2 = async (keys, redis) => {
 	let casesResponse;
 	let deathsResponse;
@@ -33,7 +32,7 @@ const historicalV2 = async (keys, redis) => {
 	const timelineKey = parsedCases[0].splice(4);
 
 	// loop over all country entries
-	for (let b = 0; b < parsedDeaths.length;) {
+	for (let b = 0; b < parsedDeaths.length; b++) {
 		const timeline = {
 			cases: {},
 			deaths: {}
@@ -50,7 +49,6 @@ const historicalV2 = async (keys, redis) => {
 				: countryMap.standardizeCountryName(parsedCases[b][0].toLowerCase()),
 			timeline
 		});
-		b++;
 	}
 
 	const removeFirstObj = result.splice(1);
