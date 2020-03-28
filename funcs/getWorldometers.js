@@ -24,23 +24,23 @@ function getCellData(cell) {
 	);
 }
 
-function fillResult(html) {
+function fillResult(html, yesterday = false) {
 	// to store parsed data
 	const result = [];
 	// NOTE: this will change when table format change in website
 	const totalColumns = 11;
 	const countryColIndex = 0;
 	const casesColIndex = 1;
-	const yesterdaysCasesColIndex = 2;
+	const newCasesColIndex = 2;
 	const deathsColIndex = 3;
-	const yesterdaysDeathsColIndex = 4;
+	const newDeathsColIndex = 4;
 	const curedColIndex = 5;
 	const activeColIndex = 6;
 	const criticalColIndex = 7;
 	const casesPerOneMillionColIndex = 8;
 	const deathsPerOneMillionColIndex = 9;
 
-	const countriesTable = html('table#main_table_countries_yesterday');
+	const countriesTable = yesterday ? html('table#main_table_countries_yesterday') : html('table#main_table_countries_today');
 	const countriesTableCells = countriesTable
 		.children('tbody')
 		.children('tr')
@@ -59,16 +59,16 @@ function fillResult(html) {
 			result[result.length - 1].cases = getCellData(cell);
 		}
 		// get today cases
-		if (i % totalColumns === yesterdaysCasesColIndex) {
-			result[result.length - 1].yesterdaysCases = getCellData(cell);
+		if (i % totalColumns === newCasesColIndex) {
+			result[result.length - 1].todayCases = getCellData(cell);
 		}
 		// get deaths
 		if (i % totalColumns === deathsColIndex) {
 			result[result.length - 1].deaths = getCellData(cell);
 		}
 		// get yesterdays deaths
-		if (i % totalColumns === yesterdaysDeathsColIndex) {
-			result[result.length - 1].yesterdaysDeaths = getCellData(cell);
+		if (i % totalColumns === newDeathsColIndex) {
+			result[result.length - 1].todayDeaths = getCellData(cell);
 		}
 		// get cured
 		if (i % totalColumns === curedColIndex) {
@@ -111,7 +111,7 @@ const getCountries = async (keys, redis) => {
 	const html = cheerio.load(response.data);
 	const result = fillResult(html);
 	const string = JSON.stringify(result);
-	redis.set(keys.yesterday, string);
+	redis.set(keys.countries, string);
 	return console.log(`Updated countries statistics: ${result.length}`);
 };
 
@@ -127,7 +127,7 @@ const getYesterday = async (keys, redis) => {
 	}
 	// get HTML and parse death rates
 	const html = cheerio.load(response.data);
-	const result = fillResult(html);
+	const result = fillResult(html, true);
 	const string = JSON.stringify(result);
 	redis.set(keys.yesterday, string);
 	return console.log(`Updated yesterdays statistics: ${result.length}`);
