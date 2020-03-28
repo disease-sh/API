@@ -24,15 +24,17 @@
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
-    "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4",
+    "@nestjs/swagger": "^4.5.1",
     "axios": "^0.19.2",
     "cheerio": "^0.22.0",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
     "express": "^4.16.3",
-    "ioredis": "*"
+    "ioredis": "*",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^6.5.4",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.1.1",
