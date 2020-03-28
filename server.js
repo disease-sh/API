@@ -14,8 +14,6 @@ const redis = new Endb({
   uri: `redis://:${config.redis.password}@${config.redis.host}:${config.redis.port}`,
   namespace: ''
 });
-console.log(redis);
-
 const keys = config.keys;
 
 const execAll = () => {
