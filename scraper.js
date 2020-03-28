@@ -1,7 +1,14 @@
+const getAll = require('./funcs/getAll');
+const getWorldometers = require('./funcs/getWorldometers');
+const getStates = require('./funcs/getStates');
+const jhuLocations = require('./funcs/jhuLocations');
+const historical = require('./funcs/historical');
+
+
 module.exports = {
-    getAll: require('./funcs/getAll'),
-    getCountries: require('./funcs/getCountries'),
-    getStates: require('./funcs/getStates'),
-    jhuLocations: require('./funcs/jhuLocations'),
-    historical: require('./funcs/historical'),
-}
+	getAll,
+	getWorldometers,
+	getStates,
+	jhuLocations,
+	historical
+};
