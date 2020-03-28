@@ -73,7 +73,8 @@ app.get('/historical/:country', async function (req, res) {
 app.get('/countries/:query', async (req, res) => {
 	const countries = JSON.parse(await redis.get(keys.countries));
 	const { query } = req.params;
-	const isText = !(Number.isNaN(query));
+	/* eslint-disable-next-line no-restricted-globals */
+	const isText = isNaN(query);
 
 	const country = countries.find((ctry) => {
 		if (isText) {
