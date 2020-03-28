@@ -85,6 +85,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "MrAugu",
+      "name": "MrAugu",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/39545629?v=4",
+      "profile": "https://discord.gg/rk7cVyk",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
