@@ -5,31 +5,41 @@ const countryMap = require('./countryMap');
 // eslint-disable-next-line max-len
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/';
 
-const historicalV2 = async (keys, redis) => {
+async function getCsvData() {
 	let casesResponse;
 	let deathsResponse;
 	try {
 		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_global.csv`);
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_global.csv`);
+		return { casesResponse, deathsResponse };
 	} catch (err) {
 		console.log(err);
 		return null;
 	}
+}
 
-	const parsedCases = await csv({
+async function parseCsvData(data) {
+	const parsedData = await csv({
 		noheader: true,
 		output: 'csv'
-	}).fromString(casesResponse.data);
+	}).fromString(data);
+	return parsedData;
+}
 
-	const parsedDeaths = await csv({
-		noheader: true,
-		output: 'csv'
-	}).fromString(deathsResponse.data);
+const historicalV2 = async (keys, redis) => {
+	const { casesResponse, deathsResponse } = await getCsvData();
+	const parsedCases = await parseCsvData(casesResponse.data);
+	const parsedDeaths = await parseCsvData(deathsResponse.data);
 
 	// to store parsed data
-	const result = [];
+	const result = Array(parsedCases.length).fill({ country: "", province: null, timeline: { cases: {}, deaths: {} }});
+	console.log(result);
 	// dates key for timeline
 	const timelineKey = parsedCases[0].splice(4);
+
+	// parsedCases.forEach((element, index) => {
+	// 	parseCsvData;
+	// })
 
 	// loop over all country entries
 	for (let b = 0; b < parsedDeaths.length; b++) {
