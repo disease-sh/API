@@ -200,8 +200,10 @@ app.get("/countries/", async function(req, res) {
 app.get("/countries/:country", async function(req, res) {
   let countries = await db.fetch("countries");
   let country = countries.find(
-    e => e.country.toLowerCase().includes(req.params.country.toLowerCase())
-  );
+  	e=>{
+  		if(e.country.toLowerCase().localeCompare(req.params.country.toLowerCase()) === 0)
+  			{return true;}
+  	});
   if (!country) {
     res.send("Country not found");
     return;
