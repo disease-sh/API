@@ -73,32 +73,26 @@ async function getHistoricalCountryDataV2(data, qCountry, qProvince) {
 	// get all the country data
 	const countryData = data.filter(obj => obj.country.toLowerCase() === standardizedCountryName);
 	// overall timeline for country
-	const timeline = { cases: {}, deaths: {}, recovered: {} };
+	const timeline = { cases: {}, deaths: {} };
 	// Creates timeline data for specified country or provice.
 	const summarizeData = (provinceIndex) => {
 		// loop cases, recovered, deaths for each province
-		Object.keys(countryData[provinceIndex].timeline).forEach(specifier => {
-			Object.keys(countryData[provinceIndex].timeline[specifier]).forEach(date => {
-				if (timeline[specifier][date]) {
-					timeline[specifier][date] += parseInt(countryData[provinceIndex].timeline[specifier][date]);
-				} else {
-					timeline[specifier][date] = parseInt(countryData[provinceIndex].timeline[specifier][date]);
-				}
+		for (var tProp in timeline) {
+			Object.assign(timeline, {
+				[tProp]: [provinceIndex ? countryData[provinceIndex].timeline[tProp] : countryData.map(cData => cData.timeline[tProp])].reduce((acc, cur) => {
+					Object.keys(cur).map(type => (acc[type] = (acc[type] || 0) + cur[type]));
+					return acc;
+				})
 			});
-		});
+		}
 	};
+
 	// check if there is matching province in the country data and return its index.
 	const qProvinceMatchIndex = countryData.findIndex(country => country.province && country.province.toLowerCase() === qProvince);
 
 	// if there there is a match province, only summarize the data for it
-	if (qProvince && qProvinceMatchIndex >= 0) {
-		summarizeData(qProvinceMatchIndex);
-	}
-	if (!qProvince) {
-		// otherwise, summarize all provincial data
-		for (var province = 0; province < countryData.length; province++) {
-			summarizeData(province);
-		}
+	if (!qProvince || qProvinceMatchIndex >= 0) {
+		summarizeData(qProvince && qProvinceMatchIndex >= 0 && qProvinceMatchIndex);
 	}
 
 	// return the country summarized data including if a province was requested
