@@ -30,36 +30,22 @@ const historicalV2 = async (keys, redis) => {
 	const { casesResponse, deathsResponse } = await getCsvData();
 	const parsedCases = await parseCsvData(casesResponse.data);
 	const parsedDeaths = await parseCsvData(deathsResponse.data);
-
-	// to store parsed data
-	const result = Array(parsedCases.length).fill({ country: "", province: null, timeline: { cases: {}, deaths: {} }});
-	console.log(result);
 	// dates key for timeline
 	const timelineKey = parsedCases[0].splice(4);
 
-	// parsedCases.forEach((element, index) => {
-	// 	parseCsvData;
-	// })
-
-	// loop over all country entries
-	for (let b = 0; b < parsedDeaths.length; b++) {
-		const timeline = {
-			cases: {},
-			deaths: {}
-		};
-		const cases = parsedCases[b].splice(4);
-		const deaths = parsedDeaths[b].splice(4);
+	const result = Array(parsedCases.length).fill({}).map((_, index) => {
+		const newElement = { country: '', province: null, timeline: { cases: {}, deaths: {} } };
+		const cases = parsedCases[index].splice(4);
+		const deaths = parsedDeaths[index].splice(4);
 		for (let i = 0; i < cases.length; i++) {
-			timeline.cases[timelineKey[i]] = parseInt(cases[i]);
-			timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
+			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
+			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
 		}
-		result.push({
-			country: countryMap.standardizeCountryName(parsedCases[b][1].toLowerCase()),
-			province: parsedCases[b][0] === '' ? null
-				: countryMap.standardizeCountryName(parsedCases[b][0].toLowerCase()),
-			timeline
-		});
-	}
+		newElement.country = countryMap.standardizeCountryName(parsedCases[index][1].toLowerCase());
+		newElement.province = parsedCases[index][0] === '' ? null
+			: countryMap.standardizeCountryName(parsedCases[index][0].toLowerCase());
+		return newElement;
+	});
 
 	const removeFirstObj = result.splice(1);
 	const string = JSON.stringify(removeFirstObj);
