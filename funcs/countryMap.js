@@ -12,19 +12,21 @@ const countryMapping = [
 	{ possibleNames: ['czech republic'], standardizedName: 'czechia' },
 	{ possibleNames: ['méxico'], standardizedName: 'mexico' },
 	{ possibleNames: ['brasil'], standardizedName: 'brazil' },
-	{ possibleNames: ['panamá'], standardizedName: 'panama' },
+	{ possibleNames: ['panamá'], standardizedName: 'panama' }
 ];
 
 /**
  * Takes a country name and gives back the standardized name, if a change is needed
+ * @param {string} countryName name of country
+ * @returns {string} string standardized country name, if one exist otherwise countryName is returned back
  */
 function standardizeCountryName(countryName) {
-	const possibleMapping = countryMapping.filter((mapping) => (
+	const possibleMapping = countryMapping.filter((mapping) =>
 		mapping.possibleNames.indexOf(countryName) >= 0
-	));
-	return (possibleMapping.length === 1 ? possibleMapping[0].standardizedName : countryName.toLowerCase());
+	);
+	return possibleMapping.length === 1 ? possibleMapping[0].standardizedName : countryName.toLowerCase();
 }
 
 module.exports = {
-	standardizeCountryName,
+	standardizeCountryName
 };

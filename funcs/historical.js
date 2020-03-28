@@ -19,12 +19,12 @@ const historicalV2 = async (keys, redis) => {
 
 	const parsedCases = await csv({
 		noheader: true,
-		output: 'csv',
+		output: 'csv'
 	}).fromString(casesResponse.data);
 
 	const parsedDeaths = await csv({
 		noheader: true,
-		output: 'csv',
+		output: 'csv'
 	}).fromString(deathsResponse.data);
 
 	// to store parsed data
@@ -36,19 +36,19 @@ const historicalV2 = async (keys, redis) => {
 	for (let b = 0; b < parsedDeaths.length;) {
 		const timeline = {
 			cases: {},
-			deaths: {},
+			deaths: {}
 		};
-		const c = parsedCases[b].splice(4);
-		const d = parsedDeaths[b].splice(4);
-		for (let i = 0; i < c.length; i++) {
-			timeline.cases[timelineKey[i]] = parseInt(c[i]);
-			timeline.deaths[timelineKey[i]] = parseInt(d[i]);
+		const cases = parsedCases[b].splice(4);
+		const deaths = parsedDeaths[b].splice(4);
+		for (let i = 0; i < cases.length; i++) {
+			timeline.cases[timelineKey[i]] = parseInt(cases[i]);
+			timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
 		}
 		result.push({
 			country: countryMap.standardizeCountryName(parsedCases[b][1].toLowerCase()),
 			province: parsedCases[b][0] === '' ? null
 				: countryMap.standardizeCountryName(parsedCases[b][0].toLowerCase()),
-			timeline,
+			timeline
 		});
 		b++;
 	}
@@ -56,7 +56,7 @@ const historicalV2 = async (keys, redis) => {
 	const removeFirstObj = result.splice(1);
 	const string = JSON.stringify(removeFirstObj);
 	redis.set(keys.historical_v2, string);
-	console.log(`Updated JHU CSSE Historical: ${removeFirstObj.length} locations`);
+	return console.log(`Updated JHU CSSE Historical: ${removeFirstObj.length} locations`);
 };
 
 /**
@@ -84,13 +84,13 @@ async function getHistoricalCountryDataV2(data, country) {
 		});
 	}
 
-	return ({
+	return {
 		country: standardizedCountryName,
-		timeline,
-	});
+		timeline
+	};
 }
 
 module.exports = {
 	historicalV2,
-	getHistoricalCountryDataV2,
+	getHistoricalCountryDataV2
 };

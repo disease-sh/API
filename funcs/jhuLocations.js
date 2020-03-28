@@ -10,26 +10,26 @@ const jhudata = async (keys, redis) => {
 	try {
 		response = await axios.get(
 			`${base}0${date.getMonth()
-				+ 1}-${date.getDate()}-${date.getFullYear()}.csv`,
+				+ 1}-${date.getDate()}-${date.getFullYear()}.csv`
 		);
 		console.log(
 			`USING 0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv CSSEGISandData`,
+				- 1}-${date.getFullYear()}.csv CSSEGISandData`
 		);
 	} catch (err) {
 		response = await axios.get(
 			`${base}0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv`,
+				- 1}-${date.getFullYear()}.csv`
 		);
 		console.log(
 			`USING 0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv CSSEGISandData`,
+				- 1}-${date.getFullYear()}.csv CSSEGISandData`
 		);
 	}
 
 	const parsed = await csv({
 		noheader: true,
-		output: 'csv',
+		output: 'csv'
 	}).fromString(response.data);
 
 	// to store parsed data
@@ -44,12 +44,12 @@ const jhudata = async (keys, redis) => {
 			stats: {
 				confirmed: loc[7],
 				deaths: loc[8],
-				recovered: loc[9],
+				recovered: loc[9]
 			},
 			coordinates: {
 				latitude: loc[5],
-				longitude: loc[6],
-			},
+				longitude: loc[6]
+			}
 		});
 	});
 	const string = JSON.stringify(result);
@@ -63,26 +63,26 @@ const jhudataV2 = async (keys, redis) => {
 	try {
 		response = await axios.get(
 			`${base}0${date.getMonth()
-				+ 1}-${date.getDate()}-${date.getFullYear()}.csv`,
+				+ 1}-${date.getDate()}-${date.getFullYear()}.csv`
 		);
 		console.log(
 			`USING 0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv CSSEGISandData`,
+				- 1}-${date.getFullYear()}.csv CSSEGISandData`
 		);
 	} catch (err) {
 		response = await axios.get(
 			`${base}0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv`,
+				- 1}-${date.getFullYear()}.csv`
 		);
 		console.log(
 			`USING 0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv CSSEGISandData`,
+				- 1}-${date.getFullYear()}.csv CSSEGISandData`
 		);
 	}
 
 	const parsed = await csv({
 		noheader: true,
-		output: 'csv',
+		output: 'csv'
 	}).fromString(response.data);
 
 	// to store parsed data
@@ -106,12 +106,12 @@ const jhudataV2 = async (keys, redis) => {
 					stats: {
 						confirmed: parseInt(loc[7]),
 						deaths: parseInt(loc[8]),
-						recovered: parseInt(loc[9]),
+						recovered: parseInt(loc[9])
 					},
 					coordinates: {
 						latitude: loc[5],
-						longitude: loc[6],
-					},
+						longitude: loc[6]
+					}
 				};
 			}
 		} else {
@@ -122,12 +122,12 @@ const jhudataV2 = async (keys, redis) => {
 				stats: {
 					confirmed: parseInt(loc[7]),
 					deaths: parseInt(loc[8]),
-					recovered: parseInt(loc[9]),
+					recovered: parseInt(loc[9])
 				},
 				coordinates: {
 					latitude: loc[5],
-					longitude: loc[6],
-				},
+					longitude: loc[6]
+				}
 			});
 		}
 	});
@@ -140,5 +140,5 @@ const jhudataV2 = async (keys, redis) => {
 
 module.exports = {
 	jhudata,
-	jhudataV2,
+	jhudataV2
 };

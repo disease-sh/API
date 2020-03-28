@@ -5,7 +5,7 @@
 		"es6": true
 	},
   "extends": [
-		"airbnb-base"
+		"@aero"
   ],
   "globals": {
 		"Atomics": "readonly",
@@ -15,17 +15,17 @@
 		
   },
   "rules": {
-		"consistent-return": "off",
-		"no-console": "off",
-		"no-plusplus": "off",
-		"no-underscore-dangle": "off",
-		"radix": "off",
-		"prefer-destructuring": "off",
-		"func-names": "off",
-		"prefer-arrow-callback": "off",
-		"no-else-return": "off",
-		"no-tabs": "off",
-		"indent": ["error", "tab"],
-		"max-len": ["error", 120]
+		// "consistent-return": "off",
+		// "no-console": "off",
+		// "no-plusplus": "off",
+		// "no-underscore-dangle": "off",
+		// "radix": "off",
+		// "prefer-destructuring": "off",
+		// "func-names": "off",
+		// "prefer-arrow-callback": "off",
+		// "no-else-return": "off",
+		// "no-tabs": "off",
+		// "indent": ["error", "tab"],
+		// "max-len": ["error", 120]
   }
 }

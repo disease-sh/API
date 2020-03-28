@@ -6,7 +6,7 @@ const getall = async (keys, redis) => {
 	try {
 		response = await axios.get('https://www.worldometers.info/coronavirus/');
 		if (response.status !== 200) {
-			console.log('ERROR');
+			return console.log('ERROR');
 		}
 	} catch (err) {
 		return null;
@@ -33,7 +33,7 @@ const getall = async (keys, redis) => {
 	result.active = result.cases - result.deaths - result.recovered;
 	const string = JSON.stringify(result);
 	redis.set(keys.all, string);
-	console.log('Updated The Cases', result);
+	return console.log('Updated The Cases', result);
 };
 
 module.exports = getall;

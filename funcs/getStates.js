@@ -48,11 +48,11 @@ const getStates = async (keys, redis) => {
 		todayCases: 2,
 		deaths: 3,
 		todayDeaths: 4,
-		active: 5,
+		active: 5
 	};
 
 	tableRows.forEach((row) => {
-		const cells = row.children.filter((c) => c.name === 'td');
+		const cells = row.children.filter((cell) => cell.name === 'td');
 		const stateData = { state: parseStateCell(cells[stateColIndex]) };
 		Object.keys(dataColIndexes).forEach((property) => {
 			stateData[property] = parseNumberCell(cells[dataColIndexes[property]]);
@@ -62,7 +62,7 @@ const getStates = async (keys, redis) => {
 
 	const string = JSON.stringify(result);
 	redis.set(keys.states, string);
-	console.log(`Updated states: ${result.length} states`);
+	return console.log(`Updated states: ${result.length} states`);
 };
 
 module.exports = getStates;

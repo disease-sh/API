@@ -255,10 +255,10 @@ const countryData = [
 	{ country: 'Western Sahara', iso2: 'EH', iso3: 'ESH', _id: 732, lat: 24.5, long: -13 },
 	{ country: 'Yemen', iso2: 'YE', iso3: 'YEM', _id: 887, lat: 15, long: 48 },
 	{ country: 'Zambia', iso2: 'ZM', iso3: 'ZMB', _id: 894, lat: -15, long: 30 },
-	{ country: 'Zimbabwe', iso2: 'ZW', iso3: 'ZWE', _id: 716, lat: -20, long: 30 },
+	{ country: 'Zimbabwe', iso2: 'ZW', iso3: 'ZWE', _id: 716, lat: -20, long: 30 }
 ];
 
-const getCountryCode = function (countryName) {
+const getCountryCode = (countryName) => {
 	countryData.forEach((element) => {
 		if (element.country.toLowerCase() === countryName.toLowerCase()) {
 			return element.iso2;
@@ -268,7 +268,7 @@ const getCountryCode = function (countryName) {
 	return null;
 };
 
-const getCountryName = function (countryCode) {
+const getCountryName = (countryCode) => {
 	countryData.forEach((element) => {
 		if (element.iso2.toLowerCase() === countryCode.toLowerCase()) {
 			return element.country;
@@ -285,7 +285,7 @@ const getCountryData = (countryNameParam) => {
 		_id: null,
 		lat: 0,
 		long: 0,
-		flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png',
+		flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png'
 	};
 
 	for (let i = 0; i < countryData.length; i++) {
@@ -313,7 +313,7 @@ const getCountryData = (countryNameParam) => {
 				iso3: element.iso3,
 				lat: element.lat,
 				long: element.long,
-				flag: `https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${element.iso2.toLowerCase()}.png`,
+				flag: `https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${element.iso2.toLowerCase()}.png`
 			};
 		}
 	}
@@ -334,5 +334,5 @@ module.exports = {
 	getCountryCode,
 	getCountryName,
 	getCountryData,
-	isCountryException,
+	isCountryException
 };
