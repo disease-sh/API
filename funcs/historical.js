@@ -57,6 +57,7 @@ const historicalV2 = async (keys, redis) => {
 		const newElement = {
 			country: '', countryInfo: {}, province: null, timeline: { cases: {}, deaths: {}, recovered: {} }
 		};
+		// data begins at index 4
 		const cases = parsedCases[index].splice(4);
 		const deaths = parsedDeaths[index].splice(4);
 		const recovered = (parsedRecovered[index] || []).splice(4);
@@ -67,6 +68,7 @@ const historicalV2 = async (keys, redis) => {
 			newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
 		}
 
+		// add country inf o to support iso2/3 queries
 		const countryData = countryUtils.getCountryData(parsedCases[index][1]);
 		newElement.country = countryData.country || parsedCases[index][1];
 		newElement.countryInfo = countryData;
@@ -91,7 +93,11 @@ const historicalV2 = async (keys, redis) => {
  * @returns {Object}				The filtered historical data.
  */
 const getHistoricalCountryDataV2 = (data, query, province = null) => {
+	// doesn't fin if iso/id, only for countryName
 	const countryINFO = countryUtils.getCountryData(query);
+	console.log(countryINFO);
+	// province is correctly null when it's supposed to be
+	// isNaN query is true is using id
 
 	const filteredData = data.find((item) => {
 		if (isNaN(query)) {
@@ -113,12 +119,8 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 		return item.countryInfo._id === Number(query);
 	});
 
-	if (filteredData) { delete filteredData.countryInfo; }
+	if (filteredData) delete filteredData.countryInfo;
 
-	// if (filteredData)
-	// 	filteredData.forEach(item => {
-	// 		delete (item.countryInfo);
-	// 	});
 	return filteredData;
 };
 

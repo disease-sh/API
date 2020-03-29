@@ -303,7 +303,8 @@ const getCountryData = (countryNameParam) => {
 	const countryFound = countryData.find(item => {
 		if (stringUtils.wordsStandardize(item.country) === countryName
 			|| stringUtils.wordsStandardize(item.iso2) === countryName
-			|| stringUtils.wordsStandardize(item.iso3) === countryName) {
+			|| stringUtils.wordsStandardize(item.iso3) === countryName
+			|| item.id === parseInt(countryName)) {
 			return true;
 		}
 		// @buster95: PLEASE DON'T MODIFY THIS CODE

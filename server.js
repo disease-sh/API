@@ -128,12 +128,11 @@ app.get('/v2/historical/:query/:province?', async (req, res) => {
 		query.toLowerCase(),
 		province && province.toLowerCase()
 	);
-
 	if (countryData) {
 		res.send(countryData);
-		return;
+	} else {
+		res.status(404).send({ message: 'Country not found or doesn\'t have any historical data' });
 	}
-	res.status(404).send({ message: 'Country not found or doesn\'t have any historical data' });
 });
 
 app.get('/v2/jhucsse', async (req, res) => {
