@@ -123,8 +123,8 @@ app.get('/v2/historical/all', async (req, res) => {
 			} else {
 				cases[key] = country.timeline.cases[key];
 			}
-	     	});
-	 });
+		});
+	});
 	res.send(cases);
 });
 
