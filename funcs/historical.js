@@ -69,7 +69,6 @@ const historicalV2 = async (keys, redis) => {
 		}
 
 		const countryData = country_utils.getCountryData(parsedCases[index][1]);
-		console.log({ ...countryData, country2: parsedCases[index][1] });
 		newElement.country = countryData.country || parsedCases[index][1];
 		newElement.countryInfo = countryData;
 		newElement.province = parsedCases[index][0] === '' ? null
@@ -94,7 +93,6 @@ const historicalV2 = async (keys, redis) => {
  */
 const getHistoricalCountryDataV2 = (data, query, province = null) => {
 	const countryINFO = country_utils.getCountryData(query);
-	console.log(countryINFO);
 
 	const filteredData = data.find((item) => {
 		if (isNaN(query)) {
@@ -118,7 +116,7 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 
 	if (filteredData)
 		delete (filteredData.countryInfo);
-		
+
 	// if (filteredData)
 	// 	filteredData.forEach(item => {
 	// 		delete (item.countryInfo);
