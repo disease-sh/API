@@ -128,7 +128,7 @@ app.get('/v2/jhucsse/', async (req, res) => {
 	res.send(data);
 });
 
-// depreciated
+// deprecated
 app.get('/historical/', async (req, res) => {
 	res.send({ message: 'Deprecated, use /v2/historical' });
 });
