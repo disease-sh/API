@@ -5,6 +5,10 @@ const countryMap = require('./countryMap');
 // eslint-disable-next-line max-len
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/';
 
+/**
+ * Retrieves csv data files from JHU repo
+ * @returns {Promise}	Promise of raw csv data
+ */
 async function getCsvData() {
 	let casesResponse;
 	let deathsResponse;
@@ -18,6 +22,11 @@ async function getCsvData() {
 	}
 }
 
+/**
+ * Parses csv file to program readable format
+ * @param 	{Object}	data	Raw csv data
+ * @returns {array}				Array of parsed csv data
+ */
 async function parseCsvData(data) {
 	const parsedData = await csv({
 		noheader: true,
@@ -26,6 +35,12 @@ async function parseCsvData(data) {
 	return parsedData;
 }
 
+/**
+ * Parses JHU csv data for country timeline data
+ * @param 	{string}	keys 	config countries key
+ * @param 	{Object}	redis 	Redis db
+ * @returns {array}				Array of objects containing historical data on country/province
+ */
 const historicalV2 = async (keys, redis) => {
 	const { casesResponse, deathsResponse } = await getCsvData();
 	const parsedCases = await parseCsvData(casesResponse.data);
@@ -55,10 +70,10 @@ const historicalV2 = async (keys, redis) => {
 
 /**
  * Parses data from historical endpoint and returns data for specific country || province
- * @param   {array}   data       Full historical data returned from /historical endpoint
- * @param   {string}  country   Country query param
- * @param   {string}  province  Province query param (optional)
- * @returns  {onbject}             The filtered historical data.
+ * @param 	{array}		data		Full historical data returned from /historical endpoint
+ * @param 	{string}	country   	Country query param
+ * @param 	{string}	province  	Province query param (optional)
+ * @returns {Object}				The filtered historical data.
  */
 async function getHistoricalCountryDataV2(data, country, province = null) {
 	const standardizedCountryName = countryMap.standardizeCountryName(country.toLowerCase());
@@ -73,16 +88,16 @@ async function getHistoricalCountryDataV2(data, country, province = null) {
 	// overall timeline for country
 	const timeline = { cases: {}, deaths: {} };
 	// sum over provinces
-	for (let prov = 0; prov < countryData.length; prov++) {
+	countryData.forEach((_, index) => {
 		// loop cases, deaths for each province
-		Object.keys(countryData[prov].timeline).forEach((specifier) => {
-			Object.keys(countryData[prov].timeline[specifier]).forEach((date) => {
+		Object.keys(countryData[index].timeline).forEach((specifier) => {
+			Object.keys(countryData[index].timeline[specifier]).forEach((date) => {
 				// eslint-disable-next-line no-unused-expressions
-				timeline[specifier][date] ? timeline[specifier][date] += parseInt(countryData[prov].timeline[specifier][date])
-					: timeline[specifier][date] = parseInt(countryData[prov].timeline[specifier][date]);
+				timeline[specifier][date] ? timeline[specifier][date] += parseInt(countryData[index].timeline[specifier][date])
+					: timeline[specifier][date] = parseInt(countryData[index].timeline[specifier][date]);
 			});
 		});
-	}
+	});
 	return {
 		country: standardizedCountryName,
 		timeline
