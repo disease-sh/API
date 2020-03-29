@@ -11,27 +11,8 @@ https://corona.lmao.ninja/
 # Recommended by Postman
 NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
-# Endpoints v2
-|  GET Request  | Output  |
-| ------------ | ------------ |
-| https://corona.lmao.ninja/v2/historical | Get historical data from the start of 2020. (JHU CSSE GISand Data) |
-| https://corona.lmao.ninja/v2/historical/{country-name} | Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
-|  https://corona.lmao.ninja/v2/jhucsse | Return data from the Johns Hopkins CSSE Data Repository (Country, province, confirmed, death, recovered) |
-
-# Endpoints v1
-|  GET Request  | Output  |
-| ------------ | ------------ |
-|  https://corona.lmao.ninja/all | Returns all total cases, recovery, and deaths. |
-|  https://corona.lmao.ninja/countries | Returns data of all countries that has COVID-19 |
-|  https://corona.lmao.ninja/countries?sort={parameter} | Returns data of each country sorted by the parameter |
-|  https://corona.lmao.ninja/countries/{country-name} | Returns data of a specific country. If an exact name match is desired pass ?strict=true in the query string |
-|  https://corona.lmao.ninja/countries/{country-Id} | Returns the data of a country if it is equal to its country id  |
-|  https://corona.lmao.ninja/countries/{country-ISO2} | Returns the data of a country if it is equal to its country ISO2 |
-|  https://corona.lmao.ninja/countries/{country-ISO3} | Returns the data of a country if it is equal to its country ISO3 |
-|  https://corona.lmao.ninja/states | Returns all United States of America and their Corona data |
-|  https://corona.lmao.ninja/jhucsse | **DEPRECATED USE V2 ENDPOINT** Return data from the Johns Hopkins CSSE Data Repository (Provinces and such) |
-| https://corona.lmao.ninja/historical | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020. (JHU CSSE GISand Data) |
-| https://corona.lmao.ninja/historical/{country-name} | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
+# Documentation
+NovelCovid/API Documentation can be found [here](https://docs.corona.lmao-xd.wtf)
 
 ## Loading and using our NPM Package
 
