@@ -113,9 +113,13 @@ app.get('/v2/historical/', async (req, res) => {
 	res.send(data);
 });
 
-app.get('/v2/historical/:country', async (req, res) => {
+app.get('/v2/historical/:country/:province?', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.historical_v2));
-	const countryData = await scraper.historical.getHistoricalCountryDataV2(data, req.params.country.toLowerCase());
+	const countryData = await scraper.historical.getHistoricalCountryDataV2(
+		data,
+		req.params.country.toLowerCase(),
+		req.params.province && req.params.province.toLowerCase()
+	);
 	res.send(countryData);
 });
 
