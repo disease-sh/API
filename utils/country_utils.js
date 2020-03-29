@@ -301,9 +301,9 @@ const getCountryData = (countryNameParam) => {
 	};
 
 	const countryFound = countryData.find(item => {
-		if (stringUtils.wordsStandardize(item.country) === countryName ||
-			stringUtils.wordsStandardize(item.iso2) === countryName ||
-			stringUtils.wordsStandardize(item.iso3) === countryName) {
+		if (stringUtils.wordsStandardize(item.country) === countryName
+			|| stringUtils.wordsStandardize(item.iso2) === countryName
+			|| stringUtils.wordsStandardize(item.iso3) === countryName) {
 			return true;
 		}
 		// @buster95: PLEASE DON'T MODIFY THIS CODE
@@ -314,9 +314,10 @@ const getCountryData = (countryNameParam) => {
 				return true;
 			}
 		}
+		return false;
 	});
 
-	if (countryFound)
+	if (countryFound) {
 		return {
 			_id: countryFound.id,
 			country: countryFound.country,
@@ -326,6 +327,7 @@ const getCountryData = (countryNameParam) => {
 			long: countryFound.long,
 			flag: `https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${countryFound.iso2.toLowerCase()}.png`
 		};
+	}
 	return nullReturn;
 };
 

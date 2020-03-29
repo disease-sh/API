@@ -53,8 +53,7 @@ function fillResult(html, yesterday = false) {
 		if (i % totalColumns === countryColIndex) {
 			const country = getCountryData(cell);
 			const countryData = countryUtils.getCountryData(country);
-			if (countryData)
-				delete (countryData.country);
+			if (countryData) { delete countryData.country; }
 			result.push({ country, countryInfo: countryData });
 		}
 		// get cases

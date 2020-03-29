@@ -109,7 +109,7 @@ app.get('/countries/:query', async (req, res) => {
 app.get('/v2/historical', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.historical_v2));
 	data.forEach(item => {
-		delete (item.countryInfo);
+		delete item.countryInfo;
 	});
 	res.send(data);
 });

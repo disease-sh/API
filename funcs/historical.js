@@ -1,8 +1,7 @@
 const axios = require('axios');
 const csv = require('csvtojson');
 const countryMap = require('./countryMap');
-const country_utils = require('../utils/country_utils');
-const string_utils = require('../utils/string_utils');
+const countryUtils = require('../utils/country_utils');
 
 // eslint-disable-next-line max-len
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/';
@@ -68,7 +67,7 @@ const historicalV2 = async (keys, redis) => {
 			newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
 		}
 
-		const countryData = country_utils.getCountryData(parsedCases[index][1]);
+		const countryData = countryUtils.getCountryData(parsedCases[index][1]);
 		newElement.country = countryData.country || parsedCases[index][1];
 		newElement.countryInfo = countryData;
 		newElement.province = parsedCases[index][0] === '' ? null
@@ -92,37 +91,36 @@ const historicalV2 = async (keys, redis) => {
  * @returns {Object}				The filtered historical data.
  */
 const getHistoricalCountryDataV2 = (data, query, province = null) => {
-	const countryINFO = country_utils.getCountryData(query);
+	const countryINFO = countryUtils.getCountryData(query);
 
 	const filteredData = data.find((item) => {
 		if (isNaN(query)) {
 			if (province) {
-				return item.province && item.province === province &&
-					((item.countryInfo.country || 'null') === countryINFO.country ||
-						(item.countryInfo.iso2 || 'null') === countryINFO.iso2 ||
-						(item.countryInfo.iso3 || 'null') === countryINFO.iso3);
+				return item.province && item.province === province
+					&& ((item.countryInfo.country || 'null') === countryINFO.country
+						|| (item.countryInfo.iso2 || 'null') === countryINFO.iso2
+						|| (item.countryInfo.iso3 || 'null') === countryINFO.iso3);
 			}
-			return ((item.countryInfo.country || 'null') === countryINFO.country ||
-				(item.countryInfo.iso2 || 'null') === countryINFO.iso2 ||
-				(item.countryInfo.iso3 || 'null') === countryINFO.iso3);
+			return (item.countryInfo.country || 'null') === countryINFO.country
+				|| (item.countryInfo.iso2 || 'null') === countryINFO.iso2
+				|| (item.countryInfo.iso3 || 'null') === countryINFO.iso3;
 		}
 
 		if (province) {
-			return item.province && item.province === province &&
-				item.countryInfo._id === Number(query);
+			return item.province && item.province === province
+				&& item.countryInfo._id === Number(query);
 		}
 		return item.countryInfo._id === Number(query);
 	});
 
-	if (filteredData)
-		delete (filteredData.countryInfo);
+	if (filteredData) { delete filteredData.countryInfo; }
 
 	// if (filteredData)
 	// 	filteredData.forEach(item => {
 	// 		delete (item.countryInfo);
 	// 	});
 	return filteredData;
-}
+};
 
 /**
  * Parses data from historical endpoint and returns summed global statistics
