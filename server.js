@@ -113,6 +113,21 @@ app.get('/v2/historical/', async (req, res) => {
 	res.send(data);
 });
 
+app.get('/v2/historical/all', async (req, res) => {
+	const data = JSON.parse(await redis.get(keys.historical_v2));
+	var cases = {};
+	data.forEach(country => {
+		Object.keys(country.timeline.cases).forEach(key => {
+			if (cases[key]) {
+				cases[key] += country.timeline.cases[key];
+			} else {
+				cases[key] = country.timeline.cases[key];
+			}
+		});
+	});
+	res.send(cases);
+});
+
 app.get('/v2/historical/:country/:province?', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.historical_v2));
 	const countryData = await scraper.historical.getHistoricalCountryDataV2(
