@@ -37,32 +37,32 @@ const listener = app.listen(config.port, () => {
 	console.log(`Your app is listening on port ${listener.address().port}`);
 });
 
-app.get('/invite/', async (req, res) => {
+app.get('/invite', async (req, res) => {
 	/* eslint max-len: off */
 	res.redirect('https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880');
 });
 
-app.get('/support/', async (req, res) => {
+app.get('/support', async (req, res) => {
 	res.redirect('https://discord.gg/EvbMshU');
 });
 
 // API endpoints
-app.get('/all/', async (req, res) => {
+app.get('/all', async (req, res) => {
 	const all = JSON.parse(await redis.get(keys.all));
 	res.send(all);
 });
 
-app.get('/states/', async (req, res) => {
+app.get('/states', async (req, res) => {
 	const states = JSON.parse(await redis.get(keys.states));
 	res.send(states);
 });
 
-app.get('/jhucsse/', async (req, res) => {
+app.get('/jhucsse', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.jhu));
 	res.send(data);
 });
 
-app.get('/countries/', async (req, res) => {
+app.get('/countries', async (req, res) => {
 	const { sort } = req.query;
 	let countries = JSON.parse(await redis.get(keys.countries));
 	if (sort) {
@@ -86,18 +86,16 @@ app.get('/countries/:query', async (req, res) => {
 				return req.query.strict.toLowerCase() === 'true'
 					? ctry.country.toLowerCase() === standardizedCountryName
 					: ctry.country.toLowerCase().includes(standardizedCountryName);
-			} else {
-				return (
-					(ctry.countryInfo.iso3 || 'null').toLowerCase() === query.toLowerCase()
-					|| (ctry.countryInfo.iso2 || 'null').toLowerCase() === query.toLowerCase()
-					|| ((query.length > 3 || countryUtils.isCountryException(query.toLowerCase()))
-							&& ctry.country.toLowerCase().includes(standardizedCountryName))
-				);
 			}
-		} else {
-		// number, must be country ID
-			return ctry.countryInfo._id === Number(query);
+			return (
+				(ctry.countryInfo.iso3 || 'null').toLowerCase() === query.toLowerCase()
+				|| (ctry.countryInfo.iso2 || 'null').toLowerCase() === query.toLowerCase()
+				|| ((query.length > 3 || countryUtils.isCountryException(query.toLowerCase()))
+					&& ctry.country.toLowerCase().includes(standardizedCountryName))
+			);
 		}
+		// number, must be country ID
+		return ctry.countryInfo._id === Number(query);
 	});
 
 	if (country) {
@@ -108,28 +106,37 @@ app.get('/countries/:query', async (req, res) => {
 	res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 });
 
-app.get('/v2/historical/', async (req, res) => {
+app.get('/v2/historical', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.historical_v2));
+	data.forEach(item => {
+		delete (item.countryInfo);
+	});
 	res.send(data);
 });
 
-app.get('/v2/historical/:country/:province?', async (req, res) => {
+app.get('/v2/historical/:query/:province?', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.historical_v2));
+	const { query, province } = req.params;
 	const countryData = await scraper.historical.getHistoricalCountryDataV2(
 		data,
-		req.params.country.toLowerCase(),
-		req.params.province && req.params.province.toLowerCase()
+		query.toLowerCase(),
+		province && province.toLowerCase()
 	);
-	res.send(countryData);
+
+	if (countryData) {
+		res.send(countryData);
+		return;
+	}
+	res.status(404).send({ message: 'Country not found or doesn\'t have any historical data' });
 });
 
-app.get('/v2/jhucsse/', async (req, res) => {
+app.get('/v2/jhucsse', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.jhu_v2));
 	res.send(data);
 });
 
 // deprecated
-app.get('/historical/', async (req, res) => {
+app.get('/historical', async (req, res) => {
 	res.send({ message: 'Deprecated, use /v2/historical' });
 });
 
