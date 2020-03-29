@@ -13,12 +13,12 @@ const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/c
 async function getCsvData() {
 	let casesResponse;
 	let deathsResponse;
-	let recoveredResponse;
+	// let recoveredResponse;
 	try {
 		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_global.csv`);
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_global.csv`);
-		recoveredResponse = await axios.get(`${base}time_series_covid19_recovered_global.csv`);
-		return { casesResponse, deathsResponse, recoveredResponse };
+		// recoveredResponse = await axios.get(`${base}time_series_covid19_recovered_global.csv`);
+		return { casesResponse, deathsResponse };
 	} catch (err) {
 		console.log(err);
 		return null;
@@ -45,10 +45,10 @@ async function parseCsvData(data) {
  * @returns {array}				Array of objects containing historical data on country/province
  */
 const historicalV2 = async (keys, redis) => {
-	const { casesResponse, deathsResponse, recoveredResponse } = await getCsvData();
+	const { casesResponse, deathsResponse } = await getCsvData();
 	const parsedCases = await parseCsvData(casesResponse.data);
 	const parsedDeaths = await parseCsvData(deathsResponse.data);
-	const parsedRecovered = await parseCsvData(recoveredResponse.data);
+	// const parsedRecovered = await parseCsvData(recoveredResponse.data);
 	// console.log(parsedRecovered);
 	// dates key for timeline
 	const timelineKey = parsedCases[0].splice(4);
@@ -60,12 +60,12 @@ const historicalV2 = async (keys, redis) => {
 		// data begins at index 4
 		const cases = parsedCases[index].splice(4);
 		const deaths = parsedDeaths[index].splice(4);
-		const recovered = (parsedRecovered[index] || []).splice(4);
+		// const recovered = (parsedRecovered[index] || []).splice(4);
 
 		for (let i = 0; i < cases.length; i++) {
 			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
 			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
-			newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
+			// newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
 		}
 
 		// add country inf o to support iso2/3 queries
@@ -93,35 +93,37 @@ const historicalV2 = async (keys, redis) => {
  * @returns {Object}				The filtered historical data.
  */
 const getHistoricalCountryDataV2 = (data, query, province = null) => {
-	// doesn't fin if iso/id, only for countryName
-	const countryINFO = countryUtils.getCountryData(query);
-	console.log(countryINFO);
-	// province is correctly null when it's supposed to be
-	// isNaN query is true is using id
-
-	const filteredData = data.find((item) => {
-		if (isNaN(query)) {
-			if (province) {
-				return item.province && item.province === province
-					&& ((item.countryInfo.country || 'null') === countryINFO.country
-						|| (item.countryInfo.iso2 || 'null') === countryINFO.iso2
-						|| (item.countryInfo.iso3 || 'null') === countryINFO.iso3);
-			}
-			return (item.countryInfo.country || 'null') === countryINFO.country
-				|| (item.countryInfo.iso2 || 'null') === countryINFO.iso2
-				|| (item.countryInfo.iso3 || 'null') === countryINFO.iso3;
-		}
-
+	const countryInfo = countryUtils.getCountryData(query);
+	// invalid query
+	if (countryInfo.cuntry === null) return null;
+	const countryName = countryMap.standardizeCountryName(countryInfo.country);
+	// filter to either specific province, or provinces to sum country over
+	const countryData = data.filter((obj) => {
 		if (province) {
-			return item.province && item.province === province
-				&& item.countryInfo._id === Number(query);
+			return obj.province && obj.province === province && obj.country.toLowerCase() === countryName;
+		} else {
+			return obj.country.toLowerCase() === countryName;
 		}
-		return item.countryInfo._id === Number(query);
+	});
+	// overall timeline for country
+	// TODO: fix for recovered data
+	const timeline = { cases: {}, deaths: {} };
+	countryData.forEach((_, index) => {
+		// loop cases, deaths for each province
+		Object.keys(countryData[index].timeline).forEach((specifier) => {
+			Object.keys(countryData[index].timeline[specifier]).forEach((date) => {
+				// eslint-disable-next-line no-unused-expressions
+				timeline[specifier][date] ? timeline[specifier][date] += parseInt(countryData[index].timeline[specifier][date])
+					: timeline[specifier][date] = parseInt(countryData[index].timeline[specifier][date]);
+			});
+		});
 	});
 
-	if (filteredData) delete filteredData.countryInfo;
-
-	return filteredData;
+	return {
+		country: countryName,
+		province: province,
+		timeline
+	};
 };
 
 /**
