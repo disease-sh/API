@@ -85,13 +85,13 @@ function fillResult(html, yesterday = false) {
 		// get total cases per one million population
 		if (i % totalColumns === casesPerOneMillionColIndex) {
 			const casesPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
-			result[result.length - 1].casesPerOneMillion = parseFloat(casesPerOneMillion);
+			result[result.length - 1].casesPerOneMillion = parseFloat(casesPerOneMillion.split(',').join(''));
 		}
 
 		// get total deaths per one million population
 		if (i % totalColumns === deathsPerOneMillionColIndex) {
 			const deathsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
-			result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion);
+			result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion.split(',').join(''));
 		}
 	}
 	return result;
