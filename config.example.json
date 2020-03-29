@@ -9,7 +9,9 @@
     "countries": "covidapi:countries",
     "states": "covidapi:states",
     "jhu": "covidapi:jhu",
-    "historical": "covidapi:historical"
+    "historical": "covidapi:historical",
+    "counties": "covidapi:counties",
+    "historicalCounties": "covidapi:historicalCounties"
   },
   "port": 3000,
   "interval": 600000
