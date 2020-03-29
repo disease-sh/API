@@ -55,7 +55,7 @@ const historicalV2 = async (keys, redis) => {
 	// format csv data to response
 	const result = Array(parsedCases.length).fill({}).map((_, index) => {
 		const newElement = {
-			country: '', province: null, timeline: { cases: {}, deaths: {}, recovered: {} }
+			country: '', countryInfo: {}, province: null, timeline: { cases: {}, deaths: {}, recovered: {} }
 		};
 		const cases = parsedCases[index].splice(4);
 		const deaths = parsedDeaths[index].splice(4);
@@ -69,6 +69,7 @@ const historicalV2 = async (keys, redis) => {
 
 		const countryData = countryUtils.getCountryData(parsedCases[index][1]);
 		newElement.country = countryData.country || parsedCases[index][1];
+		newElement.countryInfo = countryData;
 		newElement.province = parsedCases[index][0] === '' ? null
 			: countryMap.standardizeCountryName(parsedCases[index][0].toLowerCase());
 		return newElement;
