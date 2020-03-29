@@ -126,7 +126,31 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 	return filteredData;
 }
 
+/**
+ * Parses data from historical endpoint and returns summed global statistics
+ * @param {array} data Full historical data returned from /historical endpoint
+ * @returns {Object}	The global deaths and cases
+ */
+async function getHistoricalAllDataV2(data) {
+	const cases = {};
+	const deaths = {};
+	data.forEach(country => {
+		Object.keys(country.timeline.cases).forEach(key => {
+			/* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
+			cases[key] ? cases[key] += country.timeline.cases[key] : cases[key] = country.timeline.cases[key];
+			deaths[key] ? deaths[key] += country.timeline.deaths[key] : deaths[key] = country.timeline.deaths[key];
+			return true;
+		});
+		return true;
+	});
+	return {
+		cases,
+		deaths
+	};
+}
+
 module.exports = {
 	historicalV2,
-	getHistoricalCountryDataV2
+	getHistoricalCountryDataV2,
+	getHistoricalAllDataV2
 };

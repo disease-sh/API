@@ -95,6 +95,7 @@ function fillResult(html, yesterday = false) {
 		if (i % totalColumns === deathsPerOneMillionColIndex) {
 			const deathsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
 			result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion.split(',').join(''));
+			result[result.length - 1].updated = Date.now();
 		}
 	}
 	return result;
