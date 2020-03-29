@@ -32,7 +32,7 @@ const historicalV2 = async (keys, redis) => {
 	const parsedDeaths = await parseCsvData(deathsResponse.data);
 	// dates key for timeline
 	const timelineKey = parsedCases[0].splice(4);
-
+	// format csv data to response
 	const result = Array(parsedCases.length).fill({}).map((_, index) => {
 		const newElement = { country: '', province: null, timeline: { cases: {}, deaths: {} } };
 		const cases = parsedCases[index].splice(4);
@@ -46,7 +46,7 @@ const historicalV2 = async (keys, redis) => {
 			: countryMap.standardizeCountryName(parsedCases[index][0].toLowerCase());
 		return newElement;
 	});
-
+	// first object is filler, don't need it
 	const removeFirstObj = result.splice(1);
 	const string = JSON.stringify(removeFirstObj);
 	redis.set(keys.historical_v2, string);
@@ -70,23 +70,19 @@ async function getHistoricalCountryDataV2(data, country, province = null) {
 			return obj.country.toLowerCase() === standardizedCountryName;
 		}
 	});
-
 	// overall timeline for country
 	const timeline = { cases: {}, deaths: {} };
 	// sum over provinces
 	for (let prov = 0; prov < countryData.length; prov++) {
-		// loop cases, recovered, deaths for each province
+		// loop cases, deaths for each province
 		Object.keys(countryData[prov].timeline).forEach((specifier) => {
 			Object.keys(countryData[prov].timeline[specifier]).forEach((date) => {
-				if (timeline[specifier][date]) {
-					timeline[specifier][date] += parseInt(countryData[prov].timeline[specifier][date]);
-				} else {
-					timeline[specifier][date] = parseInt(countryData[prov].timeline[specifier][date]);
-				}
+				// eslint-disable-next-line no-unused-expressions
+				timeline[specifier][date] ? timeline[specifier][date] += parseInt(countryData[prov].timeline[specifier][date])
+					: timeline[specifier][date] = parseInt(countryData[prov].timeline[specifier][date]);
 			});
 		});
 	}
-
 	return {
 		country: standardizedCountryName,
 		timeline
