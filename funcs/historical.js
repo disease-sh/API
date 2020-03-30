@@ -13,12 +13,13 @@ const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/c
 async function getCsvData() {
 	let casesResponse;
 	let deathsResponse;
+	let recoveredResponse;
 	// let recoveredResponse;
 	try {
 		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_global.csv`);
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_global.csv`);
-		// recoveredResponse = await axios.get(`${base}time_series_covid19_recovered_global.csv`);
-		return { casesResponse, deathsResponse };
+		recoveredResponse = await axios.get(`${base}time_series_covid19_recovered_global.csv`);
+		return { casesResponse, deathsResponse, recoveredResponse };
 	} catch (err) {
 		console.log(err);
 		return null;
@@ -32,10 +33,53 @@ async function getCsvData() {
  */
 async function parseCsvData(data) {
 	const parsedData = await csv({
-		noheader: true,
-		output: 'csv'
+		noheader: false,
+		output: 'json'
 	}).fromString(data);
 	return parsedData;
+}
+
+function formatRecoveredData(cases, recovered) {
+	const exclusions = ['Country/Region', 'Province/State', 'Lat', 'Long'];
+	const output = [];
+	const dates = [];
+	const countries = [];
+	cases.forEach(country => {
+		Object.keys(country).forEach(key => {
+			if (!exclusions.includes(key) && !dates.includes(key)) {
+				dates.push(key);
+			}
+		});
+		countries.push({
+			name: country['Country/Region'],
+			province: country['Province/State'] || '',
+			Lat: country.Lat || '',
+			Long: country.Long || ''
+		});
+	});
+	countries.forEach(({ name, province, Lat, Long }) => {
+		var countryData = {
+			'Country/Region': name,
+			'Province/State': province,
+			Lat,
+			Long
+		};
+		const provinces = recovered.filter(el =>
+			el['Country/Region'] === name && el['Province/State'] === province
+		);
+
+		if (provinces[0]) {
+			dates.forEach(date => {
+				countryData[date] = parseInt(provinces[0][date]) || 0;
+			});
+		} else {
+			dates.forEach(date => {
+				countryData[date] = 0;
+			});
+		}
+		output.push(countryData);
+	});
+	return output;
 }
 
 /**
@@ -45,44 +89,40 @@ async function parseCsvData(data) {
  * @returns {array}				Array of objects containing historical data on country/province
  */
 const historicalV2 = async (keys, redis) => {
-	const { casesResponse, deathsResponse } = await getCsvData();
+	const { casesResponse, deathsResponse, recoveredResponse } = await getCsvData();
 	const parsedCases = await parseCsvData(casesResponse.data);
 	const parsedDeaths = await parseCsvData(deathsResponse.data);
-	// const parsedRecovered = await parseCsvData(recoveredResponse.data);
-	// console.log(parsedRecovered);
+	const parsedRecovered = await parseCsvData(recoveredResponse.data);
+	// JHU Data is very poorly formatted, but we fix it :)
+	const formatedRecovered = formatRecoveredData(parsedCases, parsedRecovered);
 	// dates key for timeline
-	const timelineKey = parsedCases[0].splice(4);
+	const timelineKey = Object.keys(parsedCases[0]).splice(4);
 	// format csv data to response
 	const result = Array(parsedCases.length).fill({}).map((_, index) => {
 		const newElement = {
 			country: '', countryInfo: {}, province: null, timeline: { cases: {}, deaths: {}, recovered: {} }
 		};
-		// data begins at index 4
-		const cases = parsedCases[index].splice(4);
-		const deaths = parsedDeaths[index].splice(4);
-		// const recovered = (parsedRecovered[index] || []).splice(4);
+		const cases = Object.values(parsedCases[index]).splice(4);
+		const deaths = Object.values(parsedDeaths[index]).splice(4);
+		const recovered = Object.values(formatedRecovered[index]).splice(4);
 
 		for (let i = 0; i < cases.length; i++) {
 			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
 			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
-			// newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
+			newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
 		}
-
 		// add country inf o to support iso2/3 queries
-		const countryData = countryUtils.getCountryData(parsedCases[index][1]);
-		newElement.country = countryData.country || parsedCases[index][1];
+		const countryData = countryUtils.getCountryData(Object.values(parsedCases)[index]['Country/Region']);
+		newElement.country = countryData.country || Object.values(parsedCases)[index]['Country/Region'];
 		newElement.countryInfo = countryData;
-		newElement.province = parsedCases[index][0] === '' ? null
-			: countryMap.standardizeCountryName(parsedCases[index][0].toLowerCase());
+		newElement.province = Object.values(parsedCases)[index]['Province/State'] === '' ? null
+			: Object.values(parsedCases)[index]['Province/State'].toLowerCase();
 		return newElement;
 	});
 
-
-	// first object is filler, don't need it
-	const removeFirstObj = result.splice(1);
-	const string = JSON.stringify(removeFirstObj);
+	const string = JSON.stringify(result);
 	redis.set(keys.historical_v2, string);
-	return console.log(`Updated JHU CSSE Historical: ${removeFirstObj.length} locations`);
+	return console.log(`Updated JHU CSSE Historical: ${result.length} locations`);
 };
 
 /**
@@ -95,7 +135,7 @@ const historicalV2 = async (keys, redis) => {
 const getHistoricalCountryDataV2 = (data, query, province = null) => {
 	const countryInfo = countryUtils.getCountryData(query);
 	// invalid query
-	if (countryInfo.cuntry === null) return null;
+	if (countryInfo.country === null) return null;
 	const countryName = countryMap.standardizeCountryName(countryInfo.country);
 	// filter to either specific province, or provinces to sum country over
 	const countryData = data.filter((obj) => {
@@ -106,8 +146,7 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 		}
 	});
 	// overall timeline for country
-	// TODO: fix for recovered data
-	const timeline = { cases: {}, deaths: {} };
+	const timeline = { cases: {}, deaths: {}, recovered: {} };
 	countryData.forEach((_, index) => {
 		// loop cases, deaths for each province
 		Object.keys(countryData[index].timeline).forEach((specifier) => {
@@ -128,8 +167,8 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 
 /**
  * Parses data from historical endpoint and returns summed global statistics
- * @param {array} data Full historical data returned from /historical endpoint
- * @returns {Object}	The global deaths and cases
+ * @param 	{array} 	data 	Full historical data returned from /historical endpoint
+ * @returns {Object}			The global deaths and cases
  */
 async function getHistoricalAllDataV2(data) {
 	const cases = {};
