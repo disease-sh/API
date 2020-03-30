@@ -15,6 +15,28 @@ NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.co
 # Documentation
 NovelCovid/API Documentation can be found [here](https://docs.corona.lmao-xd.wtf)
 
+## Installation
+
+#### Redis
+1. Download redis from https://redis.io/topics/quickstart
+2. Start redis server using `redis-server`
+
+#### Project
+1. Fork and clone git repository
+2. In root project folder, create a new file called `config.json`
+3. Copy contents for `config.example.json` to new `config.json` file
+4. Replace password field with `""` and port field to whatever localhost port you want.
+5. From root of project, run `npm start`
+6. In your browser, go to `localhost:{port}` to test your local changes
+
+## Run with docker-compose.
+1. Fork and clone git repository
+2. In root project folder, make a new file called `config.json`
+3. Copy contents for `config.example.json` to new `config.json` file
+4. Replace password field with `"yourpassword"` and port field same within `docker-compose.yml`.
+5. Replace redis host "localhost" with "redis".
+6. Run command `docker-compose up --build -d`.
+
 ## Loading and using our NPM Package
 
 We suggest you load the module via `require`, considering ES modules in Node.js are not yet stable.
@@ -66,7 +88,7 @@ const covid = require('novelcovid');
    // Specific Country
    let specificCountry = await covid.getCountry({country: 'United States'});
    return console.log(specificCountry);
-   
+
    // Specific State
    let specificState = await covid.getState({state: 'New York'});
    return console.log(specificCountry);
@@ -81,7 +103,7 @@ You can read more about **new Date()** [here](https://developer.mozilla.org/en-U
 > For further support, you can join our discord server! More Tutorials can be found there too!
 > https://discord.gg/EvbMshU
 
-### Sources: 
+### Sources:
 > https://www.worldometers.info/coronavirus/
 
 > https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
