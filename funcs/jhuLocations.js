@@ -90,49 +90,64 @@ const jhudataV2 = async (keys, redis) => {
 	const statesResult = {};
 
 	parsed.splice(1).forEach((loc) => {
-	// city exists only for US entries
-		if (loc[1] !== '') {
-			if (statesResult[loc[2]]) {
-				// sum
-				statesResult[loc[2]].stats.confirmed += parseInt(loc[7]);
-				statesResult[loc[2]].stats.deaths += parseInt(loc[8]);
-				statesResult[loc[2]].stats.recovered += parseInt(loc[9]);
-			} else {
-				// initialize
-				statesResult[loc[2]] = {
-					country: loc[3],
-					province: loc[2] === '' ? null : loc[2],
-					updatedAt: loc[4],
-					stats: {
-						confirmed: parseInt(loc[7]),
-						deaths: parseInt(loc[8]),
-						recovered: parseInt(loc[9])
-					},
-					coordinates: {
-						latitude: loc[5],
-						longitude: loc[6]
-					}
-				};
+		result.push({
+			country: loc[3],
+			province: loc[2] === '' ? null : loc[2],
+			county: loc[1] === '' ? null : loc[1],
+			updatedAt: loc[4],
+			stats: {
+				confirmed: parseInt(loc[7]),
+				deaths: parseInt(loc[8]),
+				recovered: parseInt(loc[9])
+			},
+			coordinates: {
+				latitude: loc[5],
+				longitude: loc[6]
 			}
-		} else {
-			result.push({
-				country: loc[3],
-				province: loc[2] === '' ? null : loc[2],
-				updatedAt: loc[4],
-				stats: {
-					confirmed: parseInt(loc[7]),
-					deaths: parseInt(loc[8]),
-					recovered: parseInt(loc[9])
-				},
-				coordinates: {
-					latitude: loc[5],
-					longitude: loc[6]
-				}
-			});
-		}
+		});
+		// city exists only for US entries
+		// if (loc[1] !== '') {
+		// 	if (statesResult[loc[2]]) {
+		// 		// sum
+		// 		statesResult[loc[2]].stats.confirmed += parseInt(loc[7]);
+		// 		statesResult[loc[2]].stats.deaths += parseInt(loc[8]);
+		// 		statesResult[loc[2]].stats.recovered += parseInt(loc[9]);
+		// 	} else {
+		// 		// initialize
+		// 		statesResult[loc[2]] = {
+		// 			country: loc[3],
+		// 			province: loc[2] === '' ? null : loc[2],
+		// 			updatedAt: loc[4],
+		// 			stats: {
+		// 				confirmed: parseInt(loc[7]),
+		// 				deaths: parseInt(loc[8]),
+		// 				recovered: parseInt(loc[9])
+		// 			},
+		// 			coordinates: {
+		// 				latitude: loc[5],
+		// 				longitude: loc[6]
+		// 			}
+		// 		};
+		// 	}
+		// } else {
+		// 	result.push({
+		// 		country: loc[3],
+		// 		province: loc[2] === '' ? null : loc[2],
+		// 		updatedAt: loc[4],
+		// 		stats: {
+		// 			confirmed: parseInt(loc[7]),
+		// 			deaths: parseInt(loc[8]),
+		// 			recovered: parseInt(loc[9])
+		// 		},
+		// 		coordinates: {
+		// 			latitude: loc[5],
+		// 			longitude: loc[6]
+		// 		}
+		// 	});
+		// }
 	});
 	// add US entries
-	Object.keys(statesResult).map((state) => result.push(statesResult[state]));
+	// Object.keys(statesResult).map((state) => result.push(statesResult[state]));
 	const string = JSON.stringify(result);
 	redis.set(keys.jhu_v2, string);
 	console.log(`Updated JHU CSSE: ${result.length} locations`);
