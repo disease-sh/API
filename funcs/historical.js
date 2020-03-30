@@ -186,7 +186,8 @@ async function getHistoricalAllDataV2(data) {
 	});
 	return {
 		cases,
-		deaths
+		deaths,
+		recovered
 	};
 }
 
