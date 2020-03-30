@@ -37,65 +37,38 @@ NovelCovid/API Documentation can be found [here](https://docs.corona.lmao-xd.wtf
 5. Replace redis host "localhost" with "redis".
 6. Run command `docker-compose up --build -d`.
 
-## Loading and using our NPM Package
+## NPM Package
+<dir align ="center">
+<a href="https://www.npmjs.com/package/novelcovid">
+    <img src="https://img.shields.io/npm/v/novelcovid?logo=npm&style=for-the-badge" alt="Version">
+</a>
+<a href="https://www.npmjs.com/package/novelcovid">
+	<img src="https://img.shields.io/bundlephobia/min/novelcovid?color=red&label=SIZE&logo=npm&style=for-the-badge", alt="Size">
+</a>
+<a href="https://www.npmjs.com/package/novelcovid">
+<img src="https://img.shields.io/npm/dw/novelcovid?logo=npm&style=for-the-badge", alt="Downloads">
+</a>
+</dir>
 
 We suggest you load the module via `require`, considering ES modules in Node.js are not yet stable.
 
-```js
-const covid = require('novelcovid');
-```
+Executing a method will return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+The examples here utilise [async/await](https://javascript.info/async-await) to access the data.
 
-## Documentation
-Executing a method will return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). The examples here utilise [async/await](https://javascript.info/async-await) to access the data.
+JavaScript:
 
 ```js
-// Declare the package
-const covid = require('novelcovid');
-
-// Now we create a async/await
-(async () => {
-
-    // Now we await it.
-    let all = await covid.getAll();
-
-    // Make sure you return it, this usually implies if you are using this inside a function.
-    // Use \n to break lines.
-    return console.log(`Cases: ${all.cases}\nDeaths: ${all.deaths}\nRecovered: ${all.recovered}`)
-})()
+const { NovelCovid } = require('novelcovid');
 ```
 
-#### Sorting the data.
-
-Some [methods](https://www.npmjs.com/package/covidtracker#methods) can be sorted.
-
-```js
-const covid = require('novelcovid');
-
-(async () => {
-    let sortedCountries = await covid.getCountry({sort: 'recovered'});
-    return console.log(sortedCountries);
-
-    let sortedStates = await covid.getState({sort: 'deaths'});
-    return console.log(sortedStates);
-})();
+TypeScript:
+```ts
+import { NovelCovid } from 'novelcovid';
 ```
+### Methods
+ Everything is listed on the [npm](https://www.npmjs.com/package/novelcovid) site.
 
-#### Filtering for a specific country/state.
-```js
-const covid = require('novelcovid');
-
-(async () => {
-   // Specific Country
-   let specificCountry = await covid.getCountry({country: 'United States'});
-   return console.log(specificCountry);
-
-   // Specific State
-   let specificState = await covid.getState({state: 'New York'});
-   return console.log(specificCountry);
-})();
-```
-
-**Note**
+## **Note**
 Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` as it returns an **ISO Date**
 
 You can read more about **new Date()** [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
