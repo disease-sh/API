@@ -4,11 +4,11 @@ const countryUtils = require('../utils/country_utils');
 
 function getCountryData(cell) {
 	let country = (cell.children[0].data
-	|| cell.children[0].children[0].data
-	// country name with link has another level
-	|| cell.children[0].children[0].children[0].data
-	|| cell.children[0].children[0].children[0].children[0].data
-	|| '').trim();
+		|| cell.children[0].children[0].data
+		// country name with link has another level
+		|| cell.children[0].children[0].children[0].data
+		|| cell.children[0].children[0].children[0].children[0].data
+		|| '').trim();
 	if (country.length === 0) {
 		// parse with hyperlink
 		country = (cell.children[0].next.children[0].data || '').trim();
@@ -52,7 +52,9 @@ function fillResult(html, yesterday = false) {
 		// get country
 		if (i % totalColumns === countryColIndex) {
 			const country = getCountryData(cell);
-			result.push({ country, countryInfo: countryUtils.getCountryData(country) });
+			const countryData = countryUtils.getCountryData(country);
+			delete countryData.country;
+			result.push({ country, countryInfo: countryData });
 		}
 		// get cases
 		if (i % totalColumns === casesColIndex) {

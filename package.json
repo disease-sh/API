@@ -3,18 +3,6 @@
   "version": "1.0.1",
   "description": "A simple Node API for getting coronavirus cases from scraped information.",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "lint": "eslint '**/*.js' --ignore-pattern node_modules/"
-  },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "cheerio": "^0.22.0",
-    "cors": "^2.8.5",
-    "csvtojson": "^2.0.10",
-    "express": "^4.16.3",
-    "ioredis": "*"
-  },
   "repository": {
     "url": "https://github.com/NovelCOVID/API"
   },
@@ -24,6 +12,20 @@
     "coronavirus",
     "covid"
   ],
+  "scripts": {
+    "start": "node server.js",
+    "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
+    "lint:fix": "eslint ./**/*.js --fix --ignore-pattern node_modules/",
+    "lint:win32": "eslint ./**/*.js --ignore-pattern node_modules/"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^0.22.0",
+    "cors": "^2.8.5",
+    "csvtojson": "^2.0.10",
+    "express": "^4.16.3",
+    "ioredis": "*"
+  },
   "devDependencies": {
     "@aero/eslint-config": "^1.0.1",
     "eslint": "^6.8.0"
