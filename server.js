@@ -137,7 +137,8 @@ app.get('/v2/historical/:query/:province?', async (req, res) => {
 
 app.get('/v2/jhucsse', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.jhu_v2));
-	res.send(data);
+	const generalizedData = scraper.jhuLocations.generalizedJhudataV2(data);
+	res.send(generalizedData);
 });
 
 // deprecated
