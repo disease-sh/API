@@ -38,8 +38,8 @@ const jhudata = async (keys, redis) => {
 	parsed.splice(1).forEach((loc) => {
 		result.push({
 			country: loc[3],
-			province: loc[2] === '' ? null : loc[2],
-			city: loc[1] === '' ? null : loc[1],
+			province: loc[2] || null,
+			city: loc[1] || null,
 			updatedAt: loc[4],
 			stats: {
 				confirmed: loc[7],
@@ -94,8 +94,8 @@ const jhudataV2 = async (keys, redis) => {
 	parsed.splice(1).forEach((loc) => {
 		result.push({
 			country: loc[3],
-			province: loc[2] === '' ? null : loc[2],
-			county: loc[1] === '' ? null : loc[1],
+			province: loc[2] || null,
+			county: loc[1] || null,
 			updatedAt: loc[4],
 			stats: {
 				confirmed: parseInt(loc[7]),
@@ -125,7 +125,7 @@ const generalizedJhudataV2 = (data) => {
 	data.forEach((loc) => {
 		const defaultData = {
 			country: loc.country,
-			province: loc.province === '' ? null : loc.province,
+			province: loc.province || null,
 			updatedAt: loc.updatedAt,
 			stats: {
 				confirmed: loc.stats.confirmed,
