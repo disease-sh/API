@@ -123,11 +123,24 @@ app.get('/v2/historical/all', async (req, res) => {
 app.get('/v2/historical/:query/:province?', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.historical_v2));
 	const { query, province } = req.params;
-	const countryData = await scraper.historical.getHistoricalCountryDataV2(
-		data,
-		query.toLowerCase(),
-		province && province.toLowerCase()
-	);
+	const countries = query.split(',');
+	const provinces = province && province.split(',');
+	let countryData;
+	if (countries.length > 0) {
+		countryData = countries.map((country, i) =>
+			scraper.historical.getHistoricalCountryDataV2(
+				data,
+				country.toLowerCase(),
+				provinces && provinces[i] && provinces[i].toLowerCase()
+			)
+		);
+	} else {
+		countryData = scraper.historical.getHistoricalCountryDataV2(
+			data,
+			query.toLowerCase(),
+			province && province.toLowerCase()
+		);
+	}
 	if (countryData) {
 		res.send(countryData);
 	} else {
