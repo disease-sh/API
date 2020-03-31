@@ -49,6 +49,8 @@ app.get('/support', async (req, res) => {
 // API endpoints
 app.get('/all', async (req, res) => {
 	const all = JSON.parse(await redis.get(keys.all));
+	const countries = JSON.parse(await redis.get(keys.countries));
+	all.affectedCountries = countries.length;
 	res.send(all);
 });
 
@@ -150,7 +152,19 @@ app.get('/v2/historical/:query/:province?', async (req, res) => {
 
 app.get('/v2/jhucsse', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.jhu_v2));
-	res.send(data);
+	const generalizedData = scraper.jhuLocations.generalizedJhudataV2(data);
+	res.send(generalizedData);
+});
+
+app.get('/v2/jhucsse/counties/:county?', async (req, res) => {
+	const { county } = req.params;
+	const data = JSON.parse(await redis.get(keys.jhu_v2));
+	const countyData = scraper.jhuLocations.getCountyJhuDataV2(data, county && county.toLowerCase());
+	if (countyData.length > 0) {
+		res.send(countyData);
+	} else {
+		res.status(404).send({ message: 'County not found' });
+	}
 });
 
 // deprecated
