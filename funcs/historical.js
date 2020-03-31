@@ -182,18 +182,21 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 async function getHistoricalAllDataV2(data) {
 	const cases = {};
 	const deaths = {};
+	const recovered = {};
 	data.forEach(country => {
 		Object.keys(country.timeline.cases).forEach(key => {
 			/* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
 			cases[key] ? cases[key] += country.timeline.cases[key] : cases[key] = country.timeline.cases[key];
 			deaths[key] ? deaths[key] += country.timeline.deaths[key] : deaths[key] = country.timeline.deaths[key];
+			recovered[key] ? recovered[key] += country.timeline.recovered[key] : recovered[key] = country.timeline.recovered[key];
 			return true;
 		});
 		return true;
 	});
 	return {
 		cases,
-		deaths
+		deaths,
+		recovered
 	};
 }
 
