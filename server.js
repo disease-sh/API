@@ -125,13 +125,36 @@ app.get('/v2/historical/all', async (req, res) => {
 app.get('/v2/historical/:query/:province?', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.historical_v2));
 	const { query, province } = req.params;
-	const countryData = await scraper.historical.getHistoricalCountryDataV2(
-		data,
-		query.toLowerCase(),
-		province && province.toLowerCase()
-	);
+	const countries = query.split(',');
+	const provinces = (province && province.split(',')) || [];
+	let countryData;
+	// multiple countries no provinces allowed
+	if (countries.length > 1) {
+		countryData = countries.map((country) =>
+			scraper.historical.getHistoricalCountryDataV2(
+				data,
+				country.toLowerCase(),
+				null
+			) || { err: 'Country not found or doesn\'t have any historical data' }
+		);
+	} else if (provinces.length > 0) {
+		// provinces for one country
+		countryData = provinces.map((prov) =>
+			scraper.historical.getHistoricalCountryDataV2(
+				data,
+				countries[0].toLowerCase(),
+				prov.toLowerCase().trim()
+			) || { err: 'Country not found or doesn\'t have any historical data' }
+		);
+	} else {
+		countryData = scraper.historical.getHistoricalCountryDataV2(
+			data,
+			query.toLowerCase(),
+			province && province.toLowerCase()
+		);
+	}
 	if (countryData) {
-		res.send(countryData);
+		res.send(countryData.length === 1 ? countryData[0] : countryData);
 	} else {
 		res.status(404).send({ message: 'Country not found or doesn\'t have any historical data' });
 	}
