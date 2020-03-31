@@ -132,7 +132,7 @@ app.get('/v2/historical/:query/:province?', async (req, res) => {
 				data,
 				country.toLowerCase(),
 				provinces && provinces[i] && provinces[i].toLowerCase()
-			)
+			) || { err: 'Country not found or doesn\'t have any historical data' }
 		);
 	} else {
 		countryData = scraper.historical.getHistoricalCountryDataV2(
