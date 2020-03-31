@@ -60,7 +60,7 @@ var countryData = [
 	{ country: 'Côte d\'Ivoire', iso2: 'CI', iso3: 'CIV', id: 384, lat: 8, long: -5, possibleNames: ['Ivory Coast', 'Coast D\'Ivoire'] },
 	{ country: 'Croatia', iso2: 'HR', iso3: 'HRV', id: 191, lat: 45.1667, long: 15.5 },
 	{ country: 'Cuba', iso2: 'CU', iso3: 'CUB', id: 192, lat: 21.5, long: -80 },
-	{ country: 'Curacao', iso2: 'CW', iso3: 'CUW', id: 531, lat: 12.15, long: -68.97, possibleNames: ['Curazao'] },
+	{ country: 'Curacao', iso2: 'CW', iso3: 'CUW', id: 531, lat: 12.15, long: -68.97, possibleNames: ['Curazao', 'Curaçao', 'Curacao'] },
 	{ country: 'Cyprus', iso2: 'CY', iso3: 'CYP', id: 196, lat: 35, long: 33 },
 	{ country: 'Czechia', iso2: 'CZ', iso3: 'CZE', id: 203, lat: 49.75, long: 15.5, possibleNames: ['Czech Republic', 'Chequia'] },
 	{ country: 'Denmark', iso2: 'DK', iso3: 'DNK', id: 208, lat: 56, long: 10 },
