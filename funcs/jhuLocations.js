@@ -57,6 +57,11 @@ const jhudata = async (keys, redis) => {
 	console.log(`Updated JHU CSSE: ${result.length} locations`);
 };
 
+/**
+ * Sets redis store full of today's JHU data scraped from their hosted CSV
+ * @param {string} 	keys 	JHU data redis key
+ * @param {Object} 	redis 	Redis instance
+ */
 const jhudataV2 = async (keys, redis) => {
 	let response;
 	const date = new Date();
@@ -108,6 +113,11 @@ const jhudataV2 = async (keys, redis) => {
 	console.log(`Updated JHU CSSE: ${result.length} locations`);
 };
 
+/**
+ * Returns JHU data with US states summed over counties
+ * @param 	{Object} 	data 	All JHU data retrieved from redis store
+ * @returns {Array} 			All data objects from JHU set for today with states summed over counties
+ */
 const generalizedJhudataV2 = (data) => {
 	const result = [];
 	const statesResult = {};
@@ -147,7 +157,7 @@ const generalizedJhudataV2 = (data) => {
  * Filters JHU data to all counties or specific county names if specified
  * @param 	{Object} 	data	All JHU data retrieved from redis store
  * @param 	{string} 	county	Name of a county in the USA
- * @returns {Array}				All data with county names the same as input, or all county data if no county param
+ * @returns {Array}				All data from today with county names the same as input, or all county data if no county param
  */
 const getCountyJhuDataV2 = (data, county = null) =>
 	county ? data.filter((loc) => loc.county !== null && loc.county.toLowerCase() === county)
