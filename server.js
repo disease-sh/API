@@ -3,7 +3,6 @@ const cors = require('cors');
 const Redis = require('ioredis');
 const config = require('./config.json');
 const scraper = require('./scraper');
-const countryMap = require('./funcs/countryMap');
 const countryUtils = require('./utils/country_utils');
 
 const app = express();
@@ -78,11 +77,12 @@ app.get('/countries/:query', async (req, res) => {
 	const { query } = req.params;
 	/* eslint-disable-next-line no-restricted-globals */
 	const isText = isNaN(query);
+	const countryInfo = isText ? countryUtils.getCountryData(query) : null;
+	const standardizedCountryName = countryInfo ? countryInfo.country.toLowerCase() : null;
 
 	const country = countries.find((ctry) => {
+		// either name or ISO
 		if (isText) {
-			// either name or ISO
-			const standardizedCountryName = countryMap.standardizeCountryName(query.toLowerCase());
 			// check for strict param
 			if (req.query.strict) {
 				return req.query.strict.toLowerCase() === 'true'
