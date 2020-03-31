@@ -49,6 +49,8 @@ app.get('/support', async (req, res) => {
 // API endpoints
 app.get('/all', async (req, res) => {
 	const all = JSON.parse(await redis.get(keys.all));
+	const countries = JSON.parse(await redis.get(keys.countries));
+	all.affectedCountries = countries.length;
 	res.send(all);
 });
 
