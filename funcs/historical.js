@@ -136,18 +136,22 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 	const countryInfo = countryUtils.getCountryData(query);
 	// invalid query
 	if (countryInfo.country === null) return null;
-	const countryName = countryMap.standardizeCountryName(countryInfo.country);
 	// filter to either specific province, or provinces to sum country over
-	const countryData = data.filter((obj) => {
+	const countryData = data.filter(item => {
 		if (province) {
-			return obj.province && obj.province === province && obj.country.toLowerCase() === countryName;
+			return item.province && item.province === province && item.countryInfo.country === countryInfo.country;
 		} else {
-			return obj.country.toLowerCase() === countryName;
+			return item.countryInfo.country === countryInfo.country;
 		}
 	});
+	if (countryData.length === 0) return null;
+
 	// overall timeline for country
 	const timeline = { cases: {}, deaths: {}, recovered: {} };
+	const provinces = [];
 	countryData.forEach((_, index) => {
+		if (countryData[index].province)
+			provinces.push(countryData[index].province);
 		// loop cases, deaths for each province
 		Object.keys(countryData[index].timeline).forEach((specifier) => {
 			Object.keys(countryData[index].timeline[specifier]).forEach((date) => {
@@ -158,9 +162,16 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 		});
 	});
 
+	if (province) {
+		return {
+			country: countryInfo.country || countryName,
+			province: province,
+			timeline
+		};
+	}
 	return {
-		country: countryName,
-		province: province,
+		country: countryInfo.country || countryName,
+		provinces,
 		timeline
 	};
 };
