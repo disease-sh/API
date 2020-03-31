@@ -143,8 +143,19 @@ const generalizedJhudataV2 = (data) => {
 	return result;
 };
 
+/**
+ * Filters JHU data to all counties or specific county names if specified
+ * @param 	{Object} 	data	All JHU data retrieved from redis store
+ * @param 	{string} 	county	Name of a county in the USA
+ * @returns {Array}				All data with county names the same as input, or all county data if no county param
+ */
+const getCountyJhuDataV2 = (data, county = null) =>
+	county ? data.filter((loc) => loc.county !== null && loc.county.toLowerCase() === county)
+		: data.filter((loc) => loc.county !== null);
+
 module.exports = {
 	jhudata,
 	jhudataV2,
-	generalizedJhudataV2
+	generalizedJhudataV2,
+	getCountyJhuDataV2
 };

@@ -141,6 +141,17 @@ app.get('/v2/jhucsse', async (req, res) => {
 	res.send(generalizedData);
 });
 
+app.get('/v2/jhucsse/counties/:county?', async (req, res) => {
+	const { county } = req.params;
+	const data = JSON.parse(await redis.get(keys.jhu_v2));
+	const countyData = scraper.jhuLocations.getCountyJhuDataV2(data, county && county.toLowerCase());
+	if (countyData.length > 0) {
+		res.send(countyData);
+	} else {
+		res.status(404).send({ message: 'County not found' });
+	}
+});
+
 // deprecated
 app.get('/historical', async (req, res) => {
 	res.send({ message: 'Deprecated, use /v2/historical' });
