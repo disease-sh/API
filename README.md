@@ -13,7 +13,7 @@ https://corona.lmao.ninja/
 NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
 # Documentation
-NovelCovid/API Documentation can be found [here](https://docs.corona.lmao-xd.wtf)
+NovelCovid/API Documentation can be found [here](https://corona.lmao.ninja/docs/)
 
 ## Installation
 
