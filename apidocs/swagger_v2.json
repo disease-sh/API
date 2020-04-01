@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "1.0.0",
+        "version": "2.0.0",
         "title": "Novel Covid19",
         "description": "Covid19 Third Party API for Global Information",
         "license": {
@@ -32,7 +32,9 @@
                 "summary": "Get All JHU CSSE",
                 "description": "Get JHU CSSE Data. This includes confirmed cases, deaths, recovered, and coordinates.",
                 "responses": {
-                    "200": {}
+                    "200": {
+                        "description": "Status Ok"
+                    }
                 }
             }
         },
@@ -41,7 +43,9 @@
                 "summary": "Get Historical Data",
                 "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country.",
                 "responses": {
-                    "200": {}
+                    "200": {
+                        "description": "Status Ok"
+                    }
                 }
             }
         },
@@ -66,7 +70,9 @@
                 "summary": "Get Historical Data by Country Name and Province (Not Required)",
                 "description": "Get a country's time series using a country iso code, country ID, or of course, country name",
                 "responses": {
-                    "200": {}
+                    "200": {
+                        "description": "Status Ok"
+                    }
                 }
             }
         },
@@ -75,7 +81,9 @@
                 "summary": "Get Historical Data",
                 "description": "Return time series data globally",
                 "responses": {
-                    "200": {}
+                    "200": {
+                        "description": "Status Ok"
+                    }
                 }
             }
         }

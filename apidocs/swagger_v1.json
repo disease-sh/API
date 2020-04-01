@@ -36,7 +36,9 @@
                 "summary": "Get Global Totals",
                 "description": "Get global stats: cases, deaths, recovered, time last updated, and active cases",
                 "responses": {
-                    "200": {}
+                    "200": {
+                        "description": "Status OK"
+                    }
                 }
             }
         },
@@ -45,7 +47,9 @@
                 "summary": "Get US State Totals",
                 "description": "Get stats on United States of America States with COVID-19, including cases, new cases, deaths, new deaths, and active cases",
                 "responses": {
-                    "200": {}
+                    "200": {
+                        "description": "Status OK"
+                    }
                 }
             }
         },
@@ -54,7 +58,9 @@
                 "summary": "Get All JHU CSSE",
                 "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!Get data from JHU CSSE",
                 "responses": {
-                    "200": {}
+                    "200": {
+                        "description": "Status OK"
+                    }
                 }
             }
         },
@@ -63,7 +69,9 @@
                 "summary": "Get Historical Data",
                 "description": "Get Timeseries info from JHU CSSE",
                 "responses": {
-                    "200": {}
+                    "200": {
+                        "description": "Status OK"
+                    }
                 }
             }
         },
@@ -76,7 +84,7 @@
                 "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
                 "responses": {
                     "200": {
-                        "description": "Getting Data",
+                        "description": "Status OK",
                         "schema": {
                             "$ref": "#/definitions/countries"
                         }
@@ -102,7 +110,7 @@
                 "description": "Get the same data from the /countries endpoint, but filter down to a specific country.",
                 "responses": {
                     "200": {
-                        "description": "Getting Data",
+                        "description": "Status OK",
                         "schema": {
                             "$ref": "#/definitions/country"
                         }
