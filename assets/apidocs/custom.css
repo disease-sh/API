@@ -20,9 +20,9 @@
 }
 
 .download-url-wrapper span:after {
-    content    : 'Versions';
+    content    : 'Available Versions';
     visibility : visible;
     position   : absolute;
-    top        : 20px;
-    margin-left: -65px;
+    top        : 22px;
+    margin-left: -140px;
 }
