@@ -46,7 +46,7 @@ var countryData = [
 	{ country: 'Canada', iso2: 'CA', iso3: 'CAN', id: 124, lat: 60, long: -95 },
 	{ country: 'Cayman Islands', iso2: 'KY', iso3: 'CYM', id: 136, lat: 19.5, long: -80.5 },
 	{ country: 'Central African Republic', iso2: 'CF', iso3: 'CAF', id: 140, lat: 7, long: 21, possibleNames: ['CAR'] },
-	{ country: 'Caribbean Netherlands', iso2: 'CF', iso3: 'CAF', id: 140, lat: 7, long: 21, possibleNames: ['Bonaire', 'San Eustaquio', 'Saba'] },
+	{ country: 'Caribbean Netherlands', iso2: 'BQ', iso3: 'BES', id: 535, lat: 12.20, long: -68.260, possibleNames: ['Bonaire', 'San Eustaquio', 'Saba'] },
 	{ country: 'Chad', iso2: 'TD', iso3: 'TCD', id: 148, lat: 15, long: 19 },
 	{ country: 'Chile', iso2: 'CL', iso3: 'CHL', id: 152, lat: -30, long: -71 },
 	{ country: 'China', iso2: 'CN', iso3: 'CHN', id: 156, lat: 35, long: 105 },
