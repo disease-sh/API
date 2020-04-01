@@ -47,25 +47,23 @@ app.get('/support', async (req, res) => {
 	res.redirect('https://discord.gg/EvbMshU');
 });
 
-app.get('/swagger/:version', (req, res) => {
-	const { version } = req.params;
-	res.send(require(`./apidocs/swagger_${version}.json`));
-});
-
+app.use('/public', express.static('assets'));
 app.use('/docs',
 	swaggerUi.serve,
 	swaggerUi.setup(null, {
 		explorer: true,
+		customSiteTitle: 'NovelCOVID 19 API',
+		customfavIcon: '/public/virus.png',
+		customCssUrl: '/public/apidocs/custom.css',
 		swaggerOptions: {
-
 			urls: [
 				{
-					name: 'version 1.0.0',
-					url: '/swagger/v1'
+					name: 'version 2.0.0',
+					url: '/public/apidocs/swagger_v2.json'
 				},
 				{
-					name: 'version 2.0.0',
-					url: '/swagger/v2'
+					name: 'version 1.0.0',
+					url: '/public/apidocs/swagger_v1.json'
 				}
 			]
 		}

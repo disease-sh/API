@@ -1,31 +1,26 @@
 const axios = require('axios');
 const csv = require('csvtojson');
 
-// eslint-disable-next-line max-len
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/';
 
-const jhudata = async (keys, redis) => {
-	let response;
+async function getData() {
 	const date = new Date();
-	try {
-		response = await axios.get(
-			`${base}0${date.getMonth()
-				+ 1}-${date.getDate()}-${date.getFullYear()}.csv`
-		);
-		console.log(
-			`USING 0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv CSSEGISandData`
-		);
-	} catch (err) {
-		response = await axios.get(
-			`${base}0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv`
-		);
-		console.log(
-			`USING 0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv CSSEGISandData`
-		);
-	}
+	date.setDate(date.getDate() - 1);
+	const dd = date.getDate().toString().padStart(2, '0');
+	const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+	const yyyy = date.getFullYear();
+	const dateString = `${mm}-${dd}-${yyyy}`;
+	const response = await axios.get(
+		`${base}/${dateString}.csv`
+	);
+	console.log(
+		`USING ${dateString}.csv CSSEGISandData`
+	);
+	return response;
+}
+
+const jhudata = async (keys, redis) => {
+	const response = await getData();
 
 	const parsed = await csv({
 		noheader: true,
@@ -63,27 +58,7 @@ const jhudata = async (keys, redis) => {
  * @param {Object} 	redis 	Redis instance
  */
 const jhudataV2 = async (keys, redis) => {
-	let response;
-	const date = new Date();
-	try {
-		response = await axios.get(
-			`${base}0${date.getMonth()
-				+ 1}-${date.getDate()}-${date.getFullYear()}.csv`
-		);
-		console.log(
-			`USING 0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv CSSEGISandData`
-		);
-	} catch (err) {
-		response = await axios.get(
-			`${base}0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv`
-		);
-		console.log(
-			`USING 0${date.getMonth() + 1}-${date.getDate()
-				- 1}-${date.getFullYear()}.csv CSSEGISandData`
-		);
-	}
+	const response = await getData();
 
 	const parsed = await csv({
 		noheader: true,
