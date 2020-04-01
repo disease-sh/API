@@ -1,16 +1,15 @@
-
-document.addEventListener("DOMContentLoaded", function () {
-    // var text1 = document.querySelector('span');
-    // var spanAll = document.querySelectorAll('span');
-    // var imgAll = document.querySelectorAll('img');
-    // console.log(imgAll);
-    // spanAll.forEach(span => {
-    //     if (span.textContent === 'Select a definition') {
-    //         span.textContent = 'Available Versions';
-    //     }
-    //     console.log(span);
-    // });
-});
+// document.addEventListener('DOMContentLoaded', () => {
+// 	// var text1 = document.querySelector('span');
+// 	// var spanAll = document.querySelectorAll('span');
+// 	// var imgAll = document.querySelectorAll('img');
+// 	// console.log(imgAll);
+// 	// spanAll.forEach(span => {
+// 	//     if (span.textContent === 'Select a definition') {
+// 	//         span.textContent = 'Available Versions';
+// 	//     }
+// 	//     console.log(span);
+// 	// });
+// });
 
 
 // var headings = document.evaluate("//span[contains(., 'Select a definition')]", document, null, XPathResult.ANY_TYPE, null);
