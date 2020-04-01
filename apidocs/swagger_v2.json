@@ -51,7 +51,7 @@
           "JHUCSSE"
         ],
         "summary": "Get Historical Data",
-        "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country.",
+        "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country. Updated each day at 23:59 UTC.",
         "responses": {
           "200": {
             "description": "Status Ok",
