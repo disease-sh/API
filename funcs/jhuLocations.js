@@ -4,30 +4,19 @@ const csv = require('csvtojson');
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/';
 
 async function getData() {
-	const today = new Date();
-	const yesterday = new Date(today);
-	yesterday.setDate(yesterday.getDate() - 1);
-
-	let response;
-	try {
-		response = await axios.get(
-			`${base}0${today.getMonth()
-				+ 1}-${today.getDate()}-${today.getFullYear()}.csv`
-		);
-		console.log(
-			`USING 0${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}.csv CSSEGISandData`
-		);
-		return response;
-	} catch (err) {
-		response = await axios.get(
-			`${base}0${yesterday.getMonth() + 1}-${yesterday.getDate()
-				- 1}-${yesterday.getFullYear()}.csv`
-		);
-		console.log(
-			`USING 0${yesterday.getMonth() + 1}-${yesterday.getDate()}-${yesterday.getFullYear()}.csv CSSEGISandData`
-		);
-		return response;
-	}
+	const date = new Date();
+	date.setDate(date.getDate() - 1);
+	const dd = date.getDate().toString().padStart(2, '0');
+	const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+	const yyyy = date.getFullYear();
+	const dateString = `${mm}-${dd}-${yyyy}`;
+	const response = await axios.get(
+		`${base}/${dateString}.csv`
+	);
+	console.log(
+		`USING ${dateString}.csv CSSEGISandData`
+	);
+	return response;
 }
 
 const jhudata = async (keys, redis) => {
