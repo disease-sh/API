@@ -3,8 +3,8 @@ const cors = require('cors');
 const Redis = require('ioredis');
 const config = require('./config.json');
 const scraper = require('./scraper');
-const countryMap = require('./funcs/countryMap');
 const countryUtils = require('./utils/country_utils');
+const stringUtils = require('./utils/string_utils');
 
 const app = express();
 
@@ -78,28 +78,28 @@ app.get('/countries/:query', async (req, res) => {
 	const { query } = req.params;
 	/* eslint-disable-next-line no-restricted-globals */
 	const isText = isNaN(query);
+	const countryInfo = isText ? countryUtils.getCountryData(query) : null;
+	const standardizedCountryName = (countryInfo && countryInfo.country) ? countryInfo.country.toLowerCase() : null;
 
 	const country = countries.find((ctry) => {
+		// either name or ISO
 		if (isText) {
-			// either name or ISO
-			const standardizedCountryName = countryMap.standardizeCountryName(query.toLowerCase());
 			// check for strict param
 			if (req.query.strict) {
 				return req.query.strict.toLowerCase() === 'true'
-					? ctry.country.toLowerCase() === standardizedCountryName
-					: ctry.country.toLowerCase().includes(standardizedCountryName);
+					? stringUtils.wordsStandardize(ctry.country.toLowerCase()) === standardizedCountryName
+					: stringUtils.wordsStandardize(ctry.country.toLowerCase()).includes(standardizedCountryName);
 			}
 			return (
 				(ctry.countryInfo.iso3 || 'null').toLowerCase() === query.toLowerCase()
 				|| (ctry.countryInfo.iso2 || 'null').toLowerCase() === query.toLowerCase()
 				|| ((query.length > 3 || countryUtils.isCountryException(query.toLowerCase()))
-					&& ctry.country.toLowerCase().includes(standardizedCountryName))
+					&& stringUtils.wordsStandardize(ctry.country.toLowerCase()).includes(standardizedCountryName))
 			);
 		}
 		// number, must be country ID
 		return ctry.countryInfo._id === Number(query);
 	});
-
 	if (country) {
 		res.send(country);
 		return;
