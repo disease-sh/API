@@ -14,7 +14,7 @@
         "http"
     ],
     "host": "corona.lmao.ninja",
-    "basePath": "",
+    "basePath": "/v2",
     "tags": [
         {
             "name": "default"
@@ -31,53 +31,26 @@
         "application/json"
     ],
     "paths": {
-        "/all": {
-            "get": {
-                "summary": "Get Global Totals",
-                "description": "Get global stats: cases, deaths, recovered, time last updated, and active cases",
-                "responses": {
-                    "200": {}
-                }
-            }
-        },
-        "/states": {
-            "get": {
-                "summary": "Get US State Totals",
-                "description": "Get stats on United States of America States with COVID-19, including cases, new cases, deaths, new deaths, and active cases",
-                "responses": {
-                    "200": {}
-                }
-            }
-        },
         "/jhucsse": {
-            "summary": "Get All JHU CSSE",
-            "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!Get data from JHU CSSE",
-            "responses": {
-                "200": {}
-            }
-        },
-        "/countries": {
             "get": {
-                "tags": [
-                    "Countries"
-                ],
-                "summary": "Get All Countries Totals",
-                "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
+                "summary": "Get All JHU CSSE",
+                "description": "Get JHU CSSE Data. This includes confirmed cases, deaths, recovered, and coordinates.",
                 "responses": {
-                    "200": {
-                        "description": "Getting Data",
-                        "schema": {
-                            "$ref": "#/definitions/countries"
-                        }
-                    }
+                    "200": {}
                 }
             }
         },
-        "/countries/{query}": {
+        "/historical": {
             "get": {
-                "tags": [
-                    "Countries"
-                ],
+                "summary": "Get Historical Data",
+                "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country.",
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/historical/{query}/{province}": {
+            "get": {
                 "parameters": [
                     {
                         "name": "query",
@@ -85,17 +58,28 @@
                         "required": true,
                         "description": "For this parameter you can use Country Name && Country Id && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
                         "type": "string"
+                    },
+                    {
+                        "name": "province",
+                        "in": "path",
+                        "required": false,
+                        "description": "Province name",
+                        "type": "string"
                     }
                 ],
-                "summary": "Get a Specific Country's Totals",
-                "description": "Get the same data from the /countries endpoint, but filter down to a specific country.",
+                "summary": "Get Historical Data by Country Name and Province (Not Required)",
+                "description": "Get a country's time series using a country iso code, country ID, or of course, country name",
                 "responses": {
-                    "200": {
-                        "description": "Getting Data",
-                        "schema": {
-                            "$ref": "#/definitions/country"
-                        }
-                    }
+                    "200": {}
+                }
+            }
+        },
+        "/historical/all": {
+            "get": {
+                "summary": "Get Historical Data",
+                "description": "Return time series data globally",
+                "responses": {
+                    "200": {}
                 }
             }
         }

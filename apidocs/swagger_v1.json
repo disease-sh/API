@@ -50,10 +50,21 @@
             }
         },
         "/jhucsse": {
-            "summary": "Get All JHU CSSE",
-            "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!Get data from JHU CSSE",
-            "responses": {
-                "200": {}
+            "get": {
+                "summary": "Get All JHU CSSE",
+                "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!Get data from JHU CSSE",
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/historical": {
+            "get": {
+                "summary": "Get Historical Data",
+                "description": "Get Timeseries info from JHU CSSE",
+                "responses": {
+                    "200": {}
+                }
             }
         },
         "/countries": {
