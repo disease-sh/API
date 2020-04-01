@@ -18,6 +18,10 @@
   "tags": [
     {
       "name": "default"
+    },
+    {
+      "name": "JHUCSSE",
+      "description": "(Data from Johns Hopikins University)"
     }
   ],
   "consumes": [
@@ -29,6 +33,9 @@
   "paths": {
     "/v2/jhucsse": {
       "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
         "summary": "Get All JHU CSSE",
         "description": "Get JHU CSSE Data. This includes confirmed cases, deaths, recovered, and coordinates.",
         "responses": {
@@ -40,17 +47,26 @@
     },
     "/v2/historical": {
       "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
         "summary": "Get Historical Data",
         "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country.",
         "responses": {
           "200": {
-            "description": "Status Ok"
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/countryHistorical"
+            }
           }
         }
       }
     },
     "/v2/historical/{query}": {
       "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
         "parameters": [
           {
             "name": "query",
@@ -64,13 +80,19 @@
         "description": "Get a country's time series using a country iso code, country ID, or of course, country name",
         "responses": {
           "200": {
-            "description": "Status Ok"
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/countriesHistorical"
+            }
           }
         }
       }
     },
     "/v2/historical/{query}/{province}": {
       "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
         "parameters": [
           {
             "name": "query",
@@ -87,8 +109,8 @@
             "type": "string"
           }
         ],
-        "summary": "Get Historical Data by Country Name and Province",
-        "description": "Get a country's time series using a country iso code, country ID, or of course, country name and province name",
+        "summary": "Get Historical Data by Province Name",
+        "description": "Get a province within a country's time series. Example is /v2/historical/chn/tibet. CHN is China's iso3 code",
         "responses": {
           "200": {
             "description": "Status Ok"
@@ -98,6 +120,9 @@
     },
     "/v2/historical/all": {
       "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
         "summary": "Get Historical Data",
         "description": "Return time series data globally",
         "responses": {
@@ -108,7 +133,24 @@
       }
     }
   },
-  "definitions": {},
+  "definitions": {
+    "countryHistorical": {
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "province": {
+          "type": "string"
+        }
+      }
+    },
+    "countriesHistorical": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/countryHistorical"
+      }
+    }
+  },
   "externalDocs": {
     "description": "Find out more about this API",
     "url": "https://github.com/NovelCovid/API"
