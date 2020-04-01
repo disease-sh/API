@@ -1,6 +1,7 @@
 const axios = require('axios');
 const csv = require('csvtojson');
 const countryUtils = require('../utils/country_utils');
+const stringUtils = require('../utils/string_utils');
 
 // eslint-disable-next-line max-len
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/';
@@ -133,15 +134,15 @@ const historicalV2 = async (keys, redis) => {
  */
 const getHistoricalCountryDataV2 = (data, query, province = null) => {
 	const countryInfo = countryUtils.getCountryData(query);
-	// invalid query
-	if (countryInfo.country === null) return null;
+	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : query);
+
 	// filter to either specific province, or provinces to sum country over
 	const countryData = data.filter(item => {
 		if (province) {
-			return item.province && item.province === province && item.countryInfo.country === countryInfo.country;
-		} else {
-			return item.countryInfo.country === countryInfo.country;
+			return item.province && item.province === province
+				&& stringUtils.wordsStandardize(item.country).includes(standardizedCountryName);
 		}
+		return stringUtils.wordsStandardize(item.country) === standardizedCountryName;
 	});
 	if (countryData.length === 0) return null;
 
@@ -162,13 +163,13 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 
 	if (province) {
 		return {
-			country: countryInfo.country,
+			country: countryData[0].country || standardizedCountryName,
 			province: province,
 			timeline
 		};
 	}
 	return {
-		country: countryInfo.country,
+		country: countryData[0].country || standardizedCountryName,
 		provinces,
 		timeline
 	};

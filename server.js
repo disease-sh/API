@@ -157,7 +157,7 @@ app.get('/v2/historical/:query/:province?', async (req, res) => {
 		countryData = countries.map((country) =>
 			scraper.historical.getHistoricalCountryDataV2(
 				data,
-				country.toLowerCase(),
+				country,
 				null
 			) || { err: 'Country not found or doesn\'t have any historical data' }
 		);
@@ -166,8 +166,8 @@ app.get('/v2/historical/:query/:province?', async (req, res) => {
 		countryData = provinces.map((prov) =>
 			scraper.historical.getHistoricalCountryDataV2(
 				data,
-				countries[0].toLowerCase(),
-				prov.toLowerCase().trim()
+				countries[0],
+				prov.trim()
 			) || { err: 'Country not found or doesn\'t have any historical data' }
 		);
 	} else {
