@@ -1,0 +1,12 @@
+{
+  	"extends": [
+		"@aero"
+  	],
+  	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+  	},
+  	"rules": {
+
+  	}
+}

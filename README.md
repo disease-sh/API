@@ -1,5 +1,6 @@
+<a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 # Join our Server!
 [![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
@@ -8,84 +9,66 @@
 API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
 https://corona.lmao.ninja/
 
-# Endpoints v2
-|  GET Request  | Output  |
-| ------------ | ------------ |
-| https://corona.lmao.ninja/v2/historical | Get historical data from the start of 2020. (JHU CSSE GISand Data) |
-| https://corona.lmao.ninja/v2/historical/{country-name} | Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
+# Recommended by Postman
+NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
-# Endpoints v1
-|  GET Request  | Output  |
-| ------------ | ------------ |
-|  https://corona.lmao.ninja/all | Returns all total cases, recovery, and deaths. |
-|  https://corona.lmao.ninja/countries | Returns data of all countries that has COVID-19 |
-|  https://corona.lmao.ninja/countries?sort={parameter} | Returns data of each country sorted by the parameter |
-|  https://corona.lmao.ninja/countries/{country-name} | Returns data of a specific country. If an exact name match is desired pass ?strict=true in the query string |
-|  https://corona.lmao.ninja/states | Returns all United States of America and their Corona data |
-|  https://corona.lmao.ninja/jhucsse | Return data from the Johns Hopkins CSSE Data Repository (Provinces and such) |
-| https://corona.lmao.ninja/historical | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020. (JHU CSSE GISand Data) |
-| https://corona.lmao.ninja/historical/{country-name} | **DEPRECATED USE V2 ENDPOINT** Get historical data from the start of 2020 for a specific country. (JHU CSSE GISand Data) |
+# Documentation
+NovelCovid/API Documentation can be found [here](https://corona.lmao.ninja/docs/)
 
-## Loading and using our NPM Package
+## Installation
+
+#### Redis
+1. Download redis from https://redis.io/topics/quickstart
+2. Start redis server using `redis-server`
+
+#### Project
+1. Fork and clone git repository
+2. In root project folder, create a new file called `config.json`
+3. Copy contents for `config.example.json` to new `config.json` file
+4. Replace password field with `""` and port field to whatever localhost port you want.
+5. From root of project, run `npm start`
+6. In your browser, go to `localhost:{port}` to test your local changes
+
+## Run with docker-compose.
+1. Fork and clone git repository
+2. In root project folder, make a new file called `config.json`
+3. Copy contents for `config.example.json` to new `config.json` file
+4. Replace password field with `"yourpassword"` and port field same within `docker-compose.yml`.
+5. Replace redis host "localhost" with "redis".
+6. Run command `docker-compose up --build -d`.
+
+## NPM Package
+<dir align ="center">
+<a href="https://www.npmjs.com/package/novelcovid">
+    <img src="https://img.shields.io/npm/v/novelcovid?logo=npm&style=for-the-badge" alt="Version">
+</a>
+<a href="https://www.npmjs.com/package/novelcovid">
+	<img src="https://img.shields.io/bundlephobia/min/novelcovid?color=red&label=SIZE&logo=npm&style=for-the-badge", alt="Size">
+</a>
+<a href="https://www.npmjs.com/package/novelcovid">
+<img src="https://img.shields.io/npm/dw/novelcovid?logo=npm&style=for-the-badge", alt="Downloads">
+</a>
+</dir>
 
 We suggest you load the module via `require`, considering ES modules in Node.js are not yet stable.
 
-```js
-const covid = require('novelcovid');
-```
+Executing a method will return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+The examples here utilise [async/await](https://javascript.info/async-await) to access the data.
 
-## Documentation
-
-To actually use the data, you will need an [async/await](https://javascript.info/async-await).
+JavaScript:
 
 ```js
-// Declare the package
-const covid = require('novelcovid');
-
-// Now we create a async/await
-(async () => {
-
-    // Now we await it.
-    let all = await covid.getAll();
-
-    // Make sure you return it, this usually implies if you are using this inside a function.
-    // Use \n to break lines.
-    return console.log(`Cases: ${all.cases}\nDeaths: ${all.deaths}\nRecovered: ${all.recovered}`)
-})()
+const { NovelCovid } = require('novelcovid');
 ```
 
-#### Sorting the data.
-
-Some [methods](https://www.npmjs.com/package/covidtracker#methods) can be sorted.
-
-```js
-const covid = require('novelcovid');
-
-(async () => {
-    let sortedCountries = await covid.getCountry({sort: 'recovered'});
-    return console.log(sortedCountries);
-
-    let sortedStates = await covid.getState({sort: 'deaths'});
-    return console.log(sortedStates);
-})();
+TypeScript:
+```ts
+import { NovelCovid } from 'novelcovid';
 ```
+### Methods
+ Everything is listed on the [npm](https://www.npmjs.com/package/novelcovid) site.
 
-#### Filtering for a specific country/state.
-```js
-const covid = require('novelcovid');
-
-(async () => {
-   // Specific Country
-   let specificCountry = await covid.getCountry({country: 'United States'});
-   return console.log(specificCountry);
-   
-   // Specific State
-   let specificState = await covid.getState({state: 'New York'});
-   return console.log(specificCountry);
-})();
-```
-
-**Note**
+## **Note**
 Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` as it returns an **ISO Date**
 
 You can read more about **new Date()** [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
@@ -93,8 +76,9 @@ You can read more about **new Date()** [here](https://developer.mozilla.org/en-U
 > For further support, you can join our discord server! More Tutorials can be found there too!
 > https://discord.gg/EvbMshU
 
-### Sources: 
-> https://www.worldometers.info/coronavirus/ 
+### Sources:
+> https://www.worldometers.info/coronavirus/
+
 > https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
 
 ## Contributors ✨
@@ -117,6 +101,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/buster95"><img src="https://avatars0.githubusercontent.com/u/15637669?v=4" width="100px;" alt=""/><br /><sub><b>Walter Corrales</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=buster95" title="Code">💻</a></td>
     <td align="center"><a href="https://AhmadAwais.com"><img src="https://avatars1.githubusercontent.com/u/960133?v=4" width="100px;" alt=""/><br /><sub><b>Ahmad Awais ⚡️</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=ahmadawais" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://discord.gg/rk7cVyk"><img src="https://avatars1.githubusercontent.com/u/39545629?v=4" width="100px;" alt=""/><br /><sub><b>MrAugu</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3AMrAugu" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://chroventer.github.io"><img src="https://avatars2.githubusercontent.com/u/34645569?v=4" width="100px;" alt=""/><br /><sub><b>Ayyan Lewis</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3Achroventer" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://bensommer.co.uk"><img src="https://avatars0.githubusercontent.com/u/39101651?v=4" width="100px;" alt=""/><br /><sub><b>Ben Sommer</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3Abenjamin-sommer" title="Bug reports">🐛</a> <a href="https://github.com/NovelCOVID/API/commits?author=benjamin-sommer" title="Code">💻</a></td>
   </tr>
 </table>
 
