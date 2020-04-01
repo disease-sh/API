@@ -47,6 +47,11 @@ app.get('/support', async (req, res) => {
 	res.redirect('https://discord.gg/EvbMshU');
 });
 
+app.get('/swagger/:version', (req, res) => {
+	const { version } = req.params;
+	res.send(require(`./apidocs/swagger_${version}.json`));
+});
+
 app.use('/docs',
 	swaggerUi.serve,
 	swaggerUi.setup(null, {
@@ -56,15 +61,16 @@ app.use('/docs',
 			urls: [
 				{
 					name: 'version 1.0.0',
-					url: 'https://raw.githubusercontent.com/buster95/API/master/apidocs/swagger_v1.json'
+					url: '/swagger/v1'
 				},
 				{
 					name: 'version 2.0.0',
-					url: 'https://raw.githubusercontent.com/buster95/API/master/apidocs/swagger_v2.json'
+					url: '/swagger/v2'
 				}
 			]
 		}
-	}));
+	})
+);
 
 // API endpoints
 app.get('/all', async (req, res) => {

@@ -1,96 +1,116 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "version": "2.0.0",
-        "title": "Novel Covid19",
-        "description": "Covid19 Third Party API for Global Information",
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        }
-    },
-    "schemes": [
-        "https",
-        "http"
-    ],
-    "host": "corona.lmao.ninja",
-    "basePath": "",
-    "tags": [
-        {
-            "name": "default"
-        }
-    ],
-    "consumes": [
-        "application/json"
-    ],
-    "produces": [
-        "application/json"
-    ],
-    "paths": {
-        "/v2/jhucsse": {
-            "get": {
-                "summary": "Get All JHU CSSE",
-                "description": "Get JHU CSSE Data. This includes confirmed cases, deaths, recovered, and coordinates.",
-                "responses": {
-                    "200": {
-                        "description": "Status Ok"
-                    }
-                }
-            }
-        },
-        "/v2/historical": {
-            "get": {
-                "summary": "Get Historical Data",
-                "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country.",
-                "responses": {
-                    "200": {
-                        "description": "Status Ok"
-                    }
-                }
-            }
-        },
-        "/v2/historical/{query}/{province}": {
-            "get": {
-                "parameters": [
-                    {
-                        "name": "query",
-                        "in": "path",
-                        "required": true,
-                        "description": "For this parameter you can use Country Name && Country Id && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
-                        "type": "string"
-                    },
-                    {
-                        "name": "province",
-                        "in": "path",
-                        "required": false,
-                        "description": "Province name",
-                        "type": "string"
-                    }
-                ],
-                "summary": "Get Historical Data by Country Name and Province (Not Required)",
-                "description": "Get a country's time series using a country iso code, country ID, or of course, country name",
-                "responses": {
-                    "200": {
-                        "description": "Status Ok"
-                    }
-                }
-            }
-        },
-        "/v2/historical/all": {
-            "get": {
-                "summary": "Get Historical Data",
-                "description": "Return time series data globally",
-                "responses": {
-                    "200": {
-                        "description": "Status Ok"
-                    }
-                }
-            }
-        }
-    },
-    "definitions": {},
-    "externalDocs": {
-        "description": "Find out more about this API",
-        "url": "https://github.com/NovelCovid/API"
+  "swagger": "2.0",
+  "info": {
+    "version": "2.0.0",
+    "title": "NOVELCovid/API",
+    "description": "Covid19 Third Party API for Global Information",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
     }
+  },
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "host": "corona.lmao.ninja",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "default"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v2/jhucsse": {
+      "get": {
+        "summary": "Get All JHU CSSE",
+        "description": "Get JHU CSSE Data. This includes confirmed cases, deaths, recovered, and coordinates.",
+        "responses": {
+          "200": {
+            "description": "Status Ok"
+          }
+        }
+      }
+    },
+    "/v2/historical": {
+      "get": {
+        "summary": "Get Historical Data",
+        "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country.",
+        "responses": {
+          "200": {
+            "description": "Status Ok"
+          }
+        }
+      }
+    },
+    "/v2/historical/{query}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use Country Name && Country Id && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
+            "type": "string"
+          }
+        ],
+        "summary": "Get Historical Data by Country Name",
+        "description": "Get a country's time series using a country iso code, country ID, or of course, country name",
+        "responses": {
+          "200": {
+            "description": "Status Ok"
+          }
+        }
+      }
+    },
+    "/v2/historical/{query}/{province}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use Country Name && Country Id && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
+            "type": "string"
+          },
+          {
+            "name": "province",
+            "in": "path",
+            "required": true,
+            "description": "Province name",
+            "type": "string"
+          }
+        ],
+        "summary": "Get Historical Data by Country Name and Province",
+        "description": "Get a country's time series using a country iso code, country ID, or of course, country name and province name",
+        "responses": {
+          "200": {
+            "description": "Status Ok"
+          }
+        }
+      }
+    },
+    "/v2/historical/all": {
+      "get": {
+        "summary": "Get Historical Data",
+        "description": "Return time series data globally",
+        "responses": {
+          "200": {
+            "description": "Status Ok"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {},
+  "externalDocs": {
+    "description": "Find out more about this API",
+    "url": "https://github.com/NovelCovid/API"
+  }
 }
