@@ -5,6 +5,8 @@ const config = require('./config.json');
 const scraper = require('./scraper');
 const countryUtils = require('./utils/country_utils');
 const stringUtils = require('./utils/string_utils');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const app = express();
 
@@ -45,6 +47,24 @@ app.get('/invite', async (req, res) => {
 app.get('/support', async (req, res) => {
 	res.redirect('https://discord.gg/EvbMshU');
 });
+
+app.use('/docs',
+	swaggerUi.serve,
+	swaggerUi.setup(swaggerDocument, {
+		explorer: true,
+		swaggerOptions: {
+			
+			urls: [
+				{
+					name: 'Spec1'
+				},
+				{
+					url: 'http://petstore.swagger.io/v2/swagger.json',
+					name: 'Spec2'
+				}
+			]
+		}
+	}));
 
 // API endpoints
 app.get('/all', async (req, res) => {
