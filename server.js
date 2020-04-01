@@ -47,25 +47,21 @@ app.get('/support', async (req, res) => {
 	res.redirect('https://discord.gg/EvbMshU');
 });
 
-app.get('/swagger/:version', (req, res) => {
-	const { version } = req.params;
-	res.send(require(`./apidocs/swagger_${version}.json`));
-});
-
+app.use('/public', express.static('assets'));
 app.use('/docs',
 	swaggerUi.serve,
 	swaggerUi.setup(null, {
 		explorer: true,
+		customJs: '/public/apidocs/customization.js',
 		swaggerOptions: {
-
 			urls: [
 				{
-					name: 'version 1.0.0',
-					url: '/swagger/v1'
+					name: 'version 2.0.0',
+					url: '/public/apidocs/swagger_v2.json'
 				},
 				{
-					name: 'version 2.0.0',
-					url: '/swagger/v2'
+					name: 'version 1.0.0',
+					url: '/public/apidocs/swagger_v1.json'
 				}
 			]
 		}
@@ -105,7 +101,7 @@ app.get('/countries/:query', async (req, res) => {
 	/* eslint-disable-next-line no-restricted-globals */
 	const isText = isNaN(query);
 	const countryInfo = isText ? countryUtils.getCountryData(query) : null;
-	const standardizedCountryName = (countryInfo && countryInfo.country) ? countryInfo.country.toLowerCase() : null;
+	const standardizedCountryName = countryInfo && countryInfo.country ? countryInfo.country.toLowerCase() : null;
 
 	const country = countries.find((ctry) => {
 		// either name or ISO
