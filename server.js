@@ -5,7 +5,7 @@ const config = require('./config.json');
 const scraper = require('./scraper');
 const countryUtils = require('./utils/country_utils');
 const stringUtils = require('./utils/string_utils');
-const swaggerUi = require('swagger-ui-express');
+//const swaggerUi = require('swagger-ui-express');
 
 const app = express();
 
@@ -46,7 +46,7 @@ app.get('/invite', async (req, res) => {
 app.get('/support', async (req, res) => {
 	res.redirect('https://discord.gg/EvbMshU');
 });
-
+/*
 app.get('/swagger/:version', (req, res) => {
 	const { version } = req.params;
 	res.send(require(`./apidocs/swagger_${version}.json`));
@@ -70,7 +70,7 @@ app.use('/docs',
 			]
 		}
 	})
-);
+); */
 
 // API endpoints
 app.get('/all', async (req, res) => {
