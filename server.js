@@ -52,7 +52,9 @@ app.use('/docs',
 	swaggerUi.serve,
 	swaggerUi.setup(null, {
 		explorer: true,
-		customJs: '/public/apidocs/customization.js',
+		customSiteTitle: 'NovelCOVID 19 API',
+		customfavIcon: '/public/virus.png',
+		customCssUrl: '/public/apidocs/custom.css',
 		swaggerOptions: {
 			urls: [
 				{
