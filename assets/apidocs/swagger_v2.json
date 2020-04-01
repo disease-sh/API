@@ -53,6 +53,20 @@
         }
       }
     },
+    "/yesterday": {
+      "get": {
+        "summary": "Get Country Totals from Yesterday",
+        "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
+        "responses": {
+          "200": {
+            "description": "Status OK",
+            "schema": {
+              "$ref": "#/definitions/countries"
+            }
+          }
+        }
+      }
+    },
     "/countries": {
       "get": {
         "tags": [
@@ -213,6 +227,84 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/countryHistorical"
+      }
+    },
+    "countryInfo": {
+      "required": [
+        "country",
+        "_id"
+      ],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "iso2": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "iso3": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "country": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "long": {
+          "type": "number"
+        },
+        "flag": {
+          "type": "string"
+        }
+      }
+    },
+    "country": {
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "countryInfo": {
+          "$ref": "#/definitions/countryInfo"
+        },
+        "cases": {
+          "type": "integer"
+        },
+        "todayCases": {
+          "type": "integer"
+        },
+        "deaths": {
+          "type": "integer"
+        },
+        "todayDeaths": {
+          "type": "integer"
+        },
+        "recovered": {
+          "type": "integer"
+        },
+        "active": {
+          "type": "integer"
+        },
+        "critical": {
+          "type": "integer"
+        },
+        "casesPerOneMillion": {
+          "type": "number"
+        },
+        "deathsPerOneMillion": {
+          "type": "number"
+        },
+        "updated": {
+          "type": "integer"
+        }
+      }
+    },
+    "countries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/country"
       }
     }
   },
