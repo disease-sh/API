@@ -14,14 +14,10 @@
         "http"
     ],
     "host": "corona.lmao.ninja",
-    "basePath": "/v2",
+    "basePath": "",
     "tags": [
         {
             "name": "default"
-        },
-        {
-            "name": "Countries",
-            "description": "API Doc for Countries EndPoint"
         }
     ],
     "consumes": [
@@ -31,7 +27,7 @@
         "application/json"
     ],
     "paths": {
-        "/jhucsse": {
+        "/v2/jhucsse": {
             "get": {
                 "summary": "Get All JHU CSSE",
                 "description": "Get JHU CSSE Data. This includes confirmed cases, deaths, recovered, and coordinates.",
@@ -40,7 +36,7 @@
                 }
             }
         },
-        "/historical": {
+        "/v2/historical": {
             "get": {
                 "summary": "Get Historical Data",
                 "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country.",
@@ -49,7 +45,7 @@
                 }
             }
         },
-        "/historical/{query}/{province}": {
+        "/v2/historical/{query}/{province}": {
             "get": {
                 "parameters": [
                     {
@@ -74,7 +70,7 @@
                 }
             }
         },
-        "/historical/all": {
+        "/v2/historical/all": {
             "get": {
                 "summary": "Get Historical Data",
                 "description": "Return time series data globally",
@@ -84,85 +80,7 @@
             }
         }
     },
-    "definitions": {
-        "countryInfo": {
-            "required": [
-                "country",
-                "_id"
-            ],
-            "properties": {
-                "_id": {
-                    "type": "integer",
-                    "uniqueItems": true
-                },
-                "iso2": {
-                    "type": "string",
-                    "uniqueItems": true
-                },
-                "iso3": {
-                    "type": "string",
-                    "uniqueItems": true
-                },
-                "country": {
-                    "type": "string"
-                },
-                "lat": {
-                    "type": "number"
-                },
-                "long": {
-                    "type": "number"
-                },
-                "flag": {
-                    "type": "string"
-                }
-            }
-        },
-        "country": {
-            "properties": {
-                "country": {
-                    "type": "string"
-                },
-                "countryInfo": {
-                    "type": "object",
-                    "$ref": "#/definitions/countryInfo"
-                },
-                "cases": {
-                    "type": "integer"
-                },
-                "todayCases": {
-                    "type": "integer"
-                },
-                "deaths": {
-                    "type": "integer"
-                },
-                "todayDeaths": {
-                    "type": "integer"
-                },
-                "recovered": {
-                    "type": "integer"
-                },
-                "active": {
-                    "type": "integer"
-                },
-                "critical": {
-                    "type": "integer"
-                },
-                "casesPerOneMillion": {
-                    "type": "number"
-                },
-                "deathsPerOneMillion": {
-                    "type": "number"
-                },
-                "updated": {
-                    "type": "integer"
-                }
-            }
-        },
-        "countries": {
-            "type": "array",
-            "$ref": "#/definitions/country"
-        }
-    },
+    "definitions": {},
     "externalDocs": {
         "description": "Find out more about this API",
         "url": "https://github.com/NovelCovid/API"
