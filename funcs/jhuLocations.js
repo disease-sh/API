@@ -11,9 +11,7 @@ async function getData() {
 	const yyyy = date.getFullYear();
 	const dateString = `${mm}-${dd}-${yyyy}`;
 	const response = await axios.get(
-		// `${base}/${dateString}.csv`
-		// TODO: WAIT UNTIL JHU FIXES THEIR DATA
-		`${base}/03-31-2020.csv`
+		`${base}/${dateString}.csv`
 	);
 	console.log(
 		`USING ${dateString}.csv CSSEGISandData`
