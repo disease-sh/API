@@ -98,7 +98,7 @@ const historicalV2 = async (keys, redis) => {
 			newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
 		}
 		// add country inf o to support iso2/3 queries
-		const countryData = countryUtils.getCountryData(Object.values(parsedCases)[index]['Country/Region']);
+		const countryData = countryUtils.getCountryData(Object.values(parsedCases)[index]['Country/Region'].replace('*', ''));
 		newElement.country = countryData.country || Object.values(parsedCases)[index]['Country/Region'];
 		newElement.countryInfo = countryData;
 		newElement.province = Object.values(parsedCases)[index]['Province/State'] === '' ? null
