@@ -35,8 +35,8 @@ router.get('/countries/:query', async (req, res) => {
 			return (
 				(ctry.countryInfo.iso3 || 'null').toLowerCase() === query.toLowerCase()
 				|| (ctry.countryInfo.iso2 || 'null').toLowerCase() === query.toLowerCase()
-				|| ((query.length > 3 || countryUtils.isCountryException(query.toLowerCase()))
-					&& stringUtils.wordsStandardize(ctry.country).includes(standardizedCountryName))
+				|| ((query.length >= 3 || countryUtils.isCountryException(query.toLowerCase()))
+					&& stringUtils.wordsStandardize(ctry.country.toLowerCase()).includes(standardizedCountryName))
 			);
 		}
 		// number, must be country ID
