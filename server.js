@@ -11,6 +11,7 @@ const { keys } = config;
 
 const execAll = () => {
 	scraper.getWorldometers.getCountries(keys, redis);
+	scraper.getWorldometers.getYesterday(keys, redis);
 	scraper.getAll(keys, redis);
 	scraper.getStates(keys, redis);
 	scraper.jhuLocations.jhudata(keys, redis);
@@ -71,6 +72,11 @@ app.get('/all', async (req, res) => {
 app.get('/states', async (req, res) => {
 	const states = JSON.parse(await redis.get(keys.states));
 	res.send(states);
+});
+
+app.get('/yesterday', async (req, res) => {
+	const yesterday = JSON.parse(await redis.get(keys.yesterday));
+	res.send(yesterday);
 });
 
 app.use(require('./routes/api_countries'));

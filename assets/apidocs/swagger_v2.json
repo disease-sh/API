@@ -31,6 +31,85 @@
     "application/json"
   ],
   "paths": {
+    "/all": {
+      "get": {
+        "summary": "Get Global Totals",
+        "description": "Get global stats: cases, deaths, recovered, time last updated, and active cases",
+        "responses": {
+          "200": {
+            "description": "Status OK"
+          }
+        }
+      }
+    },
+    "/states": {
+      "get": {
+        "summary": "Get US State Totals",
+        "description": "Get stats on United States of America States with COVID-19, including cases, new cases, deaths, new deaths, and active cases",
+        "responses": {
+          "200": {
+            "description": "Status OK"
+          }
+        }
+      }
+    },
+    "/yesterday": {
+      "get": {
+        "summary": "Get Country Totals from Yesterday",
+        "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
+        "responses": {
+          "200": {
+            "description": "Status OK",
+            "schema": {
+              "$ref": "#/definitions/countries"
+            }
+          }
+        }
+      }
+    },
+    "/countries": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "summary": "Get All Countries Totals",
+        "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
+        "responses": {
+          "200": {
+            "description": "Status OK",
+            "schema": {
+              "$ref": "#/definitions/countries"
+            }
+          }
+        }
+      }
+    },
+    "/countries/{query}": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use Country Name && Country Id && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
+            "type": "string"
+          }
+        ],
+        "summary": "Get a Specific Country's Totals",
+        "description": "Get the same data from the /countries endpoint, but filter down to a specific country.",
+        "responses": {
+          "200": {
+            "description": "Status OK",
+            "schema": {
+              "$ref": "#/definitions/country"
+            }
+          }
+        }
+      }
+    },
     "/v2/jhucsse": {
       "get": {
         "tags": [
@@ -148,6 +227,84 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/countryHistorical"
+      }
+    },
+    "countryInfo": {
+      "required": [
+        "country",
+        "_id"
+      ],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "iso2": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "iso3": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "country": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "long": {
+          "type": "number"
+        },
+        "flag": {
+          "type": "string"
+        }
+      }
+    },
+    "country": {
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "countryInfo": {
+          "$ref": "#/definitions/countryInfo"
+        },
+        "cases": {
+          "type": "integer"
+        },
+        "todayCases": {
+          "type": "integer"
+        },
+        "deaths": {
+          "type": "integer"
+        },
+        "todayDeaths": {
+          "type": "integer"
+        },
+        "recovered": {
+          "type": "integer"
+        },
+        "active": {
+          "type": "integer"
+        },
+        "critical": {
+          "type": "integer"
+        },
+        "casesPerOneMillion": {
+          "type": "number"
+        },
+        "deathsPerOneMillion": {
+          "type": "number"
+        },
+        "updated": {
+          "type": "integer"
+        }
+      }
+    },
+    "countries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/country"
       }
     }
   },
