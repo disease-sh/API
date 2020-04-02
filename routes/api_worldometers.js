@@ -19,7 +19,7 @@ router.get('/countries/:query', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.countries));
 	const { query } = req.params;
 	const countries = query.split(',');
-	let countryData = [];
+	const countryData = [];
 
 	// For each country param, find the country that matches the param
 	for (const country of countries) {
