@@ -1,4 +1,5 @@
-const router = require('express').router();
+// eslint-disable-next-line new-cap
+const router = require('express').Router();
 
 const { redis, config, scraper } = require('./instances');
 const { keys } = config;

@@ -1,4 +1,5 @@
-const router = require('express').router();
+// eslint-disable-next-line new-cap
+const router = require('express').Router();
 const countryUtils = require('../utils/country_utils');
 const stringUtils = require('../utils/string_utils');
 
