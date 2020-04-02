@@ -39,17 +39,16 @@ async function parseCsvData(data) {
 	return parsedData;
 }
 
+/**
+ * Formats recovered data from JHU to match cases data in length and format
+ * @param 	{array}		cases 		JSON formatted cases data from JHU csv file
+ * @param 	{array} 	recovered 	JSON formatted recovered data from JHU csv file
+ * @returns {array} 				JSON formatted recovered data in same structure as cases data
+ */
 function formatRecoveredData(cases, recovered) {
-	const exclusions = ['Country/Region', 'Province/State', 'Lat', 'Long'];
-	const output = [];
-	const dates = [];
 	const countries = [];
-	cases.forEach(country => {
-		Object.keys(country).forEach(key => {
-			if (!exclusions.includes(key) && !dates.includes(key)) {
-				dates.push(key);
-			}
-		});
+	const dates = Object.keys(cases[0]).slice(4);
+	cases.forEach((country) => {
 		countries.push({
 			name: country['Country/Region'],
 			province: country['Province/State'] || '',
@@ -57,27 +56,14 @@ function formatRecoveredData(cases, recovered) {
 			Long: country.Long || ''
 		});
 	});
-	countries.forEach(({ name, province, Lat, Long }) => {
-		var countryData = {
-			'Country/Region': name,
-			'Province/State': province,
-			Lat,
-			Long
-		};
+	const output = countries.map((country) => {
 		const provinces = recovered.filter(el =>
-			el['Country/Region'] === name && el['Province/State'] === province
+			el['Country/Region'] === country.name && el['Province/State'] === country.province
 		);
-
-		if (provinces[0]) {
-			dates.forEach(date => {
-				countryData[date] = parseInt(provinces[0][date]) || 0;
-			});
-		} else {
-			dates.forEach(date => {
-				countryData[date] = 0;
-			});
-		}
-		output.push(countryData);
+		dates.forEach(date => {
+			country[date] = provinces[0] ? parseInt(provinces[0][date]) : 0;
+		});
+		return country;
 	});
 	return output;
 }
