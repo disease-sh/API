@@ -50,4 +50,21 @@ router.get('/countries/:query', async (req, res) => {
 	res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 });
 
+router.get('/all', async (req, res) => {
+	const all = JSON.parse(await redis.get(keys.all));
+	const countries = JSON.parse(await redis.get(keys.countries));
+	all.affectedCountries = countries.length;
+	res.send(all);
+});
+
+router.get('/states', async (req, res) => {
+	const states = JSON.parse(await redis.get(keys.states));
+	res.send(states);
+});
+
+router.get('/yesterday', async (req, res) => {
+	const yesterday = JSON.parse(await redis.get(keys.yesterday));
+	res.send(yesterday);
+});
+
 module.exports = router;

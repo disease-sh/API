@@ -61,25 +61,7 @@ app.use('/docs',
 	})
 );
 
-// API endpoints
-app.get('/all', async (req, res) => {
-	const all = JSON.parse(await redis.get(keys.all));
-	const countries = JSON.parse(await redis.get(keys.countries));
-	all.affectedCountries = countries.length;
-	res.send(all);
-});
-
-app.get('/states', async (req, res) => {
-	const states = JSON.parse(await redis.get(keys.states));
-	res.send(states);
-});
-
-app.get('/yesterday', async (req, res) => {
-	const yesterday = JSON.parse(await redis.get(keys.yesterday));
-	res.send(yesterday);
-});
-
-app.use(require('./routes/api_countries'));
+app.use(require('./routes/api_worldometers'));
 app.use(require('./routes/api_historical'));
 app.use(require('./routes/api_jhucsse'));
 app.use(require('./routes/api_deprecated'));
