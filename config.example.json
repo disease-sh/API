@@ -7,6 +7,7 @@
   "keys": {
     "all": "covidapi:all",
     "countries": "covidapi:countries",
+    "yesterday": "covidapi:yesterday",
     "states": "covidapi:states",
     "jhu": "covidapi:jhu",
     "jhu_v2": "covid:jhu_v2",
