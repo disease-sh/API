@@ -66,7 +66,7 @@ var getcountries = setInterval(async () => {
     .children("td");
 
   // NOTE: this will change when table format change in website
-  const totalColumns = 11;
+  const totalColumns = 10;
   const countryColIndex = 0;
   const casesColIndex = 1;
   const todayCasesColIndex = 2;
@@ -77,7 +77,6 @@ var getcountries = setInterval(async () => {
   const criticalColIndex = 7;
   const casesPerOneMillionColIndex = 8;
   const deathsPerOneMillionColIndex = 9;
-  const firstCaseColIndex = 10;
 
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < countriesTableCells.length - totalColumns; i += 1) {
@@ -170,11 +169,6 @@ var getcountries = setInterval(async () => {
         deathsPerOneMillion.trim().replace(/,/g, "") || "0",
         10
       );
-    }
-    // get first case date
-    if (i % totalColumns === firstCaseColIndex) {
-      let firstCase = cell.children.length != 0? cell.children[0].data : "";
-      result[result.length - 1].firstCase = firstCase;
     }
   }
 
