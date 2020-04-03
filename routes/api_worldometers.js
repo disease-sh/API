@@ -48,10 +48,10 @@ router.get('/countries/:query', async (req, res) => {
 			return ctry.countryInfo._id === Number(country);
 		});
 
-		countryData.push(foundCountry || { message: 'Country not found or doesn\'t have any cases' });
+		if (foundCountry) countryData.push(foundCountry);
 	}
 
-	if (countryData) {
+	if (countryData.length > 0) {
 		res.send(countryData.length === 1 ? countryData[0] : countryData);
 		return;
 	}
