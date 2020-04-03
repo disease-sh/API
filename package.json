@@ -12,6 +12,9 @@
     "coronavirus",
     "covid"
   ],
+  "eslintIgnore": [
+    "**/*.spec.*"
+  ],
   "scripts": {
     "start": "node server.js",
     "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
