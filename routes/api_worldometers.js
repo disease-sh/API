@@ -16,34 +16,43 @@ router.get('/countries', async (req, res) => {
 });
 
 router.get('/countries/:query', async (req, res) => {
-	const countries = JSON.parse(await redis.get(keys.countries));
+	const data = JSON.parse(await redis.get(keys.countries));
 	const { query } = req.params;
-	/* eslint-disable-next-line no-restricted-globals */
-	const isText = isNaN(query);
-	const countryInfo = isText ? countryUtils.getCountryData(query) : null;
-	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : query);
+	const countries = query.split(',');
+	const countryData = [];
 
-	const country = countries.find((ctry) => {
-		// either name or ISO
-		if (isText) {
-			// check for strict param
-			if (req.query.strict) {
-				return req.query.strict.toLowerCase() === 'true'
-					? stringUtils.wordsStandardize(ctry.country) === standardizedCountryName
-					: stringUtils.wordsStandardize(ctry.country).includes(standardizedCountryName);
+	// For each country param, find the country that matches the param
+	for (const country of countries) {
+		/* eslint-disable-next-line no-restricted-globals */
+		const isText = isNaN(country);
+		const countryInfo = isText ? countryUtils.getCountryData(country) : null;
+		const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : country);
+
+		const foundCountry = data.find((ctry) => {
+			// either name or ISO
+			if (isText) {
+				// check for strict param
+				if (req.query.strict) {
+					return req.query.strict.toLowerCase() === 'true'
+						? stringUtils.wordsStandardize(ctry.country) === standardizedCountryName
+						: stringUtils.wordsStandardize(ctry.country).includes(standardizedCountryName);
+				}
+				return (
+					(ctry.countryInfo.iso3 || 'null').toLowerCase() === country.toLowerCase()
+					|| (ctry.countryInfo.iso2 || 'null').toLowerCase() === country.toLowerCase()
+					|| ((country.length > 3 || countryUtils.isCountryException(country.toLowerCase()))
+						&& stringUtils.wordsStandardize(ctry.country).includes(standardizedCountryName))
+				);
 			}
-			return (
-				(ctry.countryInfo.iso3 || 'null').toLowerCase() === query.toLowerCase()
-				|| (ctry.countryInfo.iso2 || 'null').toLowerCase() === query.toLowerCase()
-				|| ((query.length >= 3 || countryUtils.isCountryException(query.toLowerCase()))
-					&& stringUtils.wordsStandardize(ctry.country.toLowerCase()).includes(standardizedCountryName))
-			);
-		}
-		// number, must be country ID
-		return ctry.countryInfo._id === Number(query);
-	});
-	if (country) {
-		res.send(country);
+			// number, must be country ID
+			return ctry.countryInfo._id === Number(country);
+		});
+
+		countryData.push(foundCountry || { message: 'Country not found or doesn\'t have any cases' });
+	}
+
+	if (countryData) {
+		res.send(countryData.length === 1 ? countryData[0] : countryData);
 		return;
 	}
 	// adding status code 404 not found and sending response
