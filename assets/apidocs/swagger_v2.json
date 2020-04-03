@@ -67,10 +67,22 @@
         }
       }
     },
-    "/countries": {
+    "/countries{?sort}": {
       "get": {
         "tags": [
           "Countries"
+        ],
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "description": "For this parameter you can provide a key from the country model (e.g. cases, todayCases, deaths, recovered, active, etc) to sort the countries from greatest to least, depending on the key",
+            "schema": {
+              "type": "string",
+              "example": "/countries?sort=cases"
+            }
+          }
         ],
         "summary": "Get All Countries Totals",
         "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
