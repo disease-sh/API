@@ -14,7 +14,6 @@ const execAll = () => {
 	scraper.getWorldometers.getYesterday(keys, redis);
 	scraper.getAll(keys, redis);
 	scraper.getStates(keys, redis);
-	scraper.jhuLocations.jhudata(keys, redis);
 	scraper.jhuLocations.jhudataV2(keys, redis);
 	scraper.historical.historicalV2(keys, redis);
 };
