@@ -20,7 +20,7 @@
     "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
     "lint:fix": "eslint ./**/*.js --fix --ignore-pattern node_modules/",
     "lint:win32": "eslint ./**/*.js --ignore-pattern node_modules/",
-    "test": "mocha ./tests --exit"
+    "test": "mocha ./tests --exit  --timeout 10000"
   },
   "dependencies": {
     "axios": "^0.19.2",
