@@ -31,7 +31,7 @@ router.get('/v2/historical/:query/:province?', async (req, res) => {
 				data,
 				country,
 				null
-			) || { err: 'Country not found or doesn\'t have any historical data' }
+			) || { message: 'Country not found or doesn\'t have any historical data' }
 		);
 	} else if (provinces.length > 0) {
 		// provinces for one country
@@ -40,7 +40,7 @@ router.get('/v2/historical/:query/:province?', async (req, res) => {
 				data,
 				countries[0],
 				prov.trim()
-			) || { err: 'Country not found or doesn\'t have any historical data' }
+			) || { message: 'Country not found or doesn\'t have any historical data' }
 		);
 	} else {
 		countryData = scraper.historical.getHistoricalCountryDataV2(
