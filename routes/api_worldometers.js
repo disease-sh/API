@@ -74,9 +74,7 @@ router.get('/states', async (req, res) => {
 router.get('/states/:query', async (req, res) => {
 	const { query } = req.params;
 	const states = JSON.parse(await redis.get(keys.states));
-	const stateData = states.filter(st => {
-		return st.state === query;
-	});
+	const stateData = states.filter(st => st.state === query);
 	const state = stateData[0] || {};
 	res.send(state);
 });
