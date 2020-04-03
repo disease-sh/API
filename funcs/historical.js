@@ -121,9 +121,9 @@ const historicalV2 = async (keys, redis) => {
 const getHistoricalCountryDataV2 = (data, query, province = null) => {
 	const countryInfo = countryUtils.getCountryData(query);
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : query);
-
 	// filter to either specific province, or provinces to sum country over
 	const countryData = data.filter(item => {
+		if (item.countryInfo._id === null) return false;
 		if (province) {
 			return item.province && item.province === province
 				&& (stringUtils.wordsStandardize(item.country).includes(standardizedCountryName)
