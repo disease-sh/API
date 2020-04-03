@@ -110,6 +110,37 @@
         }
       }
     },
+    "/countries/{country,country,...}": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards seperated by commas",
+            "type": "string"
+          }
+        ],
+        "summary": "Get a Specific Country's Totals",
+        "description": "Get the same data from the /countries endpoint, but filter down to multiple specific countries.",
+        "responses": {
+          "200": {
+            "description": "Status OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "allOf": {
+                  "$ref": "#/definitions/country"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v2/jhucsse": {
       "get": {
         "tags": [
@@ -167,6 +198,37 @@
         }
       }
     },
+     "/v2/historical/{country,country,...}": {
+      "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards seperated by commas",
+            "type": ""
+          }
+        ],
+        "summary": "Get Historical Data by multiple Country Names",
+        "description": "Get multiple countrys' time series using multiple country iso codes, country IDs, or of course, country names",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "allOf": {
+                  "$ref": "#/definitions/countriesHistorical"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v2/historical/{query}/{province}": {
       "get": {
         "tags": [
@@ -190,6 +252,29 @@
         ],
         "summary": "Get Historical Data by Province Name",
         "description": "Get a province within a country's time series. Example is /v2/historical/chn/tibet. CHN is China's iso3 code",
+        "responses": {
+          "200": {
+            "description": "Status Ok"
+          }
+        }
+      }
+    },
+    "/v2/historical/{query}/{province,province,...}": {
+      "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards seperated by commas",
+            "type": ""
+          }
+        ],
+        "summary": "Get Historical Data by multiple Province Names",
+        "description": "Get multiple pronvinces' time series using multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
         "responses": {
           "200": {
             "description": "Status Ok"
