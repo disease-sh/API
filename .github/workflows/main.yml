@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x, 13.x]
-        redis-version: [4, 5]
+        node-version: [13.x]
+        redis-version: [5]
     steps:
       - uses: actions/checkout@v2
       - run: npm install
