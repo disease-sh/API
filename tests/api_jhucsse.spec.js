@@ -36,7 +36,7 @@ describe('TESTING /jhucsse and /v2/jhucsse', () => {
             });
     });
 
-    it('/v2/jhucsse/counties/asdfghjkl', (done) => {
+    it('/v2/jhucsse/counties incorrect county name', (done) => {
         chai.request(app)
             .get('/v2/jhucsse/counties/asdfghjkl')
             .end((err, res) => {
@@ -46,7 +46,7 @@ describe('TESTING /jhucsse and /v2/jhucsse', () => {
             });
     });
 
-    it('/v2/jhucsse/counties/cook', (done) => {
+    it('/v2/jhucsse/counties/ correct county name', (done) => {
         chai.request(app)
             .get('/v2/jhucsse/counties/cook')
             .end((err, res) => {
