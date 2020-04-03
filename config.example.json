@@ -9,7 +9,6 @@
     "countries": "covidapi:countries",
     "yesterday": "covidapi:yesterday",
     "states": "covidapi:states",
-    "jhu": "covidapi:jhu",
     "jhu_v2": "covidapi:jhu_v2",
     "historical_v2": "covidapi:historical_v2"
   },
