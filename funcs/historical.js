@@ -123,21 +123,20 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : query);
 	// filter to either specific province, or provinces to sum country over
 	const countryData = data.filter(item => {
-		/*
-		you can't add the next line because non countries like Diamond Princess couldn't be searchable
-		*/
-		// if (item.countryInfo._id === null) return false;
-		if (province) {
-			return item.province && item.province === province
-				&& (stringUtils.wordsStandardize(item.country).includes(standardizedCountryName)
-					|| item.countryInfo.iso2 === countryInfo.iso2
-					|| item.countryInfo.iso3 === countryInfo.iso3
-					|| item.countryInfo._id === countryInfo._id);
+		if (item.countryInfo.country) {
+			if (province) {
+				return item.province && item.province === province
+					&& (stringUtils.wordsStandardize(item.country).includes(standardizedCountryName)
+						|| item.countryInfo.iso2 === countryInfo.iso2
+						|| item.countryInfo.iso3 === countryInfo.iso3
+						|| item.countryInfo._id === countryInfo._id);
+			}
+			return stringUtils.wordsStandardize(item.country) === standardizedCountryName
+				|| item.countryInfo.iso2 === countryInfo.iso2
+				|| item.countryInfo.iso3 === countryInfo.iso3
+				|| item.countryInfo._id === countryInfo._id;
 		}
-		return stringUtils.wordsStandardize(item.country) === standardizedCountryName
-			|| item.countryInfo.iso2 === countryInfo.iso2
-			|| item.countryInfo.iso3 === countryInfo.iso3
-			|| item.countryInfo._id === countryInfo._id;
+		return stringUtils.wordsStandardize(item.country) === standardizedCountryName;
 	});
 	if (countryData.length === 0) return null;
 
