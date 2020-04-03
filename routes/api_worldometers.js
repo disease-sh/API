@@ -71,6 +71,13 @@ router.get('/states', async (req, res) => {
 	res.send(states);
 });
 
+router.get('/states/:state', async (req, res) => {
+	const { state } = req.params;
+	const states = JSON.parse(await redis.get(keys.states));
+	const stateData = states[state] || {};
+	res.send(stateData);
+});
+
 router.get('/yesterday', async (req, res) => {
 	const yesterday = JSON.parse(await redis.get(keys.yesterday));
 	res.send(yesterday);
