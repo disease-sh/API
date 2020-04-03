@@ -125,7 +125,7 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 	const countryData = data.filter(item => {
 		if (item.countryInfo.country) {
 			if (province) {
-				return (item.province === province || (item.province === null && province.toLowerCase() === 'mainland'))
+				return (item.province === province.toLowerCase() || (item.province === null && province.toLowerCase() === 'mainland'))
 					&& (stringUtils.wordsStandardize(item.country).includes(standardizedCountryName)
 						|| item.countryInfo.iso2 === countryInfo.iso2
 						|| item.countryInfo.iso3 === countryInfo.iso3
@@ -158,7 +158,7 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 	if (province) {
 		return {
 			country: countryData[0].country || standardizedCountryName,
-			province: province,
+			province: countryData[0].province || province,
 			timeline
 		};
 	}
