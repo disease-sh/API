@@ -128,15 +128,7 @@
         "description": "Get the same data from the /countries endpoint, but filter down to multiple specific countries.",
         "responses": {
           "200": {
-            "description": "Status OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "allOf": {
-                  "$ref": "#/definitions/country"
-                }
-              }
-            }
+            "description": "Status Ok"
           }
         }
       }
@@ -216,15 +208,7 @@
         "description": "Get multiple countrys' time series using multiple country iso codes, country IDs, or of course, country names",
         "responses": {
           "200": {
-            "description": "Status Ok",
-            "schema": {
-              "type": "array",
-              "items": {
-                "allOf": {
-                  "$ref": "#/definitions/countriesHistorical"
-                }
-              }
-            }
+            "description": "Status Ok"
           }
         }
       }
