@@ -29,6 +29,5 @@ jobs:
         with:
           redis-version: ${{ matrix.redis-version }}  
       - run: npm install
-      - run: npm start
       - run: npm test
         
