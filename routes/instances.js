@@ -1,6 +1,11 @@
 const Redis = require('ioredis');
-const config = require('../config.json');
 const scraper = require('../scraper');
+let config;
+try {
+	config = require('../config.json');
+} catch (err) {
+	config = require('../config.example.json');
+}
 
 const redis = new Redis(config.redis.host, {
 	password: config.redis.password,
