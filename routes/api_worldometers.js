@@ -71,11 +71,14 @@ router.get('/states', async (req, res) => {
 	res.send(states);
 });
 
-router.get('/states/:state', async (req, res) => {
-	const { state } = req.params;
+router.get('/states/:query', async (req, res) => {
+	const { query } = req.params;
 	const states = JSON.parse(await redis.get(keys.states));
-	const stateData = states[state] || {};
-	res.send(stateData);
+	const stateData = states.filter(s => {
+		return s.state === query;
+	});
+	const state = stateData[0] || {};
+	res.send(state);
 });
 
 router.get('/yesterday', async (req, res) => {
