@@ -16,7 +16,8 @@
     "start": "node server.js",
     "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
     "lint:fix": "eslint ./**/*.js --fix --ignore-pattern node_modules/",
-    "lint:win32": "eslint ./**/*.js --ignore-pattern node_modules/"
+    "lint:win32": "eslint ./**/*.js --ignore-pattern node_modules/",
+    "test": "mocha ./tests --exit"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -29,6 +30,9 @@
   },
   "devDependencies": {
     "@aero/eslint-config": "^1.0.1",
-    "eslint": "^6.8.0"
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^6.8.0",
+    "mocha": "^7.1.1"
   }
 }

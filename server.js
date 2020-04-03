@@ -65,3 +65,5 @@ app.use(require('./routes/api_worldometers'));
 app.use(require('./routes/api_historical'));
 app.use(require('./routes/api_jhucsse'));
 app.use(require('./routes/api_deprecated'));
+
+module.exports = app;
