@@ -132,7 +132,7 @@
             "name": "query",
             "in": "path",
             "required": true,
-            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards seperated by commas",
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards separated by commas",
             "type": "string"
           }
         ],
@@ -212,7 +212,7 @@
             "name": "query",
             "in": "path",
             "required": true,
-            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards seperated by commas",
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards separated by commas",
             "type": ""
           }
         ],
@@ -265,7 +265,7 @@
             "name": "query",
             "in": "path",
             "required": true,
-            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards seperated by commas",
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards separated by commas",
             "type": ""
           }
         ],
