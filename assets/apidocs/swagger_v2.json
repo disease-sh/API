@@ -190,7 +190,7 @@
         }
       }
     },
-     "/v2/historical/{country,country,...}": {
+    "/v2/historical/{country,country,...}": {
       "get": {
         "tags": [
           "JHUCSSE"
