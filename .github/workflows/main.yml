@@ -24,10 +24,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Start Redis
-        uses: superchargejs/redis-github-action@v1
+      - name: Start redis server
+        uses: supercharge/redis-github-action@1.1.0
         with:
-          redis-version: ${{ matrix.redis-version }}
+          redis-version: ${{ matrix.redis-version }}  
       - run: npm install
       - run: npm run start
       - run: npm run test
