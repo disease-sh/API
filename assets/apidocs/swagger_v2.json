@@ -167,6 +167,37 @@
         }
       }
     },
+     "/v2/historical/{country,country,...}": {
+      "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards seperated by commas",
+            "type": ""
+          }
+        ],
+        "summary": "Get Historical Data by multiple Country Names",
+        "description": "Get multiple countrys' time series using multiple country iso codes, country IDs, or of course, country names",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  "$ref": "#/definitions/countriesHistorical"
+                 ]
+              }
+            }
+          }
+        }
+      }
+    },
     "/v2/historical/{query}/{province}": {
       "get": {
         "tags": [
