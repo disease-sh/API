@@ -45,4 +45,14 @@ describe('TESTING /jhucsse and /v2/jhucsse', () => {
                 done();
             });
     });
+
+    it('/v2/jhucsse/counties/cook', (done) => {
+        chai.request(app)
+            .get('/v2/jhucsse/counties/cook')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            });
+    });
 });
