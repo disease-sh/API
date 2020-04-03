@@ -189,9 +189,9 @@
             "schema": {
               "type": "array",
               "items": {
-                "oneOf": [
+                "allOf": {
                   "$ref": "#/definitions/countriesHistorical"
-                 ]
+                }
               }
             }
           }
