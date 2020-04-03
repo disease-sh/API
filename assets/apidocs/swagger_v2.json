@@ -67,10 +67,22 @@
         }
       }
     },
-    "/countries": {
+    "/countries{?sort}": {
       "get": {
         "tags": [
           "Countries"
+        ],
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "description": "For this parameter you can provide a key from the country model (e.g. cases, todayCases, deaths, recovered, active, etc) to sort the countries from greatest to least, depending on the key",
+            "schema": {
+              "type": "string",
+              "example": "/countries?sort=cases"
+            }
+          }
         ],
         "summary": "Get All Countries Totals",
         "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
@@ -120,7 +132,7 @@
             "name": "query",
             "in": "path",
             "required": true,
-            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards seperated by commas",
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards separated by commas",
             "type": "string"
           }
         ],
@@ -190,7 +202,7 @@
         }
       }
     },
-     "/v2/historical/{country,country,...}": {
+    "/v2/historical/{country,country,...}": {
       "get": {
         "tags": [
           "JHUCSSE"
@@ -200,7 +212,7 @@
             "name": "query",
             "in": "path",
             "required": true,
-            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards seperated by commas",
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards separated by commas",
             "type": ""
           }
         ],
@@ -253,12 +265,12 @@
             "name": "query",
             "in": "path",
             "required": true,
-            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards seperated by commas",
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards separated by commas",
             "type": ""
           }
         ],
         "summary": "Get Historical Data by multiple Province Names",
-        "description": "Get multiple pronvinces' time series using multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
+        "description": "Get multiple provinces' time series using multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
         "responses": {
           "200": {
             "description": "Status Ok"
