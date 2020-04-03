@@ -9,4 +9,8 @@ router.get('/historical/:country', async (req, res) => {
 	res.send({ message: 'Deprecated, use /v2/historical' });
 });
 
+router.get('/jhucsse', async (req, res) => {
+	res.send({ message: 'Deprecated, use /v2/jhucsse' });
+});
+
 module.exports = router;

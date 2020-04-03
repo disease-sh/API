@@ -19,39 +19,6 @@ async function getData() {
 	return response;
 }
 
-const jhudata = async (keys, redis) => {
-	const response = await getData();
-
-	const parsed = await csv({
-		noheader: true,
-		output: 'csv'
-	}).fromString(response.data);
-
-	// to store parsed data
-	const result = [];
-
-	parsed.splice(1).forEach((loc) => {
-		result.push({
-			country: loc[3],
-			province: loc[2] || null,
-			city: loc[1] || null,
-			updatedAt: loc[4],
-			stats: {
-				confirmed: loc[7],
-				deaths: loc[8],
-				recovered: loc[9]
-			},
-			coordinates: {
-				latitude: loc[5],
-				longitude: loc[6]
-			}
-		});
-	});
-	const string = JSON.stringify(result);
-	redis.set(keys.jhu, string);
-	console.log(`Updated JHU CSSE: ${result.length} locations`);
-};
-
 /**
  * Sets redis store full of today's JHU data scraped from their hosted CSV
  * @param {string} 	keys 	JHU data redis key
@@ -139,7 +106,6 @@ const getCountyJhuDataV2 = (data, county = null) =>
 		: data.filter((loc) => loc.county !== null);
 
 module.exports = {
-	jhudata,
 	jhudataV2,
 	generalizedJhudataV2,
 	getCountyJhuDataV2
