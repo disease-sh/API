@@ -26,7 +26,7 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    it('/v2/historical/usa', (done) => {
+    it('/v2/historical correct country  name', (done) => {
         chai.request(app)
             .get('/v2/historical/usa')
             .end((err, res) => {
@@ -46,13 +46,64 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    it('/v2/historical/asdfghjkl', (done) => {
+    it('/v2/historical/ correct id', (done) => {
+        chai.request(app)
+            .get('/v2/historical/156')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                done();
+            });
+    });
+
+    it('/v2/historical/ correct iso3', (done) => {
+        chai.request(app)
+            .get('/v2/historical/chn')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                done();
+            });
+    });
+
+    it('/v2/historical/ incorrect country name', (done) => {
         chai.request(app)
             .get('/v2/historical/asdfghjkl')
             .end((err, res) => {
                 res.should.have.status(404);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message');
+                done();
+            });
+    });
+
+    it('/v2/historical/ correct country name list', (done) => {
+        chai.request(app)
+            .get('/v2/historical/usa, 156, drc')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            });
+    });
+
+    it('/v2/historical/ incorrect province name list', (done) => {
+        chai.request(app)
+            .get('/v2/historical/usa/sdgdf,gsfd')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body[0].should.have.property('message');
+                done();
+            });
+    });
+
+    it('/v2/historical/ correct province name list', (done) => {
+        chai.request(app)
+            .get('/v2/historical/156/bejing,hubei')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
                 done();
             });
     });
