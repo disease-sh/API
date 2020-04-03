@@ -7,13 +7,15 @@ chai.should();
 
 describe('TESTING /v2/historical', () => {
     it('/v2/historical', (done) => {
-        chai.request(app)
+        setTimeout(function(){
+            chai.request(app)
             .get('/v2/historical')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 done();
             });
+        }, 5000);
     });
 
     it('/v2/historical/all', (done) => {

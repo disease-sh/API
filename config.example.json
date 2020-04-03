@@ -1,7 +1,7 @@
 {
   "redis": {
     "host": "localhost",
-    "password": "1234",
+    "password": "",
     "port": "6379"
   },
   "keys": {
@@ -9,9 +9,7 @@
     "countries": "covidapi:countries",
     "yesterday": "covidapi:yesterday",
     "states": "covidapi:states",
-    "jhu": "covidapi:jhu",
-    "jhu_v2": "covid:jhu_v2",
-    "historical": "covidapi:historical",
+    "jhu_v2": "covidapi:jhu_v2",
     "historical_v2": "covidapi:historical_v2"
   },
   "port": 3000,
