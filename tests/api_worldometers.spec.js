@@ -16,7 +16,7 @@ describe('TESTING /countries', () => {
             });
     });
 
-    it('/countries/usa', (done) => {
+    it('/countries/ get correct properties', (done) => {
         chai.request(app)
             .get('/countries/usa')
             .end((err, res) => {
@@ -28,7 +28,7 @@ describe('TESTING /countries', () => {
             });
     });
 
-    it('/countries/united%20states', (done) => {
+    it('/countries/ get correct alternate name', (done) => {
         chai.request(app)
             .get('/countries/united%20states')
             .end((err, res) => {
@@ -40,7 +40,7 @@ describe('TESTING /countries', () => {
             });
     });
 
-    it('/countries/us', (done) => {
+    it('/countries/ get correct ios2', (done) => {
         chai.request(app)
             .get('/countries/us')
             .end((err, res) => {
@@ -52,7 +52,7 @@ describe('TESTING /countries', () => {
             });
     });
 
-    it('/countries/840', (done) => {
+    it('/countries/ get correct id', (done) => {
         chai.request(app)
             .get('/countries/840')
             .end((err, res) => {
@@ -88,7 +88,7 @@ describe('TESTING /countries', () => {
             });
     });
 
-    it('/countries/asdfghjkl', (done) => {
+    it('/countries/ get incorrect country name', (done) => {
         chai.request(app)
             .get('/countries/asdfghjkl')
             .end((err, res) => {
