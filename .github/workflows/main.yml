@@ -7,16 +7,16 @@ on:
 jobs:
   eslint:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [13.x]
-        redis-version: [5]
     steps:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm run lint
   unittests:
     runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        node-version: [13.x]
+        redis-version: [5]
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
