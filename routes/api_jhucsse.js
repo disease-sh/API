@@ -4,11 +4,6 @@ const router = require('express').Router();
 const { redis, config, scraper } = require('./instances');
 const { keys } = config;
 
-router.get('/jhucsse', async (req, res) => {
-	const data = JSON.parse(await redis.get(keys.jhu));
-	res.send(data);
-});
-
 router.get('/v2/jhucsse', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.jhu_v2));
 	const generalizedData = scraper.jhuLocations.generalizedJhudataV2(data);
