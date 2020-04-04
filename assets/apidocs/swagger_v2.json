@@ -21,7 +21,7 @@
     },
     {
       "name": "JHUCSSE",
-      "description": "(Data from Johns Hopikins University)"
+      "description": "(Data from Johns Hopkins University)"
     }
   ],
   "consumes": [
@@ -67,7 +67,7 @@
         }
       }
     },
-    "/countries{?sort}": {
+    "/countries": {
       "get": {
         "tags": [
           "Countries"
@@ -77,11 +77,9 @@
             "name": "sort",
             "in": "query",
             "required": false,
+            "enum": ["cases", "todayCases", "deaths", "todayDeaths", "recovered", "active", "critical", "casesPerOneMillion", "deathsPerOneMillion"],
             "description": "For this parameter you can provide a key from the country model (e.g. cases, todayCases, deaths, recovered, active, etc) to sort the countries from greatest to least, depending on the key",
-            "schema": {
-              "type": "string",
-              "example": "/countries?sort=cases"
-            }
+            "type": "string"
           }
         ],
         "summary": "Get All Countries Totals",
@@ -155,6 +153,49 @@
         "responses": {
           "200": {
             "description": "Status Ok"
+          }
+        }
+      }
+    },
+    "/v2/jhucsse/counties": {
+      "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
+        "summary": "Get All US County Data from JHU CSSE",
+        "description": "Get JHU CSSE county specific data. This includes confirmed cases, deaths, recovered, and coordinates.",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/counties"
+            }
+          }
+        }
+      }
+    },
+    "/v2/jhucsse/counties/countyName": {
+      "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
+        "parameters": [
+          {
+            "name": "countyName",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use the name of any county from the /counties endpoint",
+            "type": "string"
+          }
+        ],
+        "summary": "Get county data for a single county from JHU CSSE",
+        "description": "Get JHU CSSE county specific data. This includes confirmed cases, deaths, recovered, and coordinates. Returns array because there are duplicate names",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/counties"
+            }
           }
         }
       }
@@ -382,10 +423,52 @@
         }
       }
     },
+    "county": {
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "province": {
+          "type": "string"
+        },
+        "county": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "stats": {
+          "confirmed": {
+            "type": "integer"
+          },
+          "deaths": {
+            "type": "integer"
+          },
+          "recovered": {
+            "type": "integer"
+          }
+        },
+        "coordinates": {
+          "latitude": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "countries": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/country"
+      }
+    },
+    "counties": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/county"
       }
     }
   },
