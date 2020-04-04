@@ -109,6 +109,22 @@ describe('TESTING /countries', () => {
             });
     });
 
+    it('/all has correct properties', (done) => {
+        chai.request(app)
+            .get('/all')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('affectedCountries');
+                res.body.should.have.property('casesPerOneMillion');
+                res.body.should.have.property('updated');
+                done();
+            });
+    });
+
     it('/states', (done) => {
         chai.request(app)
             .get('/states')

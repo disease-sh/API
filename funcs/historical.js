@@ -112,13 +112,43 @@ const historicalV2 = async (keys, redis) => {
 };
 
 /**
+ * Parses data from historical endpoint and returns data for each country & province
+ * @param 	{array}		data		Full historical data returned from /historical endpoint
+ * @param 	{string}	lastdays  	How many days to show always take lastest
+ * @returns {Object}				The filtered historical data.
+ */
+const getHistoricalDataV2 = (data, lastdays = 30) => {
+	if (lastdays === 'all') lastdays = 0;
+	if (isNaN(lastdays)) lastdays = 30;
+	return data.map(country => {
+		delete country.countryInfo;
+		const cases = {};
+		const deaths = {};
+		const recovered = {};
+		const allDays = Object.keys(country.timeline.cases);
+		/* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
+		allDays.slice(lastdays > 0 ? allDays.length - lastdays : 0).forEach(key => {
+			cases[key] = country.timeline.cases[key];
+			deaths[key] = country.timeline.deaths[key];
+			recovered[key] = country.timeline.recovered[key];
+			return true;
+		});
+		country.timeline = { cases, deaths, recovered };
+		return country;
+	});
+};
+
+/**
  * Parses data from historical endpoint and returns data for specific country || province
  * @param 	{array}		data		Full historical data returned from /historical endpoint
  * @param 	{string}	query   	Country query param
  * @param 	{string}	province  	Province query param (optional)
+ * @param 	{string}	lastdays  	How many days to show always take lastest
  * @returns {Object}				The filtered historical data.
  */
-const getHistoricalCountryDataV2 = (data, query, province = null) => {
+const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30) => {
+	if (lastdays === 'all') lastdays = 0;
+	if (isNaN(lastdays)) lastdays = 30;
 	const countryInfo = countryUtils.getCountryData(query);
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : query);
 	// filter to either specific province, or provinces to sum country over
@@ -147,7 +177,8 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
 		countryData[index].province ? provinces.push(countryData[index].province) : provinces.push('mainland');
 		// loop cases, deaths for each province
 		Object.keys(countryData[index].timeline).forEach((specifier) => {
-			Object.keys(countryData[index].timeline[specifier]).forEach((date) => {
+			const allDays = Object.keys(countryData[index].timeline[specifier]);
+			allDays.slice(lastdays > 0 ? allDays.length - lastdays : 0).forEach((date) => {
 				// eslint-disable-next-line no-unused-expressions
 				timeline[specifier][date] ? timeline[specifier][date] += parseInt(countryData[index].timeline[specifier][date])
 					: timeline[specifier][date] = parseInt(countryData[index].timeline[specifier][date]);
@@ -174,13 +205,16 @@ const getHistoricalCountryDataV2 = (data, query, province = null) => {
  * @param 	{array} 	data 	Full historical data returned from /historical endpoint
  * @returns {Object}			The global deaths and cases
  */
-async function getHistoricalAllDataV2(data) {
+const getHistoricalAllDataV2 = (data) => {
 	const cases = {};
 	const deaths = {};
 	const recovered = {};
 	data.forEach(country => {
 		Object.keys(country.timeline.cases).forEach(key => {
 			/* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
+			// cases[key] = country.timeline.cases[key];
+			// deaths[key] = country.timeline.deaths[key];
+			// recovered[key] = country.timeline.recovered[key];
 			cases[key] ? cases[key] += country.timeline.cases[key] : cases[key] = country.timeline.cases[key];
 			deaths[key] ? deaths[key] += country.timeline.deaths[key] : deaths[key] = country.timeline.deaths[key];
 			recovered[key] ? recovered[key] += country.timeline.recovered[key] : recovered[key] = country.timeline.recovered[key];
@@ -193,10 +227,11 @@ async function getHistoricalAllDataV2(data) {
 		deaths,
 		recovered
 	};
-}
+};
 
 module.exports = {
 	historicalV2,
+	getHistoricalDataV2,
 	getHistoricalCountryDataV2,
 	getHistoricalAllDataV2
 };
