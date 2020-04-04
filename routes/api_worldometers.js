@@ -17,32 +17,11 @@ router.get('/countries', async (req, res) => {
 router.get('/countries/:query', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.countries));
 	const { query } = req.params;
-	const countries = query.split(',');
+	const queriedCountries = query.split(',');
 	const countryData = [];
 	// For each country param, find the country that matches the param
-	for (const country of countries) {
-		const isText = isNaN(country);
-		const countryInfo = isText ? countryUtils.getCountryData(country) : null;
-		const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : country);
-		const foundCountry = data.find((ctry) => {
-			// either name or ISO
-			if (isText) {
-				// check for strict param
-				if (req.query.strict) {
-					return req.query.strict.toLowerCase() === 'true'
-						? stringUtils.wordsStandardize(ctry.country) === standardizedCountryName
-						: stringUtils.wordsStandardize(ctry.country).includes(standardizedCountryName);
-				}
-				return (
-					(ctry.countryInfo.iso3 || 'null').toLowerCase() === country.toLowerCase()
-					|| (ctry.countryInfo.iso2 || 'null').toLowerCase() === country.toLowerCase()
-					|| ((country.length > 3 || countryUtils.isCountryException(country.toLowerCase()))
-						&& stringUtils.wordsStandardize(ctry.country).includes(standardizedCountryName))
-				);
-			}
-			// number, must be country ID
-			return ctry.countryInfo._id === Number(country);
-		});
+	for (const country of queriedCountries) {
+		const foundCountry = countryUtils.getCountryWorldometersData(data, country, req.query.strict === 'true');
 		if (foundCountry) countryData.push(foundCountry);
 	}
 	if (countryData.length > 0) {
