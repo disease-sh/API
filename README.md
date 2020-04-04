@@ -1,5 +1,6 @@
 <a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1ec1d62900064c3ab8b9c2c9b461e9a3)](https://app.codacy.com/gh/NovelCOVID/API?utm_source=github.com&utm_medium=referral&utm_content=NovelCOVID/API&utm_campaign=Badge_Grade_Settings)
 [![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 # Join our Server!
