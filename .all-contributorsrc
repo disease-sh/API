@@ -113,6 +113,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "nibble-4bits",
+      "name": "Luis De Anda",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/38052706?v=4",
+      "profile": "https://github.com/nibble-4bits",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
