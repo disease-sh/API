@@ -332,6 +332,32 @@ const getCountryData = (countryNameParam) => {
 	return nullReturn;
 };
 
+const getCountryWorldometersData = (countries, countryNameParam, strictMatching = false) => {
+	const isText = isNaN(countryNameParam);
+	const countryInfo = isText ? getCountryData(countryNameParam) : null;
+	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : countryNameParam);
+	const foundCountry = countries.find((ctry) => {
+		// either name or ISO
+		if (isText) {
+			// check if provided name matches exactly
+			if (strictMatching) {
+				return stringUtils.wordsStandardize(ctry.country) === standardizedCountryName;
+			} else {
+				stringUtils.wordsStandardize(ctry.country).includes(standardizedCountryName);
+			}
+			return (
+				(ctry.countryInfo.iso3 || 'null').toLowerCase() === countryNameParam.toLowerCase()
+				|| (ctry.countryInfo.iso2 || 'null').toLowerCase() === countryNameParam.toLowerCase()
+				|| ((countryNameParam.length > 3 || isCountryException(countryNameParam.toLowerCase()))
+					&& stringUtils.wordsStandardize(ctry.country).includes(standardizedCountryName))
+			);
+		}
+		// number, must be country ID
+		return ctry.countryInfo._id === Number(countryNameParam);
+	});
+	return foundCountry;
+};
+
 const searchesExcepted = ['UK', 'UAE', 'DR'];
 const isCountryException = (value) => {
 	for (let index = 0; index < searchesExcepted.length; index++) {
@@ -346,5 +372,6 @@ module.exports = {
 	getCountryCode,
 	getCountryName,
 	getCountryData,
+	getCountryWorldometersData,
 	isCountryException
 };
