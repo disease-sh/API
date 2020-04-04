@@ -75,8 +75,12 @@ router.get('/states', async (req, res) => {
 	res.send(states);
 });
 router.get('/yesterday', async (req, res) => {
-	const yesterday = JSON.parse(await redis.get(keys.yesterday));
+	const { sort } = req.query;
+	let yesterday = JSON.parse(await redis.get(keys.yesterday));
 	yesterday.shift();
+	if (sort) {
+		yesterday = yesterday.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
+	}
 	res.send(yesterday);
 });
 module.exports = router;
