@@ -332,6 +332,13 @@ const getCountryData = (countryNameParam) => {
 	return nullReturn;
 };
 
+/**
+ * Get all Worldometers data of a certain country
+ * @param {Array} countries Array of all countries' Worldometers data
+ * @param {string} countryNameParam country name, country code, ISO2, ISO3
+ * @param {boolean} strictMatching If true, country name must exactly match the standardized country name
+ * @returns {Object}
+ */
 const getCountryWorldometersData = (countries, countryNameParam, strictMatching = false) => {
 	const isText = isNaN(countryNameParam);
 	const countryInfo = isText ? getCountryData(countryNameParam) : null;
