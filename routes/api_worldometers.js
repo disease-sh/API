@@ -83,4 +83,23 @@ router.get('/yesterday', async (req, res) => {
 	}
 	res.send(yesterday);
 });
+router.get('/yesterday/:query', async (req, res) => {
+	const yesterday = JSON.parse(await redis.get(keys.yesterday));
+	const { query } = req.params;
+	const queriedCountries = query.split(',');
+	const yesterdayCountryData = [];
+
+	yesterday.shift();
+	// For each country param, find the country that matches the param
+	for (const country of queriedCountries) {
+		const foundCountry = countryUtils.getCountryWorldometersData(yesterday, country, req.query.strict === 'true');
+		if (foundCountry) yesterdayCountryData.push(foundCountry);
+	}
+	if (yesterdayCountryData.length > 0) {
+		res.send(yesterdayCountryData.length === 1 ? yesterdayCountryData[0] : yesterdayCountryData);
+		return;
+	}
+	// adding status code 404 not found and sending response
+	res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
+});
 module.exports = router;
