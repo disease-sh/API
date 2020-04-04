@@ -172,7 +172,7 @@ var getcountries = setInterval(async () => {
         10
       );
     }
-    // get Total Tests
+    // get total tests
     if (i % totalColumns === totalTestsColIndex) {
       let totalTests = cell.children.length != 0? cell.children[0].data : "";
       result[result.length - 1].totalTests = parseInt(
