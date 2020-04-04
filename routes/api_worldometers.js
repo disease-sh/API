@@ -12,7 +12,7 @@ router.get('/countries', async (req, res) => {
 	if (sort) {
 		countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
-	res.send(countries);
+	res.send(countries.shift());
 });
 
 router.get('/countries/:query', async (req, res) => {
