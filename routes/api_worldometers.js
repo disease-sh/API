@@ -7,7 +7,7 @@ const { keys } = config;
 router.get('/countries', async (req, res) => {
 	const { sort } = req.query;
 	let countries = JSON.parse(await redis.get(keys.countries));
-	countries.shift()
+	countries.shift();
 	if (sort) {
 		countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
