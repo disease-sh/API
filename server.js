@@ -12,7 +12,6 @@ const { keys } = config;
 const execAll = () => {
 	scraper.getWorldometers.getCountries(keys, redis);
 	scraper.getWorldometers.getYesterday(keys, redis);
-	scraper.getAll(keys, redis);
 	scraper.getStates(keys, redis);
 	scraper.jhuLocations.jhudataV2(keys, redis);
 	scraper.historical.historicalV2(keys, redis);

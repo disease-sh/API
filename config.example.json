@@ -5,7 +5,6 @@
     "port": "6379"
   },
   "keys": {
-    "all": "covidapi:all",
     "countries": "covidapi:countries",
     "yesterday": "covidapi:yesterday",
     "states": "covidapi:states",

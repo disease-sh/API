@@ -7,6 +7,7 @@ const { keys } = config;
 router.get('/countries', async (req, res) => {
 	const { sort } = req.query;
 	let countries = JSON.parse(await redis.get(keys.countries));
+	// ignore world row
 	countries.shift();
 	if (sort) {
 		countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
@@ -21,7 +22,6 @@ router.get('/countries/:query', async (req, res) => {
 	const countryData = [];
 	// For each country param, find the country that matches the param
 	for (const country of countries) {
-		/* eslint-disable-next-line no-restricted-globals */
 		const isText = isNaN(country);
 		const countryInfo = isText ? countryUtils.getCountryData(country) : null;
 		const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : country);
@@ -54,9 +54,21 @@ router.get('/countries/:query', async (req, res) => {
 	res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 });
 router.get('/all', async (req, res) => {
-	const all = JSON.parse(await redis.get(keys.all));
 	const countries = JSON.parse(await redis.get(keys.countries));
-	all.affectedCountries = countries.length;
+	const worldData = countries[0];
+	const all = {
+		cases: worldData.cases,
+		todayCases: worldData.todayCases,
+		deaths: worldData.deaths,
+		todayDeaths: worldData.todayDeaths,
+		recovered: worldData.recovered,
+		active: worldData.active,
+		critical: worldData.critical,
+		casesPerOneMillion: worldData.casesPerOneMillion,
+		deathsPerOneMillion: worldData.deathsPerOneMillion,
+		updated: worldData.updated,
+		affectedCountries: countries.length
+	};
 	res.send(all);
 });
 router.get('/states', async (req, res) => {
