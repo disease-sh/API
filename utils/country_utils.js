@@ -265,7 +265,7 @@ var countryData = [
  */
 const getCountryCode = (countryName) => {
 	countryData.forEach((element) => {
-		if (element.country.toLowerCase() === countryName.toLowerCase()) {
+		if (element.country.toLowerCase() == countryName.toLowerCase()) {
 			return element.iso2;
 		}
 		return true;
@@ -280,7 +280,7 @@ const getCountryCode = (countryName) => {
  */
 const getCountryName = (countryCode) => {
 	countryData.forEach((element) => {
-		if (element.iso2.toLowerCase() === countryCode.toLowerCase()) {
+		if (element.iso2.toLowerCase() == countryCode.toLowerCase()) {
 			return element.country;
 		}
 		return true;
@@ -301,17 +301,17 @@ const getCountryData = (countryNameParam) => {
 	};
 
 	const countryFound = countryData.find(item => {
-		if (stringUtils.wordsStandardize(item.country) === countryName
-			|| stringUtils.wordsStandardize(item.iso2) === countryName
-			|| stringUtils.wordsStandardize(item.iso3) === countryName
-			|| item.id === parseInt(countryName)) {
+		if (stringUtils.wordsStandardize(item.country) == countryName
+			|| stringUtils.wordsStandardize(item.iso2) == countryName
+			|| stringUtils.wordsStandardize(item.iso3) == countryName
+			|| item.id == parseInt(countryName)) {
 			return true;
 		}
 		// @buster95: PLEASE DON'T MODIFY THIS CODE
 		const synonyms = item.possibleNames ? item.possibleNames : [];
 		for (let index = 0; index < synonyms.length; index++) {
 			const synonym = synonyms[index];
-			if (stringUtils.wordsStandardize(synonym) === countryName) {
+			if (stringUtils.wordsStandardize(synonym) == countryName) {
 				return true;
 			}
 		}
@@ -335,7 +335,7 @@ const getCountryData = (countryNameParam) => {
 const searchesExcepted = ['UK', 'UAE', 'DR'];
 const isCountryException = (value) => {
 	for (let index = 0; index < searchesExcepted.length; index++) {
-		if (stringUtils.wordsStandardize(value) === stringUtils.wordsStandardize(searchesExcepted[index])) {
+		if (stringUtils.wordsStandardize(value) == stringUtils.wordsStandardize(searchesExcepted[index])) {
 			return true;
 		}
 	}
