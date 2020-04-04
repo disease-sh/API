@@ -9,13 +9,14 @@ app.use(cors());
 const { redis, config, scraper } = require('./routes/instances');
 const { keys } = config;
 
-const execAll = () => {
-	scraper.getWorldometers.getCountries(keys, redis);
-	scraper.getWorldometers.getYesterday(keys, redis);
-	scraper.getAll(keys, redis);
-	scraper.getStates(keys, redis);
-	scraper.jhuLocations.jhudataV2(keys, redis);
-	scraper.historical.historicalV2(keys, redis);
+const execAll = async () => {
+	await scraper.getWorldometers.getCountries(keys, redis);
+	await scraper.getWorldometers.getYesterday(keys, redis);
+	await scraper.getAll(keys, redis);
+	await scraper.getStates(keys, redis);
+	await scraper.jhuLocations.jhudataV2(keys, redis);
+	await scraper.historical.historicalV2(keys, redis);
+	app.emit('scrapper_finished');
 };
 execAll();
 setInterval(execAll, config.interval);
