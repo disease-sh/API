@@ -75,6 +75,17 @@ router.get('/states', async (req, res) => {
 	const states = JSON.parse(await redis.get(keys.states));
 	res.send(states);
 });
+router.get('/states/:query', async (req, res) => {
+	const { query } = req.params;
+	const states = JSON.parse(await redis.get(keys.states));
+	const stateData = states.find(st => st.state === query);
+	const state = stateData[0];
+	if (state) {	
+		res.send(state);
+		return;
+	}
+	res.status(404).send({ message: 'State not found or doesn\'t have any cases' });
+});
 router.get('/yesterday', async (req, res) => {
 	const yesterday = JSON.parse(await redis.get(keys.yesterday));
 	yesterday.shift();
