@@ -5,6 +5,13 @@ var app = require('../server');
 chai.use(chaiHttp);
 chai.should();
 
+before(done => {
+    app.on('scrapper_finished', function () {
+        console.log('Scrapper Finished...');
+        done();
+    });
+});
+
 describe('TESTING DEPRECATED METHODS', () => {
     it('Testing /historical', (done) => {
         chai.request(app)

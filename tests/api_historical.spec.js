@@ -7,15 +7,13 @@ chai.should();
 
 describe('TESTING /v2/historical', () => {
     it('/v2/historical', (done) => {
-        setTimeout(function(){
-            chai.request(app)
+        chai.request(app)
             .get('/v2/historical')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 done();
             });
-        }, 5000);
     });
 
     it('/v2/historical/all', (done) => {
@@ -28,7 +26,7 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    it('/v2/historical correct country  name', (done) => {
+    it('/v2/historical/ correct country  name', (done) => {
         chai.request(app)
             .get('/v2/historical/usa')
             .end((err, res) => {
