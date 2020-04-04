@@ -157,6 +157,49 @@
         }
       }
     },
+    "/v2/jhucsse/counties": {
+      "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
+        "summary": "Get All US County Data from JHU CSSE",
+        "description": "Get JHU CSSE county specific data. This includes confirmed cases, deaths, recovered, and coordinates.",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/counties"
+            }
+          }
+        }
+      }
+    },
+    "/v2/jhucsse/counties/countyName": {
+      "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
+        "parameters": [
+          {
+            "name": "countyName",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use the name of any county from the /counties endpoint",
+            "type": "string"
+          }
+        ],
+        "summary": "Get county data for a single county from JHU CSSE",
+        "description": "Get JHU CSSE county specific data. This includes confirmed cases, deaths, recovered, and coordinates. Returns array because there are duplicate names",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/counties"
+            }
+          }
+        }
+      }
+    },
     "/v2/historical": {
       "get": {
         "tags": [
@@ -380,10 +423,52 @@
         }
       }
     },
+    "county": {
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "province": {
+          "type": "string"
+        },
+        "county": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "stats": {
+          "confirmed": {
+            "type": "integer"
+          },
+          "deaths": {
+            "type": "integer"
+          },
+          "recovered": {
+            "type": "integer"
+          }
+        },
+        "coordinates": {
+          "latitude": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "countries": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/country"
+      }
+    },
+    "counties": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/county"
       }
     }
   },
