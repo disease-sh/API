@@ -1,7 +1,6 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
 const countryUtils = require('../utils/country_utils');
-const stringUtils = require('../utils/string_utils');
 const { redis, config } = require('./instances');
 const { keys } = config;
 router.get('/countries', async (req, res) => {
