@@ -67,7 +67,7 @@
         }
       }
     },
-    "/countries{?sort}": {
+    "/countries": {
       "get": {
         "tags": [
           "Countries"
@@ -77,11 +77,9 @@
             "name": "sort",
             "in": "query",
             "required": false,
+            "enum": ["cases", "todayCases", "deaths", "todayDeaths", "recovered", "active", "critical", "casesPerOneMillion", "deathsPerOneMillion"],
             "description": "For this parameter you can provide a key from the country model (e.g. cases, todayCases, deaths, recovered, active, etc) to sort the countries from greatest to least, depending on the key",
-            "schema": {
-              "type": "string",
-              "example": "/countries?sort=cases"
-            }
+            "type": "string"
           }
         ],
         "summary": "Get All Countries Totals",
