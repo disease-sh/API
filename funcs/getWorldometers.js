@@ -64,16 +64,16 @@ function fillResult(html, yesterday = false) {
 	// minus totalColumns to skip last row, which is total
 	for (let i = 0; i < countriesTableCells.length - totalColumns; i += 1) {
 		const cell = countriesTableCells[i];
-		
 		switch (i % totalColumns) {
 			// get country
-			case countryColIndex:
-				const countryData = countryUtils.getCountryData(getCountryData(cell));
+			case countryColIndex: {
+				const countryInfo = countryUtils.getCountryData(getCountryData(cell));
 				// eslint-disable-next-line prefer-destructuring
-				const country = countryData.country ? countryData.country : getCountryData(cell);
-				delete countryData.country;
-				result.push({ country, countryInfo: countryData });
+				const country = countryInfo.country ? countryInfo.country : getCountryData(cell);
+				delete countryInfo.country;
+				result.push({ country, countryInfo });
 				break;
+			}
 
 			// get cases
 			case casesColIndex:
@@ -111,16 +111,18 @@ function fillResult(html, yesterday = false) {
 				break;
 
 			// get total cases per one million population
-			case casesPerOneMillionColIndex:
+			case casesPerOneMillionColIndex: {
 				const casesPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
 				result[result.length - 1].casesPerOneMillion = parseFloat(casesPerOneMillion.split(',').join(''));
 				break;
+			}
 
 			// get total deaths per one million population
-			case deathsPerOneMillionColIndex:
+			case deathsPerOneMillionColIndex: {
 				const deathsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
 				result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion.split(',').join(''));
 				break;
+			}
 
 			// get tests
 			case testsColIndex:
@@ -128,10 +130,11 @@ function fillResult(html, yesterday = false) {
 				break;
 
 			// get total tests per one million population
-			case testsPerOneMillionColIndex:
+			case testsPerOneMillionColIndex: {
 				const testsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '0';
 				result[result.length - 1].testsPerOneMillion = parseFloat(testsPerOneMillion.split(',').join(''));
 				break;
+			}
 		}
 		result[result.length - 1].updated = Date.now();
 	}
