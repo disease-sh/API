@@ -52,7 +52,7 @@ router.get('/all', async (req, res) => {
 router.get('/states', async (req, res) => {
 	const { sort } = req.query;
 	let states = JSON.parse(await redis.get(keys.states));
-	// ignore USA Total 
+	// ignore USA Total
 	states.shift();
 	if (sort) {
 		states = states.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
