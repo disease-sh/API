@@ -134,6 +134,29 @@ describe('TESTING /countries', () => {
                 done();
             });
     });
+    
+    it('/states/ get correct properties', (done) => {
+        chai.request(app)
+            .get('/states/alabama')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('state').eql('Alabama');
+                res.body.should.have.property('cases');
+                done();
+            });
+    });
+    
+    it('/states/ get incorrect state name', (done) => {
+        chai.request(app)
+            .get('/states/asdfghjkl')
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
 
     it('/yesterday', (done) => {
         chai.request(app)
