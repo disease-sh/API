@@ -77,6 +77,52 @@
         }
       }
     },
+    "/yesterday/{query}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use Country Name && Country Id && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
+            "type": "string"
+          }
+        ],
+        "summary": "Get a specific Country's Totals from Yesterday",
+        "description": "Get the same data from the /yesterday endpoint, but filter down to a specific country.",
+        "responses": {
+          "200": {
+            "description": "Status OK",
+            "schema": {
+              "$ref": "#/definitions/countries"
+            }
+          }
+        }
+      }
+    },
+    "/yesterday/{country,country,...}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards separated by commas",
+            "type": "string"
+          }
+        ],
+        "summary": "Get a specific Country's Totals from Yesterday",
+        "description": "Get the same data from the /yesterday endpoint, but filter down to multiple specific countries.",
+        "responses": {
+          "200": {
+            "description": "Status OK",
+            "schema": {
+              "$ref": "#/definitions/countries"
+            }
+          }
+        }
+      }
+    },
     "/countries": {
       "get": {
         "tags": [
