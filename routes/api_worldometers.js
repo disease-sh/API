@@ -50,8 +50,22 @@ router.get('/all', async (req, res) => {
 	res.send(all);
 });
 router.get('/states', async (req, res) => {
-	const states = JSON.parse(await redis.get(keys.states));
+	const { sort } = req.query;
+	let states = JSON.parse(await redis.get(keys.states));
+	if (sort) {
+		states = states.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
+	}
 	res.send(states);
+});
+router.get('/states/:query', async (req, res) => {
+	const { query } = req.params;
+	const states = JSON.parse(await redis.get(keys.states));
+	const stateData = states.find(st => st.state.toLowerCase() === query.toLowerCase());
+	if (stateData) {
+		res.send(stateData);
+		return;
+	}
+	res.status(404).send({ message: 'State not found or doesn\'t have any cases' });
 });
 router.get('/yesterday', async (req, res) => {
 	const { sort } = req.query;
