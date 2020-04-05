@@ -44,8 +44,38 @@
     },
     "/states": {
       "get": {
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "enum": ["cases", "todayCases", "deaths", "todayDeaths", "active"],
+            "description": "For this parameter you can provide a key from the country model (e.g. cases, todayCases, deaths, active, etc) to sort the states from greatest to least, depending on the key",
+            "type": "string"
+          }
+        ],
         "summary": "Get US State Totals",
         "description": "Get stats on United States of America States with COVID-19, including cases, new cases, deaths, new deaths, and active cases",
+        "responses": {
+          "200": {
+            "description": "Status OK"
+          }
+        }
+      }
+    },
+    "/states/{state}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "state",
+            "in": "path",
+            "required": true,
+            "description": "state name spelled correctly",
+            "type": "string"
+          }
+        ],
+        "summary": "Get US State Totals for a specific state",
+        "description": "Get cases, new cases, deaths, new deaths, and active cases for a state",
         "responses": {
           "200": {
             "description": "Status OK"
