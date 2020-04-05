@@ -135,6 +135,58 @@ describe('TESTING /countries', () => {
             });
     });
 
+    it('/states?sort works', (done) => {
+        chai.request(app)
+            .get('/states?sort=cases')
+            .end((err, res) => {
+                res.should.have.status(200);
+                let maxCases = res.body[0].cases;
+                res.body.forEach(element => {
+                    element.cases <= maxCases;
+                    maxCases.should.be.at.least(element.cases);
+                    maxCases = element.cases;
+                });
+                done();
+            });
+    });
+
+    it('/states?sort bad param', (done) => {
+        chai.request(app)
+            .get('/states?sort=gsdfb325fsd')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            });
+    });
+
+    it('/states/state works', (done) => {
+        chai.request(app)
+            .get('/states/Illinois')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.state.should.equal("Illinois");
+                res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('active');
+                done();
+            });
+    });
+    
+    it('/states/ get incorrect state name', (done) => {
+        chai.request(app)
+            .get('/states/asdfghjkl')
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
     it('/yesterday', (done) => {
         chai.request(app)
             .get('/yesterday')
