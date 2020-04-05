@@ -12,6 +12,8 @@ const { keys } = config;
 const getAllData = async (key) => {
 	const countries = JSON.parse(await redis.get(key));
 	const worldData = countries[0];
+	delete worldData.country;
+	delete worldData.countryInfo;
 	worldData.affectedCountries = countries.length;
 	return worldData;
 };
@@ -69,7 +71,7 @@ router.get('/yesterday', async (req, res) => {
 	res.send(yesterday);
 });
 
-router.get('/yesterday/all', async (req, res) => res.send(await getAllData(keys.countries)));
+router.get('/yesterday/all', async (req, res) => res.send(await getAllData(keys.yesterday)));
 
 router.get('/yesterday/:query', async (req, res) => {
 	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
