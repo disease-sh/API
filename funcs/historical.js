@@ -117,17 +117,20 @@ const historicalV2 = async (keys, redis) => {
  * @param 	{string}	lastdays  	How many days to show always take lastest
  * @returns {Object}				The filtered historical data.
  */
-const getHistoricalDataV2 = (data, lastdays = 30) => {
-	if (lastdays === 'all') lastdays = 0;
-	if (isNaN(lastdays)) lastdays = 30;
+const getHistoricalDataV2 = (data, { lastdays = null, month = null }) => {
+	if (lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
+	if (month && (month > 12 || month < 1)) month = new Date().getMonth + 1;
+	console.log(lastdays);
 	return data.map(country => {
 		delete country.countryInfo;
 		const cases = {};
 		const deaths = {};
 		const recovered = {};
-		const allDays = Object.keys(country.timeline.cases);
 		/* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
-		allDays.slice(lastdays > 0 ? allDays.length - lastdays : 0).forEach(key => {
+		Object.keys(country.timeline.cases).filter(item => {
+			if (month) return item.startsWith(month.toString());
+			return true;
+		}).slice(Math.abs((month && lastdays) || (!month && lastdays) ? lastdays : month && !lastdays ? 31 : 30) * -1).forEach(key => {
 			cases[key] = country.timeline.cases[key];
 			deaths[key] = country.timeline.deaths[key];
 			recovered[key] = country.timeline.recovered[key];
@@ -146,9 +149,9 @@ const getHistoricalDataV2 = (data, lastdays = 30) => {
  * @param 	{string}	lastdays  	How many days to show always take lastest
  * @returns {Object}				The filtered historical data.
  */
-const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30) => {
-	if (lastdays === 'all') lastdays = 0;
-	if (isNaN(lastdays)) lastdays = 30;
+const getHistoricalCountryDataV2 = (data, query, province = null, { lastdays = null, month = null }) => {
+	if (lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
+	if (month && (month > 12 || month < 1)) month = new Date().getMonth + 1;
 	const countryInfo = countryUtils.getCountryData(query);
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : query);
 	// filter to either specific province, or provinces to sum country over
@@ -177,12 +180,15 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
 		countryData[index].province ? provinces.push(countryData[index].province) : provinces.push('mainland');
 		// loop cases, deaths for each province
 		Object.keys(countryData[index].timeline).forEach((specifier) => {
-			const allDays = Object.keys(countryData[index].timeline[specifier]);
-			allDays.slice(lastdays > 0 ? allDays.length - lastdays : 0).forEach((date) => {
+			Object.keys(countryData[index].timeline[specifier]).filter(item => {
+				if (month) return item.startsWith(month);
+				return true;
+			}).slice(Math.abs((month && lastdays) || (!month && lastdays) ? lastdays : month && !lastdays ? 31 : 30) * -1).forEach(date => {
 				// eslint-disable-next-line no-unused-expressions
 				timeline[specifier][date] ? timeline[specifier][date] += parseInt(countryData[index].timeline[specifier][date])
 					: timeline[specifier][date] = parseInt(countryData[index].timeline[specifier][date]);
 			});
+			// lastdays > 0 && !month ? allDays.length - lastdays : month && lastdays ? lastdays : 0
 		});
 	});
 
