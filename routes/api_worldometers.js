@@ -52,6 +52,8 @@ router.get('/all', async (req, res) => {
 router.get('/states', async (req, res) => {
 	const { sort } = req.query;
 	let states = JSON.parse(await redis.get(keys.states));
+	// ignore USA Total
+	states.shift();
 	if (sort) {
 		states = states.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
@@ -75,6 +77,24 @@ router.get('/yesterday', async (req, res) => {
 		yesterday = yesterday.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
 	res.send(yesterday);
+});
+router.get('/yesterday/all', async (req, res) => {
+	const countries = JSON.parse(await redis.get(keys.yesterday));
+	const worldData = countries[0];
+	const all = {
+		cases: worldData.cases,
+		todayCases: worldData.todayCases,
+		deaths: worldData.deaths,
+		todayDeaths: worldData.todayDeaths,
+		recovered: worldData.recovered,
+		active: worldData.active,
+		critical: worldData.critical,
+		casesPerOneMillion: worldData.casesPerOneMillion,
+		deathsPerOneMillion: worldData.deathsPerOneMillion,
+		updated: worldData.updated,
+		affectedCountries: countries.length
+	};
+	res.send(all);
 });
 router.get('/yesterday/:query', async (req, res) => {
 	const yesterday = JSON.parse(await redis.get(keys.yesterday));

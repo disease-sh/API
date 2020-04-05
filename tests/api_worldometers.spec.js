@@ -197,6 +197,32 @@ describe('TESTING /countries', () => {
             });
     });
 
+    it('/yesterday/all', (done) => {
+        chai.request(app)
+            .get('/yesterday/all')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                done();
+            });
+    });
+
+    it('/yesterday/all has correct properties', (done) => {
+        chai.request(app)
+            .get('/yesterday/all')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('affectedCountries');
+                res.body.should.have.property('casesPerOneMillion');
+                res.body.should.have.property('updated');
+                done();
+            });
+    });
+
     it('/yesterday?sort works', (done) => {
         chai.request(app)
             .get('/yesterday?sort=cases')
