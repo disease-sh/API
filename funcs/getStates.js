@@ -47,7 +47,9 @@ const getStates = async (keys, redis) => {
 		todayCases: 2,
 		deaths: 3,
 		todayDeaths: 4,
-		active: 5
+		active: 5,
+		tests: 8,
+		testsPerOneMillion: 9
 	};
 
 	tableRows.forEach((row) => {

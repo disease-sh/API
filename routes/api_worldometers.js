@@ -3,6 +3,27 @@ const router = require('express').Router();
 const countryUtils = require('../utils/country_utils');
 const { redis, config } = require('./instances');
 const { keys } = config;
+
+const getAllData = async (key) => {
+	const countries = JSON.parse(await redis.get(key));
+	const worldData = countries[0];
+	return {
+		cases: worldData.cases,
+		todayCases: worldData.todayCases,
+		deaths: worldData.deaths,
+		todayDeaths: worldData.todayDeaths,
+		recovered: worldData.recovered,
+		active: worldData.active,
+		critical: worldData.critical,
+		casesPerOneMillion: worldData.casesPerOneMillion,
+		deathsPerOneMillion: worldData.deathsPerOneMillion,
+		updated: worldData.updated,
+		tests: worldData.tests,
+		testsPerOneMillion: worldData.testsPerOneMillion,
+		affectedCountries: countries.length
+	};
+};
+
 router.get('/countries', async (req, res) => {
 	const { sort } = req.query;
 	let countries = JSON.parse(await redis.get(keys.countries));
@@ -32,26 +53,15 @@ router.get('/countries/:query', async (req, res) => {
 	res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 });
 router.get('/all', async (req, res) => {
-	const countries = JSON.parse(await redis.get(keys.countries));
-	const worldData = countries[0];
-	const all = {
-		cases: worldData.cases,
-		todayCases: worldData.todayCases,
-		deaths: worldData.deaths,
-		todayDeaths: worldData.todayDeaths,
-		recovered: worldData.recovered,
-		active: worldData.active,
-		critical: worldData.critical,
-		casesPerOneMillion: worldData.casesPerOneMillion,
-		deathsPerOneMillion: worldData.deathsPerOneMillion,
-		updated: worldData.updated,
-		affectedCountries: countries.length
-	};
+	const all = await getAllData(keys.countries);
 	res.send(all);
 });
+
 router.get('/states', async (req, res) => {
 	const { sort } = req.query;
 	let states = JSON.parse(await redis.get(keys.states));
+	// ignore USA Total
+	states.shift();
 	if (sort) {
 		states = states.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
@@ -75,6 +85,10 @@ router.get('/yesterday', async (req, res) => {
 		yesterday = yesterday.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
 	res.send(yesterday);
+});
+router.get('/yesterday/all', async (req, res) => {
+	const all = await getAllData(keys.countries);
+	res.send(all);
 });
 router.get('/yesterday/:query', async (req, res) => {
 	const yesterday = JSON.parse(await redis.get(keys.yesterday));
