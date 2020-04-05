@@ -39,6 +39,8 @@ function fillResult(html, yesterday = false) {
 	const criticalColIndex = 7;
 	const casesPerOneMillionColIndex = 8;
 	const deathsPerOneMillionColIndex = 9;
+	const testsColIndex = 10;
+	const testsPerOneMillionColIndex = 11;
 
 	const countriesTable = yesterday ? html('table#main_table_countries_yesterday') : html('table#main_table_countries_today');
 	const countriesTableCells = countriesTable
@@ -95,8 +97,19 @@ function fillResult(html, yesterday = false) {
 		if (i % totalColumns === deathsPerOneMillionColIndex) {
 			const deathsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
 			result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion.split(',').join(''));
-			result[result.length - 1].updated = Date.now();
 		}
+
+		// get tests
+		if (i % totalColumns === testsColIndex) {
+			result[result.length - 1].tests = getCellData(cell);
+		}
+
+		// get total tests per one million population
+		if (i % totalColumns === testsPerOneMillionColIndex) {
+			const testsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '0';
+			result[result.length - 1].testsPerOneMillion = parseFloat(testsPerOneMillion.split(',').join(''));
+		}
+		result[result.length - 1].updated = Date.now();
 	}
 	return result;
 }

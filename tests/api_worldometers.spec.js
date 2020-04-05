@@ -24,6 +24,14 @@ describe('TESTING /countries', () => {
                 res.body.should.be.a('object');
                 res.body.should.have.property('country').eql('USA');
                 res.body.should.have.property('countryInfo');
+                res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('casesPerOneMillion');
+                res.body.should.have.property('updated');
+                res.body.should.have.property('tests');
+                res.body.should.have.property('testsPerOneMillion');
                 done();
             });
     });
@@ -172,6 +180,8 @@ describe('TESTING /countries', () => {
                 res.body.should.have.property('deaths');
                 res.body.should.have.property('todayDeaths');
                 res.body.should.have.property('active');
+                res.body.should.have.property('tests');
+                res.body.should.have.property('testsPerOneMillion');
                 done();
             });
     });
@@ -219,6 +229,25 @@ describe('TESTING /countries', () => {
                 res.body.should.have.property('affectedCountries');
                 res.body.should.have.property('casesPerOneMillion');
                 res.body.should.have.property('updated');
+                res.body.should.have.property('tests');
+                res.body.should.have.property('testsPerOneMillion');
+                done();
+            });
+    });
+
+    it('/yesterday/us has correct properties', (done) => {
+        chai.request(app)
+            .get('/yesterday/us')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('casesPerOneMillion');
+                res.body.should.have.property('updated');
+                res.body.should.have.property('tests');
+                res.body.should.have.property('testsPerOneMillion');
                 done();
             });
     });
