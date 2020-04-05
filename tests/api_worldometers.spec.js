@@ -167,4 +167,101 @@ describe('TESTING /countries', () => {
                 done();
             });
     });
+
+    it('/yesterday?sort works', (done) => {
+        chai.request(app)
+            .get('/yesterday?sort=cases')
+            .end((err, res) => {
+                res.should.have.status(200);
+                let maxCases = res.body[0].cases;
+                res.body.forEach(element => {
+                    element.cases <= maxCases;
+                    maxCases.should.be.at.least(element.cases);
+                    maxCases = element.cases;
+                });
+                done();
+            });
+    });
+
+    it('/yesterday/country works', (done) => {
+        chai.request(app)
+            .get('/yesterday/China')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.country.should.equal('China');
+                done();
+            });
+    });
+
+    it('/yesterday/country works id', (done) => {
+        chai.request(app)
+            .get('/yesterday/156')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.country.should.equal('China');
+                done();
+            });
+    });
+
+    it('/yesterday/country works iso', (done) => {
+        chai.request(app)
+            .get('/yesterday/chn')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.country.should.equal('China');
+                done();
+            });
+    });
+
+    it('/yesterday/country incorrect name', (done) => {
+        chai.request(app)
+            .get('/yesterday/fsih8475gife')
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
+    it('/yesterday/countrylist works', (done) => {
+        chai.request(app)
+            .get('/yesterday/156,america, brA')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.equal(3);
+                res.body[0].country.should.equal('China');
+                res.body[1].country.should.equal('USA');
+                res.body[2].country.should.equal('Brazil');
+                done();
+            });
+    });
+
+    it('/yesterday/countrylist with incorrect name', (done) => {
+        chai.request(app)
+            .get('/yesterday/156,fhligu')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.country.should.equal('China');
+                done();
+            });
+    });
+
+    it('/yesterday/countrylist with incorrect names', (done) => {
+        chai.request(app)
+            .get('/yesterday/156,fhligu, gsiugshg, usa')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.equal(2);
+                res.body[0].country.should.equal('China');
+                res.body[1].country.should.equal('USA');
+                done();
+            });
+    });
 });
