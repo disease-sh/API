@@ -120,7 +120,6 @@ const historicalV2 = async (keys, redis) => {
 const getHistoricalDataV2 = (data, { lastdays = null, month = null }) => {
 	if (lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
 	if (month && (month > 12 || month < 1)) month = new Date().getMonth + 1;
-	console.log(lastdays);
 	return data.map(country => {
 		delete country.countryInfo;
 		const cases = {};
@@ -188,7 +187,6 @@ const getHistoricalCountryDataV2 = (data, query, province = null, { lastdays = n
 				timeline[specifier][date] ? timeline[specifier][date] += parseInt(countryData[index].timeline[specifier][date])
 					: timeline[specifier][date] = parseInt(countryData[index].timeline[specifier][date]);
 			});
-			// lastdays > 0 && !month ? allDays.length - lastdays : month && lastdays ? lastdays : 0
 		});
 	});
 
