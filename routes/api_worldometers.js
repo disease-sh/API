@@ -76,6 +76,24 @@ router.get('/yesterday', async (req, res) => {
 	}
 	res.send(yesterday);
 });
+router.get('/yesterday/all', async (req, res) => {
+	const countries = JSON.parse(await redis.get(keys.yesterday));
+	const worldData = countries[0];
+	const all = {
+		cases: worldData.cases,
+		todayCases: worldData.todayCases,
+		deaths: worldData.deaths,
+		todayDeaths: worldData.todayDeaths,
+		recovered: worldData.recovered,
+		active: worldData.active,
+		critical: worldData.critical,
+		casesPerOneMillion: worldData.casesPerOneMillion,
+		deathsPerOneMillion: worldData.deathsPerOneMillion,
+		updated: worldData.updated,
+		affectedCountries: countries.length
+	};
+	res.send(all);
+});
 router.get('/yesterday/:query', async (req, res) => {
 	const yesterday = JSON.parse(await redis.get(keys.yesterday));
 	const { query } = req.params;
