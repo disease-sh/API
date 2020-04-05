@@ -10,8 +10,7 @@ const { redis, config, scraper } = require('./routes/instances');
 const { keys } = config;
 
 const execAll = async () => {
-	await scraper.getWorldometers.getCountries(keys, redis);
-	await scraper.getWorldometers.getYesterday(keys, redis);
+	await scraper.getWorldometers.getWorldometerPage(keys, redis);
 	await scraper.getStates(keys, redis);
 	await scraper.jhuLocations.jhudataV2(keys, redis);
 	await scraper.historical.historicalV2(keys, redis);
