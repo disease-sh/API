@@ -55,6 +55,16 @@
     },
     "/yesterday": {
       "get": {
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "enum": ["cases", "todayCases", "deaths", "todayDeaths", "recovered", "active", "critical", "casesPerOneMillion", "deathsPerOneMillion"],
+            "description": "For this parameter you can provide a key from the country model (e.g. cases, todayCases, deaths, recovered, active, etc) to sort the countries from greatest to least, depending on the key",
+            "type": "string"
+          }
+        ],
         "summary": "Get Country Totals from Yesterday",
         "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
         "responses": {
