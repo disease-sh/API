@@ -134,15 +134,19 @@ describe('TESTING /countries', () => {
                 done();
             });
     });
-    
-    it('/states/ get correct properties', (done) => {
+
+    it('/states/state works', (done) => {
         chai.request(app)
-            .get('/states/alabama')
+            .get('/states/Illinois')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                res.body.should.have.property('state').eql('Alabama');
+                res.body.state.should.equal("Illinois");
                 res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('active');
                 done();
             });
     });
