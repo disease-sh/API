@@ -99,12 +99,12 @@ function fillResult(html, yesterday = false) {
 			result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion.split(',').join(''));
 			result[result.length - 1].updated = Date.now();
 		}
-		
+
 		// get tests
 		if (i % totalColumns === testsColIndex) {
 			result[result.length - 1].tests = getCellData(cell);
 		}
-		
+
 		// get total tests per one million population
 		if (i % totalColumns === testsPerOneMillionColIndex) {
 			const testsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
