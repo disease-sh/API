@@ -10,6 +10,11 @@ router.get('/v2/jhucsse', async (req, res) => {
 	res.send(generalizedData);
 });
 
+router.get('/v2/jhucsse/mappings', async (req, res) => {
+	const data = JSON.parse(await redis.get(keys.jhu_mappings));
+	res.send(data);
+});
+
 router.get('/v2/jhucsse/counties/:county?', async (req, res) => {
 	const { county } = req.params;
 	const data = JSON.parse(await redis.get(keys.jhu_v2));

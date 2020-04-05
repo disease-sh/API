@@ -15,7 +15,8 @@ const execAll = async () => {
 	await scraper.getStates(keys, redis);
 	await scraper.jhuLocations.jhudataV2(keys, redis);
 	await scraper.historical.historicalV2(keys, redis);
-	app.emit('scrapper_finished');
+	await scraper.jhuMappings.jhuMappings(keys, redis);
+	app.emit('scraper_finished');
 };
 execAll();
 setInterval(execAll, config.interval);
