@@ -52,13 +52,15 @@ router.get('/states', async (req, res) => {
 });
 
 router.get('/states/:query', async (req, res) => {
+	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 	const { query } = req.params;
 	const states = JSON.parse(await redis.get(keys.states));
-	const stateData = states.find(st => st.state.toLowerCase() === query.toLowerCase());
-	if (stateData) {
-		res.send(stateData);
+	const stateData = splitQuery(query).map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase())).filter(value => value);
+	if (stateData.length > 0) {
+		res.send(stateData.length === 1 ? stateData[0] : stateData);
 	} else {
-		res.status(404).send({ message: 'State not found or doesn\'t have any cases' });
+		// adding status code 404 not found and sending response
+		res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 	}
 });
 
