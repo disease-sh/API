@@ -87,7 +87,7 @@ router.get('/yesterday', async (req, res) => {
 	res.send(yesterday);
 });
 router.get('/yesterday/all', async (req, res) => {
-	const all = await getAllData(keys.countries);
+	const all = await getAllData(keys.yesterday);
 	res.send(all);
 });
 router.get('/yesterday/:query', async (req, res) => {
