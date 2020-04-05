@@ -114,10 +114,10 @@ function fillResult(html, yesterday = false) {
 	return result;
 }
 
-const getCountries = async (keys, redis) => {
+const getWorldometerPage = async (keys, redis) => {
 	let response;
 	try {
-		response = await axios.get('https://www.worldometers.info/coronavirus/');
+		response = await axios.get('https://www.worldometers.info/coronavirus');
 		if (response.status !== 200) {
 			console.log('Error', response.status);
 		}
@@ -126,31 +126,18 @@ const getCountries = async (keys, redis) => {
 	}
 	// get HTML and parse death rates
 	const html = cheerio.load(response.data);
-	const result = fillResult(html);
-	const string = JSON.stringify(result);
-	redis.set(keys.countries, string);
-	return console.log(`Updated countries statistics: ${result.length}`);
-};
-
-const getYesterday = async (keys, redis) => {
-	let response;
-	try {
-		response = await axios.get('https://www.worldometers.info/coronavirus/#nav-yesterday');
-		if (response.status !== 200) {
-			console.log('Error', response.status);
-		}
-	} catch (err) {
-		return null;
-	}
-	// get HTML and parse death rates
-	const html = cheerio.load(response.data);
-	const result = fillResult(html, true);
-	const string = JSON.stringify(result);
-	redis.set(keys.yesterday, string);
-	return console.log(`Updated yesterdays statistics: ${result.length}`);
+	// Getting country data from today
+	const resultToday = fillResult(html);
+	const stringToday = JSON.stringify(resultToday);
+	redis.set(keys.countries, stringToday);
+	console.log(`Updated countries statistics: ${resultToday.length}`);
+	// Getting country data from yesterday
+	const resultYesterday = fillResult(html, true);
+	const stringYesterday = JSON.stringify(resultYesterday);
+	redis.set(keys.yesterday, stringYesterday);
+	return console.log(`Updated yesterdays statistics: ${resultYesterday.length}`);
 };
 
 module.exports = {
-	getCountries,
-	getYesterday
+	getWorldometerPage
 };
