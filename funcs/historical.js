@@ -118,16 +118,14 @@ const historicalV2 = async (keys, redis) => {
  * @returns {Object}				The filtered historical data.
  */
 const getHistoricalDataV2 = (data, lastdays = 30) => {
-	if (lastdays === 'all') lastdays = 0;
-	if (isNaN(lastdays)) lastdays = 30;
+	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
+	if (!lastdays || isNaN(lastdays)) lastdays = 30;
 	return data.map(country => {
 		delete country.countryInfo;
 		const cases = {};
 		const deaths = {};
 		const recovered = {};
-		const allDays = Object.keys(country.timeline.cases);
-		/* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
-		allDays.slice(lastdays > 0 ? allDays.length - lastdays : 0).forEach(key => {
+		Object.keys(country.timeline.cases).slice(lastdays * -1).forEach(key => {
 			cases[key] = country.timeline.cases[key];
 			deaths[key] = country.timeline.deaths[key];
 			recovered[key] = country.timeline.recovered[key];
@@ -147,8 +145,8 @@ const getHistoricalDataV2 = (data, lastdays = 30) => {
  * @returns {Object}				The filtered historical data.
  */
 const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30) => {
-	if (lastdays === 'all') lastdays = 0;
-	if (isNaN(lastdays)) lastdays = 30;
+	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
+	if (!lastdays || isNaN(lastdays)) lastdays = 30;
 	const countryInfo = countryUtils.getCountryData(query);
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : query);
 	// filter to either specific province, or provinces to sum country over
@@ -177,8 +175,7 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
 		countryData[index].province ? provinces.push(countryData[index].province) : provinces.push('mainland');
 		// loop cases, deaths for each province
 		Object.keys(countryData[index].timeline).forEach((specifier) => {
-			const allDays = Object.keys(countryData[index].timeline[specifier]);
-			allDays.slice(lastdays > 0 ? allDays.length - lastdays : 0).forEach((date) => {
+			Object.keys(countryData[index].timeline[specifier]).slice(lastdays * -1).forEach((date) => {
 				// eslint-disable-next-line no-unused-expressions
 				timeline[specifier][date] ? timeline[specifier][date] += parseInt(countryData[index].timeline[specifier][date])
 					: timeline[specifier][date] = parseInt(countryData[index].timeline[specifier][date]);
@@ -212,9 +209,6 @@ const getHistoricalAllDataV2 = (data) => {
 	data.forEach(country => {
 		Object.keys(country.timeline.cases).forEach(key => {
 			/* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
-			// cases[key] = country.timeline.cases[key];
-			// deaths[key] = country.timeline.deaths[key];
-			// recovered[key] = country.timeline.recovered[key];
 			cases[key] ? cases[key] += country.timeline.cases[key] : cases[key] = country.timeline.cases[key];
 			deaths[key] ? deaths[key] += country.timeline.deaths[key] : deaths[key] = country.timeline.deaths[key];
 			recovered[key] ? recovered[key] += country.timeline.recovered[key] : recovered[key] = country.timeline.recovered[key];
