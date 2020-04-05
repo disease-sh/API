@@ -53,6 +53,7 @@ router.get('/states', async (req, res) => {
 	const { sort } = req.query;
 	const states = JSON.parse(await redis.get(keys.states));
 	if (sort) {
+		/*eslint no-const-assign: "error"*/
 		states = states.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
 	res.send(states);
