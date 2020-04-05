@@ -39,35 +39,31 @@ NovelCovid/API Documentation can be found [here](https://corona.lmao.ninja/docs/
 6. Run command `docker-compose up --build -d`.
 
 ## NPM Package
+
 <dir align ="center">
-<a href="https://www.npmjs.com/package/novelcovid">
-    <img src="https://img.shields.io/npm/v/novelcovid?logo=npm&style=for-the-badge" alt="Version">
-</a>
-<a href="https://www.npmjs.com/package/novelcovid">
-	<img src="https://img.shields.io/bundlephobia/min/novelcovid?color=red&label=SIZE&logo=npm&style=for-the-badge", alt="Size">
-</a>
-<a href="https://www.npmjs.com/package/novelcovid">
-<img src="https://img.shields.io/npm/dw/novelcovid?logo=npm&style=for-the-badge", alt="Downloads">
-</a>
+	
+	![npm](https://img.shields.io/npm/dw/covidapi)
+	![GitHub last commit](https://img.shields.io/github/last-commit/puf17640/covidapi)
+	![npm bundle size](https://img.shields.io/bundlephobia/minzip/covidapi)
+	![GitHub issues](https://img.shields.io/github/issues-raw/puf17640/covidapi)
+	![npm](https://img.shields.io/npm/dw/covidapi)
+	
 </dir>
 
-We suggest you load the module via `require`, considering ES modules in Node.js are not yet stable.
-
 Executing a method will return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
-The examples here utilise [async/await](https://javascript.info/async-await) to access the data.
+The examples here utilise Promises, but you can also use [async/await](https://javascript.info/async-await) to access the data.
 
 JavaScript:
 
 ```js
-const { NovelCovid } = require('novelcovid');
+const api = require('covidapi');
+
+api.all().then(console.log) // prints a summary of global data
+
+api.countries().then(console.log) // prints an array of all infected countries and their data
 ```
 
-TypeScript:
-```ts
-import { NovelCovid } from 'novelcovid';
-```
-### Methods
- Everything is listed on the [npm](https://www.npmjs.com/package/novelcovid) site.
+For further documentation of methods, refer to the [covidapi docs](https://github.com/puf17640/covidapi#usage)
 
 ## **Note**
 Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` as it returns an **ISO Date**
