@@ -18,11 +18,12 @@ router.get('/v2/historical/all', async (req, res) => {
 });
 
 router.get('/v2/historical/:query/:province?', async (req, res) => {
+	const splitProvince = (province) => province.indexOf('|') === -1 ? province.split(',') : province.split('|');
 	const data = JSON.parse(await redis.get(keys.historical_v2));
 	const { query, province } = req.params;
 	const { lastdays } = req.query;
 	const countries = query.split(',');
-	const provinces = (province && province.split(',')) || [];
+	const provinces = (province && splitProvince(province)) || [];
 	let countryData;
 	// multiple countries no provinces allowed
 	if (countries.length > 1) {

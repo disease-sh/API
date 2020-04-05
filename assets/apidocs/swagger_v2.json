@@ -430,6 +430,13 @@
             "type": ""
           },
           {
+            "name": "provinces",
+            "in": "path",
+            "required": true,
+            "description": "Provinces spelled correctly separated by ',' or '|' delimiters, never both in the same query. ",
+            "type": ""
+          },
+          {
             "name": "lastdays",
             "in": "query",
             "required": false,
