@@ -36,10 +36,7 @@ router.get('/countries/:query', async (req, res) => {
 	const countryData = splitQuery(query).map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true')).filter(value => value);
 	if (countryData.length > 0) {
 		res.send(countryData.length === 1 ? countryData[0] : countryData);
-	} else {
-		// adding status code 404 not found and sending response
-		res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
-	}
+	} else { res.status(404).send({ message: 'Country not found or doesn\'t have any cases' }); }
 });
 
 router.get('/states', async (req, res) => {
@@ -58,10 +55,7 @@ router.get('/states/:query', async (req, res) => {
 	const stateData = splitQuery(query).map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase())).filter(value => value);
 	if (stateData.length > 0) {
 		res.send(stateData.length === 1 ? stateData[0] : stateData);
-	} else {
-		// adding status code 404 not found and sending response
-		res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
-	}
+	} else { res.status(404).send({ message: 'Country not found or doesn\'t have any cases' }); }
 });
 
 router.get('/yesterday', async (req, res) => {
@@ -82,10 +76,7 @@ router.get('/yesterday/:query', async (req, res) => {
 	const yesterdayCountryData = splitQuery(query).map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true')).filter(value => value);
 	if (yesterdayCountryData.length > 0) {
 		res.send(yesterdayCountryData.length === 1 ? yesterdayCountryData[0] : yesterdayCountryData);
-	} else {
-		// adding status code 404 not found and sending response
-		res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
-	}
+	} else { res.status(404).send({ message: 'Country not found or doesn\'t have any cases' }); }
 });
 
 module.exports = router;

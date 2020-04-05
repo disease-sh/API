@@ -6,7 +6,12 @@ const { redis, config, scraper } = require('./routes/instances');
 const { keys } = config;
 
 const execAll = async () => {
-	await Promise.all([scraper.getWorldometerPage(keys, redis), scraper.getStates(keys, redis), scraper.jhuLocations.jhudataV2(keys, redis), scraper.historical.historicalV2(keys, redis)]);
+	await Promise.all([
+		scraper.getWorldometerPage(keys, redis),
+		scraper.getStates(keys, redis),
+		scraper.jhuLocations.jhudataV2(keys, redis),
+		scraper.historical.historicalV2(keys, redis)
+	]);
 	app.emit('scrapper_finished');
 };
 
@@ -16,9 +21,13 @@ setInterval(execAll, config.interval);
 app.use(cors());
 app.get('/', async (request, response) => response.redirect('https://github.com/novelcovid/api'));
 
-const listener = app.listen(config.port, () => console.log(`Your app is listening on port ${listener.address().port}`));
+const listener = app.listen(config.port, () =>
+	console.log(`Your app is listening on port ${listener.address().port}`)
+);
 
-app.get('/invite', async (req, res) => /* eslint max-len: off */res.redirect('https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880'));
+app.get('/invite', async (req, res) =>
+	res.redirect('https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880')
+);
 
 app.get('/support', async (req, res) => res.redirect('https://discord.gg/EvbMshU'));
 
