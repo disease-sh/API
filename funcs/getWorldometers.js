@@ -97,7 +97,6 @@ function fillResult(html, yesterday = false) {
 		if (i % totalColumns === deathsPerOneMillionColIndex) {
 			const deathsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
 			result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion.split(',').join(''));
-			result[result.length - 1].updated = Date.now();
 		}
 
 		// get tests
@@ -107,10 +106,10 @@ function fillResult(html, yesterday = false) {
 
 		// get total tests per one million population
 		if (i % totalColumns === testsPerOneMillionColIndex) {
-			const testsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
+			const testsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '0';
 			result[result.length - 1].testsPerOneMillion = parseFloat(testsPerOneMillion.split(',').join(''));
-			result[result.length - 1].updated = Date.now();
 		}
+		result[result.length - 1].updated = Date.now();
 	}
 	return result;
 }
