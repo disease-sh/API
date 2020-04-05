@@ -2,6 +2,11 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const countryUtils = require('../utils/country_utils');
 
+/**
+ * Gets country data from table cell on worldometers website
+ * @param 	{Object} 	cell 	Country table cell from worldometers website
+ * @returns {string} 			Country name
+ */
 function getCountryData(cell) {
 	let country = (cell.children[0].data
 		|| cell.children[0].children[0].data
@@ -16,6 +21,11 @@ function getCountryData(cell) {
 	return country;
 }
 
+/**
+ * Gets integer parsed stat from table cell
+ * @param 	{Object} 	cell 	Table cell from worldometers website
+ * @returns {number} 			Number from cell for statistic
+ */
 function getCellData(cell) {
 	const data = cell.children.length !== 0 ? cell.children[0].data : '';
 	return parseInt(
@@ -24,6 +34,12 @@ function getCellData(cell) {
 	);
 }
 
+/**
+ * Fills an array full of table data parsed from worldometers
+ * @param 	{Object} 	html 		Cheerio HTML object from worldometers site
+ * @param 	{boolean} 	yesterday 	Default false, tells the function which URL to use data from
+ * @returns {array} 				Array of objects containing table data from worldometers
+ */
 function fillResult(html, yesterday = false) {
 	// to store parsed data
 	const result = [];
@@ -114,6 +130,11 @@ function fillResult(html, yesterday = false) {
 	return result;
 }
 
+/**
+ * Fills redis with countries and yesterday data
+ * @param {string} keys Redis keys
+ * @param {Object} redis Redis instance
+ */
 const getWorldometerPage = async (keys, redis) => {
 	let response;
 	try {

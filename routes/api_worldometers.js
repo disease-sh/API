@@ -4,6 +4,11 @@ const countryUtils = require('../utils/country_utils');
 const { redis, config } = require('./instances');
 const { keys } = config;
 
+/**
+ * Gets data for /all or /yesterday/all endpoint
+ * @param 	{string}	key 	Appropriate redis key
+ * @returns {Object} 			Global data
+ */
 const getAllData = async (key) => {
 	const countries = JSON.parse(await redis.get(key));
 	const worldData = countries[0];

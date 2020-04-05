@@ -235,6 +235,21 @@ describe('TESTING /countries', () => {
             });
     });
 
+    it('/yesterday/all is less than countries/all', (done) => {
+        chai.request(app)
+            .get('/yesterday/all')
+            .end((err, res) => {
+                chai.request(app)
+                    .get('/all')
+                    .end((err2, res2) => {
+                        res.should.have.status(200);
+                        res2.should.have.status(200);
+                        res2.body.cases.should.be.at.least(res.body.cases);
+                        done();
+                    });
+            });
+    });
+
     it('/yesterday/us has correct properties', (done) => {
         chai.request(app)
             .get('/yesterday/us')
