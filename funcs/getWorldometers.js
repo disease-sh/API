@@ -28,10 +28,7 @@ function getCountryData(cell) {
  */
 function getCellData(cell) {
 	const data = cell.children.length !== 0 ? cell.children[0].data : '';
-	return parseInt(
-		data.trim().replace(/,/g, '') || '0',
-		10
-	);
+	return parseInt(data.trim().replace(/,/g, '') || '0', 10);
 }
 
 /**
@@ -67,63 +64,77 @@ function fillResult(html, yesterday = false) {
 	// minus totalColumns to skip last row, which is total
 	for (let i = 0; i < countriesTableCells.length - totalColumns; i += 1) {
 		const cell = countriesTableCells[i];
-		// get country
-		if (i % totalColumns === countryColIndex) {
-			const countryData = countryUtils.getCountryData(getCountryData(cell));
-			// eslint-disable-next-line prefer-destructuring
-			const country = countryData.country ? countryData.country : getCountryData(cell);
-			delete countryData.country;
-			result.push({ country, countryInfo: countryData });
-		}
-		// get cases
-		if (i % totalColumns === casesColIndex) {
-			result[result.length - 1].cases = getCellData(cell);
-		}
-		// get today cases
-		if (i % totalColumns === newCasesColIndex) {
-			result[result.length - 1].todayCases = getCellData(cell);
-		}
-		// get deaths
-		if (i % totalColumns === deathsColIndex) {
-			result[result.length - 1].deaths = getCellData(cell);
-		}
-		// get yesterdays deaths
-		if (i % totalColumns === newDeathsColIndex) {
-			result[result.length - 1].todayDeaths = getCellData(cell);
-		}
-		// get cured
-		if (i % totalColumns === curedColIndex) {
-			result[result.length - 1].recovered = getCellData(cell);
-		}
-		// get active
-		if (i % totalColumns === activeColIndex) {
-			result[result.length - 1].active = getCellData(cell);
-		}
-		// get critical
-		if (i % totalColumns === criticalColIndex) {
-			result[result.length - 1].critical = getCellData(cell);
-		}
-		// get total cases per one million population
-		if (i % totalColumns === casesPerOneMillionColIndex) {
-			const casesPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
-			result[result.length - 1].casesPerOneMillion = parseFloat(casesPerOneMillion.split(',').join(''));
-		}
+		switch (i % totalColumns) {
+			// get country
+			case countryColIndex: {
+				const countryInfo = countryUtils.getCountryData(getCountryData(cell));
+				// eslint-disable-next-line prefer-destructuring
+				const country = countryInfo.country ? countryInfo.country : getCountryData(cell);
+				delete countryInfo.country;
+				result.push({ country, countryInfo });
+				break;
+			}
 
-		// get total deaths per one million population
-		if (i % totalColumns === deathsPerOneMillionColIndex) {
-			const deathsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
-			result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion.split(',').join(''));
-		}
+			// get cases
+			case casesColIndex:
+				result[result.length - 1].cases = getCellData(cell);
+				break;
 
-		// get tests
-		if (i % totalColumns === testsColIndex) {
-			result[result.length - 1].tests = getCellData(cell);
-		}
+			// get today cases
+			case newCasesColIndex:
+				result[result.length - 1].todayCases = getCellData(cell);
+				break;
 
-		// get total tests per one million population
-		if (i % totalColumns === testsPerOneMillionColIndex) {
-			const testsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '0';
-			result[result.length - 1].testsPerOneMillion = parseFloat(testsPerOneMillion.split(',').join(''));
+			// get deaths
+			case deathsColIndex:
+				result[result.length - 1].deaths = getCellData(cell);
+				break;
+
+			// get today deaths
+			case newDeathsColIndex:
+				result[result.length - 1].todayDeaths = getCellData(cell);
+				break;
+
+			// get cured
+			case curedColIndex:
+				result[result.length - 1].recovered = getCellData(cell);
+				break;
+
+			// get active
+			case activeColIndex:
+				result[result.length - 1].active = getCellData(cell);
+				break;
+
+			// get critical
+			case criticalColIndex:
+				result[result.length - 1].critical = getCellData(cell);
+				break;
+
+			// get total cases per one million population
+			case casesPerOneMillionColIndex: {
+				const casesPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
+				result[result.length - 1].casesPerOneMillion = parseFloat(casesPerOneMillion.split(',').join(''));
+				break;
+			}
+
+			// get total deaths per one million population
+			case deathsPerOneMillionColIndex: {
+				const deathsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
+				result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion.split(',').join(''));
+				break;
+			}
+
+			// get tests
+			case testsColIndex:
+				result[result.length - 1].tests = getCellData(cell);
+				break;
+
+			// get total tests per one million population
+			case testsPerOneMillionColIndex: {
+				const testsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '0';
+				result[result.length - 1].testsPerOneMillion = parseFloat(testsPerOneMillion.split(',').join(''));
+				break;
+			}
 		}
 		result[result.length - 1].updated = Date.now();
 	}
@@ -149,13 +160,11 @@ const getWorldometerPage = async (keys, redis) => {
 	const html = cheerio.load(response.data);
 	// Getting country data from today
 	const resultToday = fillResult(html);
-	const stringToday = JSON.stringify(resultToday);
-	redis.set(keys.countries, stringToday);
+	redis.set(keys.countries, JSON.stringify(resultToday));
 	console.log(`Updated countries statistics: ${resultToday.length}`);
 	// Getting country data from yesterday
 	const resultYesterday = fillResult(html, true);
-	const stringYesterday = JSON.stringify(resultYesterday);
-	redis.set(keys.yesterday, stringYesterday);
+	redis.set(keys.yesterday, JSON.stringify(resultYesterday));
 	return console.log(`Updated yesterdays statistics: ${resultYesterday.length}`);
 };
 
