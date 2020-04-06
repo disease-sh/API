@@ -1,9 +1,14 @@
-<a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/novelcovid/api?style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/novelcovid/api/Lint%20and%20Test?style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/novelcovid/api?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/novelcovid/api?style=for-the-badge)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/novelcovid/api?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/novelcovid/api?style=for-the-badge)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/novelcovid/api?style=for-the-badge)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
-[![DeepScan grade](https://deepscan.io/api/teams/8462/projects/10661/branches/149918/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8462&pid=10661&bid=149918)
-![Lint and Test](https://github.com/NovelCOVID/API/workflows/Lint%20and%20Test/badge.svg)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=for-the-badge)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 # Join our Server!
 [![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
 
@@ -115,4 +120,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+# Donating
+<a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
