@@ -1,5 +1,4 @@
 ![GitHub contributors](https://img.shields.io/github/contributors-anon/novelcovid/api?style=for-the-badge)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/novelcovid/api?style=for-the-badge)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/novelcovid/api/Lint%20and%20Test?style=for-the-badge)
 ![GitHub top language](https://img.shields.io/github/languages/top/novelcovid/api?style=for-the-badge)
 ![GitHub issues](https://img.shields.io/github/issues/novelcovid/api?style=for-the-badge)
