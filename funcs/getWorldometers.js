@@ -159,6 +159,4 @@ const getWorldometerPage = async (keys, redis) => {
 	return console.log(`Updated yesterdays statistics: ${resultYesterday.length}`);
 };
 
-module.exports = {
-	getWorldometerPage
-};
+module.exports = getWorldometerPage;

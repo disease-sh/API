@@ -12,28 +12,17 @@ const { keys } = config;
 const getAllData = async (key) => {
 	const countries = JSON.parse(await redis.get(key));
 	const worldData = countries[0];
-	return {
-		cases: worldData.cases,
-		todayCases: worldData.todayCases,
-		deaths: worldData.deaths,
-		todayDeaths: worldData.todayDeaths,
-		recovered: worldData.recovered,
-		active: worldData.active,
-		critical: worldData.critical,
-		casesPerOneMillion: worldData.casesPerOneMillion,
-		deathsPerOneMillion: worldData.deathsPerOneMillion,
-		updated: worldData.updated,
-		tests: worldData.tests,
-		testsPerOneMillion: worldData.testsPerOneMillion,
-		affectedCountries: countries.length
-	};
+	delete worldData.country;
+	delete worldData.countryInfo;
+	worldData.affectedCountries = countries.length;
+	return worldData;
 };
+
+router.get('/all', async (req, res) => res.send(await getAllData(keys.countries)));
 
 router.get('/countries', async (req, res) => {
 	const { sort } = req.query;
-	let countries = JSON.parse(await redis.get(keys.countries));
-	// ignore world row
-	countries.shift();
+	let countries = JSON.parse(await redis.get(keys.countries)).splice(1);
 	if (sort) {
 		countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
@@ -41,77 +30,53 @@ router.get('/countries', async (req, res) => {
 });
 
 router.get('/countries/:query', async (req, res) => {
-	const data = JSON.parse(await redis.get(keys.countries));
+	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 	const { query } = req.params;
-	const queriedCountries = query.split(',');
-	const countryData = [];
-	// For each country param, find the country that matches the param
-	for (const country of queriedCountries) {
-		const foundCountry = countryUtils.getCountryWorldometersData(data, country, req.query.strict === 'true');
-		if (foundCountry) countryData.push(foundCountry);
-	}
+	const countries = JSON.parse(await redis.get(keys.countries));
+	const countryData = splitQuery(query).map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true')).filter(value => value);
 	if (countryData.length > 0) {
 		res.send(countryData.length === 1 ? countryData[0] : countryData);
-		return;
-	}
-	// adding status code 404 not found and sending response
-	res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
-});
-router.get('/all', async (req, res) => {
-	const all = await getAllData(keys.countries);
-	res.send(all);
+	} else { res.status(404).send({ message: 'Country not found or doesn\'t have any cases' }); }
 });
 
 router.get('/states', async (req, res) => {
 	const { sort } = req.query;
-	let states = JSON.parse(await redis.get(keys.states));
-	// ignore USA Total
-	states.shift();
+	let states = JSON.parse(await redis.get(keys.states)).splice(1);
 	if (sort) {
 		states = states.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
 	res.send(states);
 });
+
 router.get('/states/:query', async (req, res) => {
+	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 	const { query } = req.params;
 	const states = JSON.parse(await redis.get(keys.states));
-	const stateData = states.find(st => st.state.toLowerCase() === query.toLowerCase());
-	if (stateData) {
-		res.send(stateData);
-		return;
-	}
-	res.status(404).send({ message: 'State not found or doesn\'t have any cases' });
+	const stateData = splitQuery(query).map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase())).filter(value => value);
+	if (stateData.length > 0) {
+		res.send(stateData.length === 1 ? stateData[0] : stateData);
+	} else { res.status(404).send({ message: 'Country not found or doesn\'t have any cases' }); }
 });
+
 router.get('/yesterday', async (req, res) => {
 	const { sort } = req.query;
-	let yesterday = JSON.parse(await redis.get(keys.yesterday));
-	yesterday.shift();
+	let yesterday = JSON.parse(await redis.get(keys.yesterday)).splice(1);
 	if (sort) {
 		yesterday = yesterday.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
 	res.send(yesterday);
 });
-router.get('/yesterday/all', async (req, res) => {
-	const all = await getAllData(keys.yesterday);
-	res.send(all);
-});
-router.get('/yesterday/:query', async (req, res) => {
-	const yesterday = JSON.parse(await redis.get(keys.yesterday));
-	const { query } = req.params;
-	const queriedCountries = query.split(',');
-	const yesterdayCountryData = [];
 
-	yesterday.shift();
-	// For each country param, find the country that matches the param
-	for (const country of queriedCountries) {
-		const foundCountry = countryUtils.getCountryWorldometersData(yesterday, country, req.query.strict === 'true');
-		if (foundCountry) yesterdayCountryData.push(foundCountry);
-	}
+router.get('/yesterday/all', async (req, res) => res.send(await getAllData(keys.yesterday)));
+
+router.get('/yesterday/:query', async (req, res) => {
+	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
+	const { query } = req.params;
+	const countries = JSON.parse(await redis.get(keys.yesterday));
+	const yesterdayCountryData = splitQuery(query).map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true')).filter(value => value);
 	if (yesterdayCountryData.length > 0) {
 		res.send(yesterdayCountryData.length === 1 ? yesterdayCountryData[0] : yesterdayCountryData);
-		return;
-	}
-	// adding status code 404 not found and sending response
-	res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
+	} else { res.status(404).send({ message: 'Country not found or doesn\'t have any cases' }); }
 });
+
 module.exports = router;

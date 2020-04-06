@@ -2,7 +2,7 @@
 const Redis = require('ioredis');
 
 // LOCAL FUNCTIONS
-const getWorldometers = require('../funcs/getWorldometers');
+const getWorldometerPage = require('../funcs/getWorldometers');
 const getStates = require('../funcs/getStates');
 const jhuLocations = require('../funcs/jhuLocations');
 const historical = require('../funcs/historical');
@@ -23,7 +23,7 @@ module.exports = {
 	redis,
 	config,
 	scraper: {
-		getWorldometers,
+		getWorldometerPage,
 		getStates,
 		jhuLocations,
 		historical
