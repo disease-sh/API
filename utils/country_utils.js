@@ -9,13 +9,12 @@ const countryData = require('./countries.json');
  * @returns {string}
  */
 const getCountryCode = (countryName) => {
-	countryData.forEach((element) => {
+	for(var element of countryData) {
 		if (element.country.toLowerCase() === countryName.toLowerCase()) {
 			return element.iso2;
 		}
-		return true;
-	});
-	return null;
+		return null;
+	}
 };
 
 /**
@@ -24,13 +23,14 @@ const getCountryCode = (countryName) => {
  * @returns {string}
  */
 const getCountryName = (countryCode) => {
-	countryData.forEach((element) => {
+
+	for(var element of countryData) {
 		if (element.iso2.toLowerCase() === countryCode.toLowerCase()) {
 			return element.country;
 		}
-		return true;
-	});
-	return null;
+		return null;
+	}
+
 };
 
 const getCountryData = (countryNameParam) => {
