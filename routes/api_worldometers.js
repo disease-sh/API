@@ -21,7 +21,7 @@ const getAllData = async (key) => {
 const fixApostrophe = (country) => {
 	country.country = country.country.replace(/"/g, '\'');
 	return country;
-}
+};
 
 router.get('/all', async (req, res) => res.send(await getAllData(keys.countries)));
 
