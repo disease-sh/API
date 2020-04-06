@@ -2,6 +2,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 [![DeepScan grade](https://deepscan.io/api/teams/8462/projects/10661/branches/149918/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8462&pid=10661&bid=149918)
+![Lint and Test](https://github.com/NovelCOVID/API/workflows/Lint%20and%20Test/badge.svg)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 # Join our Server!
 [![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
