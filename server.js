@@ -67,8 +67,7 @@ var getcountries = setInterval(async () => {
 
   // count worldometers table columns
   const colCount = html('table#main_table_countries_today th').length;
-
-  // NOTE: this will change when table format change in website
+  
   const totalColumns = colCount;
   const countryColIndex = 0;
   const casesColIndex = 1;
