@@ -119,7 +119,7 @@ const historicalV2 = async (keys, redis) => {
  */
 const getHistoricalDataV2 = (data, lastdays = 30) => {
 	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
-	if (!lastdays || isNaN(lastdays)) lastdays = 30;
+	else lastdays = 30;
 	return data.map(country => {
 		delete country.countryInfo;
 		const cases = {};
@@ -146,7 +146,7 @@ const getHistoricalDataV2 = (data, lastdays = 30) => {
  */
 const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30) => {
 	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
-	if (!lastdays || isNaN(lastdays)) lastdays = 30;
+	else lastdays = 30;
 	const countryInfo = countryUtils.getCountryData(query);
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : query);
 	// filter to either specific province, or provinces to sum country over
