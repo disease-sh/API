@@ -138,6 +138,8 @@ function fillResult(html, yesterday = false) {
 		}
 		result[result.length - 1].updated = Date.now();
 	}
+	const world = result.find(country => country.country.toLowerCase() === 'world');
+	world.tests = result.map(country => country.tests).splice(1).reduce((sum, test) => sum + test);
 	return result;
 }
 
