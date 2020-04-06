@@ -14,7 +14,7 @@ const getAllData = async (key) => {
 	const worldData = countries[0];
 	delete worldData.country;
 	delete worldData.countryInfo;
-	worldData.affectedCountries = countries.length;
+	worldData.affectedCountries = countries.length - 1;
 	return worldData;
 };
 
