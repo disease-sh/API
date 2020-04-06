@@ -1,14 +1,11 @@
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/novelcovid/api?style=for-the-badge)
+![GitHub contributors](https://img.shields.io/github/contributors-anon/novelcovid/api?style=for-the-badge)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/novelcovid/api?style=for-the-badge)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/novelcovid/api/Lint%20and%20Test?style=for-the-badge)
 ![GitHub top language](https://img.shields.io/github/languages/top/novelcovid/api?style=for-the-badge)
 ![GitHub issues](https://img.shields.io/github/issues/novelcovid/api?style=for-the-badge)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/novelcovid/api?style=for-the-badge)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/novelcovid/api?style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/novelcovid/api?style=for-the-badge)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=for-the-badge)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 # Join our Server!
 [![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
 
