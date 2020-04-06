@@ -186,6 +186,25 @@ describe('TESTING /countries', () => {
             });
     });
     
+    it('/states/state1,state2', (done) => {
+        chai.request(app)
+            .get('/states/Illinois,New%20York')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                for(var row of res.body){
+                    row.should.have.property('cases');
+                    row.should.have.property('todayCases');
+                    row.should.have.property('deaths');
+                    row.should.have.property('todayDeaths');
+                    row.should.have.property('active');
+                    row.should.have.property('tests');
+                    row.should.have.property('testsPerOneMillion');
+                }
+                done();
+            });
+    });
+
     it('/states/ get incorrect state name', (done) => {
         chai.request(app)
             .get('/states/asdfghjkl')

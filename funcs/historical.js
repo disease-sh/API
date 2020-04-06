@@ -69,10 +69,9 @@ function formatRecoveredData(cases, recovered) {
 }
 
 /**
- * Parses JHU csv data for country timeline data
+ * Fills redis with JHU csv country timeline data
  * @param 	{string}	keys 	config countries key
  * @param 	{Object}	redis 	Redis db
- * @returns {array}				Array of objects containing historical data on country/province
  */
 const historicalV2 = async (keys, redis) => {
 	const { casesResponse, deathsResponse, recoveredResponse } = await getCsvData();
@@ -108,7 +107,7 @@ const historicalV2 = async (keys, redis) => {
 
 	const string = JSON.stringify(result);
 	redis.set(keys.historical_v2, string);
-	return console.log(`Updated JHU CSSE Historical: ${result.length} locations`);
+	console.log(`Updated JHU CSSE Historical: ${result.length} locations`);
 };
 
 /**

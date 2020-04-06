@@ -147,4 +147,16 @@ describe('TESTING /v2/historical', () => {
                 done();
             });
     });
+
+    it('/v2/historical/ correct province name list split', (done) => {
+        chai.request(app)
+            .get('/v2/historical/nl/aruba|mainland|bonaire, sint eustatius and saba')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.equal(3);
+                res.body[2].should.have.property('country');
+                done();
+            });
+    });
 });
