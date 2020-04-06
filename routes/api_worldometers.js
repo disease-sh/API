@@ -18,11 +18,16 @@ const getAllData = async (key) => {
 	return worldData;
 };
 
+const fixApostrophe = (country) => {
+	country.country = country.country.replace(/"/g, '\'');
+	return country;
+};
+
 router.get('/all', async (req, res) => res.send(await getAllData(keys.countries)));
 
 router.get('/countries', async (req, res) => {
 	const { sort } = req.query;
-	let countries = JSON.parse(await redis.get(keys.countries)).splice(1);
+	let countries = JSON.parse(await redis.get(keys.countries)).splice(1).map(fixApostrophe);
 	if (sort) {
 		countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
@@ -32,7 +37,7 @@ router.get('/countries', async (req, res) => {
 router.get('/countries/:query', async (req, res) => {
 	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 	const { query } = req.params;
-	const countries = JSON.parse(await redis.get(keys.countries));
+	const countries = JSON.parse(await redis.get(keys.countries)).map(fixApostrophe);
 	const countryData = splitQuery(query).map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true')).filter(value => value);
 	if (countryData.length > 0) {
 		res.send(countryData.length === 1 ? countryData[0] : countryData);
@@ -60,7 +65,7 @@ router.get('/states/:query', async (req, res) => {
 
 router.get('/yesterday', async (req, res) => {
 	const { sort } = req.query;
-	let yesterday = JSON.parse(await redis.get(keys.yesterday)).splice(1);
+	let yesterday = JSON.parse(await redis.get(keys.yesterday)).splice(1).map(fixApostrophe);
 	if (sort) {
 		yesterday = yesterday.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
@@ -72,7 +77,7 @@ router.get('/yesterday/all', async (req, res) => res.send(await getAllData(keys.
 router.get('/yesterday/:query', async (req, res) => {
 	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 	const { query } = req.params;
-	const countries = JSON.parse(await redis.get(keys.yesterday));
+	const countries = JSON.parse(await redis.get(keys.yesterday)).map(fixApostrophe);
 	const yesterdayCountryData = splitQuery(query).map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true')).filter(value => value);
 	if (yesterdayCountryData.length > 0) {
 		res.send(yesterdayCountryData.length === 1 ? yesterdayCountryData[0] : yesterdayCountryData);
