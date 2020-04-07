@@ -38,10 +38,12 @@ function getCellData(cell) {
  * @returns {array} 				Array of objects containing table data from worldometers
  */
 function fillResult(html, yesterday = false) {
+	// count worldometers table columns
+	const colCount = html('table#main_table_countries_today th').length;
+
 	// to store parsed data
 	const result = [];
-	// NOTE: this will change when table format change in website
-	const totalColumns = 12;
+	const totalColumns = colCount;
 	const countryColIndex = 0;
 	const casesColIndex = 1;
 	const newCasesColIndex = 2;
