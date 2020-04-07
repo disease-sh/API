@@ -7,26 +7,6 @@ const stringUtils = require('../utils/string_utils');
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/';
 
 /**
- * Retrieves csv data files from JHU repo
- * @returns {Promise}	Promise of raw csv data
- */
-async function getCsvData() {
-	let casesResponse;
-	let deathsResponse;
-	let recoveredResponse;
-	// let recoveredResponse;
-	try {
-		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_global.csv`);
-		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_global.csv`);
-		recoveredResponse = await axios.get(`${base}time_series_covid19_recovered_global.csv`);
-		return { casesResponse, deathsResponse, recoveredResponse };
-	} catch (err) {
-		console.log(err);
-		return null;
-	}
-}
-
-/**
  * Parses csv file to program readable format
  * @param 	{Object}	data	Raw csv data
  * @returns {array}				Array of parsed csv data
@@ -74,7 +54,21 @@ function formatRecoveredData(cases, recovered) {
  * @param 	{Object}	redis 	Redis db
  */
 const historicalV2 = async (keys, redis) => {
-	const { casesResponse, deathsResponse, recoveredResponse } = await getCsvData();
+	let casesResponse;
+	let deathsResponse;
+	let recoveredResponse;
+	try {
+		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_global.csv`);
+		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_global.csv`);
+		recoveredResponse = await axios.get(`${base}time_series_covid19_recovered_global.csv`);
+	} catch (err) {
+		console.log({
+			message: 'has been ocurred an error in JHUhistorical REQUEST',
+			errno: err.errno,
+			url: err.config.url
+		});
+		return;
+	}
 	const parsedCases = await parseCsvData(casesResponse.data);
 	const parsedDeaths = await parseCsvData(deathsResponse.data);
 	const parsedRecovered = await parseCsvData(recoveredResponse.data);
