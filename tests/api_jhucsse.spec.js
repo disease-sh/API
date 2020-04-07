@@ -55,4 +55,27 @@ describe('TESTING /jhucsse and /v2/jhucsse', () => {
                 done();
             });
     });
+
+    it('/v2/jhucsse/counties/ multiple correct county names', (done) => {
+        chai.request(app)
+            .get('/v2/jhucsse/counties/cook|acadia')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('cook');
+                res.body.should.have.property('acadia');
+                done();
+            });
+    });
+
+    it('/v2/jhucsse/counties/ incorrect and correct county names', (done) => {
+        chai.request(app)
+            .get('/v2/jhucsse/counties/cook|fggdfg')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('cook');
+                done();
+            });
+    });
 });
