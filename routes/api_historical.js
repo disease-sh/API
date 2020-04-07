@@ -2,6 +2,7 @@
 const router = require('express').Router();
 const { redis, config, scraper } = require('./instances');
 const { keys } = config;
+const { splitQuery } = require('../utils/string_utils');
 
 router.get('/v2/historical', async (req, res) => {
 	const { lastdays } = req.query;
@@ -14,7 +15,6 @@ router.get('/v2/historical/all', async (req, res) =>
 );
 
 router.get('/v2/historical/:query/:province?', async (req, res) => {
-	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 	const data = JSON.parse(await redis.get(keys.historical_v2));
 	const { query, province } = req.params;
 	const { lastdays } = req.query;

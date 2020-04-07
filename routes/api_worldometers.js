@@ -1,5 +1,6 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
+const { splitQuery } = require('../utils/string_utils');
 const countryUtils = require('../utils/country_utils');
 const { redis, config } = require('./instances');
 const { keys } = config;
@@ -35,7 +36,6 @@ router.get('/countries', async (req, res) => {
 });
 
 router.get('/countries/:query', async (req, res) => {
-	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.countries)).map(fixApostrophe);
 	const countryData = splitQuery(query).map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true')).filter(value => value);
@@ -54,7 +54,6 @@ router.get('/states', async (req, res) => {
 });
 
 router.get('/states/:query', async (req, res) => {
-	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 	const { query } = req.params;
 	const states = JSON.parse(await redis.get(keys.states));
 	const stateData = splitQuery(query).map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase())).filter(value => value);
@@ -75,7 +74,6 @@ router.get('/yesterday', async (req, res) => {
 router.get('/yesterday/all', async (req, res) => res.send(await getAllData(keys.yesterday)));
 
 router.get('/yesterday/:query', async (req, res) => {
-	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.yesterday)).map(fixApostrophe);
 	const yesterdayCountryData = splitQuery(query).map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true')).filter(value => value);
