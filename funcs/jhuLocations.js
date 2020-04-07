@@ -3,10 +3,6 @@ const csv = require('csvtojson');
 
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/';
 
-async function getData() {
-
-}
-
 /**
  * Sets redis store full of today's JHU data scraped from their hosted CSV
  * @param {string} 	keys 	JHU data redis key
@@ -29,7 +25,7 @@ const jhudataV2 = async (keys, redis) => {
 			errno: err.errno,
 			url: err.config.url
 		});
-		return null;
+		return;
 	}
 	// const response = await getData();
 

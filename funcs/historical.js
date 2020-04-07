@@ -67,7 +67,7 @@ const historicalV2 = async (keys, redis) => {
 			errno: err.errno,
 			url: err.config.url
 		});
-		return null;
+		return;
 	}
 	const parsedCases = await parseCsvData(casesResponse.data);
 	const parsedDeaths = await parseCsvData(deathsResponse.data);
