@@ -31,13 +31,31 @@ function getCellData(cell) {
 	return parseInt(data.trim().replace(/,/g, '') || '0', 10);
 }
 
+async function getWorldPopulation() {
+	let response;
+	try {
+		response = await axios.get('https://www.livepopulation.com');
+	} catch (err) {
+		console.log({
+			message: 'error in livepopulation REQUEST',
+			errno: err.errno,
+			url: err.config.url
+		});
+		return null;
+	}
+	const html = cheerio.load(response.data);
+	const populationElement = html('body > div > section.main-content.shh2 > div > article > div.mgt-20.world-population > div.page-content > table > tbody > tr:nth-child(1) > td.current-population');
+	return parseInt(populationElement.text().replace(/,/g, ''));
+}
+
 /**
  * Fills an array full of table data parsed from worldometers
- * @param 	{Object} 	html 		Cheerio HTML object from worldometers site
- * @param 	{boolean} 	yesterday 	Default false, tells the function which URL to use data from
+ * @param 	{Object} html 		Cheerio HTML object from worldometers site
+ * @param 	{number} worldPopulation 	World Population parsed by getWorldPopulation()
+ * @param 	{boolean} yesterday 	Default false, tells the function which URL to use data from
  * @returns {array} 				Array of objects containing table data from worldometers
  */
-function fillResult(html, yesterday = false) {
+function fillResult(html, worldPopulation, yesterday = false) {
 	// to store parsed data
 	const result = [];
 	// NOTE: this will change when table format change in website
@@ -140,7 +158,7 @@ function fillResult(html, yesterday = false) {
 	}
 	const world = result.find(country => country.country.toLowerCase() === 'world');
 	world.tests = result.map(country => country.tests).splice(1).reduce((sum, test) => sum + test);
-	world.testsPerOneMillion = parseFloat(((1e6 / (1e6 / (world.casesPerOneMillion / world.cases))) * world.tests).toFixed(1));
+	world.testsPerOneMillion = parseFloat(((1e6 / (worldPopulation || (1e6 / (world.casesPerOneMillion / world.cases)))) * world.tests).toFixed(1));
 	return result;
 }
 
@@ -150,10 +168,11 @@ function fillResult(html, yesterday = false) {
  * @param {Object} redis Redis instance
  */
 const getWorldometerPage = async (keys, redis) => {
+	const worldPopulation = await getWorldPopulation();
+	console.log(`WorldPopulation: ${worldPopulation}`);
 	let response;
 	try {
 		response = await axios.get('https://www.worldometers.info/coronavirus');
-		// if (response.status !== 200) console.log('Error', response.status);
 	} catch (err) {
 		console.log({
 			message: 'error in getWorldometers REQUEST',
@@ -163,13 +182,13 @@ const getWorldometerPage = async (keys, redis) => {
 		return null;
 	}
 	// get HTML and parse death rates
-	const html = cheerio.load(response.data);
+	const html = cheerio.load(response.data, worldPopulation);
 	// Getting country data from today
 	const resultToday = fillResult(html);
 	redis.set(keys.countries, JSON.stringify(resultToday));
 	console.log(`Updated countries statistics: ${resultToday.length}`);
 	// Getting country data from yesterday
-	const resultYesterday = fillResult(html, true);
+	const resultYesterday = fillResult(html, worldPopulation, true);
 	redis.set(keys.yesterday, JSON.stringify(resultYesterday));
 	return console.log(`Updated yesterdays statistics: ${resultYesterday.length}`);
 };
