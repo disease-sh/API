@@ -147,7 +147,7 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
 		if (item.countryInfo.country) {
 			if (province) {
 				return (item.province === province.toLowerCase() || (item.province === null && province.toLowerCase() === 'mainland'))
-					&& (stringUtils.wordsStandardize(item.country).includes(standardizedCountryName)
+					&& (stringUtils.wordsStandardize(item.country) === standardizedCountryName
 						|| item.countryInfo.iso2 === countryInfo.iso2
 						|| item.countryInfo.iso3 === countryInfo.iso3
 						|| item.countryInfo._id === countryInfo._id);
