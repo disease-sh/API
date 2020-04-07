@@ -27,7 +27,7 @@ const getStates = async (keys, redis) => {
 		response = await axios.get('https://www.worldometers.info/coronavirus/country/us/');
 	} catch (err) {
 		console.log({
-			message: 'has been ocurred an error in getState REQUEST',
+			message: 'error in getState REQUEST',
 			errno: err.errno,
 			url: err.config.url
 		});

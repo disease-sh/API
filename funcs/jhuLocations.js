@@ -21,7 +21,7 @@ const jhudataV2 = async (keys, redis) => {
 		console.log(`USING ${dateString}.csv CSSEGISandData`);
 	} catch (err) {
 		console.log({
-			message: 'has been ocurred an error in JHULocations REQUEST',
+			message: 'error in JHULocations REQUEST',
 			errno: err.errno,
 			url: err.config.url
 		});

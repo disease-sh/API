@@ -156,7 +156,7 @@ const getWorldometerPage = async (keys, redis) => {
 		// if (response.status !== 200) console.log('Error', response.status);
 	} catch (err) {
 		console.log({
-			message: 'has been ocurred an error in getWorldometers REQUEST',
+			message: 'error in getWorldometers REQUEST',
 			errno: err.errno,
 			url: err.config.url
 		});
