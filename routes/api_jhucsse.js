@@ -14,16 +14,15 @@ router.get('/v2/jhucsse/counties/:county?', async (req, res) => {
 	let countyData;
 	if (queriedCounties.length > 1) {
 		countyData = {};
-		for(let county of queriedCounties) {
-			countyData[county] = scraper.jhuLocations.getCountyJhuDataV2(JSON.parse(await redis.get(keys.jhu_v2)), county && county.toLowerCase());
-			if (countyData[county].length === 0) {
-				delete countyData[county];
+		for (const queriedcounty of queriedCounties) {
+			countyData[queriedcounty] = scraper.jhuLocations.getCountyJhuDataV2(JSON.parse(await redis.get(keys.jhu_v2)), queriedcounty && queriedcounty.toLowerCase());
+			if (countyData[queriedcounty].length === 0) {
+				delete countyData[queriedcounty];
 			}
 		}
 	} else {
 		countyData = scraper.jhuLocations.getCountyJhuDataV2(JSON.parse(await redis.get(keys.jhu_v2)), county && county.toLowerCase());
 	}
-	console.log(countyData.length > 0 || Object.keys(countyData).length > 0)
 	if (countyData.length > 0 || Object.keys(countyData).length > 0) {
 		res.send(countyData);
 	} else { res.status(404).send({ message: 'County not found' }); }
