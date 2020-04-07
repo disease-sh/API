@@ -159,4 +159,27 @@ describe('TESTING /v2/historical', () => {
                 done();
             });
     });
+
+    it('/v2/historical/ correct country name given province', (done) => {
+        chai.request(app)
+            .get('/v2/historical/gbr/mainland')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.country.should.equal('UK');
+                res.body.province.should.equal('mainland');
+                done();
+            });
+    });
+
+    it('/v2/historical/ correct country name', (done) => {
+        chai.request(app)
+            .get('/v2/historical/oman')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.country.should.equal('Oman');
+                done();
+            });
+    });
 });
