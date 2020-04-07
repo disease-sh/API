@@ -25,11 +25,12 @@ const getStates = async (keys, redis) => {
 	let response;
 	try {
 		response = await axios.get('https://www.worldometers.info/coronavirus/country/us/');
-		if (response.status !== 200) {
-			console.log('Error', response.status);
-		}
 	} catch (err) {
-		console.log(err);
+		console.log({
+			message: 'has been ocurred an error in getState REQUEST',
+			errno: err.errno,
+			url: err.config.url
+		});
 		return null;
 	}
 	// to store parsed data
