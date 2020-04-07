@@ -34,7 +34,7 @@
     "/all": {
       "get": {
         "summary": "Get Global Totals",
-        "description": "Get global stats: cases, deaths, recovered, time last updated, and active cases",
+        "description": "Get global stats: cases, deaths, recovered, time last updated, and active cases. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status OK"
@@ -50,12 +50,12 @@
             "in": "query",
             "required": false,
             "enum": ["cases", "todayCases", "deaths", "todayDeaths", "active"],
-            "description": "For this parameter you can provide a key from the country model (e.g. cases, todayCases, deaths, active, etc) to sort the states from greatest to least, depending on the key",
+            "description": "For this parameter you can provide a key from the country model (e.g. cases, todayCases, deaths, active, etc) to sort the states from greatest to least, depending on the key.",
             "type": "string"
           }
         ],
         "summary": "Get US State Totals",
-        "description": "Get stats on United States of America States with COVID-19, including cases, new cases, deaths, new deaths, and active cases",
+        "description": "Get stats on United States of America States with COVID-19, including cases, new cases, deaths, new deaths, and active cases. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status OK"
@@ -75,7 +75,7 @@
           }
         ],
         "summary": "Get US State Totals for a specific state",
-        "description": "Get cases, new cases, deaths, new deaths, and active cases for a state",
+        "description": "Get cases, new cases, deaths, new deaths, and active cases for a state. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status OK"
@@ -96,7 +96,7 @@
           }
         ],
         "summary": "Get Country Totals from Yesterday",
-        "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
+        "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status OK",
@@ -119,7 +119,7 @@
           }
         ],
         "summary": "Get a specific Country's Totals from Yesterday",
-        "description": "Get the same data from the /yesterday endpoint, but filter down to a specific country.",
+        "description": "Get the same data from the /yesterday endpoint, but filter down to a specific country. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status OK",
@@ -142,7 +142,7 @@
           }
         ],
         "summary": "Get a specific Country's Totals from Yesterday",
-        "description": "Get the same data from the /yesterday endpoint, but filter down to multiple specific countries.",
+        "description": "Get the same data from the /yesterday endpoint, but filter down to multiple specific countries. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status OK",
@@ -169,7 +169,7 @@
           }
         ],
         "summary": "Get All Countries Totals",
-        "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
+        "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status OK",
@@ -221,7 +221,7 @@
           }
         ],
         "summary": "Get a Specific Country's Totals",
-        "description": "Get the same data from the /countries endpoint, but filter down to multiple specific countries.",
+        "description": "Get the same data from the /countries endpoint, but filter down to multiple specific countries. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status Ok"
@@ -235,7 +235,7 @@
           "JHUCSSE"
         ],
         "summary": "Get All JHU CSSE",
-        "description": "Get JHU CSSE Data. This includes confirmed cases, deaths, recovered, and coordinates.",
+        "description": "Get JHU CSSE Data. This includes confirmed cases, deaths, recovered, and coordinates. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status Ok"
@@ -249,7 +249,7 @@
           "JHUCSSE"
         ],
         "summary": "Get All US County Data from JHU CSSE",
-        "description": "Get JHU CSSE county specific data. This includes confirmed cases, deaths, recovered, and coordinates.",
+        "description": "Get JHU CSSE county specific data. This includes confirmed cases, deaths, recovered, and coordinates. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status Ok",
@@ -275,7 +275,7 @@
           }
         ],
         "summary": "Get county data for a single county from JHU CSSE",
-        "description": "Get JHU CSSE county specific data. This includes confirmed cases, deaths, recovered, and coordinates. Returns array because there are duplicate names",
+        "description": "Get JHU CSSE county specific data. This includes confirmed cases, deaths, recovered, and coordinates. Returns array because there are duplicate names. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status Ok",
@@ -302,7 +302,7 @@
           }
         ],
         "summary": "Get Historical Data",
-        "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country. Updated each day at 23:59 UTC.",
+        "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country. Updated each day at 23:59 UTC. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status Ok",
@@ -336,7 +336,7 @@
           }
         ],
         "summary": "Get Historical Data by Country Name",
-        "description": "Get a country's time series using a country iso code, country ID, or of course, country name",
+        "description": "Get a country's time series using a country iso code, country ID, or of course, country name. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status Ok",
@@ -370,7 +370,7 @@
           }
         ],
         "summary": "Get Historical Data by multiple Country Names",
-        "description": "Get multiple countrys' time series using multiple country iso codes, country IDs, or of course, country names",
+        "description": "Get multiple countrys' time series using multiple country iso codes, country IDs, or of course, country names. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status Ok"
@@ -408,7 +408,7 @@
           }
         ],
         "summary": "Get Historical Data by Province Name",
-        "description": "Get a province within a country's time series. Example is /v2/historical/chn/tibet. CHN is China's iso3 code",
+        "description": "Get a province within a country's time series. Example is /v2/historical/chn/tibet. CHN is China's iso3 code. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status Ok"
@@ -446,7 +446,7 @@
           }
         ],
         "summary": "Get Historical Data by multiple Province Names",
-        "description": "Get multiple provinces' time series using multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
+        "description": "Get multiple provinces' time series using multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status Ok"
@@ -470,7 +470,7 @@
           }
         ],
         "summary": "Get Historical Data",
-        "description": "Return time series data globally",
+        "description": "Return time series data globally. Data is updated every 10 minutes",
         "responses": {
           "200": {
             "description": "Status Ok"
