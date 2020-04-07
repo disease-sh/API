@@ -153,10 +153,13 @@ const getWorldometerPage = async (keys, redis) => {
 	let response;
 	try {
 		response = await axios.get('https://www.worldometers.info/coronavirus');
-		if (response.status !== 200) {
-			console.log('Error', response.status);
-		}
+		// if (response.status !== 200) console.log('Error', response.status);
 	} catch (err) {
+		console.log({
+			message: 'error in getWorldometers REQUEST',
+			errno: err.errno,
+			url: err.config.url
+		});
 		return null;
 	}
 	// get HTML and parse death rates

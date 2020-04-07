@@ -3,29 +3,31 @@ const csv = require('csvtojson');
 
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/';
 
-async function getData() {
-	const date = new Date();
-	date.setDate(date.getDate() - 1);
-	const dd = date.getDate().toString().padStart(2, '0');
-	const mm = (date.getMonth() + 1).toString().padStart(2, '0');
-	const yyyy = date.getFullYear();
-	const dateString = `${mm}-${dd}-${yyyy}`;
-	const response = await axios.get(
-		`${base}/${dateString}.csv`
-	);
-	console.log(
-		`USING ${dateString}.csv CSSEGISandData`
-	);
-	return response;
-}
-
 /**
  * Sets redis store full of today's JHU data scraped from their hosted CSV
  * @param {string} 	keys 	JHU data redis key
  * @param {Object} 	redis 	Redis instance
  */
 const jhudataV2 = async (keys, redis) => {
-	const response = await getData();
+	let response;
+	try {
+		const date = new Date();
+		date.setDate(date.getDate() - 1);
+		const dd = date.getDate().toString().padStart(2, '0');
+		const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+		const yyyy = date.getFullYear();
+		const dateString = `${mm}-${dd}-${yyyy}`;
+		response = await axios.get(`${base}/${dateString}.csv`);
+		console.log(`USING ${dateString}.csv CSSEGISandData`);
+	} catch (err) {
+		console.log({
+			message: 'error in JHULocations REQUEST',
+			errno: err.errno,
+			url: err.config.url
+		});
+		return;
+	}
+	// const response = await getData();
 
 	const parsed = await csv({
 		noheader: true,

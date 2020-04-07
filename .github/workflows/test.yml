@@ -1,12 +1,12 @@
 name: Unittest
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 jobs:
   unittests:
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         redis-version: [5]
@@ -16,6 +16,6 @@ jobs:
       - name: Start redis server
         uses: supercharge/redis-github-action@1.1.0
         with:
-          redis-version: ${{ matrix.redis-version }}  
+          redis-version: ${{ matrix.redis-version }}
       - run: npm install
-      - run: npm test        
+      - run: npm test
