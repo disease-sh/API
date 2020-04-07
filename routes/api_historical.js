@@ -6,7 +6,10 @@ const { splitQuery } = require('../utils/string_utils');
 
 router.get('/v2/historical', async (req, res) => {
 	const { lastdays } = req.query;
-	const allDataByCountry = scraper.historical.getHistoricalDataV2(JSON.parse(await redis.get(keys.historical_v2)), lastdays);
+	const allDataByCountry = scraper.historical.getHistoricalDataV2(
+		JSON.parse(await redis.get(keys.historical_v2)),
+		lastdays
+	);
 	res.send(allDataByCountry);
 });
 
@@ -49,10 +52,11 @@ router.get('/v2/historical/:query/:province?', async (req, res) => {
 			lastdays
 		);
 	}
-
 	if (countryData) {
 		res.send(countryData.length === 1 ? countryData[0] : countryData);
-	} else { res.status(404).send({ message: 'Country not found or doesn\'t have any historical data' }); }
+	} else {
+		res.status(404).send({ message: 'Country not found or doesn\'t have any historical data' });
+	}
 });
 
 module.exports = router;
