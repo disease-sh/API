@@ -6,6 +6,9 @@ const wordsStandardize = (word) => {
 	return 'null';
 };
 
+const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
+
 module.exports = {
-	wordsStandardize
+	wordsStandardize,
+	splitQuery
 };

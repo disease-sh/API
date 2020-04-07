@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const { redis, config, scraper } = require('./instances');
 const { keys } = config;
-const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
+const { splitQuery } = require('../utils/string_utils');
 
 router.get('/v2/historical', async (req, res) => {
 	const { lastdays } = req.query;

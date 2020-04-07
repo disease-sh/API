@@ -1,5 +1,6 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
+const { splitQuery } = require('../utils/string_utils');
 const countryUtils = require('../utils/country_utils');
 const { redis, config } = require('./instances');
 const { keys } = config;
@@ -22,8 +23,6 @@ const fixApostrophe = (country) => {
 	country.country = country.country.replace(/"/g, '\'');
 	return country;
 };
-
-const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 
 router.get('/all', async (req, res) => res.send(await getAllData(keys.countries)));
 

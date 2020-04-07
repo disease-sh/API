@@ -2,13 +2,13 @@
 const router = require('express').Router();
 const { redis, config, scraper } = require('./instances');
 const { keys } = config;
+const { splitQuery } = require('../utils/string_utils');
 
 router.get('/v2/jhucsse', async (req, res) =>
 	res.send(scraper.jhuLocations.generalizedJhudataV2(JSON.parse(await redis.get(keys.jhu_v2))))
 );
 
 router.get('/v2/jhucsse/counties/:county?', async (req, res) => {
-	const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 	const { county } = req.params;
 	const queriedCounties = splitQuery(county || '');
 	let countyData;
