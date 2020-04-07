@@ -38,10 +38,14 @@ router.get('/countries', async (req, res) => {
 router.get('/countries/:query', async (req, res) => {
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.countries)).map(fixApostrophe);
-	const countryData = splitQuery(query).map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true')).filter(value => value);
+	const countryData = splitQuery(query)
+		.map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true'))
+		.filter(value => value);
 	if (countryData.length > 0) {
 		res.send(countryData.length === 1 ? countryData[0] : countryData);
-	} else { res.status(404).send({ message: 'Country not found or doesn\'t have any cases' }); }
+	} else {
+		res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
+	}
 });
 
 router.get('/states', async (req, res) => {
@@ -56,10 +60,14 @@ router.get('/states', async (req, res) => {
 router.get('/states/:query', async (req, res) => {
 	const { query } = req.params;
 	const states = JSON.parse(await redis.get(keys.states));
-	const stateData = splitQuery(query).map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase())).filter(value => value);
+	const stateData = splitQuery(query)
+		.map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase()))
+		.filter(value => value);
 	if (stateData.length > 0) {
 		res.send(stateData.length === 1 ? stateData[0] : stateData);
-	} else { res.status(404).send({ message: 'Country not found or doesn\'t have any cases' }); }
+	} else {
+		res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
+	}
 });
 
 router.get('/yesterday', async (req, res) => {
@@ -76,10 +84,14 @@ router.get('/yesterday/all', async (req, res) => res.send(await getAllData(keys.
 router.get('/yesterday/:query', async (req, res) => {
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.yesterday)).map(fixApostrophe);
-	const yesterdayCountryData = splitQuery(query).map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true')).filter(value => value);
+	const yesterdayCountryData = splitQuery(query)
+		.map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true'))
+		.filter(value => value);
 	if (yesterdayCountryData.length > 0) {
 		res.send(yesterdayCountryData.length === 1 ? yesterdayCountryData[0] : yesterdayCountryData);
-	} else { res.status(404).send({ message: 'Country not found or doesn\'t have any cases' }); }
+	} else {
+		res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
+	}
 });
 
 module.exports = router;
