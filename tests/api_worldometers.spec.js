@@ -150,7 +150,6 @@ describe('TESTING /countries', () => {
                 res.should.have.status(200);
                 let maxCases = res.body[0].cases;
                 res.body.forEach(element => {
-                    element.cases <= maxCases;
                     maxCases.should.be.at.least(element.cases);
                     maxCases = element.cases;
                 });
@@ -293,7 +292,6 @@ describe('TESTING /countries', () => {
                 res.should.have.status(200);
                 let maxCases = res.body[0].cases;
                 res.body.forEach(element => {
-                    element.cases <= maxCases;
                     maxCases.should.be.at.least(element.cases);
                     maxCases = element.cases;
                 });
