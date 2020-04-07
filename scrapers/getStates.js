@@ -18,7 +18,7 @@ const parseStateCell = (cell) => {
 
 const parseNumberCell = (cell) => {
 	const cellValue = cell.children.length !== 0 ? cell.children[0].data : '';
-	return parseFloat(cellValue.replace(/[,+\-\s]/g, ''), 10) || 0;
+	return parseFloat(cellValue.replace(/[,+\-\s]/g, '')) || 0;
 };
 
 const getStates = async (keys, redis) => {
