@@ -2,10 +2,10 @@
 const Redis = require('ioredis');
 
 // LOCAL FUNCTIONS
-const getWorldometerPage = require('../funcs/getWorldometers');
-const getStates = require('../funcs/getStates');
-const jhuLocations = require('../funcs/jhuLocations');
-const historical = require('../funcs/historical');
+const getWorldometerPage = require('../scrapers/getWorldometers');
+const getStates = require('../scrapers/getStates');
+const jhuLocations = require('../scrapers/jhuLocations');
+const historical = require('../scrapers/historical');
 
 let config;
 try {
