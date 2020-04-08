@@ -216,9 +216,51 @@ const getHistoricalAllDataV2 = (data) => {
 	};
 };
 
+const getHistoricalUSADataV2 = async (keys, redis) => {
+	let casesResponse;
+	let deathsResponse;
+	try {
+		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_US.csv`);
+		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_US.csv`);
+	} catch (err) {
+		console.log({
+			message: 'has been ocurred an error in JHUhistorical USA REQUEST',
+			errno: err.errno,
+			url: err.config.url
+		});
+		return;
+	}
+	const parsedCases = await parseCsvData(casesResponse.data);
+	const parsedDeaths = await parseCsvData(deathsResponse.data);
+	const timelineKey = Object.keys(parsedCases[0]).splice(11);
+	const usaCountryData = countryUtils.getCountryData('USA');
+	const result = Array(parsedCases.length).fill({}).map((_, index) => {
+		const newElement = {
+			country: 'USA', countryInfo: {}, province: null, county: null, timeline: { cases: {}, deaths: {} }
+		};
+		const cases = Object.values(parsedCases[index]).splice(11);
+		const deaths = Object.values(parsedDeaths[index]).splice(12);
+
+		for (let i = 0; i < cases.length; i++) {
+			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
+			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
+		}
+		// add country info to support iso2/3 queries
+		newElement.countryInfo = usaCountryData;
+		newElement.province = Object.values(parsedCases)[index].Province_State === '' ? null
+			: Object.values(parsedCases)[index].Province_State.toLowerCase();
+		return newElement;
+	});
+	const string = JSON.stringify(result);
+	redis.set(keys.historical_v2_USA, string);
+	console.log(`Updated JHU CSSE Historical USA: ${result.length} locations`);
+};
+
 module.exports = {
 	historicalV2,
 	getHistoricalDataV2,
 	getHistoricalCountryDataV2,
-	getHistoricalAllDataV2
+	getHistoricalAllDataV2,
+	getHistoricalUSADataV2
 };
+
