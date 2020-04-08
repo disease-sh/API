@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "start": "node server.js",
+    "start:dev": "nodemon --watch routes --watch scrapers --watch utils ./server.js ",
     "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
     "lint:fix": "eslint ./**/*.js --fix --ignore-pattern node_modules/",
     "lint:win32": "eslint ./**/*.js --ignore-pattern node_modules/",
@@ -36,6 +37,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "eslint": "^6.8.0",
-    "mocha": "^7.1.1"
+    "mocha": "^7.1.1",
+    "nodemon": "^2.0.2"
   }
 }

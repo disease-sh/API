@@ -1,6 +1,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var app = require('../server');
+const countryData = require('../utils/countries.json');
 
 chai.use(chaiHttp);
 chai.should();
@@ -379,5 +380,59 @@ describe('TESTING /countries', () => {
                 res.body[1].country.should.equal('USA');
                 done();
             });
+    });
+
+    // Test that all countries map to their respective country
+    countryData.map((element) => {
+        it(`/countries/${element.country}?strict=true correct country name`, (done) => {
+            chai.request(app)
+                .get(`/countries/${element.country}?strict=true`)
+                .end((err, res) => {
+                    if (res.status === 200) {
+                        res.body.should.be.a('object');
+                        res.body.country.should.equal(element.country.replace(/'/g,"\""));
+                        res.body.should.have.property('cases');
+                        res.body.should.have.property('todayCases');
+                        res.body.should.have.property('deaths');
+                        res.body.should.have.property('todayDeaths');
+                        res.body.should.have.property('casesPerOneMillion');
+                        res.body.should.have.property('updated');
+                        res.body.should.have.property('tests');
+                        res.body.should.have.property('testsPerOneMillion');
+                    }
+                    else {
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message');
+                    }
+                    done();
+                });
+        });
+    });
+
+    // Test that all yesterday datas map to their respective country
+    countryData.map((element) => {
+        it(`/yesterday/${element.country}?strict=true correct country name`, (done) => {
+            chai.request(app)
+                .get(`/yesterday/${element.country}?strict=true`)
+                .end((err, res) => {
+                    if (res.status === 200) {
+                        res.body.should.be.a('object');
+                        res.body.country.should.equal(element.country.replace(/'/g,"\""));
+                        res.body.should.have.property('cases');
+                        res.body.should.have.property('todayCases');
+                        res.body.should.have.property('deaths');
+                        res.body.should.have.property('todayDeaths');
+                        res.body.should.have.property('casesPerOneMillion');
+                        res.body.should.have.property('updated');
+                        res.body.should.have.property('tests');
+                        res.body.should.have.property('testsPerOneMillion');
+                    }
+                    else {
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message');
+                    }
+                    done();
+                });
+        });
     });
 });

@@ -1,6 +1,7 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var app = require('../server');
+const countryData = require('../utils/countries.json');
 
 chai.use(chaiHttp);
 chai.should();
@@ -19,16 +20,6 @@ describe('TESTING /v2/historical', () => {
     it('/v2/historical/all', (done) => {
         chai.request(app)
             .get('/v2/historical/all')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                done();
-            });
-    });
-
-    it('/v2/historical/ correct country  name', (done) => {
-        chai.request(app)
-            .get('/v2/historical/usa')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
@@ -79,26 +70,6 @@ describe('TESTING /v2/historical', () => {
     it('/v2/historical/diamond%20princess', (done) => {
         chai.request(app)
             .get('/v2/historical/diamond%20princess')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                done();
-            });
-    });
-
-    it('/v2/historical/ correct id', (done) => {
-        chai.request(app)
-            .get('/v2/historical/156')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                done();
-            });
-    });
-
-    it('/v2/historical/ correct iso3', (done) => {
-        chai.request(app)
-            .get('/v2/historical/chn')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
@@ -172,14 +143,79 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    it('/v2/historical/ correct country name', (done) => {
-        chai.request(app)
-            .get('/v2/historical/oman')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                res.body.country.should.equal('Oman');
-                done();
-            });
+    // Test that all countries map to their respective country
+    countryData.map((element) => {
+        it(`/v2/historical/${element.country} correct country name`, (done) => {
+            chai.request(app)
+                .get(`/v2/historical/${element.country}`)
+                .end((err, res) => {
+                    if (res.status === 200) {
+                        res.body.should.be.a('object');
+                        res.body.country.should.equal(element.country);
+                    }
+                    else {
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message');
+                    }
+                    done();
+                });
+        });
+    });
+
+    // Test that all country iso2 codes map to their respective country
+    countryData.map((element) => {
+        it(`/v2/historical/${element.iso2} correct country name`, (done) => {
+            chai.request(app)
+                .get(`/v2/historical/${element.iso2}`)
+                .end((err, res) => {
+                    if (res.status === 200) {
+                        res.body.should.be.a('object');
+                        res.body.country.should.equal(element.country);
+                    }
+                    else {
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message');
+                    }
+                    done();
+                });
+        });
+    });
+
+    // Test that all country iso3 codes map to their respective country
+    countryData.map((element) => {
+        it(`/v2/historical/${element.iso3} correct country name`, (done) => {
+            chai.request(app)
+                .get(`/v2/historical/${element.iso3}`)
+                .end((err, res) => {
+                    if (res.status === 200) {
+                        res.body.should.be.a('object');
+                        res.body.country.should.equal(element.country);
+                    }
+                    else {
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message');
+                    }
+                    done();
+                });
+        });
+    });
+
+    // Test that all country ids map to their respective country
+    countryData.map((element) => {
+        it(`/v2/historical/${element.id} correct country name`, (done) => {
+            chai.request(app)
+                .get(`/v2/historical/${element.id}`)
+                .end((err, res) => {
+                    if (res.status === 200) {
+                        res.body.should.be.a('object');
+                        res.body.country.should.equal(element.country);
+                    }
+                    else {
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message');
+                    }
+                    done();
+                });
+        });
     });
 });
