@@ -46,16 +46,6 @@ describe('TESTING /jhucsse and /v2/jhucsse', () => {
             });
     });
 
-    it('/v2/jhucsse/counties/ correct county name', (done) => {
-        chai.request(app)
-            .get('/v2/jhucsse/counties/cook')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('array');
-                done();
-            });
-    });
-
     it('/v2/jhucsse/counties/ multiple correct county names', (done) => {
         chai.request(app)
             .get('/v2/jhucsse/counties/cook|acadia')

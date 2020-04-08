@@ -143,7 +143,7 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    // Test that all countries map to their respective country, and provinces to respective province
+    // Test that all countries map to their respective country
     countryData.map((element) => {
         it(`/v2/historical/${element.country} correct country name`, (done) => {
             chai.request(app)
