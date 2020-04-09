@@ -16,7 +16,7 @@ function getCountryData(cell) {
 		|| '').trim();
 	if (country.length === 0) {
 		// parse with hyperlink
-		country = (cell.children[0].next.children[0].data || '').trim();
+		country = (cell.children[0].next.children[0] && cell.children[0].next.children[0].data || '').trim();
 	}
 	return country;
 }
@@ -113,18 +113,14 @@ function fillResult(html, yesterday = false) {
 				break;
 
 			// get total cases per one million population
-			case casesPerOneMillionColIndex: {
-				const casesPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
-				result[result.length - 1].casesPerOneMillion = parseFloat(casesPerOneMillion.split(',').join(''));
+			case casesPerOneMillionColIndex: 
+				result[result.length - 1].casesPerOneMillion = getCellData(cell);
 				break;
-			}
 
 			// get total deaths per one million population
-			case deathsPerOneMillionColIndex: {
-				const deathsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '';
-				result[result.length - 1].deathsPerOneMillion = parseFloat(deathsPerOneMillion.split(',').join(''));
+			case deathsPerOneMillionColIndex: 
+				result[result.length - 1].deathsPerOneMillion = getCellData(cell);
 				break;
-			}
 
 			// get tests
 			case testsColIndex:
@@ -132,11 +128,9 @@ function fillResult(html, yesterday = false) {
 				break;
 
 			// get total tests per one million population
-			case testsPerOneMillionColIndex: {
-				const testsPerOneMillion = cell.children.length !== 0 ? cell.children[0].data : '0';
-				result[result.length - 1].testsPerOneMillion = parseFloat(testsPerOneMillion.split(',').join(''));
+			case testsPerOneMillionColIndex:
+				result[result.length - 1].testsPerOneMillion = getCellData(cell);
 				break;
-			}
 		}
 		result[result.length - 1].updated = Date.now();
 	}
