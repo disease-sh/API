@@ -216,6 +216,11 @@ const getHistoricalAllDataV2 = (data) => {
 	};
 };
 
+/**
+ * Gets all historical US county data and stores in redis
+ * @param 	{string}	keys 	config countries key
+ * @param 	{Object}	redis 	Redis db
+ */
 const getHistoricalUSADataV2 = async (keys, redis) => {
 	let casesResponse;
 	let deathsResponse;
@@ -264,6 +269,13 @@ const getHistoricalUSAProvincesV2 = (data) =>
 	data.filter((element, index, self) => self.findIndex(
 		(x1) => x1.province === element.province) === index).map(element => element.province);
 
+/**
+ * Gets historical data for all counties in a specified state
+ * @param 	{array} 	data 		Full historical data returned from USA historical cache
+ * @param 	{string} 	state 		State name path variable
+ * @param 	{string}	lastdays  	How many days to show always take lastest
+ * @returns {array} 				Array of objects with county case and death information
+ */
 const getHistoricalUSAStateDataV2 = (data, state, lastdays = null) => {
 	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
 	if (!lastdays || isNaN(lastdays)) lastdays = 30;
