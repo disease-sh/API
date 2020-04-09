@@ -13,6 +13,26 @@ router.get('/v2/historical', async (req, res) => {
 	res.send(allDataByCountry);
 });
 
+router.get('/v2/historical/usacounties', async (req, res) => {
+	const allData = scraper.historical.getHistoricalUSAProvincesV2(JSON.parse(await redis.get(keys.historical_v2_USA)));
+	res.send(allData);
+});
+
+router.get('/v2/historical/usacounties/:state', async (req, res) => {
+	const { state } = req.params;
+	const { lastdays } = req.query;
+	const allData = scraper.historical.getHistoricalUSAStateDataV2(
+		JSON.parse(await redis.get(keys.historical_v2_USA)),
+		state,
+		lastdays
+	);
+	if (allData.length > 0) {
+		res.send(allData);
+	} else {
+		res.status(404).send({ message: 'State not found or doesn\'t have any historical county data' });
+	}
+});
+
 router.get('/v2/historical/all', async (req, res) =>
 	res.send(await scraper.historical.getHistoricalAllDataV2(JSON.parse(await redis.get(keys.historical_v2))))
 );

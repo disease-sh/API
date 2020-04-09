@@ -233,10 +233,9 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 	const parsedCases = await parseCsvData(casesResponse.data);
 	const parsedDeaths = await parseCsvData(deathsResponse.data);
 	const timelineKey = Object.keys(parsedCases[0]).splice(11);
-	const usaCountryData = countryUtils.getCountryData('USA');
 	const result = parsedCases.map((_, index) => {
 		const newElement = {
-			country: 'USA', countryInfo: {}, province: null, county: null, timeline: { cases: {}, deaths: {} }
+			province: null, county: null, timeline: { cases: {}, deaths: {} }
 		};
 		const cases = Object.values(parsedCases[index]).splice(11);
 		const deaths = Object.values(parsedDeaths[index]).splice(12);
@@ -245,8 +244,6 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
 			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
 		}
-		// add country info to support iso2/3 queries
-		newElement.countryInfo = usaCountryData;
 		newElement.province = Object.values(parsedCases)[index].Province_State === '' ? null
 			: Object.values(parsedCases)[index].Province_State.toLowerCase();
 		newElement.county = Object.values(parsedCases)[index].Admin2 === '' ? null
@@ -258,11 +255,38 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 	console.log(`Updated JHU CSSE Historical USA: ${result.length} locations`);
 };
 
+/**
+ * Parses data from USA historical redis cache store and returns provinces supported
+ * @param 	{array} 	data 	Full historical data returned from USA historical cache
+ * @returns {Object}			Possible provinces supported by USA historical data
+ */
+const getHistoricalUSAProvincesV2 = (data) =>
+	data.filter((element, index, self) => self.findIndex(
+		(x1) => x1.province === element.province) === index).map(element => element.province);
+
+const getHistoricalUSAStateDataV2 = (data, state, lastdays = null) => {
+	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
+	if (!lastdays || isNaN(lastdays)) lastdays = 30;
+	return data.filter(county => county.province === state)
+		.map((county) => {
+			const cases = {};
+			const deaths = {};
+			Object.keys(county.timeline.cases).slice(lastdays * -1).forEach(key => {
+				cases[key] = county.timeline.cases[key];
+				deaths[key] = county.timeline.deaths[key];
+				return true;
+			});
+			county.timeline = { cases, deaths };
+			return county;
+		});
+};
+
 module.exports = {
 	historicalV2,
 	getHistoricalDataV2,
 	getHistoricalCountryDataV2,
 	getHistoricalAllDataV2,
-	getHistoricalUSADataV2
+	getHistoricalUSADataV2,
+	getHistoricalUSAProvincesV2,
+	getHistoricalUSAStateDataV2
 };
-
