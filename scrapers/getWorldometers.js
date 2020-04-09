@@ -15,7 +15,7 @@ const getCountryData = (cell) => (cell.children[0].data || cell.children[0].chil
  * @param 	{Object} 	cell 	Table cell from worldometers website
  * @returns {number} 			Number from cell for statistic
  */
-const getCellData= (cell) => parseInt(cell.children.length !== 0 ? cell.children[0].data : ''.trim().replace(/,/g, '') || '0', 10);
+const getCellData = (cell) => parseInt((cell.children.length !== 0 ? cell.children[0].data : '').trim().replace(/,/g, '') || '0', 10);
 
 
 /**
@@ -26,7 +26,6 @@ const getCellData= (cell) => parseInt(cell.children.length !== 0 ? cell.children
  */
 function fillResult(html, yesterday = false) {
 	// to store parsed data
-	const result = [];
 	const countryColIndex = 0;
 	const casesColIndex = 1;
 	const newCasesColIndex = 2;
@@ -41,84 +40,87 @@ function fillResult(html, yesterday = false) {
 	const testsPerOneMillionColIndex = 11;
 	
 	const countriesTable = html(yesterday ? 'table#main_table_countries_yesterday' : 'table#main_table_countries_today');
-	const totalColumns = countriesTable.children('tbody:first-of-type').children('tr:first-of-type').children('td').length;
-	const countriesTableCells = countriesTable.children('tbody:first-of-type').children('tr').children('td');
-
-	// minus totalColumns to skip last row, which is total
-	for (let i = 0; i < countriesTableCells.length - totalColumns; i++) {
-		const cell = countriesTableCells[i];
-		switch (i % totalColumns) {
-			// get country
-			case countryColIndex: {
-				const countryInfo = countryUtils.getCountryData(getCountryData(cell));
-				// eslint-disable-next-line prefer-destructuring
-				const country = countryInfo.country || getCountryData(cell);
-				delete countryInfo.country;
-				result.push({ country, countryInfo });
-				break;
+	const totalColumns = html('table#main_table_countries_today th').length;
+	const countriesRows = countriesTable.children('tbody:first-of-type').children('tr:not(.row_continent)');
+	const countriesData = countriesRows.map((index, row) => {
+		const cells = cheerio(row).children('td');
+		const country = { updated: Date.now() };
+		for(let cellIndex in cells) {
+			const cell = cells[cellIndex];
+			switch (cellIndex % totalColumns) {
+				// get country
+				case countryColIndex: {
+					const countryInfo = countryUtils.getCountryData(getCountryData(cell));
+					// eslint-disable-next-line prefer-destructuring
+					country.country = countryInfo.country || getCountryData(cell);
+					delete countryInfo.country;
+					country.countryInfo = countryInfo;
+					break;
+				}
+	
+				// get cases
+				case casesColIndex:
+					country.cases = getCellData(cell);
+					break;
+	
+				// get today cases
+				case newCasesColIndex:
+					country.todayCases = getCellData(cell);
+					break;
+	
+				// get deaths
+				case deathsColIndex:
+					country.deaths = getCellData(cell);
+					break;
+	
+				// get today deaths
+				case newDeathsColIndex:
+					country.todayDeaths = getCellData(cell);
+					break;
+	
+				// get cured
+				case curedColIndex:
+					country.recovered = getCellData(cell);
+					break;
+	
+				// get active
+				case activeColIndex:
+					country.active = getCellData(cell);
+					break;
+	
+				// get critical
+				case criticalColIndex:
+					country.critical = getCellData(cell);
+					break;
+	
+				// get total cases per one million population
+				case casesPerOneMillionColIndex: 
+					country.casesPerOneMillion = getCellData(cell);
+					break;
+	
+				// get total deaths per one million population
+				case deathsPerOneMillionColIndex: 
+					country.deathsPerOneMillion = getCellData(cell);
+					break;
+	
+				// get tests
+				case testsColIndex:
+					country.tests = getCellData(cell);
+					break;
+	
+				// get total tests per one million population
+				case testsPerOneMillionColIndex:
+					country.testsPerOneMillion = getCellData(cell);
+					break;
 			}
-
-			// get cases
-			case casesColIndex:
-				result[result.length - 1].cases = getCellData(cell);
-				break;
-
-			// get today cases
-			case newCasesColIndex:
-				result[result.length - 1].todayCases = getCellData(cell);
-				break;
-
-			// get deaths
-			case deathsColIndex:
-				result[result.length - 1].deaths = getCellData(cell);
-				break;
-
-			// get today deaths
-			case newDeathsColIndex:
-				result[result.length - 1].todayDeaths = getCellData(cell);
-				break;
-
-			// get cured
-			case curedColIndex:
-				result[result.length - 1].recovered = getCellData(cell);
-				break;
-
-			// get active
-			case activeColIndex:
-				result[result.length - 1].active = getCellData(cell);
-				break;
-
-			// get critical
-			case criticalColIndex:
-				result[result.length - 1].critical = getCellData(cell);
-				break;
-
-			// get total cases per one million population
-			case casesPerOneMillionColIndex: 
-				result[result.length - 1].casesPerOneMillion = getCellData(cell);
-				break;
-
-			// get total deaths per one million population
-			case deathsPerOneMillionColIndex: 
-				result[result.length - 1].deathsPerOneMillion = getCellData(cell);
-				break;
-
-			// get tests
-			case testsColIndex:
-				result[result.length - 1].tests = getCellData(cell);
-				break;
-
-			// get total tests per one million population
-			case testsPerOneMillionColIndex:
-				result[result.length - 1].testsPerOneMillion = getCellData(cell);
-				break;
 		}
-		result[result.length - 1].updated = Date.now();
-	}
-	const world = result.find(country => country.country.toLowerCase() === 'world');
-	world.tests = result.map(country => country.tests).splice(1).reduce((sum, test) => sum + test);
+		return country;
+	}).get();
+	console.log(countriesData.length)
+	const world = countriesData.find(country => country.country.toLowerCase() === 'world');
+	world.tests = countriesData.map(country => country.tests).splice(1).reduce((sum, test) => sum + test);
 	world.testsPerOneMillion = parseFloat(((1e6 / (1e6 / (world.casesPerOneMillion / world.cases))) * world.tests).toFixed(1));
-	return result;
+	return countriesData;
 }
 
 /**
