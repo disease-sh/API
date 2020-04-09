@@ -2,6 +2,7 @@ const axios = require('axios');
 const csv = require('csvtojson');
 const countryUtils = require('../utils/country_utils');
 const stringUtils = require('../utils/string_utils');
+const logger = require('../utils/logger');
 
 // eslint-disable-next-line max-len
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/';
@@ -62,11 +63,7 @@ const historicalV2 = async (keys, redis) => {
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_global.csv`);
 		recoveredResponse = await axios.get(`${base}time_series_covid19_recovered_global.csv`);
 	} catch (err) {
-		console.log({
-			message: 'has been ocurred an error in JHUhistorical REQUEST',
-			errno: err.errno,
-			url: err.config.url
-		});
+		logger.httpErrorLogger(err, 'error in Global JHUhistorical REQUEST');
 		return;
 	}
 	const parsedCases = await parseCsvData(casesResponse.data);
@@ -228,11 +225,7 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_US.csv`);
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_US.csv`);
 	} catch (err) {
-		console.log({
-			message: 'has been ocurred an error in JHUhistorical USA REQUEST',
-			errno: err.errno,
-			url: err.config.url
-		});
+		logger.httpErrorLogger(err, 'has been ocurred an error in JHUhistorical USA REQUEST');
 		return;
 	}
 	const parsedCases = await parseCsvData(casesResponse.data);

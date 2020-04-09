@@ -1,6 +1,6 @@
 const axios = require('axios');
 const csv = require('csvtojson');
-
+const logger = require('../utils/logger');
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/';
 
 /**
@@ -20,11 +20,7 @@ const jhudataV2 = async (keys, redis) => {
 		response = await axios.get(`${base}/${dateString}.csv`);
 		console.log(`USING ${dateString}.csv CSSEGISandData`);
 	} catch (err) {
-		console.log({
-			message: 'error in JHULocations REQUEST',
-			errno: err.errno,
-			url: err.config.url
-		});
+		logger.httpErrorLogger(err, 'error in JHULocations REQUEST');
 		return;
 	}
 	// const response = await getData();
