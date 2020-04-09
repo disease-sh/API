@@ -313,6 +313,54 @@
         }
       }
     },
+    "/v2/historical/usacounties": {
+      "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
+        "summary": "Get All Possible USA states to query /historical/usacounties/{state} endpoint with.",
+        "description": "Returns a list of states that are available for querying the /historical/usacounties/{state} endpoint with.",
+        "responses": {
+          "200": {
+            "description": "Status Ok"
+          }
+        }
+      }
+    },
+    "/v2/historical/usacounties/{state}": {
+      "get": {
+        "tags": [
+          "JHUCSSE"
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "in": "path",
+            "required": true,
+            "description": "A valid US state name, validated in the array returned from /v2/historical/usacounties",
+            "type": "string"
+          },
+          {
+            "name": "lastdays",
+            "in": "query",
+            "required": false,
+            "default": 30,
+            "description": "number of days you want the data to go back to. Default is 30. Use all for full data set. Ex: 15, all, 24",
+            "type": "string"
+          }
+        ],
+        "summary": "Get Historical Data for all Counties in a Specified State",
+        "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths and cases. Updated each day at 23:59 UTC. Data is updated every 10 minutes",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/usaCounties"
+            }
+          }
+        }
+      }
+    },
     "/v2/historical/{query}": {
       "get": {
         "tags": [
@@ -604,6 +652,24 @@
         }
       }
     },
+    "usaCounty": {
+      "properties": {
+        "province": {
+          "type": "string"
+        },
+        "county": {
+          "type": "string"
+        },
+        "timeline": {
+          "cases": {
+            "type": "integer"
+          },
+          "deaths": {
+            "type": "integer"
+          }
+        }
+      }
+    },
     "countries": {
       "type": "array",
       "items": {
@@ -614,6 +680,12 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/county"
+      }
+    },
+    "usaCounties": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/usaCounty"
       }
     }
   },
