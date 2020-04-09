@@ -251,4 +251,35 @@ describe('TESTING /v2/historical', () => {
                 });
         });
     });
+
+    it('/v2/historical/usacounties correct response', (done) => {
+        chai.request(app)
+            .get('/v2/historical/usacounties')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            });
+    });
+
+    chai.request(app)
+        .get('/v2/historical/usacounties')
+        .end((err, states) => {
+            states.body.map((state) => {
+                it(`/v2/historical/usacounties/${state} correct response`, (done) => {
+                    chai.request(app)
+                        .get(`/v2/historical/usacounties/${state}`)
+                        .end((err2, res) => {
+                            should.not.exist(err);
+                            should.exist(res);
+                            res.should.have.status(200);
+                            res.body.should.be.a('array');
+                            res.body[0].province.should.equal(state);
+                            done();
+                        });
+                });
+            });
+        });
 });
