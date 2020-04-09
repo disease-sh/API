@@ -57,9 +57,8 @@ function fillResult(html, yesterday = false) {
 	const testsColIndex = 10;
 	const testsPerOneMillionColIndex = 11;
 
-	const countriesTable = yesterday ? html('table#main_table_countries_yesterday') : html('table#main_table_countries_today');
+	const countriesTable = yesterday ? html('#main_table_countries_yesterday > tbody:nth-child(2)') : html('#main_table_countries_today > tbody:nth-child(2)');
 	const countriesTableCells = countriesTable
-		.children('tbody')
 		.children('tr')
 		.children('td');
 
