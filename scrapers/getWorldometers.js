@@ -38,12 +38,8 @@ function getCellData(cell) {
  * @returns {array} 				Array of objects containing table data from worldometers
  */
 function fillResult(html, yesterday = false) {
-	// count worldometers table columns
-	const colCount = html('table#main_table_countries_today th').length;
-
 	// to store parsed data
 	const result = [];
-	const totalColumns = colCount;
 	const countryColIndex = 0;
 	const casesColIndex = 1;
 	const newCasesColIndex = 2;
@@ -56,22 +52,20 @@ function fillResult(html, yesterday = false) {
 	const deathsPerOneMillionColIndex = 9;
 	const testsColIndex = 10;
 	const testsPerOneMillionColIndex = 11;
-
-	const countriesTable = yesterday ? html('table#main_table_countries_yesterday') : html('table#main_table_countries_today');
-	const countriesTableCells = countriesTable
-		.children('tbody')
-		.children('tr')
-		.children('td');
+	
+	const countriesTable = html(yesterday ? 'table#main_table_countries_yesterday' : 'table#main_table_countries_today');
+	const totalColumns = countriesTable.children('tbody:first-of-type').children('tr:first-of-type').children('td').length;
+	const countriesTableCells = countriesTable.children('tbody:first-of-type').children('tr').children('td');
 
 	// minus totalColumns to skip last row, which is total
-	for (let i = 0; i < countriesTableCells.length - totalColumns; i += 1) {
+	for (let i = 0; i < countriesTableCells.length - totalColumns; i++) {
 		const cell = countriesTableCells[i];
 		switch (i % totalColumns) {
 			// get country
 			case countryColIndex: {
 				const countryInfo = countryUtils.getCountryData(getCountryData(cell));
 				// eslint-disable-next-line prefer-destructuring
-				const country = countryInfo.country ? countryInfo.country : getCountryData(cell);
+				const country = countryInfo.country || getCountryData(cell);
 				delete countryInfo.country;
 				result.push({ country, countryInfo });
 				break;
@@ -149,7 +143,6 @@ const getWorldometerPage = async (keys, redis) => {
 	let response;
 	try {
 		response = await axios.get('https://www.worldometers.info/coronavirus');
-		// if (response.status !== 200) console.log('Error', response.status);
 	} catch (err) {
 		console.log({
 			message: 'error in getWorldometers REQUEST',
