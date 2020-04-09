@@ -1,16 +1,17 @@
-var chai = require('chai');
-var chaiHttp = require('chai-http');
-var app = require('../server');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const app = require('../server');
 const countryData = require('../utils/countries.json');
-
+const should = chai.should();
 chai.use(chaiHttp);
-chai.should();
 
 describe('TESTING /countries', () => {
     it('/countries', (done) => {
         chai.request(app)
             .get('/countries')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 done();
@@ -21,6 +22,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/countries/usa')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('country').eql('USA');
@@ -41,6 +44,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/countries/united%20states')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('country').eql('USA');
@@ -53,6 +58,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/countries/us')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('country').eql('USA');
@@ -65,6 +72,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/countries/840')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('country').eql('USA');
@@ -77,6 +86,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/countries/uk')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('country').eql('UK');
@@ -89,6 +100,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/countries/diamond%20princess')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('country');
@@ -101,6 +114,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/countries/asdfghjkl')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(404);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message');
@@ -112,6 +127,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/all')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 done();
@@ -122,6 +139,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/all')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.have.property('cases');
                 res.body.should.have.property('todayCases');
@@ -138,6 +157,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/states')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 done();
@@ -148,6 +169,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/states?sort=cases')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 let maxCases = res.body[0].cases;
                 res.body.forEach(element => {
@@ -162,6 +185,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/states?sort=gsdfb325fsd')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 done();
@@ -172,6 +197,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/states/Illinois')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.state.should.equal("Illinois");
@@ -190,6 +217,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/states/Illinois,New%20York')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 for(var row of res.body){
@@ -209,6 +238,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/states/asdfghjkl')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(404);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message');
@@ -220,6 +251,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 done();
@@ -230,6 +263,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/all')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 done();
@@ -240,6 +275,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/all')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.have.property('cases');
                 res.body.should.have.property('todayCases');
@@ -258,10 +295,14 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/all')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
                 chai.request(app)
                     .get('/all')
                     .end((err2, res2) => {
-                        res.should.have.status(200);
+                        should.not.exist(err2);
+                        should.exist(res2);
                         res2.should.have.status(200);
                         res2.body.cases.should.be.at.least(res.body.cases);
                         done();
@@ -273,6 +314,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/us')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.have.property('cases');
                 res.body.should.have.property('todayCases');
@@ -290,6 +333,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday?sort=cases')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 let maxCases = res.body[0].cases;
                 res.body.forEach(element => {
@@ -304,6 +349,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/China')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.country.should.equal('China');
@@ -315,6 +362,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/156')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.country.should.equal('China');
@@ -326,6 +375,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/chn')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.country.should.equal('China');
@@ -337,6 +388,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/fsih8475gife')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(404);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message');
@@ -348,6 +401,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/156,america, brA')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 res.body.length.should.equal(3);
@@ -362,6 +417,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/156,fhligu')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.country.should.equal('China');
@@ -373,6 +430,8 @@ describe('TESTING /countries', () => {
         chai.request(app)
             .get('/yesterday/156,fhligu, gsiugshg, usa')
             .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 res.body.length.should.equal(2);
@@ -388,6 +447,8 @@ describe('TESTING /countries', () => {
             chai.request(app)
                 .get(`/countries/${element.country}?strict=true`)
                 .end((err, res) => {
+                    should.not.exist(err);
+                    should.exist(res);
                     if (res.status === 200) {
                         res.body.should.be.a('object');
                         res.body.country.should.equal(element.country.replace(/'/g,"\""));
@@ -415,6 +476,8 @@ describe('TESTING /countries', () => {
             chai.request(app)
                 .get(`/yesterday/${element.country}?strict=true`)
                 .end((err, res) => {
+                    should.not.exist(err);
+                    should.exist(res);
                     if (res.status === 200) {
                         res.body.should.be.a('object');
                         res.body.country.should.equal(element.country.replace(/'/g,"\""));
