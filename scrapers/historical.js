@@ -77,7 +77,7 @@ const historicalV2 = async (keys, redis) => {
 	// dates key for timeline
 	const timelineKey = Object.keys(parsedCases[0]).splice(4);
 	// format csv data to response
-	const result = Array(parsedCases.length).fill({}).map((_, index) => {
+	const result = parsedCases.map((_, index) => {
 		const newElement = {
 			country: '', countryInfo: {}, province: null, timeline: { cases: {}, deaths: {}, recovered: {} }
 		};
@@ -234,7 +234,7 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 	const parsedDeaths = await parseCsvData(deathsResponse.data);
 	const timelineKey = Object.keys(parsedCases[0]).splice(11);
 	const usaCountryData = countryUtils.getCountryData('USA');
-	const result = Array(parsedCases.length).fill({}).map((_, index) => {
+	const result = parsedCases.map((_, index) => {
 		const newElement = {
 			country: 'USA', countryInfo: {}, province: null, county: null, timeline: { cases: {}, deaths: {} }
 		};
@@ -249,6 +249,8 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 		newElement.countryInfo = usaCountryData;
 		newElement.province = Object.values(parsedCases)[index].Province_State === '' ? null
 			: Object.values(parsedCases)[index].Province_State.toLowerCase();
+		newElement.county = Object.values(parsedCases)[index].Admin2 === '' ? null
+			: Object.values(parsedCases)[index].Admin2.toLowerCase();
 		return newElement;
 	});
 	const string = JSON.stringify(result);
