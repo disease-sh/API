@@ -225,11 +225,7 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_US.csv`);
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_US.csv`);
 	} catch (err) {
-		console.log({
-			message: 'has been ocurred an error in JHUhistorical USA REQUEST',
-			errno: err.errno,
-			url: err.config.url
-		});
+		logger.httpErrorLogger(err, 'has been ocurred an error in JHUhistorical USA REQUEST');
 		return;
 	}
 	const parsedCases = await parseCsvData(casesResponse.data);
