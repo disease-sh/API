@@ -12,10 +12,10 @@ const { keys } = config;
  */
 const getAllData = async (key) => {
 	const countries = JSON.parse(await redis.get(key));
-	const worldData = countries[0];
+	const worldData = countries.find(country => country.country.toLowerCase() === 'world');
 	delete worldData.country;
 	delete worldData.countryInfo;
-	worldData.affectedCountries = countries.length - 1;
+	worldData.affectedCountries = countries.splice(1).length;
 	return worldData;
 };
 
