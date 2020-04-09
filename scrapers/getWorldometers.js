@@ -7,29 +7,16 @@ const countryUtils = require('../utils/country_utils');
  * @param 	{Object} 	cell 	Country table cell from worldometers website
  * @returns {string} 			Country name
  */
-function getCountryData(cell) {
-	let country = (cell.children[0].data
-		|| cell.children[0].children[0].data
-		// country name with link has another level
-		|| cell.children[0].children[0].children[0].data
-		|| cell.children[0].children[0].children[0].children[0].data
-		|| '').trim();
-	if (country.length === 0) {
-		// parse with hyperlink
-		country = (cell.children[0].next.children[0] && cell.children[0].next.children[0].data || '').trim();
-	}
-	return country;
-}
+const getCountryData = (cell) => (cell.children[0].data || cell.children[0].children[0].data || cell.children[0].children[0].children[0].data 
+	|| cell.children[0].children[0].children[0].children[0].data || (cell.children[0].next.children[0] && cell.children[0].next.children[0].data || '')).trim();
 
 /**
  * Gets integer parsed stat from table cell
  * @param 	{Object} 	cell 	Table cell from worldometers website
  * @returns {number} 			Number from cell for statistic
  */
-function getCellData(cell) {
-	const data = cell.children.length !== 0 ? cell.children[0].data : '';
-	return parseInt(data.trim().replace(/,/g, '') || '0', 10);
-}
+const getCellData= (cell) => parseInt(cell.children.length !== 0 ? cell.children[0].data : ''.trim().replace(/,/g, '') || '0', 10);
+
 
 /**
  * Fills an array full of table data parsed from worldometers
