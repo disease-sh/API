@@ -98,7 +98,7 @@ var getcountries = setInterval(async () => {
       country = country.trim();
       if (country.length === 0) {
         // parse with hyperlink
-        country = cell.children[0].next.children[0].data || "";
+        country = cell.children[0].next.children[0] && cell.children[0].next.children[0].data || "";
       }
       result.push({ country: country.trim() || "" });
     }
