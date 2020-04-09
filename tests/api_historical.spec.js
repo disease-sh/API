@@ -277,6 +277,18 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
+    it ('/v2/historical/usacounties/illinois correct number specified dates', (done) => {
+        chai.request(app)
+            .get('/v2/historical/usacounties/illinois?lastdays=15')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                Object.keys(res.body[0].timeline.cases).length.should.equal(15);
+                done();
+            });
+    });
+
     chai.request(app)
         .get('/v2/historical/usacounties')
         .end((err, states) => {
