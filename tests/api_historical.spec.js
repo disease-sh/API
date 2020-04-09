@@ -264,6 +264,19 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
+    it('/v2/historical/usacounties incorrect state name', (done) => {
+        chai.request(app)
+            .get('/v2/historical/usacounties/sdfgw3')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
     chai.request(app)
         .get('/v2/historical/usacounties')
         .end((err, states) => {
