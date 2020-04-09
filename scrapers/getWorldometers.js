@@ -39,7 +39,7 @@ function getCellData(cell) {
  */
 function fillResult(html, yesterday = false) {
 	// count worldometers table columns
-	const colCount = html('table#main_table_countries_today th').length;
+	const colCount = 12; //html('table#main_table_countries_today th').length;
 
 	// to store parsed data
 	const result = [];
@@ -57,9 +57,8 @@ function fillResult(html, yesterday = false) {
 	const testsColIndex = 10;
 	const testsPerOneMillionColIndex = 11;
 
-	const countriesTable = yesterday ? html('#main_table_countries_yesterday') : html('#main_table_countries_today');
+	const countriesTable = yesterday ? html('#main_table_countries_yesterday > tbody:nth-child(2)') : html('#main_table_countries_today > tbody:nth-child(2)');
 	const countriesTableCells = countriesTable
-		.children('tbody:nth-child(2)')
 		.children('tr')
 		.children('td');
 
