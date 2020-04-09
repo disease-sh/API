@@ -1,5 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const logger = require('../utils/logger');
 
 const parseStateCell = (cell) => {
 	let state = cell.children[0].data
@@ -26,11 +27,7 @@ const getStates = async (keys, redis) => {
 	try {
 		response = await axios.get('https://www.worldometers.info/coronavirus/country/us/');
 	} catch (err) {
-		console.log({
-			message: 'error in getState REQUEST',
-			errno: err.errno,
-			url: err.config.url
-		});
+		logger.httpErrorLogger(err, 'error in getState REQUEST');
 		return null;
 	}
 	// to store parsed data

@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const countryUtils = require('../utils/country_utils');
+const logger = require('../utils/logger');
 
 /**
  * Gets country data from table cell on worldometers website
@@ -157,11 +158,7 @@ const getWorldometerPage = async (keys, redis) => {
 		response = await axios.get('https://www.worldometers.info/coronavirus');
 		// if (response.status !== 200) console.log('Error', response.status);
 	} catch (err) {
-		console.log({
-			message: 'error in getWorldometers REQUEST',
-			errno: err.errno,
-			url: err.config.url
-		});
+		logger.httpErrorLogger(err, 'error in getWorldometers REQUEST');
 		return null;
 	}
 	// get HTML and parse death rates
