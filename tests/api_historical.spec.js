@@ -251,4 +251,60 @@ describe('TESTING /v2/historical', () => {
                 });
         });
     });
+
+    it('/v2/historical/usacounties correct response', (done) => {
+        chai.request(app)
+            .get('/v2/historical/usacounties')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            });
+    });
+
+    it('/v2/historical/usacounties incorrect state name', (done) => {
+        chai.request(app)
+            .get('/v2/historical/usacounties/sdfgw3')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
+    it ('/v2/historical/usacounties/illinois correct number specified dates', (done) => {
+        chai.request(app)
+            .get('/v2/historical/usacounties/illinois?lastdays=15')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                Object.keys(res.body[0].timeline.cases).length.should.equal(15);
+                done();
+            });
+    });
+
+    chai.request(app)
+        .get('/v2/historical/usacounties')
+        .end((err, states) => {
+            states.body.map((state) => {
+                it(`/v2/historical/usacounties/${state} correct response`, (done) => {
+                    chai.request(app)
+                        .get(`/v2/historical/usacounties/${state}`)
+                        .end((err2, res) => {
+                            should.not.exist(err);
+                            should.exist(res);
+                            res.should.have.status(200);
+                            res.body.should.be.a('array');
+                            res.body[0].province.should.equal(state);
+                            done();
+                        });
+                });
+            });
+        });
 });

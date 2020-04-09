@@ -74,7 +74,7 @@ const historicalV2 = async (keys, redis) => {
 	// dates key for timeline
 	const timelineKey = Object.keys(parsedCases[0]).splice(4);
 	// format csv data to response
-	const result = Array(parsedCases.length).fill({}).map((_, index) => {
+	const result = parsedCases.map((_, index) => {
 		const newElement = {
 			country: '', countryInfo: {}, province: null, timeline: { cases: {}, deaths: {}, recovered: {} }
 		};
@@ -213,9 +213,89 @@ const getHistoricalAllDataV2 = (data) => {
 	};
 };
 
+/**
+ * Gets all historical US county data and stores in redis
+ * @param 	{string}	keys 	config countries key
+ * @param 	{Object}	redis 	Redis db
+ */
+const getHistoricalUSADataV2 = async (keys, redis) => {
+	let casesResponse;
+	let deathsResponse;
+	try {
+		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_US.csv`);
+		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_US.csv`);
+	} catch (err) {
+		console.log({
+			message: 'has been ocurred an error in JHUhistorical USA REQUEST',
+			errno: err.errno,
+			url: err.config.url
+		});
+		return;
+	}
+	const parsedCases = await parseCsvData(casesResponse.data);
+	const parsedDeaths = await parseCsvData(deathsResponse.data);
+	const timelineKey = Object.keys(parsedCases[0]).splice(11);
+	const result = parsedCases.map((_, index) => {
+		const newElement = {
+			province: null, county: null, timeline: { cases: {}, deaths: {} }
+		};
+		const cases = Object.values(parsedCases[index]).splice(11);
+		const deaths = Object.values(parsedDeaths[index]).splice(12);
+
+		for (let i = 0; i < cases.length; i++) {
+			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
+			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
+		}
+		newElement.province = Object.values(parsedCases)[index].Province_State === '' ? null
+			: Object.values(parsedCases)[index].Province_State.toLowerCase();
+		newElement.county = Object.values(parsedCases)[index].Admin2 === '' ? null
+			: Object.values(parsedCases)[index].Admin2.toLowerCase();
+		return newElement;
+	});
+	const string = JSON.stringify(result);
+	redis.set(keys.historical_v2_USA, string);
+	console.log(`Updated JHU CSSE Historical USA: ${result.length} locations`);
+};
+
+/**
+ * Parses data from USA historical redis cache store and returns provinces supported
+ * @param 	{array} 	data 	Full historical data returned from USA historical cache
+ * @returns {Object}			Possible provinces supported by USA historical data
+ */
+const getHistoricalUSAProvincesV2 = (data) =>
+	data.filter((element, index, self) => self.findIndex(
+		(x1) => x1.province === element.province) === index).map(element => element.province);
+
+/**
+ * Gets historical data for all counties in a specified state
+ * @param 	{array} 	data 		Full historical data returned from USA historical cache
+ * @param 	{string} 	state 		State name path variable
+ * @param 	{string}	lastdays  	How many days to show always take lastest
+ * @returns {array} 				Array of objects with county case and death information
+ */
+const getHistoricalUSAStateDataV2 = (data, state, lastdays = null) => {
+	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
+	if (!lastdays || isNaN(lastdays)) lastdays = 30;
+	return data.filter(county => county.province === state)
+		.map((county) => {
+			const cases = {};
+			const deaths = {};
+			Object.keys(county.timeline.cases).slice(lastdays * -1).forEach(key => {
+				cases[key] = county.timeline.cases[key];
+				deaths[key] = county.timeline.deaths[key];
+				return true;
+			});
+			county.timeline = { cases, deaths };
+			return county;
+		});
+};
+
 module.exports = {
 	historicalV2,
 	getHistoricalDataV2,
 	getHistoricalCountryDataV2,
-	getHistoricalAllDataV2
+	getHistoricalAllDataV2,
+	getHistoricalUSADataV2,
+	getHistoricalUSAProvincesV2,
+	getHistoricalUSAStateDataV2
 };

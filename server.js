@@ -10,7 +10,8 @@ const execAll = async () => {
 		scraper.getWorldometerPage(keys, redis),
 		scraper.getStates(keys, redis),
 		scraper.jhuLocations.jhudataV2(keys, redis),
-		scraper.historical.historicalV2(keys, redis)
+		scraper.historical.historicalV2(keys, redis),
+		scraper.historical.getHistoricalUSADataV2(keys, redis)
 	]);
 	app.emit('scrapper_finished');
 };
