@@ -99,11 +99,9 @@ router.get('/yesterday/:query', async (req, res) => {
 router.get('/v2/all', async (req, res) => res.send(await getAllData(wordToBoolean(req.query.yesterday) ? keys.yesterday : keys.countries)));
 
 router.get('/v2/countries', async (req, res) => {
-	console.log(req.query);
 	const { sort, yesterday } = req.query;
-	console.log(wordToBoolean(sort), sort);
 	let countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday : keys.countries)).splice(1).map(fixApostrophe);
-	if (wordToBoolean(sort)) {
+	if (sort) {
 		countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
 	}
 	res.send(countries);
