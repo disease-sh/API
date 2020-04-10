@@ -142,7 +142,7 @@ const getWorldometerPage = async (keys, redis) => {
 	console.log(`Updated countries statistics: ${countriesToday.length}`);
 
 	// Getting country data from yesterday
-	let countriesYesterday = fillResult(html);
+	let countriesYesterday = fillResult(html, true);
 	const worldYesterday = countriesYesterday[0];
 	countriesYesterday = getOrderByCountryName(countriesYesterday.splice(1));
 	countriesYesterday.unshift(worldYesterday);
