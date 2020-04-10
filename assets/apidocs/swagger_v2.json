@@ -178,6 +178,17 @@
             "type": "string"
           },
           {
+            "name": "strict",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false"
+            ],
+            "description": "allows you to match a countries name only if your query is the exact country name. Example Oman vs. rOMANia",
+            "type": "string"
+          },
+          {
             "name": "query",
             "in": "path",
             "required": true,
