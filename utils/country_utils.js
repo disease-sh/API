@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable object-curly-newline */
 const stringUtils = require('./string_utils');
-const countryData = require('./countries.json');
+const countryData = require('./countries');
 
 /**
  * Get iso2 code from country name

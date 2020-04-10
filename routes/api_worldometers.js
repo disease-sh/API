@@ -1,6 +1,6 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const { splitQuery } = require('../utils/string_utils');
+const { wordToBoolean, splitQuery } = require('../utils/string_utils');
 const countryUtils = require('../utils/country_utils');
 const { redis, config } = require('./instances');
 const { keys } = config;
@@ -92,6 +92,28 @@ router.get('/yesterday/:query', async (req, res) => {
 	} else {
 		res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 	}
+});
+
+
+// ROUTER V2
+router.get('/v2/all', async (req, res) => res.send(await getAllData(wordToBoolean(req.query.yesterday) ? keys.yesterday : keys.countries)));
+
+router.get('/v2/countries', async (req, res) => {
+	const { sort, yesterday } = req.query;
+	let countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday : keys.countries)).splice(1).map(fixApostrophe);
+	if (sort) countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
+	res.send(countries);
+});
+
+router.get('/v2/countries/:query', async (req, res) => {
+	const { yesterday, strict } = req.query;
+	const { query } = req.params;
+	let countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday : keys.countries)).splice(1).map(fixApostrophe);
+	countries = splitQuery(query)
+		.map(country => countryUtils.getCountryWorldometersData(countries, country, wordToBoolean(strict)))
+		.filter(value => value);
+	if (countries.length > 0) res.send(countries.length === 1 ? countries[0] : countries);
+	else res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 });
 
 module.exports = router;

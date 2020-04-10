@@ -12,13 +12,18 @@ const getCountryData = (cell) => (cell.children[0].data || cell.children[0].chil
 	|| cell.children[0].children[0].children[0].children[0].data || (cell.children[0].next.children[0] && cell.children[0].next.children[0].data) || '').trim();
 
 /**
+* Gets country data ordered by country name
+* @param 	{Array} 	data 	Countries Data
+* @returns {Array} 			Countries Data Ordered by Country Name
+*/
+const getOrderByCountryName = (data) => data.sort((a, b) => a.country < b.country ? -1 : 1);
+
+/**
  * Gets integer parsed stat from table cell
  * @param 	{Object} 	cell 	Table cell from worldometers website
  * @returns {number} 			Number from cell for statistic
  */
 const getCellData = (cell) => parseInt((cell.children.length !== 0 ? cell.children[0].data : '').trim().replace(/,/g, '') || '0', 10);
-
-
 /**
  * Fills an array full of table data parsed from worldometers
  * @param 	{Object} 	html 		Cheerio HTML object from worldometers site
@@ -127,14 +132,22 @@ const getWorldometerPage = async (keys, redis) => {
 	}
 	// get HTML and parse death rates
 	const html = cheerio.load(response.data);
+
 	// Getting country data from today
-	const resultToday = fillResult(html);
-	redis.set(keys.countries, JSON.stringify(resultToday));
-	console.log(`Updated countries statistics: ${resultToday.length}`);
+	let countriesToday = fillResult(html);
+	const worldToday = countriesToday[0];
+	countriesToday = getOrderByCountryName(countriesToday.splice(1));
+	countriesToday.unshift(worldToday);
+	redis.set(keys.countries, JSON.stringify(countriesToday));
+	console.log(`Updated countries statistics: ${countriesToday.length}`);
+
 	// Getting country data from yesterday
-	const resultYesterday = fillResult(html, true);
-	redis.set(keys.yesterday, JSON.stringify(resultYesterday));
-	return console.log(`Updated yesterdays statistics: ${resultYesterday.length}`);
+	let countriesYesterday = fillResult(html, true);
+	const worldYesterday = countriesYesterday[0];
+	countriesYesterday = getOrderByCountryName(countriesYesterday.splice(1));
+	countriesYesterday.unshift(worldYesterday);
+	redis.set(keys.yesterday, JSON.stringify(countriesYesterday));
+	return console.log(`Updated yesterdays statistics: ${countriesYesterday.length}`);
 };
 
 module.exports = getWorldometerPage;
