@@ -18,8 +18,7 @@ const getCountryData = (cell) => (cell.children[0].data || cell.children[0].chil
  */
 const getCellData = (cell) => parseInt((cell.children.length !== 0 ? cell.children[0].data : '').trim().replace(/,/g, '') || '0', 10);
 
-const getOrderByCountryName = (data) => data.sort(function (a, b) { return a.country < b.country ? -1 : a.country > b.country ? 1 : 0; });
-
+const getOrderByCountryName = (data) => data.sort((a, b) => a.country < b.country ? -1 : a.country > b.country ? 1 : 0);
 
 /**
  * Fills an array full of table data parsed from worldometers
