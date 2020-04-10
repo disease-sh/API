@@ -17,9 +17,6 @@ const getCountryData = (cell) => (cell.children[0].data || cell.children[0].chil
  * @returns {number} 			Number from cell for statistic
  */
 const getCellData = (cell) => parseInt((cell.children.length !== 0 ? cell.children[0].data : '').trim().replace(/,/g, '') || '0', 10);
-
-const getOrderByCountryName = (data) => data.sort((a, b) => a.country < b.country ? -1 : a.country > b.country ? 1 : 0);
-
 /**
  * Fills an array full of table data parsed from worldometers
  * @param 	{Object} 	html 		Cheerio HTML object from worldometers site
@@ -130,11 +127,11 @@ const getWorldometerPage = async (keys, redis) => {
 	const html = cheerio.load(response.data);
 
 	// Getting country data from today
-	const resultToday = getOrderByCountryName(fillResult(html));
+	const resultToday = fillResult(html);
 	redis.set(keys.countries, JSON.stringify(resultToday));
 	console.log(`Updated countries statistics: ${resultToday.length}`);
 	// Getting country data from yesterday
-	const resultYesterday = getOrderByCountryName(fillResult(html, true));
+	const resultYesterday = fillResult(html, true);
 	redis.set(keys.yesterday, JSON.stringify(resultYesterday));
 	return console.log(`Updated yesterdays statistics: ${resultYesterday.length}`);
 };
