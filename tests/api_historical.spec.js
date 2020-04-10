@@ -1,7 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../server');
-const countryData = require('../utils/countries.json');
+const countryData = require('../utils/countries');
 const should = chai.should();
 chai.use(chaiHttp);
 
@@ -30,7 +30,7 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    it ('/v2/historical/ correct number default dates', (done) => {
+    it('/v2/historical/ correct number default dates', (done) => {
         chai.request(app)
             .get('/v2/historical')
             .end((err, res) => {
@@ -42,7 +42,7 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    it ('/v2/historical/ handles bad date string', (done) => {
+    it('/v2/historical/ handles bad date string', (done) => {
         chai.request(app)
             .get('/v2/historical?lastday=rgf3vwre')
             .end((err, res) => {
@@ -54,7 +54,7 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    it ('/v2/historical/ correct number specified dates', (done) => {
+    it('/v2/historical/ correct number specified dates', (done) => {
         chai.request(app)
             .get('/v2/historical?lastdays=15')
             .end((err, res) => {
@@ -66,7 +66,7 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    it ('/v2/historical/usa?lastdays=all correct first date', (done) => {
+    it('/v2/historical/usa?lastdays=all correct first date', (done) => {
         chai.request(app)
             .get('/v2/historical/usa?lastdays=all')
             .end((err, res) => {
@@ -277,7 +277,7 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    it ('/v2/historical/usacounties/illinois correct number specified dates', (done) => {
+    it('/v2/historical/usacounties/illinois correct number specified dates', (done) => {
         chai.request(app)
             .get('/v2/historical/usacounties/illinois?lastdays=15')
             .end((err, res) => {

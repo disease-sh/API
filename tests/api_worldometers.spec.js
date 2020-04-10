@@ -1,7 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../server');
-const countryData = require('../utils/countries.json');
+const countryData = require('../utils/countries');
 const should = chai.should();
 chai.use(chaiHttp);
 
@@ -212,7 +212,7 @@ describe('TESTING /countries', () => {
                 done();
             });
     });
-    
+
     it('/states/state1,state2', (done) => {
         chai.request(app)
             .get('/states/Illinois,New%20York')
@@ -221,7 +221,7 @@ describe('TESTING /countries', () => {
                 should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
-                for(var row of res.body){
+                for (var row of res.body) {
                     row.should.have.property('cases');
                     row.should.have.property('todayCases');
                     row.should.have.property('deaths');
@@ -451,7 +451,7 @@ describe('TESTING /countries', () => {
                     should.exist(res);
                     if (res.status === 200) {
                         res.body.should.be.a('object');
-                        res.body.country.should.equal(element.country.replace(/'/g,"\""));
+                        res.body.country.should.equal(element.country.replace(/'/g, "\""));
                         res.body.should.have.property('cases');
                         res.body.should.have.property('todayCases');
                         res.body.should.have.property('deaths');
@@ -480,7 +480,7 @@ describe('TESTING /countries', () => {
                     should.exist(res);
                     if (res.status === 200) {
                         res.body.should.be.a('object');
-                        res.body.country.should.equal(element.country.replace(/'/g,"\""));
+                        res.body.country.should.equal(element.country.replace(/'/g, "\""));
                         res.body.should.have.property('cases');
                         res.body.should.have.property('todayCases');
                         res.body.should.have.property('deaths');
