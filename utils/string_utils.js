@@ -8,11 +8,7 @@ const wordsStandardize = (word) => {
 
 const wordToBoolean = word => {
 	if (word === '') return true;
-	if (word) {
-		if (word.toLowerCase() === 'true' || word === '1') return true;
-		else if (word.toLowerCase() === 'false' || word === '0') return false;
-		else return Boolean(word);
-	}
+	if (word) return word.toLowerCase() === 'true' || word === '1';
 	return false;
 };
 

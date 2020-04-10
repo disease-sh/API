@@ -117,11 +117,8 @@ router.get('/v2/countries/:query', async (req, res) => {
 	countries = splitQuery(query)
 		.map(country => countryUtils.getCountryWorldometersData(countries, country, wordToBoolean(strict)))
 		.filter(value => value);
-	if (countries.length > 0) {
-		res.send(countries.length === 1 ? countries[0] : countries);
-		return;
-	}
-	res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
+	if (countries.length > 0) res.send(countries.length === 1 ? countries[0] : countries);
+	else res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 });
 
 module.exports = router;
