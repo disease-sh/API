@@ -498,4 +498,318 @@ describe('TESTING /countries', () => {
                 });
         });
     });
+
+    // -------------------------------- V2 TESTING --------------------------------
+    it('/v2/all', (done) => {
+        chai.request(app)
+            .get('/v2/all')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                done();
+            });
+    });
+    
+    it('/v2/all?yesterday', (done) => {
+        chai.request(app)
+            .get('/v2/all?yesterday')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                done();
+            });
+    });
+
+    it('/v2/all?yesterday=true', (done) => {
+        chai.request(app)
+            .get('/v2/all?yesterday=true')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                done();
+            });
+    });
+
+    it('/v2/all/yesterday less than v2/all', (done) => {
+        chai.request(app)
+            .get('/v2/all')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                chai.request(app)
+                    .get('/v2/all?yesterday')
+                    .end((err2, res2) => {
+                        should.not.exist(err2);
+                        should.exist(res2);
+                        res2.should.have.status(200);
+                        res.body.cases.should.be.at.least(res2.body.cases);
+                        done();
+                    })
+            });
+    });
+
+    it('/v2/countries/usa get correct properties', (done) => {
+        chai.request(app)
+            .get('/v2/countries/usa')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('country').eql('USA');
+                res.body.should.have.property('countryInfo');
+                res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('casesPerOneMillion');
+                res.body.should.have.property('updated');
+                res.body.should.have.property('tests');
+                res.body.should.have.property('testsPerOneMillion');
+                done();
+            });
+    });
+
+    it('/v2/countries/usa?yesterday get correct properties', (done) => {
+        chai.request(app)
+            .get('/v2/countries/usa?yesterday')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('country').eql('USA');
+                res.body.should.have.property('countryInfo');
+                res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('casesPerOneMillion');
+                res.body.should.have.property('updated');
+                res.body.should.have.property('tests');
+                res.body.should.have.property('testsPerOneMillion');
+                done();
+            });
+    });
+
+    it('/v2/countries/ get correct alternate name', (done) => {
+        chai.request(app)
+            .get('/v2/countries/united%20states')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('country').eql('USA');
+                res.body.should.have.property('countryInfo');
+                done();
+            });
+    });
+
+    it('/v2/countries?yesterday=true get correct alternate name', (done) => {
+        chai.request(app)
+            .get('/v2/countries/united%20states?yesterday=true')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('country').eql('USA');
+                res.body.should.have.property('countryInfo');
+                done();
+            });
+    });
+
+    it('/v2/countries/ get correct ios2', (done) => {
+        chai.request(app)
+            .get('/v2/countries/us')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('country').eql('USA');
+                res.body.should.have.property('countryInfo');
+                done();
+            });
+    });
+
+    it('/v2/countries?yesterday get correct ios2', (done) => {
+        chai.request(app)
+            .get('/v2/countries/us?yesterday')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('country').eql('USA');
+                res.body.should.have.property('countryInfo');
+                done();
+            });
+    });
+
+    it('/v2/countries/ get correct id', (done) => {
+        chai.request(app)
+            .get('/v2/countries/840')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('country').eql('USA');
+                res.body.should.have.property('countryInfo');
+                done();
+            });
+    });
+
+    it('/v2/countries?yesterday get correct id', (done) => {
+        chai.request(app)
+            .get('/v2/countries/840?yesterday')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('country').eql('USA');
+                res.body.should.have.property('countryInfo');
+                done();
+            });
+    });
+
+    it('/v2/countries/diamond%20princess', (done) => {
+        chai.request(app)
+            .get('/v2/countries/diamond%20princess')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('country');
+                res.body.should.have.property('countryInfo');
+                done();
+            });
+    });
+
+    it('/v2/countries/ get incorrect country name', (done) => {
+        chai.request(app)
+            .get('/v2/countries/asdfghjkl')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
+    it('/v2/countries?yesterday get incorrect country name', (done) => {
+        chai.request(app)
+            .get('/v2/countries/asdfghjkl?yesterday=true')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
+    it('/v2/countries?sort works', (done) => {
+        chai.request(app)
+            .get('/v2/countries?sort=cases')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                let maxCases = res.body[0].cases;
+                res.body.forEach(element => {
+                    maxCases.should.be.at.least(element.cases);
+                    maxCases = element.cases;
+                });
+                done();
+            });
+    });
+
+    it('/v2/countries?sort&yesterday=true works', (done) => {
+        chai.request(app)
+            .get('/v2/countries?sort=cases&yesterday=true')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                let maxCases = res.body[0].cases;
+                res.body.forEach(element => {
+                    maxCases.should.be.at.least(element.cases);
+                    maxCases = element.cases;
+                });
+                done();
+            });
+    });
+
+    // Test that all countries map to their respective country
+    countryData.map((element) => {
+        it(`/v2/countries/${element.country}?strict=true correct country name`, (done) => {
+            chai.request(app)
+                .get(`/v2/countries/${element.country}?strict=true`)
+                .end((err, res) => {
+                    should.not.exist(err);
+                    should.exist(res);
+                    if (res.status === 200) {
+                        res.body.should.be.a('object');
+                        res.body.country.should.equal(element.country.replace(/'/g, "\""));
+                        res.body.should.have.property('cases');
+                        res.body.should.have.property('todayCases');
+                        res.body.should.have.property('deaths');
+                        res.body.should.have.property('todayDeaths');
+                        res.body.should.have.property('casesPerOneMillion');
+                        res.body.should.have.property('updated');
+                        res.body.should.have.property('tests');
+                        res.body.should.have.property('testsPerOneMillion');
+                    }
+                    else {
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message');
+                    }
+                    done();
+                });
+        });
+    });
+
+    // Test that all yesterday countries map to their respective country
+    countryData.map((element) => {
+        it(`/v2/countries/${element.country}?yesterday=true*strict=true correct country name`, (done) => {
+            chai.request(app)
+                .get(`/v2/countries/${element.country}?yesterday=true&strict=true`)
+                .end((err, res) => {
+                    should.not.exist(err);
+                    should.exist(res);
+                    if (res.status === 200) {
+                        res.body.should.be.a('object');
+                        res.body.country.should.equal(element.country.replace(/'/g, "\""));
+                        res.body.should.have.property('cases');
+                        res.body.should.have.property('todayCases');
+                        res.body.should.have.property('deaths');
+                        res.body.should.have.property('todayDeaths');
+                        res.body.should.have.property('casesPerOneMillion');
+                        res.body.should.have.property('updated');
+                        res.body.should.have.property('tests');
+                        res.body.should.have.property('testsPerOneMillion');
+                    }
+                    else {
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message');
+                    }
+                    done();
+                });
+        });
+    });
 });
