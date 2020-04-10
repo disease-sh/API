@@ -1,4 +1,4 @@
-[
+module.exports = [
 	{ "country": "Afghanistan", "iso2": "AF", "iso3": "AFG", "id": 4, "lat": 33, "long": 65 },
 	{ "country": "Albania", "iso2": "AL", "iso3": "ALB", "id": 8, "lat": 41, "long": 20 },
 	{ "country": "Algeria", "iso2": "DZ", "iso3": "DZA", "id": 12, "lat": 28, "long": 3 },
@@ -101,7 +101,7 @@
 	{ "country": "Hong Kong", "iso2": "HK", "iso3": "HKG", "id": 344, "lat": 22.25, "long": 114.1667 },
 	{ "country": "Hungary", "iso2": "HU", "iso3": "HUN", "id": 348, "lat": 47, "long": 20 },
 	{ "country": "Iceland", "iso2": "IS", "iso3": "ISL", "id": 352, "lat": 65, "long": -18 },
-    { "country": "India", "iso2": "IN", "iso3": "IND", "id": 356, "lat": 20, "long": 77 },
+	{ "country": "India", "iso2": "IN", "iso3": "IND", "id": 356, "lat": 20, "long": 77 },
 	{ "country": "Indonesia", "iso2": "ID", "iso3": "IDN", "id": 360, "lat": -5, "long": 120 },
 	{ "country": "Iran", "iso2": "IR", "iso3": "IRN", "id": 364, "lat": 32, "long": 53, "possibleNames": ["Iran, Islamic Republic of"] },
 	{ "country": "Iraq", "iso2": "IQ", "iso3": "IRQ", "id": 368, "lat": 33, "long": 44 },
@@ -251,4 +251,4 @@
 	{ "country": "Yemen", "iso2": "YE", "iso3": "YEM", "id": 887, "lat": 15, "long": 48 },
 	{ "country": "Zambia", "iso2": "ZM", "iso3": "ZMB", "id": 894, "lat": -15, "long": 30 },
 	{ "country": "Zimbabwe", "iso2": "ZW", "iso3": "ZWE", "id": 716, "lat": -20, "long": 30 }
-]
+];
