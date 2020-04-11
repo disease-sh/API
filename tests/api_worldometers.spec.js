@@ -123,6 +123,32 @@ describe('TESTING /countries', () => {
             });
     });
 
+    it('/countries/netherlands gives Caribbean Netherlands', (done) => {
+        chai.request(app)
+        .get('/countries/netherlands')
+        .end((err, res) => {
+            should.not.exist(err);
+            should.exist(res);
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('country').eql('Caribbean Netherlands');
+            done();
+        });
+    });
+
+    it('/countries/sudan gives South Sudan', (done) => {
+        chai.request(app)
+        .get('/countries/sudan')
+        .end((err, res) => {
+            should.not.exist(err);
+            should.exist(res);
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('country').eql('South Sudan');
+            done();
+        });
+    });
+
     it('/all', (done) => {
         chai.request(app)
             .get('/all')
@@ -441,6 +467,32 @@ describe('TESTING /countries', () => {
             });
     });
 
+    it('/yesterday/netherlands gives Caribbean Netherlands', (done) => {
+        chai.request(app)
+        .get('/countries/netherlands')
+        .end((err, res) => {
+            should.not.exist(err);
+            should.exist(res);
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('country').eql('Caribbean Netherlands');
+            done();
+        });
+    });
+
+    it('/yesterday/sudan gives South Sudan', (done) => {
+        chai.request(app)
+        .get('/countries/sudan')
+        .end((err, res) => {
+            should.not.exist(err);
+            should.exist(res);
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('country').eql('South Sudan');
+            done();
+        });
+    });
+
     // Test that all countries map to their respective country
     countryData.map((element) => {
         it(`/countries/${element.country}?strict=true correct country name`, (done) => {
@@ -755,6 +807,32 @@ describe('TESTING /countries', () => {
     it('/v2/countries/sudan?strict=false gives South Sudan', (done) => {
         chai.request(app)
         .get('/v2/countries/sudan?strict=false')
+        .end((err, res) => {
+            should.not.exist(err);
+            should.exist(res);
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('country').eql('South Sudan');
+            done();
+        });
+    });
+
+    it('/v2/countries/netherlands?yesterday=true&strict=false gives Caribbean Netherlands', (done) => {
+        chai.request(app)
+        .get('/v2/countries/netherlands?yesterday=true&strict=false')
+        .end((err, res) => {
+            should.not.exist(err);
+            should.exist(res);
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('country').eql('Caribbean Netherlands');
+            done();
+        });
+    });
+
+    it('/v2/countries/sudan?yesterday=true&strict=false gives South Sudan', (done) => {
+        chai.request(app)
+        .get('/v2/countries/sudan?yesterday=true&strict=false')
         .end((err, res) => {
             should.not.exist(err);
             should.exist(res);
