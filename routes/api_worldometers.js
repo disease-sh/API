@@ -38,8 +38,7 @@ router.get('/countries', async (req, res) => {
 router.get('/countries/:query', async (req, res) => {
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.countries)).map(fixApostrophe);
-	const isNotStrict = req.query.strict === 'false';
-	const isStrict = !isNotStrict;
+	const isStrict = !(req.query.strict === 'false');
 	const countryData = splitQuery(query)
 		.map(country => countryUtils.getCountryWorldometersData(countries, country, isStrict))
 		.filter(value => value);
@@ -86,8 +85,9 @@ router.get('/yesterday/all', async (req, res) => res.send(await getAllData(keys.
 router.get('/yesterday/:query', async (req, res) => {
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.yesterday)).map(fixApostrophe);
+	const isStrict = !(req.query.strict === 'false');
 	const yesterdayCountryData = splitQuery(query)
-		.map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true'))
+		.map(country => countryUtils.getCountryWorldometersData(countries, country, isStrict))
 		.filter(value => value);
 	if (yesterdayCountryData.length > 0) {
 		res.send(yesterdayCountryData.length === 1 ? yesterdayCountryData[0] : yesterdayCountryData);
