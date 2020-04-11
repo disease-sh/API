@@ -36,10 +36,11 @@ router.get('/countries', async (req, res) => {
 });
 
 router.get('/countries/:query', async (req, res) => {
+	const { strict } = req.query;
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.countries)).map(fixApostrophe);
 	const countryData = splitQuery(query)
-		.map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true'))
+		.map(country => countryUtils.getCountryWorldometersData(countries, country, strict !== 'false'))
 		.filter(value => value);
 	if (countryData.length > 0) {
 		res.send(countryData.length === 1 ? countryData[0] : countryData);
@@ -82,10 +83,11 @@ router.get('/yesterday', async (req, res) => {
 router.get('/yesterday/all', async (req, res) => res.send(await getAllData(keys.yesterday)));
 
 router.get('/yesterday/:query', async (req, res) => {
+	const { strict } = req.query;
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.yesterday)).map(fixApostrophe);
 	const yesterdayCountryData = splitQuery(query)
-		.map(country => countryUtils.getCountryWorldometersData(countries, country, req.query.strict === 'true'))
+		.map(country => countryUtils.getCountryWorldometersData(countries, country, strict !== 'false'))
 		.filter(value => value);
 	if (yesterdayCountryData.length > 0) {
 		res.send(yesterdayCountryData.length === 1 ? yesterdayCountryData[0] : yesterdayCountryData);
@@ -110,7 +112,7 @@ router.get('/v2/countries/:query', async (req, res) => {
 	const { query } = req.params;
 	let countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday : keys.countries)).splice(1).map(fixApostrophe);
 	countries = splitQuery(query)
-		.map(country => countryUtils.getCountryWorldometersData(countries, country, wordToBoolean(strict)))
+		.map(country => countryUtils.getCountryWorldometersData(countries, country, strict !== 'false'))
 		.filter(value => value);
 	if (countries.length > 0) res.send(countries.length === 1 ? countries[0] : countries);
 	else res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
