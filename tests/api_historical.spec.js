@@ -289,7 +289,7 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    if ('/v2/historical/usacounties/state correct response all states', (done) => {
+    it ('/v2/historical/usacounties/state correct response all states', (done) => {
         chai.request(app)
             .get('/v2/historical/usacounties')
             .end((err, states) => {
@@ -311,4 +311,4 @@ describe('TESTING /v2/historical', () => {
                 done();
             });
     });
-});
+})
