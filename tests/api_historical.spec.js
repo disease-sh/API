@@ -289,22 +289,26 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
-    chai.request(app)
-        .get('/v2/historical/usacounties')
-        .end((err, states) => {
-            states.body.map((state) => {
-                it(`/v2/historical/usacounties/${state} correct response`, (done) => {
+    if ('/v2/historical/usacounties/state correct response all states', (done) => {
+        chai.request(app)
+            .get('/v2/historical/usacounties')
+            .end((err, states) => {
+                should.not.exist(err);
+                should.exist(states);
+                states.should.have.status(200);
+                states.body.should.be.a('array');
+                states.body.map((state) => {
                     chai.request(app)
-                        .get(`/v2/historical/usacounties/${state}`)
-                        .end((err2, res) => {
-                            should.not.exist(err);
-                            should.exist(res);
-                            res.should.have.status(200);
-                            res.body.should.be.a('array');
-                            res.body[0].province.should.equal(state);
-                            done();
-                        });
+                    .get(`/v2/historical/usacounties/${state}`)
+                    .end((err2, res) => {
+                        should.not.exist(err);
+                        should.exist(res);
+                        res.should.have.status(200);
+                        res.body.should.be.a('array');
+                        res.body[0].province.should.equal(state);
+                    });
                 });
+                done();
             });
-        });
+    });
 });
