@@ -739,6 +739,32 @@ describe('TESTING /countries', () => {
             });
     });
 
+    it('/v2/countries/netherlands?strict=false gives Caribbean Netherlands', (done) => {
+        chai.request(app)
+        .get('/v2/countries/netherlands?strict=false')
+        .end((err, res) => {
+            should.not.exist(err);
+            should.exist(res);
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('country').eql('Caribbean Netherlands');
+            done();
+        });
+    });
+
+    it('/v2/countries/sudan?strict=false gives South Sudan', (done) => {
+        chai.request(app)
+        .get('/v2/countries/sudan?strict=false')
+        .end((err, res) => {
+            should.not.exist(err);
+            should.exist(res);
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('country').eql('South Sudan');
+            done();
+        });
+    });
+
     it('/v2/countries?sort&yesterday=true works', (done) => {
         chai.request(app)
             .get('/v2/countries?sort=cases&yesterday=true')
@@ -757,9 +783,9 @@ describe('TESTING /countries', () => {
 
     // Test that all countries map to their respective country
     countryData.map((element) => {
-        it(`/v2/countries/${element.country}?strict=true correct country name`, (done) => {
+        it(`/v2/countries/${element.country} correct country name`, (done) => {
             chai.request(app)
-                .get(`/v2/countries/${element.country}?strict=true`)
+                .get(`/v2/countries/${element.country}`)
                 .end((err, res) => {
                     should.not.exist(err);
                     should.exist(res);
@@ -786,9 +812,9 @@ describe('TESTING /countries', () => {
 
     // Test that all yesterday countries map to their respective country
     countryData.map((element) => {
-        it(`/v2/countries/${element.country}?yesterday=true*strict=true correct country name`, (done) => {
+        it(`/v2/countries/${element.country}?yesterday=true correct country name`, (done) => {
             chai.request(app)
-                .get(`/v2/countries/${element.country}?yesterday=true&strict=true`)
+                .get(`/v2/countries/${element.country}?yesterday=true`)
                 .end((err, res) => {
                     should.not.exist(err);
                     should.exist(res);
