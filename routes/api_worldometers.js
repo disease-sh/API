@@ -38,8 +38,10 @@ router.get('/countries', async (req, res) => {
 router.get('/countries/:query', async (req, res) => {
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.countries)).map(fixApostrophe);
+	const isNotStrict = req.query.strict === 'false';
+	const isStrict = !isNotStrict;
 	const countryData = splitQuery(query)
-		.map(country => countryUtils.getCountryWorldometersData(countries, country, true))
+		.map(country => countryUtils.getCountryWorldometersData(countries, country, isStrict))
 		.filter(value => value);
 	if (countryData.length > 0) {
 		res.send(countryData.length === 1 ? countryData[0] : countryData);
