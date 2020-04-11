@@ -40,7 +40,7 @@ router.get('/countries/:query', async (req, res) => {
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.countries)).map(fixApostrophe);
 	const countryData = splitQuery(query)
-		.map(country => countryUtils.getCountryWorldometersData(countries, country, strict !== 'false'))
+		.map(country => countryUtils.getCountryWorldometersData(countries, country, strict === 'true'))
 		.filter(value => value);
 	if (countryData.length > 0) {
 		res.send(countryData.length === 1 ? countryData[0] : countryData);
@@ -87,7 +87,7 @@ router.get('/yesterday/:query', async (req, res) => {
 	const { query } = req.params;
 	const countries = JSON.parse(await redis.get(keys.yesterday)).map(fixApostrophe);
 	const yesterdayCountryData = splitQuery(query)
-		.map(country => countryUtils.getCountryWorldometersData(countries, country, strict !== 'false'))
+		.map(country => countryUtils.getCountryWorldometersData(countries, country, strict === 'true'))
 		.filter(value => value);
 	if (yesterdayCountryData.length > 0) {
 		res.send(yesterdayCountryData.length === 1 ? yesterdayCountryData[0] : yesterdayCountryData);
