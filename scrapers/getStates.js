@@ -11,7 +11,6 @@ const parseStateCell = (cell) => {
 		|| '';
 	state = state.trim();
 	if (state.length === 0) {
-		// parse with hyperlink
 		state = cell.children[0].next.children[0].data || '';
 	}
 	return state.trim() || '';
@@ -22,19 +21,9 @@ const parseNumberCell = (cell) => {
 	return parseFloat(cellValue.replace(/[,+\-\s]/g, '')) || 0;
 };
 
-const getStates = async (keys, redis) => {
-	let response;
-	try {
-		response = await axios.get('https://www.worldometers.info/coronavirus/country/us/');
-	} catch (err) {
-		logger.httpErrorLogger(err, 'error in getState REQUEST');
-		return null;
-	}
-	// to store parsed data
+const fillResult = (html, yesterday = false) => {
 	const result = [];
-	// get HTML and parse death rates
-	const html = cheerio.load(response.data);
-	const statesTable = html('table#usa_table_countries_today');
+	const statesTable = html(yesterday ? 'table#usa_table_countries_yesterday' : 'table#usa_table_countries_today');
 	const tableRows = statesTable
 		.children('tbody')
 		.children('tr:not(.total_row)').toArray();
@@ -58,10 +47,28 @@ const getStates = async (keys, redis) => {
 		});
 		result.push(stateData);
 	});
+	return result;
+};
 
-	const string = JSON.stringify(result);
-	redis.set(keys.states, string);
-	return console.log(`Updated states: ${result.length} states`);
+const getStates = async (keys, redis) => {
+	let response;
+	try {
+		response = await axios.get('https://www.worldometers.info/coronavirus/country/us/');
+	} catch (err) {
+		logger.httpErrorLogger(err, 'error in getState REQUEST');
+		return null;
+	}
+	const html = cheerio.load(response.data);
+
+	// set states
+	const statesData = fillResult(html);
+	redis.set(keys.states, JSON.stringify(statesData));
+	console.log(`Updated states: ${statesData.length} states`);
+
+	// set yesterday states
+	const statesDataYesterday = fillResult(html, true);
+	redis.set(keys.yesterday_states, JSON.stringify(statesDataYesterday));
+	return console.log(`Updated yesterday states: ${statesDataYesterday.length} states`);
 };
 
 module.exports = getStates;

@@ -116,4 +116,26 @@ router.get('/v2/countries/:query', async (req, res) => {
 	else res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 });
 
+router.get('/v2/states', async (req, res) => {
+	const { sort, yesterday } = req.query;
+	let states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states)).splice(1);
+	if (sort) {
+		states = states.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
+	}
+	res.send(states);
+});
+
+// router.get('/states/:query', async (req, res) => {
+// 	const { query } = req.params;
+// 	const states = JSON.parse(await redis.get(keys.states));
+// 	const stateData = splitQuery(query)
+// 		.map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase()))
+// 		.filter(value => value);
+// 	if (stateData.length > 0) {
+// 		res.send(stateData.length === 1 ? stateData[0] : stateData);
+// 	} else {
+// 		res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
+// 	}
+// });
+
 module.exports = router;
