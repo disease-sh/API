@@ -244,7 +244,7 @@ module.exports = [
 	{ country: 'Uzbekistan', iso2: 'UZ', iso3: 'UZB', id: 860, lat: 41, long: 64 },
 	{ country: 'Vanuatu', iso2: 'VU', iso3: 'VUT', id: 548, lat: -16, long: 167 },
 	{ country: 'Venezuela', iso2: 'VE', iso3: 'VEN', id: 862, lat: 8, long: -66, possibleNames: ['Venezuela, Bolivarian Republic of'] },
-	{ country: 'Vietnam', iso2: 'VN', iso3: 'VNM', id: 704, lat: 16, long: 106, possibleNames: ['Viet Nam'] },
+	{ country: 'Vietnam', iso2: 'VN', iso3: 'VNM', id: 704, lat: 21, long: 105.8, possibleNames: ['Viet Nam'] },
 	{ country: 'British Virgin Islands', iso2: 'VG', iso3: 'VGB', id: 92, lat: 18.5, long: -64.5, possibleNames: ['Virgin Islands, British'] },
 	{ country: 'U.S. Virgin Islands', iso2: 'VI', iso3: 'VIR', id: 850, lat: 18.3333, long: -64.8333, possibleNames: ['Virgin Islands'] },
 	{ country: 'Wallis and Futuna', iso2: 'WF', iso3: 'WLF', id: 876, lat: -13.3, long: -176.2 },
