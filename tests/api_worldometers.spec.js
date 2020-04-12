@@ -136,7 +136,7 @@ describe('TESTING /countries', () => {
         });
     });
 
-    it('/countries/sudan gives South Sudan', (done) => {
+    it('/countries/sudan gives Sudan', (done) => {
         chai.request(app)
         .get('/countries/sudan')
         .end((err, res) => {
@@ -144,12 +144,12 @@ describe('TESTING /countries', () => {
             should.exist(res);
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.should.have.property('country').eql('South Sudan');
+            res.body.should.have.property('country').eql('Sudan');
             done();
         });
     });
 
-    it('/countries/guinea gives Equatorial Guinea', (done) => {
+    it('/countries/guinea gives Guinea', (done) => {
         chai.request(app)
         .get('/countries/guinea')
         .end((err, res) => {
@@ -157,7 +157,7 @@ describe('TESTING /countries', () => {
             should.exist(res);
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.should.have.property('country').eql('Equatorial Guinea');
+            res.body.should.have.property('country').eql('Guinea');
             done();
         });
     });
