@@ -134,18 +134,20 @@ const getWorldometerPage = async (keys, redis) => {
 	const html = cheerio.load(response.data);
 
 	// Getting country data from today
-	let countriesToday = fillResult(html);
-	const worldToday = countriesToday[0];
-	countriesToday = getOrderByCountryName(countriesToday.splice(1));
-	countriesToday.unshift(worldToday);
+	const countriesToday = fillResult(html);
+	// TODO: Once v1 is deprecated sort by name on default
+	// const worldToday = countriesToday[0];
+	// countriesToday = getOrderByCountryName(countriesToday.splice(1));
+	// countriesToday.unshift(worldToday);
 	redis.set(keys.countries, JSON.stringify(countriesToday));
 	console.log(`Updated countries statistics: ${countriesToday.length}`);
 
 	// Getting country data from yesterday
-	let countriesYesterday = fillResult(html, true);
-	const worldYesterday = countriesYesterday[0];
-	countriesYesterday = getOrderByCountryName(countriesYesterday.splice(1));
-	countriesYesterday.unshift(worldYesterday);
+	const countriesYesterday = fillResult(html, true);
+	// TODO: Once v1 is deprecated sort by name on default
+	// const worldYesterday = countriesYesterday[0];
+	// countriesYesterday = getOrderByCountryName(countriesYesterday.splice(1));
+	// countriesYesterday.unshift(worldYesterday);
 	redis.set(keys.yesterday, JSON.stringify(countriesYesterday));
 	return console.log(`Updated yesterdays statistics: ${countriesYesterday.length}`);
 };
