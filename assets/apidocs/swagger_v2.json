@@ -185,7 +185,7 @@
               "true",
               "false"
             ],
-            "description": "allows you to match a countries name only if your query is the exact country name. Example Oman vs. rOMANia",
+            "description": "Defaults to true. Setting to false gives you the ability to fuzzy search countries. Example Oman vs. rOMANia",
             "type": "string"
           },
           {
