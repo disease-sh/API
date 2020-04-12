@@ -61,7 +61,7 @@
         }
       }
     },
-    "/states": {
+    "/v2/states": {
       "get": {
         "parameters": [
           {
@@ -77,6 +77,19 @@
             ],
             "description": "For this parameter you can provide a key from the country model (e.g. cases, todayCases, deaths, active, etc) to sort the states from greatest to least, depending on the key.",
             "type": "string"
+          },
+          {
+            "name": "yesterday",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "For this parameter you can show yesterday data",
+            "type": "string"
           }
         ],
         "summary": "Get US State Totals",
@@ -88,14 +101,27 @@
         }
       }
     },
-    "/states/{state}": {
+    "/v2/states/{states}": {
       "get": {
         "parameters": [
           {
-            "name": "state",
+            "name": "states",
             "in": "path",
             "required": true,
-            "description": "state name spelled correctly",
+            "description": "state name or comma separated names spelled correctly",
+            "type": "string"
+          },
+          {
+            "name": "yesterday",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "For this parameter you can show yesterday data",
             "type": "string"
           }
         ],
