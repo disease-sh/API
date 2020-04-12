@@ -123,7 +123,7 @@ describe('TESTING /countries', () => {
             });
     });
 
-    it('/countries/netherlands gives Caribbean Netherlands', (done) => {
+    it('/countries/netherlands gives Netherlands', (done) => {
         chai.request(app)
         .get('/countries/netherlands')
         .end((err, res) => {
@@ -131,7 +131,7 @@ describe('TESTING /countries', () => {
             should.exist(res);
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.should.have.property('country').eql('Caribbean Netherlands');
+            res.body.should.have.property('country').eql('Netherlands');
             done();
         });
     });
