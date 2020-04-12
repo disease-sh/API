@@ -22,7 +22,6 @@ const parseNumberCell = (cell) => {
 };
 
 const fillResult = (html, yesterday = false) => {
-	const result = [];
 	const statesTable = html(yesterday ? 'table#usa_table_countries_yesterday' : 'table#usa_table_countries_today');
 	const tableRows = statesTable
 		.children('tbody')
@@ -39,15 +38,14 @@ const fillResult = (html, yesterday = false) => {
 		testsPerOneMillion: 9
 	};
 
-	tableRows.forEach((row) => {
+	return tableRows.map((row) => {
 		const cells = row.children.filter((cell) => cell.name === 'td');
 		const stateData = { state: parseStateCell(cells[stateColIndex]) };
 		Object.keys(dataColIndexes).forEach((property) => {
 			stateData[property] = parseNumberCell(cells[dataColIndexes[property]]);
 		});
-		result.push(stateData);
+		return stateData;
 	});
-	return result;
 };
 
 const getStates = async (keys, redis) => {
