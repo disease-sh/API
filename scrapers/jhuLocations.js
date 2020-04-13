@@ -32,18 +32,18 @@ const jhudataV2 = async (keys, redis) => {
 	const result = [];
 	parsed.splice(1).forEach((loc) => {
 		result.push({
-			country: loc[1],
-			province: loc[0] || null,
-			county: loc[9] || null,
-			updatedAt: loc[2],
+			country: loc[3],
+			province: loc[2] || null,
+			county: loc[1] || null,
+			updatedAt: loc[4],
 			stats: {
-				confirmed: parseInt(loc[5]),
-				deaths: parseInt(loc[6]),
-				recovered: parseInt(loc[7])
+				confirmed: parseInt(loc[7]),
+				deaths: parseInt(loc[8]),
+				recovered: parseInt(loc[9])
 			},
 			coordinates: {
-				latitude: loc[3],
-				longitude: loc[4]
+				latitude: loc[5],
+				longitude: loc[6]
 			}
 		});
 	});
