@@ -98,8 +98,8 @@ const getWorldometersData = (data, nameParam, strictMatching, continents = false
 				stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName);
 			}
 			return (
-				((ctry.countryInfo || {})["iso3"] || '').toLowerCase() === nameParam.toLowerCase()
-				|| ((ctry.countryInfo || {})["iso2"] || '').toLowerCase() === nameParam.toLowerCase()
+				((ctry.countryInfo || {}).iso3 || '').toLowerCase() === nameParam.toLowerCase()
+				|| ((ctry.countryInfo || {}).iso2 || '').toLowerCase() === nameParam.toLowerCase()
 				|| ((nameParam.length > 3 || isCountryException(nameParam.toLowerCase()))
 					&& stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName))
 			);

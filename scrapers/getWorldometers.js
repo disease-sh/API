@@ -49,6 +49,7 @@ function fillResult(html, yesterday = false) {
 	const totalColumns = html('table#main_table_countries_today th').length;
 	const countriesRows = countriesTable.children('tbody:first-of-type').children('tr:not(.row_continent)');
 	const continentRows = countriesTable.children('tbody:first-of-type').children('tr.row_continent:not(.last-of-type)');
+	// eslint-disable-next-line complexity
 	const mapRows = (index, row, continents = false) => {
 		const cells = cheerio(row).children('td');
 		const country = { updated: Date.now() };
@@ -57,7 +58,7 @@ function fillResult(html, yesterday = false) {
 			switch (cellIndex % totalColumns) {
 				// get country
 				case countryColIndex: {
-					if(continents) {
+					if (continents) {
 						country.continent = cheerio.load(cell).text().replace(/\n/g, '');
 					} else {
 						const countryInfo = countryUtils.getCountryData(getCountryData(cell));
@@ -98,19 +99,19 @@ function fillResult(html, yesterday = false) {
 					break;
 				// get total cases per one million population
 				case casesPerOneMillionColIndex:
-					if(!continents) country.casesPerOneMillion = getCellData(cell) || 0;
+					if (!continents) country.casesPerOneMillion = getCellData(cell) || 0;
 					break;
 				// get total deaths per one million population
 				case deathsPerOneMillionColIndex:
-					if(!continents) country.deathsPerOneMillion = getCellData(cell) || 0;
+					if (!continents) country.deathsPerOneMillion = getCellData(cell) || 0;
 					break;
 				// get tests
 				case testsColIndex:
-					if(!continents) country.tests = getCellData(cell) || 0;
+					if (!continents) country.tests = getCellData(cell) || 0;
 					break;
 				// get total tests per one million population
 				case testsPerOneMillionColIndex:
-					if(!continents) country.testsPerOneMillion = getCellData(cell) || 0;
+					if (!continents) country.testsPerOneMillion = getCellData(cell) || 0;
 					break;
 			}
 		}
@@ -146,14 +147,14 @@ const getWorldometerPage = async (keys, redis) => {
 	const worldAndContinentsToday = countriesToday.slice(0, 7);
 	countriesToday = [...getOrderByName(worldAndContinentsToday), ...getOrderByName(countriesToday.splice(7))];
 	redis.set(keys.countries, JSON.stringify(countriesToday));
-	console.log(`Updated countries/continents statistics: ${countriesToday.length-7} countries & ${worldAndContinentsToday.length-1} continents`);
+	console.log(`Updated countries/continents statistics: ${countriesToday.length - 7} countries & ${worldAndContinentsToday.length - 1} continents`);
 
 	// Getting country/continent data from yesterday
 	let countriesYesterday = fillResult(html, true);
 	const worldAndContinentsYesterday = countriesYesterday.slice(0, 7);
 	countriesYesterday = [...getOrderByName(worldAndContinentsYesterday), ...getOrderByName(countriesYesterday.splice(7))];
 	redis.set(keys.yesterday, JSON.stringify(countriesYesterday));
-	return console.log(`Updated yesterdays countries/continents statistics: ${countriesYesterday.length-7} countries & ${worldAndContinentsYesterday.length-1} continents`);
+	return console.log(`Updated yesterdays countries/continents statistics: ${countriesYesterday.length - 7} countries & ${worldAndContinentsYesterday.length - 1} continents`);
 };
 
 module.exports = getWorldometerPage;
