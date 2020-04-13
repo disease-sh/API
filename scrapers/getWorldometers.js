@@ -65,47 +65,47 @@ function fillResult(html, yesterday = false) {
 				}
 				// get cases
 				case casesColIndex:
-					country.cases = getCellData(cell);
+					country.cases = getCellData(cell) || 0;
 					break;
 				// get today cases
 				case newCasesColIndex:
-					country.todayCases = getCellData(cell);
+					country.todayCases = getCellData(cell) || 0;
 					break;
 				// get deaths
 				case deathsColIndex:
-					country.deaths = getCellData(cell);
+					country.deaths = getCellData(cell) || 0;
 					break;
 				// get today deaths
 				case newDeathsColIndex:
-					country.todayDeaths = getCellData(cell);
+					country.todayDeaths = getCellData(cell) || 0;
 					break;
 				// get cured
 				case curedColIndex:
-					country.recovered = getCellData(cell);
+					country.recovered = getCellData(cell) || 0;
 					break;
 				// get active
 				case activeColIndex:
-					country.active = getCellData(cell);
+					country.active = getCellData(cell) || 0;
 					break;
 				// get critical
 				case criticalColIndex:
-					country.critical = getCellData(cell);
+					country.critical = getCellData(cell) || 0;
 					break;
 				// get total cases per one million population
 				case casesPerOneMillionColIndex:
-					country.casesPerOneMillion = getCellData(cell);
+					country.casesPerOneMillion = getCellData(cell) || 0;
 					break;
 				// get total deaths per one million population
 				case deathsPerOneMillionColIndex:
-					country.deathsPerOneMillion = getCellData(cell);
+					country.deathsPerOneMillion = getCellData(cell) || 0;
 					break;
 				// get tests
 				case testsColIndex:
-					country.tests = getCellData(cell);
+					country.tests = getCellData(cell) || 0;
 					break;
 				// get total tests per one million population
 				case testsPerOneMillionColIndex:
-					country.testsPerOneMillion = getCellData(cell);
+					country.testsPerOneMillion = getCellData(cell) || 0;
 					break;
 			}
 		}
