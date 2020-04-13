@@ -12,11 +12,11 @@ const getCountryData = (cell) => (cell.children[0].data || cell.children[0].chil
 	|| cell.children[0].children[0].children[0].children[0].data || (cell.children[0].next.children[0] && cell.children[0].next.children[0].data) || '').trim();
 
 /**
-* Gets country data ordered by country name
-* @param 	{Array} 	data 	Countries Data
-* @returns {Array} 			Countries Data Ordered by Country Name
+* Gets data ordered by name
+* @param 	{Array} 	data  Data
+* @returns {Array} 			Countries Data Ordered by Name
 */
-const getOrderByCountryName = (data) => data.sort((a, b) => a.country < b.country ? -1 : 1);
+const getOrderByName = (data) => data.sort((a, b) => (a.country || a.continent) < (b.country || b.continent) ? -1 : 1);
 
 /**
  * Gets integer parsed stat from table cell
@@ -126,7 +126,7 @@ function fillResult(html, yesterday = false) {
 }
 
 /**
- * Fills redis with countries and yesterday data
+ * Fills redis with todays and yesterdays country/continent data
  * @param {string} keys Redis keys
  * @param {Object} redis Redis instance
  */
@@ -141,17 +141,17 @@ const getWorldometerPage = async (keys, redis) => {
 	// get HTML and parse death rates
 	const html = cheerio.load(response.data);
 
-	// Getting country data from today
+	// Getting country/continent data from today
 	let countriesToday = fillResult(html);
 	const worldAndContinentsToday = countriesToday.slice(0, 7);
-	countriesToday = [...worldAndContinentsToday, ...getOrderByCountryName(countriesToday.splice(7))];
+	countriesToday = [...getOrderByName(worldAndContinentsToday), ...getOrderByName(countriesToday.splice(7))];
 	redis.set(keys.countries, JSON.stringify(countriesToday));
 	console.log(`Updated countries/continents statistics: ${countriesToday.length-7} countries & ${worldAndContinentsToday.length-1} continents`);
 
-	// Getting country data from yesterday
+	// Getting country/continent data from yesterday
 	let countriesYesterday = fillResult(html, true);
 	const worldAndContinentsYesterday = countriesYesterday.slice(0, 7);
-	countriesYesterday = [...worldAndContinentsYesterday, ...getOrderByCountryName(countriesYesterday.splice(7))];
+	countriesYesterday = [...getOrderByName(worldAndContinentsYesterday), ...getOrderByName(countriesYesterday.splice(7))];
 	redis.set(keys.yesterday, JSON.stringify(countriesYesterday));
 	return console.log(`Updated yesterdays countries/continents statistics: ${countriesYesterday.length-7} countries & ${worldAndContinentsYesterday.length-1} continents`);
 };
