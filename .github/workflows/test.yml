@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [master]
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 */2 * * *'
 jobs:
   unittests:
     runs-on: ubuntu-latest
