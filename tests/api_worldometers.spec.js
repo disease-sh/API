@@ -5,6 +5,83 @@ const countryData = require('../utils/countries');
 const should = chai.should();
 chai.use(chaiHttp);
 
+describe('TESTING /v2/continents', () => {
+    it('/v2/continents', (done) => {
+        chai.request(app)
+            .get('/v2/continents')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            });
+    });
+
+    it('/v2/continents/ get correct properties', (done) => {
+        chai.request(app)
+            .get('/v2/continents/europe')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('continent').eql('Europe');
+                res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('updated');
+                res.body.should.have.property('critical');
+                res.body.should.have.property('recovered');
+                res.body.should.have.property('active');
+                done();
+            });
+    });
+
+    it('/v2/continents/ fuzzy search', (done) => {
+        chai.request(app)
+            .get('/v2/continents/euro?strict=false')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('continent').eql('Europe');
+                done();
+            });
+    });
+
+    it('/v2/continents/ get incorrect continent name', (done) => {
+        chai.request(app)
+            .get('/v2/continents/asdfghjkl')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
+    it('/v2/continents?sort works', (done) => {
+        chai.request(app)
+            .get('/v2/continents?sort=cases')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                let maxCases = res.body[0].cases;
+                res.body.forEach(element => {
+                    maxCases.should.be.at.least(element.cases);
+                    maxCases = element.cases;
+                });
+                done();
+            });
+    });
+});
+
 describe('TESTING /countries', () => {
     it('/countries', (done) => {
         chai.request(app)
