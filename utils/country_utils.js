@@ -87,7 +87,7 @@ const getWorldometersData = (data, nameParam, strictMatching, continents = false
 	const selector = continents ? 'continent' : 'country';
 	const isText = isNaN(nameParam);
 	const countryInfo = isText ? getCountryData(nameParam) : {};
-	const standardizedName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : nameParam);
+	const standardizedName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : nameParam);
 	const found = data.find((ctry) => {
 		// either name or ISO
 		if (isText) {
