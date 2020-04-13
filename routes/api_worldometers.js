@@ -2,8 +2,7 @@
 const router = require('express').Router();
 const { wordToBoolean, splitQuery } = require('../utils/string_utils');
 const countryUtils = require('../utils/country_utils');
-const { redis, config } = require('./instances');
-const { keys } = config;
+const { redis, keys } = require('./instances');
 
 /**
  * Gets data for /all or /yesterday/all endpoint
