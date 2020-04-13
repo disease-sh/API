@@ -77,35 +77,37 @@ const getCountryData = (countryNameParam) => {
 
 /**
  * Get all Worldometers data of a certain country
- * @param {Array} countries Array of all countries' Worldometers data
- * @param {string} countryNameParam country name, country code, ISO2, ISO3
- * @param {boolean} strictMatching If true, country name must exactly match the standardized country name
+ * @param {Array} data Array of all countries or continents Worldometers data
+ * @param {string} nameParam continent name, country name, country code, ISO2, ISO3
+ * @param {boolean} strictMatching If true, country/continent name must exactly match the standardized country/continent name
+ * @param {boolean} continents to tell the algorithm to either check the continent property or country property
  * @returns {Object}
  */
-const getCountryWorldometersData = (countries, countryNameParam, strictMatching = false) => {
-	const isText = isNaN(countryNameParam);
-	const countryInfo = isText ? getCountryData(countryNameParam) : null;
-	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : countryNameParam);
-	const foundCountry = countries.find((ctry) => {
+const getWorldometersData = (data, nameParam, strictMatching, continents = false) => {
+	const selector = continents ? 'continent' : 'country';
+	const isText = isNaN(nameParam);
+	const countryInfo = isText ? getCountryData(nameParam) : {};
+	const standardizedName = stringUtils.wordsStandardize(countryInfo && countryInfo.country ? countryInfo.country : nameParam);
+	const found = data.find((ctry) => {
 		// either name or ISO
 		if (isText) {
 			// check if provided name matches exactly
 			if (strictMatching) {
-				return stringUtils.wordsStandardize(ctry.country) === standardizedCountryName;
+				return stringUtils.wordsStandardize(ctry[selector]) === standardizedName;
 			} else {
-				stringUtils.wordsStandardize(ctry.country).includes(standardizedCountryName);
+				stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName);
 			}
 			return (
-				(ctry.countryInfo.iso3 || 'null').toLowerCase() === countryNameParam.toLowerCase()
-				|| (ctry.countryInfo.iso2 || 'null').toLowerCase() === countryNameParam.toLowerCase()
-				|| ((countryNameParam.length > 3 || isCountryException(countryNameParam.toLowerCase()))
-					&& stringUtils.wordsStandardize(ctry.country).includes(standardizedCountryName))
+				((ctry.countryInfo || {})["iso3"] || '').toLowerCase() === nameParam.toLowerCase()
+				|| ((ctry.countryInfo || {})["iso2"] || '').toLowerCase() === nameParam.toLowerCase()
+				|| ((nameParam.length > 3 || isCountryException(nameParam.toLowerCase()))
+					&& stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName))
 			);
 		}
 		// number, must be country ID
-		return ctry.countryInfo._id === Number(countryNameParam);
+		return ctry.countryInfo._id === Number(nameParam);
 	});
-	return foundCountry;
+	return found;
 };
 
 const searchesExcepted = ['UK', 'UAE', 'DR'];
@@ -122,6 +124,6 @@ module.exports = {
 	getCountryCode,
 	getCountryName,
 	getCountryData,
-	getCountryWorldometersData,
+	getWorldometersData,
 	isCountryException
 };
