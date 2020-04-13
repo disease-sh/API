@@ -42,6 +42,22 @@ NovelCovid/API Documentation can be found [here](https://corona.lmao.ninja/docs/
 5. Replace redis host "localhost" with "redis".
 6. Run command `docker-compose up --build -d`.
 
+## Running in a Kubernetes cluster
+
+The repository contains a very basic setup of the api and redis deployment. HA setups are not considered in the following example.
+
+1. Fork and clone git repository
+2. Install kind for a local cluster using `GO111MODULE="on" go get sigs.k8s.io/kind@v0.7.0` (requires go to be installed)
+3. Create a cluster using `kind create cluster --config=./kubernetes/config.yaml`. You can modify the cluster according your needs. Make sure the cluster is runing with `kubectl cluster-info`.
+4. Create the configfile `config.json` for your app and enter the proper values. Keep track of the services name in [kubernetes/novelcovid-api.yaml](kubernetes/novelcovid-api.yaml) as this is the redis endpoint for the app to connect to. Take a look at the sample `config.k8s.json`.
+5. Build the docker image with: `docker build -t novelcovid/api:$(git rev-parse --short HEAD) .`
+6. Load the image into the kind cluster with `kind load docker-image novelcovid/api:<TAG>`
+7. Apply the redis installation with: `kubectl apply -f kubernetes/redis.yaml`
+8. Apply the api with: `kubectl apply -f kubernetes/novelcovid-api.yaml`
+9. Forward your ports with: `kubectl port-forward -n novelcovid-api service/api-service 3000:3000`
+10. Visit [http://localhost:3000/all](http://localhost:3000/all) in your browser.
+
+
 ## NPM Package
 <dir align ="center">
 <a href="https://www.npmjs.com/package/novelcovid">

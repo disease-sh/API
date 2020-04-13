@@ -1,0 +1,9 @@
+{
+  "redis": {
+    "host": "redis-service.novelcovid-redis.svc.cluster.local",
+    "password": "",
+    "port": "6379"
+  },
+  "port": 3000,
+  "interval": 600000
+}
