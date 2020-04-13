@@ -2,8 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
-const { redis, config, scraper } = require('./routes/instances');
-const { keys } = config;
+const { redis, config, keys, scraper } = require('./routes/instances');
 
 const execAll = async () => {
 	await Promise.all([

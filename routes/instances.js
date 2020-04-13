@@ -7,6 +7,9 @@ const getStates = require('../scrapers/getStates');
 const jhuLocations = require('../scrapers/jhuLocations');
 const historical = require('../scrapers/historical');
 
+// KEYS
+const keys = require('../config.keys.json');
+
 let config;
 try {
 	config = require('../config.json');
@@ -21,6 +24,7 @@ const redis = new Redis(config.redis.host, {
 
 module.exports = {
 	redis,
+	keys,
 	config,
 	scraper: {
 		getWorldometerPage,

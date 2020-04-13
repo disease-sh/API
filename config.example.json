@@ -4,14 +4,6 @@
     "password": "",
     "port": "6379"
   },
-  "keys": {
-    "countries": "covidapi:countries",
-    "yesterday": "covidapi:yesterday",
-    "states": "covidapi:states",
-    "jhu_v2": "covidapi:jhu_v2",
-    "historical_v2": "covidapi:historical_v2",
-    "historical_v2_USA": "covidapi:historical_v2_USA"
-  },
   "port": 3000,
   "interval": 600000
 }

@@ -968,4 +968,213 @@ describe('TESTING /countries', () => {
                 });
         });
     });
+
+    it('/v2/states', (done) => {
+        chai.request(app)
+            .get('/v2/states')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            });
+    });
+
+    it('/v2/states?yesterday=true', (done) => {
+        chai.request(app)
+            .get('/v2/states?yesterday=true')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            });
+    });
+
+    it('/v2/states?sort works', (done) => {
+        chai.request(app)
+            .get('/v2/states?sort=cases')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                let maxCases = res.body[0].cases;
+                res.body.forEach(element => {
+                    maxCases.should.be.at.least(element.cases);
+                    maxCases = element.cases;
+                });
+                done();
+            });
+    });
+
+    it('/v2/states?sort&yesterday works', (done) => {
+        chai.request(app)
+            .get('/v2/states?sort=cases&yesterday=true')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                let maxCases = res.body[0].cases;
+                res.body.forEach(element => {
+                    maxCases.should.be.at.least(element.cases);
+                    maxCases = element.cases;
+                });
+                done();
+            }); 
+    });
+
+    it('/v2/states?sort bad param', (done) => {
+        chai.request(app)
+            .get('/v2/states?sort=gsdfb325fsd')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            });
+    });
+
+    it('/v2/states?sort&yesterday=true bad param', (done) => {
+        chai.request(app)
+            .get('/v2/states?sort=gsdfb325fsd&yesterday=true')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            });
+    });
+
+    it('/v2/states/state works', (done) => {
+        chai.request(app)
+            .get('/v2/states/Illinois')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.state.should.equal("Illinois");
+                res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('active');
+                res.body.should.have.property('tests');
+                res.body.should.have.property('testsPerOneMillion');
+                done();
+            });
+    });
+
+    it('/v2/states/state?yesterday=true works', (done) => {
+        chai.request(app)
+            .get('/v2/states/Illinois')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.state.should.equal("Illinois");
+                res.body.should.have.property('cases');
+                res.body.should.have.property('todayCases');
+                res.body.should.have.property('deaths');
+                res.body.should.have.property('todayDeaths');
+                res.body.should.have.property('active');
+                res.body.should.have.property('tests');
+                res.body.should.have.property('testsPerOneMillion');
+                done();
+            });
+    });
+
+    it('/v2/states/state1,state2', (done) => {
+        chai.request(app)
+            .get('/v2/states/Illinois,New%20York')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                for (var row of res.body) {
+                    row.should.have.property('cases');
+                    row.should.have.property('todayCases');
+                    row.should.have.property('deaths');
+                    row.should.have.property('todayDeaths');
+                    row.should.have.property('active');
+                    row.should.have.property('tests');
+                    row.should.have.property('testsPerOneMillion');
+                }
+                done();
+            });
+    });
+
+    it('/v2/states/state1,state2?yesterday=true', (done) => {
+        chai.request(app)
+            .get('/v2/states/Illinois,New%20York?yesterday=true')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                for (var row of res.body) {
+                    row.should.have.property('cases');
+                    row.should.have.property('todayCases');
+                    row.should.have.property('deaths');
+                    row.should.have.property('todayDeaths');
+                    row.should.have.property('active');
+                    row.should.have.property('tests');
+                    row.should.have.property('testsPerOneMillion');
+                }
+                done();
+            });
+    });
+
+    it('/v2/states/ get incorrect state name', (done) => {
+        chai.request(app)
+            .get('/v2/states/asdfghjkl')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
+    it('/v2/states?yesterday=true get incorrect state name', (done) => {
+        chai.request(app)
+            .get('/v2/states/asdfghjkl?yesterday=true')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
+    it('/v2/states/state?yesterday is less than today', (done) => {
+        chai.request(app)
+            .get('/v2/states/illinois?yesterday=true')
+            .end((err, yesterdayRes) => {
+                should.not.exist(err);
+                should.exist(yesterdayRes);
+                yesterdayRes.should.have.status(200);
+                yesterdayRes.body.should.be.a('object');
+                chai.request(app)
+                    .get('/v2/states/illinois')
+                    .end((err2, todayRes) => {
+                        should.not.exist(err2);
+                        should.exist(todayRes);
+                        todayRes.should.have.status(200);
+                        todayRes.body.should.be.a('object');
+                        todayRes.body.cases.should.be.at.least(yesterdayRes.body.cases);
+                        done();
+                    });
+            });
+    });
 });
