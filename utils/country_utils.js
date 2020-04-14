@@ -42,6 +42,7 @@ const getCountryData = (countryNameParam) => {
  * @param {Array} data Array of all countries Worldometers data
  * @param {string} nameParam country name, country code, ISO2, ISO3
  * @param {boolean} strictMatching If true, country name must exactly match the standardized country name
+ * @param {boolean} continentMode Tells the algorithm to either use 'continent' or 'country' as a selector to use in comparison
  * @returns {Object} country that was found
  */
 const getWorldometersData = (data, nameParam, strictMatching, continentMode) => {
