@@ -32,9 +32,10 @@ router.get('/v2/historical/usacounties/:state', async (req, res) => {
 	}
 });
 
-router.get('/v2/historical/all', async (req, res) =>
-	res.send(await scraper.historical.getHistoricalAllDataV2(JSON.parse(await redis.get(keys.historical_v2))))
-);
+router.get('/v2/historical/all', async (req, res) => {
+	const { lastdays } = req.query;
+	res.send(await scraper.historical.getHistoricalAllDataV2(JSON.parse(await redis.get(keys.historical_v2)), lastdays));
+});
 
 router.get('/v2/historical/:query/:province?', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.historical_v2));

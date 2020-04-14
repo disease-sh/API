@@ -189,15 +189,18 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
 
 /**
  * Parses data from historical endpoint and returns summed global statistics
- * @param 	{array} 	data 	Full historical data returned from /historical endpoint
- * @returns {Object}			The global deaths and cases
+ * @param 	{array} 	data 		Full historical data returned from /historical endpoint
+ * @param	{string}	lastdays  	How many days to show always take lastest
+ * @returns {Object}				The global deaths and cases
  */
-const getHistoricalAllDataV2 = (data) => {
+const getHistoricalAllDataV2 = (data, lastdays = 30) => {
+	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
+	if (!lastdays || isNaN(lastdays)) lastdays = 30;
 	const cases = {};
 	const deaths = {};
 	const recovered = {};
 	data.forEach(country => {
-		Object.keys(country.timeline.cases).forEach(key => {
+		Object.keys(country.timeline.cases).slice(lastdays * -1).forEach(key => {
 			/* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
 			cases[key] ? cases[key] += country.timeline.cases[key] : cases[key] = country.timeline.cases[key];
 			deaths[key] ? deaths[key] += country.timeline.deaths[key] : deaths[key] = country.timeline.deaths[key];
