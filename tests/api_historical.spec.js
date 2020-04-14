@@ -30,6 +30,19 @@ describe('TESTING /v2/historical', () => {
             });
     });
 
+    it('/v2/historical/all lastdays param', (done) => {
+        chai.request(app)
+            .get('/v2/historical/all?lastdays=15')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                Object.keys(res.body.timeline.cases).length.should.equal(15);
+                done();
+            });
+    });
+
     it('/v2/historical/ correct number default dates', (done) => {
         chai.request(app)
             .get('/v2/historical')
