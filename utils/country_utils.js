@@ -44,14 +44,15 @@ const getCountryData = (countryNameParam) => {
  * @param {boolean} strictMatching If true, country name must exactly match the standardized country name
  * @returns {Object} country that was found
  */
-const getWorldometersData = (data, nameParam, strictMatching) => {
+const getWorldometersData = (data, nameParam, strictMatching, continentMode) => {
+	const selector = continentMode ? 'continent' : 'country';
 	const isText = isNaN(nameParam);
 	const countryInfo = isText ? getCountryData(nameParam) : {};
 	const standardizedName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : nameParam);
-	return data.find((ctry) => !isText ? ctry.countryInfo && ctry.countryInfo._id === Number(nameParam) : strictMatching ? stringUtils.wordsStandardize(ctry.country) === standardizedName : ((ctry.countryInfo || {}).iso3 || '').toLowerCase() === nameParam.toLowerCase()
+	return data.find((ctry) => !isText ? ctry.countryInfo && ctry.countryInfo._id === Number(nameParam) : strictMatching ? stringUtils.wordsStandardize(ctry[selector]) === standardizedName : ((ctry.countryInfo || {}).iso3 || '').toLowerCase() === nameParam.toLowerCase()
 				|| ((ctry.countryInfo || {}).iso2 || '').toLowerCase() === nameParam.toLowerCase()
 				|| ((nameParam.length > 3 || isCountryException(nameParam.toLowerCase()))
-				&& stringUtils.wordsStandardize(ctry.country).includes(standardizedName)));
+				&& stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName)));
 };
 
 /**
