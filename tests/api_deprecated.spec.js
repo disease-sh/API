@@ -4,7 +4,7 @@ const app = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-before(done => app.on('scrapper_finished', (done) => done()));
+before(done => app.on('scrapper_finished', () => done()));
 
 describe('TESTING DEPRECATED METHODS', () => {
     it('Testing /historical', (done) => {

@@ -275,7 +275,7 @@ const getHistoricalUSAStateDataV2 = (data, state, lastdays = null) => {
 		.map((county) => {
 			const cases = {};
 			const deaths = {};
-			Object.keys(county.timeline.cases).slice(lastdays * -1).forEach(key => {
+			Object.keys(county.timeline.cases).slice(-lastdays).forEach(key => {
 				cases[key] = county.timeline.cases[key];
 				deaths[key] = county.timeline.deaths[key];
 				return true;
