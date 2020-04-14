@@ -38,7 +38,7 @@ describe('TESTING /v2/historical', () => {
                 should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                Object.keys(res.body.timeline.cases).length.should.equal(15);
+                Object.keys(res.body.cases).length.should.equal(15);
                 done();
             });
     });
