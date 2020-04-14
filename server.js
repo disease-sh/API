@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
+const logger = require('./utils/logger')
 const { redis, config, keys, scraper } = require('./routes/instances');
 
 const execAll = async () => {
@@ -12,6 +13,7 @@ const execAll = async () => {
 		scraper.historical.historicalV2(keys, redis),
 		scraper.historical.getHistoricalUSADataV2(keys, redis)
 	]);
+	logger.info('Finished scraping!');
 	app.emit('scrapper_finished');
 };
 
@@ -22,7 +24,7 @@ app.use(cors());
 app.get('/', async (request, response) => response.redirect('https://github.com/novelcovid/api'));
 
 const listener = app.listen(config.port, () =>
-	console.log(`Your app is listening on port ${listener.address().port}`)
+	logger.log(`Your app is listening on port ${listener.address().port}`)
 );
 
 app.get('/invite', async (req, res) =>

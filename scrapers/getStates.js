@@ -74,20 +74,19 @@ const getStates = async (keys, redis) => {
 	try {
 		response = await axios.get('https://www.worldometers.info/coronavirus/country/us/');
 	} catch (err) {
-		logger.httpErrorLogger(err, 'error in getState REQUEST');
-		return null;
+		logger.err('Error: Requesting GetStates failed!', err);
 	}
 	const html = cheerio.load(response.data);
 
 	// set states
 	const statesData = fillResult(html);
 	redis.set(keys.states, JSON.stringify(statesData));
-	console.log(`Updated states: ${statesData.length} states`);
+	logger.info(`Updated states: ${statesData.length} states`);
 
 	// set yesterday states
 	const statesDataYesterday = fillResult(html, true);
 	redis.set(keys.yesterday_states, JSON.stringify(statesDataYesterday));
-	return console.log(`Updated yesterday states: ${statesDataYesterday.length} states`);
+	logger.info(`Updated yesterday states: ${statesDataYesterday.length} states`);
 };
 
 module.exports = getStates;
