@@ -88,26 +88,10 @@ const getWorldometersData = (data, nameParam, strictMatching, continents = false
 	const isText = isNaN(nameParam);
 	const countryInfo = isText ? getCountryData(nameParam) : {};
 	const standardizedName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : nameParam);
-	const found = data.find((ctry) => {
-		// either name or ISO
-		if (isText) {
-			// check if provided name matches exactly
-			if (strictMatching) {
-				return stringUtils.wordsStandardize(ctry[selector]) === standardizedName;
-			} else {
-				stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName);
-			}
-			return (
-				((ctry.countryInfo || {}).iso3 || '').toLowerCase() === nameParam.toLowerCase()
+	return data.find((ctry) =>  !isText ? ctry.countryInfo._id === Number(nameParam) : (strictMatching ? stringUtils.wordsStandardize(ctry[selector]) === standardizedName : (((ctry.countryInfo || {}).iso3 || '').toLowerCase() === nameParam.toLowerCase()
 				|| ((ctry.countryInfo || {}).iso2 || '').toLowerCase() === nameParam.toLowerCase()
 				|| ((nameParam.length > 3 || isCountryException(nameParam.toLowerCase()))
-					&& stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName))
-			);
-		}
-		// number, must be country ID
-		return ctry.countryInfo._id === Number(nameParam);
-	});
-	return found;
+				&& stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName)))));
 };
 
 const searchesExcepted = ['UK', 'UAE', 'DR'];
