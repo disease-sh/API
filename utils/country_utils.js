@@ -44,7 +44,7 @@ const getCountryData = (countryNameParam) => {
  * @param {boolean} strictMatching If true, country name must exactly match the standardized country name
  * @returns {Object} country that was found
  */
-const getCountryWorldometersData = (data, nameParam, strictMatching) => {
+const getWorldometersData = (data, nameParam, strictMatching) => {
 	const isText = isNaN(nameParam);
 	const countryInfo = isText ? getCountryData(nameParam) : {};
 	const standardizedName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : nameParam);
@@ -64,6 +64,6 @@ module.exports = {
 	getCountryCode,
 	getCountryName,
 	getCountryData,
-	getCountryWorldometersData,
+	getWorldometersData,
 	isCountryException
 };
