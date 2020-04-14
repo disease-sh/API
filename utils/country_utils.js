@@ -13,7 +13,7 @@ const getCountryCode = (countryName) =>	countryData.find(country => country.coun
 /**
  * Get country name from iso2 code
  * @param {string} countryCode ios2 country code
- * @returns {string} 
+ * @returns {string}
  */
 const getCountryName = (countryCode) =>	countryData.find(country => country.iso2.toLowerCase() === countryCode.toLowerCase()).country;
 
@@ -23,8 +23,8 @@ const getCountryData = (countryNameParam) => {
 	const countryFound = countryData.find(item => (stringUtils.wordsStandardize(item.country) === countryName
 		|| stringUtils.wordsStandardize(item.iso2) === countryName
 		|| stringUtils.wordsStandardize(item.iso3) === countryName
-		|| item.id === parseInt(countryName)) 
-			|| !!((item.possibleNames ? item.possibleNames : []).find(synonym => stringUtils.wordsStandardize(synonym) === countryName)));
+		|| item.id === parseInt(countryName))
+			|| !!(item.possibleNames ? item.possibleNames : []).find(synonym => stringUtils.wordsStandardize(synonym) === countryName));
 
 	return countryFound ? {
 		_id: countryFound.id,
@@ -48,17 +48,18 @@ const getWorldometersData = (data, nameParam, strictMatching) => {
 	const isText = isNaN(nameParam);
 	const countryInfo = isText ? getCountryData(nameParam) : {};
 	const standardizedName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : nameParam);
-	return data.find((ctry) =>  !isText ? ctry.countryInfo && ctry.countryInfo._id === Number(nameParam) : (strictMatching ? stringUtils.wordsStandardize(ctry.country) === standardizedName : (((ctry.countryInfo || {}).iso3 || '').toLowerCase() === nameParam.toLowerCase()
+	return data.find((ctry) => !isText ? ctry.countryInfo && ctry.countryInfo._id === Number(nameParam) : strictMatching ? stringUtils.wordsStandardize(ctry.country) === standardizedName : ((ctry.countryInfo || {}).iso3 || '').toLowerCase() === nameParam.toLowerCase()
 				|| ((ctry.countryInfo || {}).iso2 || '').toLowerCase() === nameParam.toLowerCase()
 				|| ((nameParam.length > 3 || isCountryException(nameParam.toLowerCase()))
-				&& stringUtils.wordsStandardize(ctry.country).includes(standardizedName)))));
+				&& stringUtils.wordsStandardize(ctry.country).includes(standardizedName)));
 };
 
 /**
  * Check for country exception when searching countries
  * @param {string} countryname name of the country to be searched
+ * @returns {boolean}
  */
-const isCountryException = (countryname) => !!(['UK', 'UAE', 'DR'].find(exception => stringUtils.wordsStandardize(countryname) === stringUtils.wordsStandardize(exception)));
+const isCountryException = (countryname) => !!['UK', 'UAE', 'DR'].find(exception => stringUtils.wordsStandardize(countryname) === stringUtils.wordsStandardize(exception));
 
 module.exports = {
 	getCountryCode,

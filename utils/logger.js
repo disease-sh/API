@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 module.exports = {
 	err: (message = 'Unknown Error', err) => console.error({
 		message: `[${new Date().toISOString()}]: ${message}`,
