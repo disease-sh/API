@@ -21,7 +21,8 @@
     "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
     "lint:fix": "eslint ./**/*.js --fix --ignore-pattern node_modules/",
     "lint:win32": "eslint ./**/*.js --ignore-pattern node_modules/",
-    "test": "mocha ./tests --exit  --timeout 50000"
+    "test": "mocha ./tests --exit  --timeout 50000",
+    "docker-test": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-exit --build"
   },
   "dependencies": {
     "axios": "^0.19.2",
