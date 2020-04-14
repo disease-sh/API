@@ -28,10 +28,7 @@ router.get('/all', async (req, res) => res.send(await getAllData(keys.countries)
 router.get('/countries', async (req, res) => {
 	const { sort } = req.query;
 	let countries = JSON.parse(await redis.get(keys.countries)).splice(1).map(fixApostrophe);
-	if (sort) {
-		countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
-	}
-	res.send(countries);
+	res.send(sort ? countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : countries);
 });
 
 router.get('/countries/:query', async (req, res) => {
@@ -51,10 +48,7 @@ router.get('/countries/:query', async (req, res) => {
 router.get('/states', async (req, res) => {
 	const { sort } = req.query;
 	let states = JSON.parse(await redis.get(keys.states)).splice(1);
-	if (sort) {
-		states = states.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
-	}
-	res.send(states);
+	res.send(sort ? states.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : states);
 });
 
 router.get('/states/:query', async (req, res) => {
@@ -73,10 +67,7 @@ router.get('/states/:query', async (req, res) => {
 router.get('/yesterday', async (req, res) => {
 	const { sort } = req.query;
 	let yesterday = JSON.parse(await redis.get(keys.yesterday)).splice(1).map(fixApostrophe);
-	if (sort) {
-		yesterday = yesterday.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
-	}
-	res.send(yesterday);
+	res.send(sort ? yesterday.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : yesterday);
 });
 
 router.get('/yesterday/all', async (req, res) => res.send(await getAllData(keys.yesterday)));
@@ -102,8 +93,7 @@ router.get('/v2/all', async (req, res) => res.send(await getAllData(wordToBoolea
 router.get('/v2/countries', async (req, res) => {
 	const { sort, yesterday } = req.query;
 	let countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday : keys.countries)).splice(1).map(fixApostrophe);
-	if (sort) countries = countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
-	res.send(countries);
+	res.send(sort ? countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : countries);
 });
 
 router.get('/v2/countries/:query', async (req, res) => {
@@ -120,10 +110,7 @@ router.get('/v2/countries/:query', async (req, res) => {
 router.get('/v2/states', async (req, res) => {
 	const { sort, yesterday } = req.query;
 	let states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states)).splice(1);
-	if (sort) {
-		states = states.sort((a, b) => a[sort] > b[sort] ? -1 : 1);
-	}
-	res.send(states);
+	res.send(sort ? states.sort((a, b) => a[sort] > b[sort] ? -1 : 1): states);
 });
 
 router.get('/v2/states/:query', async (req, res) => {
