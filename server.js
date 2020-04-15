@@ -17,8 +17,13 @@ const execAll = async () => {
 	app.emit('scrapper_finished');
 };
 
+const execNyt = () => scraper.nytData(keys, redis);
+
 execAll();
+execNyt();
+
 setInterval(execAll, config.interval);
+setInterval(execNyt, config.nyt_interval);
 
 app.use(cors());
 app.get('/', async (req, res) => res.redirect('https://github.com/novelcovid/api'));
@@ -56,6 +61,7 @@ app.use(require('./routes/api_worldometers'));
 app.use(require('./routes/api_historical'));
 app.use(require('./routes/api_jhucsse'));
 app.use(require('./routes/api_deprecated'));
+app.use(require('./routes/api_nyt'));
 
 app.listen(config.port, () =>
 	logger.info(`Your app is listening on port ${config.port}`)
