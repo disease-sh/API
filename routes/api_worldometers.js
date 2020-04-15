@@ -13,9 +13,9 @@ const getAllData = async (key) => {
 	const countries = JSON.parse(await redis.get(key));
 	const worldData = countries.find(country => country.country.toLowerCase() === 'world');
 	worldData.affectedCountries = countries.filter(country => country.country.toLowerCase() !== 'world').length;
-	delete worldData.country;
-	delete worldData.countryInfo;
-	return worldData;
+	// eslint-disable-next-line no-unused-vars
+	const { country, countryInfo, ...cleanedWorldData } = worldData;
+	return cleanedWorldData;
 };
 
 const fixApostrophe = (country) => {
