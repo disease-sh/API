@@ -236,7 +236,7 @@ header nav li:last-child{
 
 .features .grid li{
 	padding: 0 30px;
-	flex-basis: 33%;
+	flex-basis: 25%;
 	text-align: center;
 }
 
