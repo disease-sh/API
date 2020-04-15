@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable object-curly-newline */
 const stringUtils = require('./string_utils');
 const countryData = require('./countries');
 
@@ -37,6 +35,11 @@ const getCountryData = (countryNameParam) => {
 	} : nullReturn;
 };
 
+const fuzzySearch = (ctry, nameParam, standardizedName, selector) => ((ctry.countryInfo || {}).iso3 || '').toLowerCase() === nameParam.toLowerCase()
+	|| ((ctry.countryInfo || {}).iso2 || '').toLowerCase() === nameParam.toLowerCase()
+	|| ((nameParam.length > 3 || isCountryException(nameParam.toLowerCase()))
+	&& stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName));
+
 /**
  * Get all Worldometers data of a certain country
  * @param {Array} data Array of all countries Worldometers data
@@ -50,18 +53,17 @@ const getWorldometersData = (data, nameParam, strictMatching, continentMode) => 
 	const isText = isNaN(nameParam);
 	const countryInfo = isText ? getCountryData(nameParam) : {};
 	const standardizedName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : nameParam);
-	return data.find((ctry) => !isText ? ctry.countryInfo && ctry.countryInfo._id === Number(nameParam) : strictMatching ? stringUtils.wordsStandardize(ctry[selector]) === standardizedName : ((ctry.countryInfo || {}).iso3 || '').toLowerCase() === nameParam.toLowerCase()
-				|| ((ctry.countryInfo || {}).iso2 || '').toLowerCase() === nameParam.toLowerCase()
-				|| ((nameParam.length > 3 || isCountryException(nameParam.toLowerCase()))
-				&& stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName)));
+	return data.find((ctry) => !isText ? ctry.countryInfo && ctry.countryInfo._id === Number(nameParam)
+		: strictMatching ? stringUtils.wordsStandardize(ctry[selector]) === standardizedName : fuzzySearch(ctry, nameParam, standardizedName, selector));
 };
 
+const countryExceptions = ['UK', 'UAE', 'DR'];
 /**
  * Check for country exception when searching countries
  * @param {string} countryname name of the country to be searched
  * @returns {boolean}
  */
-const isCountryException = (countryname) => !!['UK', 'UAE', 'DR'].find(exception => stringUtils.wordsStandardize(countryname) === stringUtils.wordsStandardize(exception));
+const isCountryException = (countryname) => !!countryExceptions.find(exception => stringUtils.wordsStandardize(countryname) === stringUtils.wordsStandardize(exception));
 
 module.exports = {
 	getCountryCode,
