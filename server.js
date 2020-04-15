@@ -19,7 +19,7 @@ execAll();
 setInterval(execAll, config.interval);
 
 app.use(cors());
-app.get('/', async (request, response) => response.redirect('https://github.com/novelcovid/api'));
+app.use(express.static('public'));
 
 const listener = app.listen(config.port, () =>
 	console.log(`Your app is listening on port ${listener.address().port}`)
