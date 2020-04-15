@@ -18,10 +18,9 @@ const jhudataV2 = async (keys, redis) => {
 		const yyyy = date.getFullYear();
 		const dateString = `${mm}-${dd}-${yyyy}`;
 		response = await axios.get(`${base}/${dateString}.csv`);
-		console.log(`USING ${dateString}.csv CSSEGISandData`);
+		logger.info(`USING ${dateString}.csv CSSEGISandData`);
 	} catch (err) {
-		logger.httpErrorLogger(err, 'error in JHULocations REQUEST');
-		return;
+		logger.err('Error: Requesting JHULocations failed!', err);
 	}
 
 	const parsed = await csv({
@@ -49,7 +48,7 @@ const jhudataV2 = async (keys, redis) => {
 	});
 	const string = JSON.stringify(result);
 	redis.set(keys.jhu_v2, string);
-	console.log(`Updated JHU CSSE: ${result.length} locations`);
+	logger.info(`Updated JHU CSSE: ${result.length} locations`);
 };
 
 /**

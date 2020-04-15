@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
+const logger = require('./utils/logger');
 const { redis, config, keys, scraper } = require('./routes/instances');
 
 const execAll = async () => {
@@ -12,6 +13,7 @@ const execAll = async () => {
 		scraper.historical.historicalV2(keys, redis),
 		scraper.historical.getHistoricalUSADataV2(keys, redis)
 	]);
+	logger.info('Finished scraping!');
 	app.emit('scrapper_finished');
 };
 
@@ -19,11 +21,7 @@ execAll();
 setInterval(execAll, config.interval);
 
 app.use(cors());
-app.get('/', async (request, response) => response.redirect('https://github.com/novelcovid/api'));
-
-const listener = app.listen(config.port, () =>
-	console.log(`Your app is listening on port ${listener.address().port}`)
-);
+app.get('/', async (req, res) => res.redirect('https://github.com/novelcovid/api'));
 
 app.get('/invite', async (req, res) =>
 	res.redirect('https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880')
@@ -58,5 +56,9 @@ app.use(require('./routes/api_worldometers'));
 app.use(require('./routes/api_historical'));
 app.use(require('./routes/api_jhucsse'));
 app.use(require('./routes/api_deprecated'));
+
+app.listen(config.port, () =>
+	logger.info(`Your app is listening on port ${config.port}`)
+);
 
 module.exports = app;
