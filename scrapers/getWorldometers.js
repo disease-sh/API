@@ -3,13 +3,18 @@ const cheerio = require('cheerio');
 const countryUtils = require('../utils/country_utils');
 const logger = require('../utils/logger');
 
-const columnMapper = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion'];
+const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion'];
 
+/**
+* Maps a country object to a continent object
+* @param 	{Object} 	element 	Country Data
+* @returns {Object} 			Continent Data
+*/
 const continentMapping = (element) => {
 	element.continent = element.country;
-	delete element.country;
-	delete element.countryInfo;
-	return element;
+	// eslint-disable-next-line no-unused-vars
+	const { country, countryInfo, ...cleanedElement } = element;
+	return cleanedElement;
 };
 
 /**
@@ -19,6 +24,12 @@ const continentMapping = (element) => {
 */
 const getOrderByCountryName = (data) => data.sort((a, b) => a.country < b.country ? -1 : 1);
 
+/**
+* Maps a row from worldometers to a country
+* @param 	{number} 	_ 	index getting passed when using .map()
+* @param 	{Object} 	row	the row to extract data from
+* @returns {Object} 			Countries Data
+*/
 const mapRows = (_, row) => {
 	const country = { updated: Date.now() };
 	cheerio(row).children('td').each((index, cell) => {
@@ -28,8 +39,8 @@ const mapRows = (_, row) => {
 			country.country = countryInfo.country || cell.text().replace(/(\n|,)/g, '');
 			delete countryInfo.country;
 			country.countryInfo = countryInfo;
-		} else if (columnMapper[index - 1]) {
-			country[columnMapper[index - 1]] = parseInt(cell.text().replace(/(\n|,)/g, '')) || 0;
+		} else if (columns[index - 1]) {
+			country[columns[index - 1]] = parseInt(cell.text().replace(/(\n|,)/g, '')) || 0;
 		}
 	});
 	return country;
@@ -38,17 +49,17 @@ const mapRows = (_, row) => {
 /**
  * Fills an array full of table data parsed from worldometers
  * @param 	{Object} 	html 		Cheerio HTML object from worldometers site
- * @param 	{boolean} 	idExtension 	the extension to append to the ID that is used to get the tables (either 'today' or 'yesterday')
+ * @param 	{string} 	idExtension 	the extension to append to the ID that is used to get the tables (either 'today' or 'yesterday')
  * @returns {Object} 	Object containing countries, continent and world data
  */
 function fillResult(html, idExtension) {
 	const countriesTable = html(`table#main_table_countries_${idExtension}`);
-	const countriesData = countriesTable.children('tbody:first-of-type').children('tr:not(.row_continent)').map(mapRows).get();
-	const continentData = countriesTable.children('tbody:first-of-type').children('tr.row_continent').map(mapRows).get().map(continentMapping).filter(data => !!data.continent);
-	const world = countriesData.shift();
-	world.tests = countriesData.map(country => country.tests).splice(1).reduce((sum, test) => sum + test);
+	const countries = countriesTable.children('tbody:first-of-type').children('tr:not(.row_continent)').map(mapRows).get();
+	const continents = countriesTable.children('tbody:first-of-type').children('tr.row_continent').map(mapRows).get().map(continentMapping).filter(data => !!data.continent);
+	const world = countries.shift();
+	world.tests = countries.map(country => country.tests).reduce((sum, test) => sum + test);
 	world.testsPerOneMillion = parseFloat(((1e6 / (1e6 / (world.casesPerOneMillion / world.cases))) * world.tests).toFixed(1));
-	return { world, countries: countriesData, continents: continentData };
+	return { world, countries, continents };
 }
 
 /**
