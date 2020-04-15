@@ -221,46 +221,10 @@ header nav li:last-child{
 
 }
 
-
-
-/*--------------------
- 	Our Work Section
----------------------*/
-
-.оur-work{
-	background-color: #fff;
+.postman {
+	display: flex;
+	align-items: center;
 }
-
-.our-work .grid li{
-	padding: 20px;
-	height: 350px;
-	border-radius: 3px;
-
-	background-clip: content-box;
-	background-size: cover;
-	background-position: center;
-	background-color: #333;
-}
-
-.our-work .grid li.small{
-	flex-basis: 40%;
-}
-
-.our-work .grid li.large{
-	flex-basis: 60%;
-}
-
-
-@media (max-width: 1000px){
-
-	.our-work .grid li.small,
-	.our-work .grid li.large{
-		flex-basis: 100%;
-	}
-
-}
-
-
 
 /*----------------------
  	Features Section
