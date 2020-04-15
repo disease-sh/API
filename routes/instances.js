@@ -30,6 +30,15 @@ module.exports = {
 		getWorldometerPage,
 		getStates,
 		jhuLocations,
-		historical
+		historical,
+		executeScrapeJob: async () => {
+			await Promise.all([
+				getWorldometerPage(keys, redis),
+				getStates(keys, redis),
+				jhuLocations.jhudataV2(keys, redis),
+				historical.historicalV2(keys, redis),
+				historical.getHistoricalUSADataV2(keys, redis)
+			]);
+		}
 	}
 };

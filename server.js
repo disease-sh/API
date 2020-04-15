@@ -2,21 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
-const { redis, config, keys, scraper } = require('./routes/instances');
-
-const execAll = async () => {
-	await Promise.all([
-		scraper.getWorldometerPage(keys, redis),
-		scraper.getStates(keys, redis),
-		scraper.jhuLocations.jhudataV2(keys, redis),
-		scraper.historical.historicalV2(keys, redis),
-		scraper.historical.getHistoricalUSADataV2(keys, redis)
-	]);
-	app.emit('scrapper_finished');
-};
-
-execAll();
-setInterval(execAll, config.interval);
+const { config } = require('./routes/instances');
 
 app.use(cors());
 app.get('/', async (request, response) => response.redirect('https://github.com/novelcovid/api'));

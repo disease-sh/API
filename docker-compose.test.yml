@@ -1,4 +1,13 @@
 version: '3.7'
 services:
+  redis:
+    container_name: covid-api-redis-test
+    volumes:
+      - redis-data-test:/data
+
   app:
     command: ["npm", "run", "test"]
+    container_name: covid-api-app-test
+
+volumes:
+  redis-data-test:

@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  redis:
+    container_name: covid-api-redis
+    volumes:
+      - redis-data:/data
+
+  scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: covid-api-app-scraper
+    networks:
+      - redis-net
+    depends_on:
+      - redis
+    command: ["node", "scrape.js"]
+
+  app:
+    ports:
+      - 30001:3000
+    container_name: covid-api-app
+
+volumes:
+  redis-data:
