@@ -48,13 +48,13 @@ router.get('/countries/:query', async (req, res) => {
 
 router.get('/states', async (req, res) => {
 	const { sort } = req.query;
-	const states = JSON.parse(await redis.get(keys.states));
+	const states = JSON.parse(await redis.get(keys.states)).splice(1);
 	res.send(sort ? states.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : states);
 });
 
 router.get('/states/:query', async (req, res) => {
 	const { query } = req.params;
-	const states = JSON.parse(await redis.get(keys.states));
+	const states = JSON.parse(await redis.get(keys.states)).splice(1);
 	const stateData = splitQuery(query)
 		.map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase()))
 		.filter(value => value);
@@ -134,14 +134,14 @@ router.get('/v2/continents/:query', async (req, res) => {
 
 router.get('/v2/states', async (req, res) => {
 	const { sort, yesterday } = req.query;
-	const states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states));
+	const states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states)).splice(1);
 	res.send(sort ? states.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : states);
 });
 
 router.get('/v2/states/:query', async (req, res) => {
 	const { yesterday } = req.query;
 	const { query } = req.params;
-	const states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states));
+	const states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states)).splice(1);
 	const stateData = splitQuery(query)
 		.map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase()))
 		.filter(value => value);
