@@ -61,7 +61,7 @@ describe('TESTING /v2/nyt/states', () => {
                 should.not.exist(err);
                 should.exist(res);
                 res.body.should.be.a('array');
-                let illinoisFound, californiaFound = false;
+                let illinoisFound = false, californiaFound = false;
                 res.body.map((entry) => {
                     if (entry.county === 'Illinois') illinoisFound = illinoisFound || true;
                     if (entry.county === 'California') californiaFound = californiaFound || true;
@@ -132,7 +132,7 @@ describe('TESTING /v2/counties', (done) => {
                 should.not.exist(err);
                 should.exist(res);
                 res.body.should.be.a('array');
-                let cookFound, alamedaFound = false;
+                let cookFound = false, alamedaFound = false;
                 res.body.map((entry) => {
                     if (entry.county === 'Cook') cookFound = cookFound || true;
                     if (entry.county === 'Alameda') alamedaFound = alamedaFound || true;
