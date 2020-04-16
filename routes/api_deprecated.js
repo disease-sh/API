@@ -14,14 +14,12 @@ router.get('/historical', async (req, res) => res.send({
 }));
 
 router.get('/historical/:country', async (req, res) => res.send({
-	message: 'This endpoint has been deprecated.',
-	newLocation: `${req.protocol}://${req.get('host')}/v2/historical`,
+	message: 'This endpoint has been deprecated. Use /v2/historical instead.',
 	docs: `${req.protocol}://${req.get('host')}/docs`
 }));
 
 router.get('/jhucsse', async (req, res) => res.send({
-	message: 'This endpoint has been deprecated.',
-	newLocation: `${req.protocol}://${req.get('host')}/v2/jhucsse`,
+	message: 'This endpoint has been deprecated. Use /v2/jhucsse instead.',
 	docs: `${req.protocol}://${req.get('host')}/docs`
 }));
 
@@ -32,38 +30,32 @@ router.get('/all', async (req, res) => res.status(410).send({
 }));
 
 router.get('/countries', async (req, res) => res.send({
-	message: 'This endpoint has been deprecated.',
-	newLocation: `${req.protocol}://${req.get('host')}/v2/countries`,
+	message: 'This endpoint has been deprecated. Use /v2/countries instead.',
 	docs: `${req.protocol}://${req.get('host')}/docs`
 }));
 
 router.get('/countries/:query', async (req, res) => res.send({
-	message: 'This endpoint has been deprecated.',
-	newLocation: `${req.protocol}://${req.get('host')}/v2/countries`,
+	message: 'This endpoint has been deprecated. Use /v2/countries instead.',
 	docs: `${req.protocol}://${req.get('host')}/docs`
 }));
 
 router.get('/states', async (req, res) => res.send({
-	message: 'This endpoint has been deprecated.',
-	newLocation: `${req.protocol}://${req.get('host')}/v2/states`,
+	message: 'This endpoint has been deprecated. Use /v2/states instead.',
 	docs: `${req.protocol}://${req.get('host')}/docs`
 }));
 
 router.get('/yesterday', async (req, res) => res.send({
-	message: 'This endpoint has been deprecated.',
-	newLocation: `${req.protocol}://${req.get('host')}/v2/countries?yesterday=true`,
+	message: 'This endpoint has been deprecated. Use /v2/countries?yesterday=true instead.',
 	docs: `${req.protocol}://${req.get('host')}/docs`
 }));
 
 router.get('/yesterday/all', async (req, res) => res.send({
-	message: 'This endpoint has been deprecated.',
-	newLocation: `${req.protocol}://${req.get('host')}/v2/all?yesterday=true`,
+	message: 'This endpoint has been deprecated. Use /v2/all?yesterday=true instead.',
 	docs: `${req.protocol}://${req.get('host')}/docs`
 }));
 
 router.get('/yesterday/:query', async (req, res) => res.send({
-	message: 'This endpoint has been deprecated.',
-	newLocation: `${req.protocol}://${req.get('host')}/v2/countries?yesterday=true`,
+	message: 'This endpoint has been deprecated. Use /v2/countries?yesterday=true instead.',
 	docs: `${req.protocol}://${req.get('host')}/docs`
 }));
 
