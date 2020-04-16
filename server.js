@@ -60,9 +60,6 @@ app.set('views', path.join(__dirname, '/public'));
 app.set('view engine', 'ejs');
 app.use(require('cookie-parser')());
 
-// you have to change index.html to index.ejs and use ejs view engine (npm i ejs)
-// also add this to head of index.ejs so you can use it in the script.js:
-// <meta name="csrf-token" content="<%= csrfToken %>">
 app.get('/', csrfProtection, async (req, res) => res.render('index', { csrfToken: req.csrfToken() }));
 
 app.post('/private/cloudflare', require('body-parser').urlencoded({ extended: true }), csrfProtection, async (req, res) => {
