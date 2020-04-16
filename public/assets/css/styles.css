@@ -108,6 +108,17 @@ ul.grid{
 	justify-content: center;
 }
 
+.slideleft:after{
+	top: 0;
+	z-index: -1;
+	transform: translate3D(-101%,0,0);
+  }
+  
+.slideleft:hover:after{
+	transform: translate3D(0,0,0);
+	transition: all .5s;
+}
+
 
 /*-------------
  	Header
@@ -308,6 +319,28 @@ header nav li:last-child{
 	background-color: #fff;
 }
 
+/*--------------------
+ 	Bot Section
+--------------------*/
+
+.invite-bot{
+	background-color: #7289DA;
+}
+
+.discord-img {
+	width: 45%;
+}
+
+.discord-btn {
+	color: #7289DA;
+	border-radius: 4px;
+	text-transform: uppercase;
+	background-color: #fff;
+	font-weight: 800;
+	text-align: center;
+	padding: 18px 42px;
+}
+
 
 /*-------------
  	Footer
@@ -325,7 +358,6 @@ footer{
 
 footer ul{
 	display: flex;
-	margin-bottom: 25px;
 	font-size: 32px;
 }
 
