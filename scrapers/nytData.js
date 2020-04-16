@@ -8,6 +8,11 @@ const US_STATE_DATA_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-da
 const US_NATION_WIDE_DATA_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv';
 const REDIS_KEYS = ['nyt_counties', 'nyt_states', 'nyt_nationwide'];
 
+/**
+ * Retrieves NYT data from github and stores it in redis
+ * @param {Object} keys Redis keys sourced from configurations
+ * @param {Object} redis Redis instance
+ */
 const nytData = async (keys, redis) => {
 	try {
 		const _resolveData = async (url, index) => {
@@ -28,6 +33,4 @@ const nytData = async (keys, redis) => {
 	}
 };
 
-module.exports = {
-	nytData
-};
+module.exports = nytData;

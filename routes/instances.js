@@ -6,7 +6,7 @@ const getWorldometerPage = require('../scrapers/getWorldometers');
 const getStates = require('../scrapers/getStates');
 const jhuLocations = require('../scrapers/jhuLocations');
 const historical = require('../scrapers/historical');
-const { nytData } = require('../scrapers/nytData');
+const nytData = require('../scrapers/nytData');
 
 // KEYS
 const keys = require('../config.keys.json');
