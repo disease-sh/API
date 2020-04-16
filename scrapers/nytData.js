@@ -6,7 +6,7 @@ const { updateCache } = require('../utils/nyt_cache');
 const US_COUNTY_DATA_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv';
 const US_STATE_DATA_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv';
 const US_NATION_WIDE_DATA_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv';
-const REDIS_KEYS = ['nyt_counties', 'nyt_states', 'nyt_nationwide'];
+const REDIS_KEYS = ['nyt_counties', 'nyt_states', 'nyt_USA'];
 
 /**
  * Retrieves NYT data from github and stores it in redis

@@ -22,7 +22,7 @@ exports.updateCache = async () => {
 		const [parsedCountyData, parsedStateData, parsedNationData] = await Promise.all([
 			keys.nyt_counties,
 			keys.nyt_states,
-			keys.nyt_nationwide
+			keys.nyt_USA
 		].map(async (key) => JSON.parse(await redis.get(key))));
 		this.currentStatus.nytCounties = parsedCountyData;
 		this.currentStatus.nytStates = parsedStateData;

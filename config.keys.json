@@ -10,5 +10,5 @@
   "historical_v2_USA": "covidapi:historical_v2_USA",
   "nyt_counties": "covidapi:nyt:counties",
   "nyt_states": "covidapi:nyt:states",
-  "nyt_nationwide": "covidapi:nyt:nation"
+  "nyt_USA": "covidapi:nyt:nation"
 }

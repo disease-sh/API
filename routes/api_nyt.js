@@ -6,7 +6,8 @@ router.get('/v2/nyt/states', async (req, res) => {
 	const data = nytStates();
 	const { state: queryState } = req.query;
 	if (queryState) {
-		const stateData = data.filter(({ state }) => queryState === state);
+		const stateArr = queryState.split(/,[\s+]?/);
+		const stateData = data.filter(({ state }) => stateArr.includes(state));
 		// eslint-disable-next-line no-unused-expressions
 		stateData.length > 0
 			? res.send(stateData)
@@ -20,7 +21,8 @@ router.get('/v2/nyt/counties', async (req, res) => {
 	const data = nytCounties();
 	const { county: queryCounty } = req.query;
 	if (queryCounty) {
-		const countyData = data.filter(({ county }) => queryCounty === county);
+		const countyArr = queryCounty.split(/,[\s+?]/);
+		const countyData = data.filter(({ county }) => countyArr.includes(county));
 		// eslint-disable-next-line no-unused-expressions
 		countyData.length > 0
 			? res.send(countyData)
@@ -30,7 +32,7 @@ router.get('/v2/nyt/counties', async (req, res) => {
 	}
 });
 
-router.get('/v2/nyt/nation_wide', async (req, res) => {
+router.get('/v2/nyt/usa', async (req, res) => {
 	res.send(nytNationwide());
 });
 

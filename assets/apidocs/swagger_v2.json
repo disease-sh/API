@@ -581,7 +581,7 @@
             "name": "state",
             "in": "query",
             "required": false,
-            "description": "The state that you'd like to search for. Default is full data set",
+            "description": "The state that you'd like to search for, separated by comma if you want to search for multiple (i.e. 'California, Washington'. Default is full data set",
             "type": "string"
           }
         ],
@@ -607,7 +607,7 @@
             "name": "county",
             "in": "query",
             "required": false,
-            "description": "The county that you'd like to search for. Default is full data set",
+            "description": "The county that you'd like to search for, separated by comma if you want to search for multiple (i.e. 'Alameda, Humboldt'). Default is full data set",
             "type": "string"
           }
         ],
@@ -623,7 +623,7 @@
         }
       }
     },
-    "/v2/nyt/nation_wide": {
+    "/v2/nyt/usa": {
       "get": {
         "tags": [
           "NYT"

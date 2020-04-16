@@ -82,10 +82,10 @@ describe('TESTING /v2/counties', (done) => {
     });
 });
 
-describe('TESTING /v2/nyt/nation_wide', () => {
-    it('/v2/nyt/nation_wide', (done) => {
+describe('TESTING /v2/nyt/usa', () => {
+    it('/v2/nyt/usa', (done) => {
         chai.request(app)
-            .get('/v2/nyt/nation_wide')
+            .get('/v2/nyt/usa')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
