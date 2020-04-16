@@ -33,7 +33,7 @@ app.use(require('./routes/api_jhucsse'));
 app.use(require('./routes/api_deprecated'));
 
 app.use(require('cors')());
-app.use('/public', express.static('assets'));
+app.use(express.static('public'));
 app.use('/docs',
 	swaggerUi.serve,
 	swaggerUi.setup(null, {
