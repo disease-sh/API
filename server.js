@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
+const logger = require('./utils/logger');
 const { redis, config, keys, scraper } = require('./routes/instances');
 
 const execAll = async () => {
@@ -12,6 +13,7 @@ const execAll = async () => {
 		scraper.historical.historicalV2(keys, redis),
 		scraper.historical.getHistoricalUSADataV2(keys, redis)
 	]);
+	logger.info('Finished scraping!');
 	app.emit('scrapper_finished');
 };
 
@@ -58,5 +60,9 @@ app.use(require('./routes/api_worldometers'));
 app.use(require('./routes/api_historical'));
 app.use(require('./routes/api_jhucsse'));
 app.use(require('./routes/api_deprecated'));
+
+app.listen(config.port, () =>
+	logger.info(`Your app is listening on port ${config.port}`)
+);
 
 module.exports = app;

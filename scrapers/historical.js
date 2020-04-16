@@ -98,7 +98,7 @@ const historicalV2 = async (keys, redis) => {
 
 	const string = JSON.stringify(result);
 	redis.set(keys.historical_v2, string);
-	console.log(`Updated JHU CSSE Historical: ${result.length} locations`);
+	logger.info(`Updated JHU CSSE Historical: ${result.length} locations`);
 };
 
 /**
@@ -228,8 +228,7 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_US.csv`);
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_US.csv`);
 	} catch (err) {
-		logger.httpErrorLogger(err, 'has been ocurred an error in JHUhistorical USA REQUEST');
-		return;
+		logger.err('Error: Requesting JHUHistorical USA failed!', err);
 	}
 	const parsedCases = await parseCsvData(casesResponse.data);
 	const parsedDeaths = await parseCsvData(deathsResponse.data);
@@ -253,7 +252,7 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 	});
 	const string = JSON.stringify(result);
 	redis.set(keys.historical_v2_USA, string);
-	console.log(`Updated JHU CSSE Historical USA: ${result.length} locations`);
+	logger.info(`Updated JHU CSSE Historical USA: ${result.length} locations`);
 };
 
 /**
@@ -279,7 +278,7 @@ const getHistoricalUSAStateDataV2 = (data, state, lastdays = null) => {
 		.map((county) => {
 			const cases = {};
 			const deaths = {};
-			Object.keys(county.timeline.cases).slice(lastdays * -1).forEach(key => {
+			Object.keys(county.timeline.cases).slice(-lastdays).forEach(key => {
 				cases[key] = county.timeline.cases[key];
 				deaths[key] = county.timeline.deaths[key];
 				return true;
