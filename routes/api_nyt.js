@@ -6,8 +6,8 @@ router.get('/v2/nyt/states', async (req, res) => {
 	const { state: queryState } = req.query;
 	const data = nytStates();
 	if (queryState) {
-		const stateArr = queryState.split(/,[\s+]?/);
-		const stateData = data.filter(({ state }) => stateArr.includes(state));
+		const stateArr = queryState.split(/,[\s+]?/).map((state) => state.toLowerCase());
+		const stateData = data.filter(({ state }) => stateArr.includes(state.toLowerCase()));
 		// eslint-disable-next-line no-unused-expressions
 		stateData.length > 0
 			? res.send(stateData)
@@ -21,8 +21,8 @@ router.get('/v2/nyt/counties', async (req, res) => {
 	const { county: queryCounty } = req.query;
 	const data = nytCounties();
 	if (queryCounty) {
-		const countyArr = queryCounty.split(/,[\s+?]/);
-		const countyData = data.filter(({ county }) => countyArr.includes(county));
+		const countyArr = queryCounty.split(/,[\s+?]/).map((county) => county.toLowerCase());
+		const countyData = data.filter(({ county }) => countyArr.includes(county.toLowerCase()));
 		// eslint-disable-next-line no-unused-expressions
 		countyData.length > 0
 			? res.send(countyData)
