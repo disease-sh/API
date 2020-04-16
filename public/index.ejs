@@ -125,10 +125,11 @@
 		
 		async function setData() {
 			const response = await fetchAPI();
-			if (response.status == 200) {
-				let json = await response.json();
-				console.log(json)
-			}
+			console.log(response)
+			// if (response.status == 200) {
+			// 	let json = await response.json();
+			// 	console.log(json)
+			// }
 		}
 		
 		window.onload = setData();
