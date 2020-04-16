@@ -34,7 +34,7 @@
     "/all": {
       "get": {
         "summary": "Get Global Totals",
-        "description": "Get global stats: cases, deaths, recovered, time last updated, and active cases",
+        "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!",
         "responses": {
           "200": {
             "description": "Status OK"
@@ -45,7 +45,7 @@
     "/states": {
       "get": {
         "summary": "Get US State Totals",
-        "description": "Get stats on United States of America States with COVID-19, including cases, new cases, deaths, new deaths, and active cases",
+        "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!",
         "responses": {
           "200": {
             "description": "Status OK"
@@ -56,7 +56,7 @@
     "/jhucsse": {
       "get": {
         "summary": "Get All JHU CSSE",
-        "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!Get data from JHU CSSE",
+        "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!",
         "responses": {
           "200": {
             "description": "Status OK"
@@ -67,7 +67,7 @@
     "/historical": {
       "get": {
         "summary": "Get Historical Data",
-        "description": "Get Timeseries info from JHU CSSE",
+        "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!",
         "responses": {
           "200": {
             "description": "Status OK"
@@ -81,7 +81,7 @@
           "Countries"
         ],
         "summary": "Get All Countries Totals",
-        "description": "Returns a JSON array with an element for each country that has stats available. This includes iso codes, lat/long, a link to the country flag, cases, new cases, deaths, new deaths, recovered, active cases, critical cases, and cases/deaths per one million people.",
+        "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!",
         "responses": {
           "200": {
             "description": "Status OK",
@@ -102,7 +102,7 @@
             "name": "query",
             "in": "path",
             "required": true,
-            "description": "For this parameter you can use Country Name && Country Id && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
+            "description": "THIS IS A DEPRECATED METHOD, PLEASE USE V2 METHODS!",
             "type": "string"
           }
         ],
