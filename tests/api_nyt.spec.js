@@ -63,8 +63,8 @@ describe('TESTING /v2/nyt/states', () => {
                 res.body.should.be.a('array');
                 let illinoisFound = false, californiaFound = false;
                 res.body.map((entry) => {
-                    if (entry.county === 'Illinois') illinoisFound = illinoisFound || true;
-                    if (entry.county === 'California') californiaFound = californiaFound || true;
+                    if (entry.state === 'Illinois') illinoisFound = illinoisFound || true;
+                    if (entry.state === 'California') californiaFound = californiaFound || true;
                 });
                 (illinoisFound && californiaFound).should.equal(true);
                 done();
@@ -80,7 +80,7 @@ describe('TESTING /v2/nyt/states', () => {
                 res.body.should.be.a('array');
                 let illinoisFound = false;
                 res.body.map((entry) => {
-                    if (entry.county === 'Illinois') illinoisFound = illinoisFound || true;
+                    if (entry.state === 'Illinois') illinoisFound = illinoisFound || true;
                 });
                 (illinoisFound).should.equal(true);
                 done();
