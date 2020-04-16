@@ -4,7 +4,6 @@ const app = express();
 const csrfProtection = require('csurf')({cookie: true});
 const logger = require('./utils/logger');
 const path = require('path');
-const fetch = require('node-fetch');
 const { redis, config, keys, scraper } = require('./routes/instances');
 
 const execAll = async () => {
@@ -68,7 +67,7 @@ app.get('/', csrfProtection, async (req, res) => res.render('index', {csrfToken:
 
 app.post('/private/cloudflare', require('body-parser').urlencoded({extended: true}), csrfProtection, async (req, res) => {
 	const zoneTag = 'b2070162162124e2d5414cee23dfe861';
-	const response = await fetch('https://api.cloudflare.com/client/v4/graphql', {
+	const response = await (require('node-fetch'))('https://api.cloudflare.com/client/v4/graphql', {
 		method: 'POST',
 		headers: {
 			"x-auth-key": config.cfApiKey,
