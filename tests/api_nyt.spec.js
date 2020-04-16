@@ -56,7 +56,7 @@ describe('TESTING /v2/nyt/states', () => {
 
     it('/v2/nyt/states multiple correct states', (done) => {
         chai.request(app)
-            .get('/v2/nyt/states/illinois,california')
+            .get('/v2/nyt/states/illinois, california')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
@@ -73,7 +73,7 @@ describe('TESTING /v2/nyt/states', () => {
 
     it('/v2/nyt/states partial incorrect states', (done) => {
         chai.request(app)
-            .get('/v2/nyt/states/illinois,incorrect')
+            .get('/v2/nyt/states/illinois, incorrect')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
@@ -127,7 +127,7 @@ describe('TESTING /v2/counties', (done) => {
 
     it('/v2/nyt/counties multiple correct counties', (done) => {
         chai.request(app)
-            .get('/v2/nyt/counties/aLamEda,cook')
+            .get('/v2/nyt/counties/aLamEda, cook')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
@@ -144,7 +144,7 @@ describe('TESTING /v2/counties', (done) => {
 
     it('/v2/nyt/counties partial incorrect counties', (done) => {
         chai.request(app)
-            .get('/v2/nyt/counties/incorrect,cook')
+            .get('/v2/nyt/counties/incorrect, cook')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);

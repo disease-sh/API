@@ -2,11 +2,13 @@
 const router = require('express').Router();
 const { nytCounties, nytStates, nytNationwide } = require('../utils/nyt_cache');
 
+router.get('/v2/nyt/states', async (req, res) => res.send(nytStates()));
+
 router.get('/v2/nyt/states/:state', async (req, res) => {
 	const { state: queryState } = req.params;
 	const data = nytStates();
 	if (queryState) {
-		const stateArr = queryState.split(/,[\s+]?/).map((state) => state.toLowerCase());
+		const stateArr = queryState.trim().split(/,[\s+]?/).map((state) => state.toLowerCase());
 		const stateData = data.filter(({ state }) => stateArr.includes(state.toLowerCase()));
 		// eslint-disable-next-line no-unused-expressions
 		stateData.length > 0
@@ -17,11 +19,13 @@ router.get('/v2/nyt/states/:state', async (req, res) => {
 	}
 });
 
+router.get('/v2/nyt/counties', async (req, res) => res.send(nytCounties()));
+
 router.get('/v2/nyt/counties/:county', async (req, res) => {
 	const { county: queryCounty } = req.params;
 	const data = nytCounties();
 	if (queryCounty) {
-		const countyArr = queryCounty.split(/,[\s+?]/).map((county) => county.toLowerCase());
+		const countyArr = queryCounty.trim().split(/,[\s+?]/).map((county) => county.toLowerCase());
 		const countyData = data.filter(({ county }) => countyArr.includes(county.toLowerCase()));
 		// eslint-disable-next-line no-unused-expressions
 		countyData.length > 0
