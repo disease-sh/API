@@ -23,10 +23,6 @@ setInterval(execAll, config.interval);
 app.use(cors());
 app.use(express.static('public'));
 
-const listener = app.listen(config.port, () =>
-	console.log(`Your app is listening on port ${listener.address().port}`)
-);
-
 app.get('/invite', async (req, res) =>
 	res.redirect('https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880')
 );
