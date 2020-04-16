@@ -579,7 +579,7 @@
         "parameters": [
           {
             "name": "state",
-            "in": "query",
+            "in": "path",
             "required": false,
             "description": "The state that you'd like to search for, separated by comma if you want to search for multiple (i.e. 'California, Washington'. Default is full data set",
             "type": "string"
@@ -605,7 +605,7 @@
         "parameters": [
           {
             "name": "county",
-            "in": "query",
+            "in": "path",
             "required": false,
             "description": "The county that you'd like to search for, separated by comma if you want to search for multiple (i.e. 'Alameda, Humboldt'). Default is full data set",
             "type": "string"
