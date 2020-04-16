@@ -271,6 +271,11 @@ header nav li:last-child{
     margin: 0;
 }
 
+.features .emphasis {
+	color: #2196F3;
+	text-decoration: none;
+}
+
 @media (max-width: 1000px){
 
 	.features .grid li{
@@ -296,87 +301,12 @@ header nav li:last-child{
 
 
 /*--------------------
- 	Reviews Section
+ 	Snippet Section
 --------------------*/
 
 .snippet{
 	background-color: #fff;
 }
-
-.snippet .quote{
-	text-align: center;
-	width: 80%;
-    font-size: 22px;
-    font-weight: 300;
-    line-height: 1.5;
-    margin-bottom: 20px;
-    padding: 0;
-}
-
-.snippet .author{
-    font-size: 18px;
-    margin-bottom: 50px;
-}
-
-.snippet .author:last-child{
-    margin-bottom: 0;
-}
-
-@media (max-width: 1000px){
-
-	.snippet .quote{
-		font-size: 20px;
-	}
-
-	.snippet .author{
-	    font-size: 16px;
-	}
-
-}
-
-
-
-/*---------------------
- 	Contact Section
----------------------*/
-
-.contact{
-	background-color: #f7f7f7;
-}
-
-.contact form{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
-
-	max-width: 800px;
-	width: 80%;
-}
-
-.contact form input{
-	padding: 15px;
-	flex: 1;
-	margin-right: 30px;
-	font-size: 18px;
-	color: #555;
-}
-
-.contact form .btn{
-	padding: 18px 42px;
-}
-
-
-@media (max-width: 800px){
-
-	.contact form input{
-		flex-basis: 100%;
-		margin: 0 0 20px 0;
-	}
-
-}
-
-
 
 
 /*-------------
