@@ -18,10 +18,10 @@
 	<header>
 		<a></a>
 		<nav>
-			<li><a href="/docs">Docs</a></li>
-			<li><a href="https://github.com/NovelCOVID/API">Github</a></li>
-			<li><a href="https://discord.gg/EvbMshU">Discord</a></li>
-			<li><a href="https://www.buymeacoffee.com/covidapi/shop">Donate</a></li>
+			<li><a href="/docs" target="_blank">Docs</a></li>
+			<li><a href="https://github.com/NovelCOVID/API" target="_blank">Github</a></li>
+			<li><a href="https://discord.gg/EvbMshU" target="_blank">Discord</a></li>
+			<li><a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank">Donate</a></li>
 		</nav>
 	</header>
 
@@ -34,8 +34,6 @@
 			<div>Featured on</div>
 			<img style="margin-left: 1vw; height: 6vh;" src="/assets/img/postman.png">
 		</div>
-		
-		<!-- <a href="http://tutorialzine.com/2016/06/freebie-landing-page-template-with-flexbox/" class="btn">Download it Here</a> -->
 	</section>
 	
 
@@ -69,27 +67,28 @@
 	</section>
 
 
-	<section class="reviews">
+	<section class="snippet">
+		<h3 class="title">Example request and response</h3>
 		<div class="code">
-
-			Response:
-			{
-			   "Countries": [
-				   {
-					   "Country": "Afghanistan",
-					   "NewConfirmed": 5,
-					   "TotalConfirmed": 16,
-					   "NewDeaths": 0,
-					   "TotalDeaths": 0,
-					   "NewRecovered": 0,
-					   "TotalRecovered": 0
-				   },
-			   ..
-			   "Date": "2020-03-16T21:10:53.86852587Z"
-			   }
+			https://corona.lmao.ninja/v2/all
 	   </div>
+		<div class="code">
+			updated: 1587005200394,<br>
+			cases: 2083304,<br>
+			todayCases: 932,<br>
+			deaths: 134616,<br>
+			todayDeaths: 56,<br>
+			recovered: 510341,<br>
+			active: 1438347,<br>
+			critical: 51142,<br>
+			casesPerOneMillion: 267,<br>
+			deathsPerOneMillion: 17,<br>
+			tests: 17125411,<br>
+			testsPerOneMillion: 2194.8,<br>
+			affectedCountries: 212<br>
+	   </div>
+	   	<a href="/docs" target="_blank" class="btn">Check out our docs here</a>
 
-		
 	</section>
 
 

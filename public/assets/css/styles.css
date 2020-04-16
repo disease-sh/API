@@ -36,6 +36,7 @@ a.btn{
 	background-color: #2196F3;
 	font-weight: 800;
 	text-align: center;
+	padding: 18px 42px;
 }
 
 hr{
@@ -52,6 +53,20 @@ section{
 	align-items: center;
 
 	padding: 100px 100px;
+}
+
+.code {
+	text-align: center;
+	background-color: #F6F8FA;
+	font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+	font-size: 16px;
+	padding: 40px 0px;
+	margin: 10px 0px 20px 0px;
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+	word-wrap: break-word;
+	border-radius: 10px;
+	color: #555;
+	width: 100%;
 }
 
 @media (max-width: 1000px){
@@ -284,11 +299,11 @@ header nav li:last-child{
  	Reviews Section
 --------------------*/
 
-.reviews{
+.snippet{
 	background-color: #fff;
 }
 
-.reviews .quote{
+.snippet .quote{
 	text-align: center;
 	width: 80%;
     font-size: 22px;
@@ -298,22 +313,22 @@ header nav li:last-child{
     padding: 0;
 }
 
-.reviews .author{
+.snippet .author{
     font-size: 18px;
     margin-bottom: 50px;
 }
 
-.reviews .author:last-child{
+.snippet .author:last-child{
     margin-bottom: 0;
 }
 
 @media (max-width: 1000px){
 
-	.reviews .quote{
+	.snippet .quote{
 		font-size: 20px;
 	}
 
-	.reviews .author{
+	.snippet .author{
 	    font-size: 16px;
 	}
 
@@ -420,16 +435,4 @@ footer p a{
 
 @media (max-width: 1200px) {
 	#bsaHolder{ display:none;}
-}
-
-
-.code {
-	text-align: center;
-	background-color: #F6F8FA;
-	font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-	font-size: 16px;
-	padding: 40px 0px;
-	margin: 10px 0px 20px 0px;
-	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-	word-wrap: break-word;
 }
