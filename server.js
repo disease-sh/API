@@ -1,7 +1,7 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
-const csrfProtection = require('csurf')({cookie: true});
+const csrfProtection = require('csurf')({ cookie: true });
 const logger = require('./utils/logger');
 const path = require('path');
 const { redis, config, keys, scraper } = require('./routes/instances');
@@ -63,25 +63,28 @@ app.use(require('cookie-parser')());
 // you have to change index.html to index.ejs and use ejs view engine (npm i ejs)
 // also add this to head of index.ejs so you can use it in the script.js:
 // <meta name="csrf-token" content="<%= csrfToken %>">
-app.get('/', csrfProtection, async (req, res) => res.render('index', {csrfToken: req.csrfToken()}));
+app.get('/', csrfProtection, async (req, res) => res.render('index', { csrfToken: req.csrfToken() }));
 
-app.post('/private/cloudflare', require('body-parser').urlencoded({extended: true}), csrfProtection, async (req, res) => {
+app.post('/private/cloudflare', require('body-parser').urlencoded({ extended: true }), csrfProtection, async (req, res) => {
 	const zoneTag = 'b2070162162124e2d5414cee23dfe861';
-	const response = await (require('node-fetch'))('https://api.cloudflare.com/client/v4/graphql', {
+	const response = await require('node-fetch')('https://api.cloudflare.com/client/v4/graphql', {
 		method: 'POST',
 		headers: {
-			"x-auth-key": config.cfApiKey,
-			"x-auth-email": "elitemythyt@gmail.com"
+			'x-auth-key': config.cfApiKey,
+			'x-auth-email': 'elitemythyt@gmail.com'
 		},
-		body: '"{"query":"{\n  viewer {\n    zones(filter: { zoneTag: '+ zoneTag +' }) {\n      httpRequests1dGroups(\n        orderBy: [date_ASC]\n        limit: 1000\n        filter: { date_gt: \"2019-07-15\" }\n      ) {\n        date: dimensions {\n          date\n        }\n        sum {\n          cachedBytes\n          bytes\n        }\n      }\n    }\n  }\n}","variables":{}}"'
+		body: `"{"query":"{\n  viewer {\n    zones(filter: { zoneTag: ${zoneTag} }) {\n      
+			httpRequests1dGroups(\n        orderBy: [date_ASC]\n        limit: 1000\n        
+			filter: { date_gt: "2019-07-15" }\n      ) {\n        date: dimensions {\n          
+			date\n        }\n        sum {\n          cachedBytes\n          bytes\n        }\n      }\n    }\n  }\n}","variables":{}}"`
 	});
-	if (response.status == 200) {
+	if (response.status === 200) {
 		res.send(await response.json());
-	}else{
+	} else {
 		// return some kinda of error if you like
 		res.send(response);
 	}
-})
+});
 
 app.listen(config.port, () =>
 	logger.info(`Your app is listening on port ${config.port}`)
