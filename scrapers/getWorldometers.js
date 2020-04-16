@@ -34,7 +34,6 @@ const mapRows = (_, row) => {
 	const country = { updated: Date.now() };
 	cheerio(row).children('td').each((index, cell) => {
 		cell = cheerio.load(cell);
-		// console.log(JSON.stringify(cell.text()));
 		switch (index) {
 			case 0: {
 				const countryInfo = countryUtils.getCountryData(cell.text().replace(/(\n|,)/g, ''));

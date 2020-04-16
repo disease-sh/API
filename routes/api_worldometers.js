@@ -21,7 +21,6 @@ const getAllData = async (key) => {
 
 const fixApostrophe = (country) => {
 	country.country = country.country.replace(/"/g, '\'');
-	delete country.continent;
 	return country;
 };
 
