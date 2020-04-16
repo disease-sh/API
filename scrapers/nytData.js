@@ -3,9 +3,10 @@ const csv = require('csvtojson');
 const logger = require('../utils/logger');
 const { updateCache } = require('../utils/nyt_cache');
 
-const US_COUNTY_DATA_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv';
-const US_STATE_DATA_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv';
-const US_NATION_WIDE_DATA_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv';
+const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master'
+const US_COUNTY_DATA_URL = `${GITHUB_BASE_URL}/us-counties.csv`;
+const US_STATE_DATA_URL = `${GITHUB_BASE_URL}/us-states.csv`;
+const US_NATION_WIDE_DATA_URL = `${GITHUB_BASE_URL}/us.csv`;
 const REDIS_KEYS = ['nyt_counties', 'nyt_states', 'nyt_USA'];
 
 /**

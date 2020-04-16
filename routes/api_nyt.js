@@ -3,8 +3,8 @@ const router = require('express').Router();
 const { nytCounties, nytStates, nytNationwide } = require('../utils/nyt_cache');
 
 router.get('/v2/nyt/states', async (req, res) => {
-	const data = nytStates();
 	const { state: queryState } = req.query;
+	const data = nytStates();
 	if (queryState) {
 		const stateArr = queryState.split(/,[\s+]?/);
 		const stateData = data.filter(({ state }) => stateArr.includes(state));
@@ -18,8 +18,8 @@ router.get('/v2/nyt/states', async (req, res) => {
 });
 
 router.get('/v2/nyt/counties', async (req, res) => {
-	const data = nytCounties();
 	const { county: queryCounty } = req.query;
+	const data = nytCounties();
 	if (queryCounty) {
 		const countyArr = queryCounty.split(/,[\s+?]/);
 		const countyData = data.filter(({ county }) => countyArr.includes(county));
@@ -32,8 +32,6 @@ router.get('/v2/nyt/counties', async (req, res) => {
 	}
 });
 
-router.get('/v2/nyt/usa', async (req, res) => {
-	res.send(nytNationwide());
-});
+router.get('/v2/nyt/usa', async (req, res) => res.send(nytNationwide()));
 
 module.exports = router;
