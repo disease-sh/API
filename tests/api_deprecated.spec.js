@@ -15,7 +15,8 @@ describe('TESTING DEPRECATED METHODS', () => {
                 should.exist(res);
                 res.should.have.status(410);
                 res.body.should.be.a('object');
-                res.body.should.be.eql({ message: 'Deprecated, use /v2/historical' });
+                res.body.should.have.property('message');
+                res.body.should.have.property('docs');
                 done();
             });
     });
@@ -28,7 +29,8 @@ describe('TESTING DEPRECATED METHODS', () => {
                 should.exist(res);
                 res.should.have.status(410);
                 res.body.should.be.a('object');
-                res.body.should.be.eql({ message: 'Deprecated, use /v2/historical' });
+                res.body.should.have.property('message');
+                res.body.should.have.property('docs');
                 done();
             });
     });
@@ -41,7 +43,8 @@ describe('TESTING DEPRECATED METHODS', () => {
                 should.exist(res);
                 res.should.have.status(410);
                 res.body.should.be.a('object');
-                res.body.should.be.eql({ message: 'Deprecated, use /v2/jhucsse' });
+                res.body.should.have.property('message');
+                res.body.should.have.property('docs');
                 done();
             });
     });
@@ -54,7 +57,8 @@ describe('TESTING DEPRECATED METHODS', () => {
                 should.exist(res);
                 res.should.have.status(410);
                 res.body.should.be.a('object');
-                res.body.should.be.eql({ message: 'Deprecated, use /v2/all' });
+                res.body.should.have.property('message');
+                res.body.should.have.property('docs');
                 done();
             });
     });
@@ -67,7 +71,8 @@ describe('TESTING DEPRECATED METHODS', () => {
                 should.exist(res);
                 res.should.have.status(410);
                 res.body.should.be.a('object');
-                res.body.should.be.eql({ message: 'Deprecated, use /v2/countries' });
+                res.body.should.have.property('message');
+                res.body.should.have.property('docs');
                 done();
             });
     });
@@ -80,7 +85,8 @@ describe('TESTING DEPRECATED METHODS', () => {
                 should.exist(res);
                 res.should.have.status(410);
                 res.body.should.be.a('object');
-                res.body.should.be.eql({ message: 'Deprecated, use /v2/countries' });
+                res.body.should.have.property('message');
+                res.body.should.have.property('docs');
                 done();
             });
     });
@@ -93,7 +99,8 @@ describe('TESTING DEPRECATED METHODS', () => {
                 should.exist(res);
                 res.should.have.status(410);
                 res.body.should.be.a('object');
-                res.body.should.be.eql({ message: 'Deprecated, use /v2/states' });
+                res.body.should.have.property('message');
+                res.body.should.have.property('docs');
                 done();
             });
     });
@@ -106,7 +113,8 @@ describe('TESTING DEPRECATED METHODS', () => {
                 should.exist(res);
                 res.should.have.status(410);
                 res.body.should.be.a('object');
-                res.body.should.be.eql({ message: 'Deprecated, use /v2/countries?yesterday=true' });
+                res.body.should.have.property('message');
+                res.body.should.have.property('docs');
                 done();
             });
     });
@@ -119,7 +127,8 @@ describe('TESTING DEPRECATED METHODS', () => {
                 should.exist(res);
                 res.should.have.status(410);
                 res.body.should.be.a('object');
-                res.body.should.be.eql({ message: 'Deprecated, use /v2/all?yesterday=true' });
+                res.body.should.have.property('message');
+                res.body.should.have.property('docs');
                 done();
             });
     });
@@ -132,7 +141,8 @@ describe('TESTING DEPRECATED METHODS', () => {
                 should.exist(res);
                 res.should.have.status(410);
                 res.body.should.be.a('object');
-                res.body.should.be.eql({ message: 'Deprecated, use /v2/countries?yesterday=true' });
+                res.body.should.have.property('message');
+                res.body.should.have.property('docs');
                 done();
             });
     });
