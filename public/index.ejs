@@ -108,6 +108,31 @@
 		</ul>
 	</footer>
 
+	<script>
+		// Read the CSRF token from the <meta> tag
+		const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+
+		function fetchAPI() {          
+            let init = {
+				credentials: 'same-origin', // <-- includes cookies in the request
+				headers: {
+					'CSRF-Token': token // <-- is the csrf token as a header
+				},
+				method: 'POST'
+			};
+            return fetch('/private/cloudflare', init)
+		}
+		
+		async function setData() {
+			const response = await fetchAPI();
+			if (response.status == 200) {
+				let json = await response.json();
+				console.log(json)
+			}
+		}
+		
+		window.onload = setData();
+	</script>
 </body>
 
 </html>
