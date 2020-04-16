@@ -13,7 +13,7 @@ describe('TESTING DEPRECATED METHODS', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
-                res.should.have.status(200);
+                res.should.have.status(410);
                 res.body.should.be.a('object');
                 res.body.should.be.eql({ message: 'Deprecated, use /v2/historical' });
                 done();
@@ -26,7 +26,7 @@ describe('TESTING DEPRECATED METHODS', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
-                res.should.have.status(200);
+                res.should.have.status(410);
                 res.body.should.be.a('object');
                 res.body.should.be.eql({ message: 'Deprecated, use /v2/historical' });
                 done();
@@ -39,7 +39,7 @@ describe('TESTING DEPRECATED METHODS', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
-                res.should.have.status(200);
+                res.should.have.status(410);
                 res.body.should.be.a('object');
                 res.body.should.be.eql({ message: 'Deprecated, use /v2/jhucsse' });
                 done();
@@ -52,7 +52,7 @@ describe('TESTING DEPRECATED METHODS', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
-                res.should.have.status(200);
+                res.should.have.status(410);
                 res.body.should.be.a('object');
                 res.body.should.be.eql({ message: 'Deprecated, use /v2/all' });
                 done();
@@ -65,7 +65,7 @@ describe('TESTING DEPRECATED METHODS', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
-                res.should.have.status(200);
+                res.should.have.status(410);
                 res.body.should.be.a('object');
                 res.body.should.be.eql({ message: 'Deprecated, use /v2/countries' });
                 done();
@@ -78,7 +78,7 @@ describe('TESTING DEPRECATED METHODS', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
-                res.should.have.status(200);
+                res.should.have.status(410);
                 res.body.should.be.a('object');
                 res.body.should.be.eql({ message: 'Deprecated, use /v2/countries' });
                 done();
@@ -91,7 +91,7 @@ describe('TESTING DEPRECATED METHODS', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
-                res.should.have.status(200);
+                res.should.have.status(410);
                 res.body.should.be.a('object');
                 res.body.should.be.eql({ message: 'Deprecated, use /v2/states' });
                 done();
@@ -104,7 +104,7 @@ describe('TESTING DEPRECATED METHODS', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
-                res.should.have.status(200);
+                res.should.have.status(410);
                 res.body.should.be.a('object');
                 res.body.should.be.eql({ message: 'Deprecated, use /v2/countries?yesterday=true' });
                 done();
@@ -117,7 +117,7 @@ describe('TESTING DEPRECATED METHODS', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
-                res.should.have.status(200);
+                res.should.have.status(410);
                 res.body.should.be.a('object');
                 res.body.should.be.eql({ message: 'Deprecated, use /v2/all?yesterday=true' });
                 done();
@@ -130,7 +130,7 @@ describe('TESTING DEPRECATED METHODS', () => {
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
-                res.should.have.status(200);
+                res.should.have.status(410);
                 res.body.should.be.a('object');
                 res.body.should.be.eql({ message: 'Deprecated, use /v2/countries?yesterday=true' });
                 done();
