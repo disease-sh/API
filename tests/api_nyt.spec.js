@@ -4,10 +4,10 @@ const app = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-describe('TESTING /nyt/states', () => {
-    it('/nyt/states', (done) => {
+describe('TESTING /v2/nyt/states', () => {
+    it('/v2/nyt/states', (done) => {
         chai.request(app)
-            .get('/nyt/states')
+            .get('/v2/nyt/states')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
@@ -17,9 +17,9 @@ describe('TESTING /nyt/states', () => {
             })
     })
 
-    it('/nyt/states get correct state', (done) => {
+    it('/v2/nyt/states get correct state', (done) => {
         chai.request(app)
-            .get('/nyt/states?state=California')
+            .get('/v2/nyt/states?state=California')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
@@ -29,9 +29,9 @@ describe('TESTING /nyt/states', () => {
             })
     })
 
-    it('/nyt/states get incorrect state name', (done) => {
+    it('/v2/nyt/states get incorrect state name', (done) => {
         chai.request(app)
-            .get('/nyt/states?state=DoesntExist')
+            .get('/v2/nyt/states?state=DoesntExist')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
@@ -43,10 +43,10 @@ describe('TESTING /nyt/states', () => {
     });
 });
 
-describe('TESTING /counties', (done) => {
-    it('/nyt/counties', (done) => {
+describe('TESTING /v2/counties', (done) => {
+    it('/v2/nyt/counties', (done) => {
         chai.request(app)
-            .get('/nyt/counties')
+            .get('/v2/nyt/counties')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
@@ -56,9 +56,9 @@ describe('TESTING /counties', (done) => {
             });
     });
 
-    it('/nyt/counties get correct county', (done) => {
+    it('/v2/nyt/counties get correct county', (done) => {
         chai.request(app)
-            .get('/nyt/counties?county=Alameda')
+            .get('/v2/nyt/counties?county=Alameda')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
@@ -68,9 +68,9 @@ describe('TESTING /counties', (done) => {
             });
     });
 
-    it('/nyt/counties get incorrect county name', (done) => {
+    it('/v2/nyt/counties get incorrect county name', (done) => {
         chai.request(app)
-            .get('/nyt/counties?county=DoesntExist')
+            .get('/v2/nyt/counties?county=DoesntExist')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);
@@ -82,10 +82,10 @@ describe('TESTING /counties', (done) => {
     });
 });
 
-describe('TESTING /nyt/nation_wide', () => {
-    it('/nyt/nation_wide', (done) => {
+describe('TESTING /v2/nyt/nation_wide', () => {
+    it('/v2/nyt/nation_wide', (done) => {
         chai.request(app)
-            .get('/nyt/nation_wide')
+            .get('/v2/nyt/nation_wide')
             .end((err, res) => {
                 should.not.exist(err);
                 should.exist(res);

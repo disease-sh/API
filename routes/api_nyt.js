@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const { nytCounties, nytStates, nytNationwide } = require('../utils/nyt_cache');
 
-router.get('/nyt/states', async (req, res) => {
+router.get('/v2/nyt/states', async (req, res) => {
 	const data = nytStates();
 	const { state: queryState } = req.query;
 	if (queryState) {
@@ -16,7 +16,7 @@ router.get('/nyt/states', async (req, res) => {
 	}
 });
 
-router.get('/nyt/counties', async (req, res) => {
+router.get('/v2/nyt/counties', async (req, res) => {
 	const data = nytCounties();
 	const { county: queryCounty } = req.query;
 	if (queryCounty) {
@@ -30,7 +30,7 @@ router.get('/nyt/counties', async (req, res) => {
 	}
 });
 
-router.get('nyt/nation_wide', async (req, res) => {
+router.get('/v2/nyt/nation_wide', async (req, res) => {
 	res.send(nytNationwide());
 });
 
