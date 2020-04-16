@@ -26,6 +26,10 @@
     {
       "name": "JHUCSSE",
       "description": "(Data from Johns Hopkins University)"
+    },
+    {
+      "name": "NYT",
+      "description": "(Data from New York Times)"
     }
   ],
   "consumes": [
@@ -566,6 +570,75 @@
           }
         }
       }
+    },
+    "/v2/nyt/states": {
+      "get": {
+        "tags": [
+          "NYT"
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "in": "path",
+            "required": false,
+            "description": "The state that you'd like to search for, separated by comma if you want to search for multiple (i.e. 'California, Washington'. Default is full data set",
+            "type": "string"
+          }
+        ],
+        "summary": "Get State Data",
+        "description": "Return all NYT state data or individual state data if specified. Each entry returned represents data for a given day.",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/nytStates"
+            }
+          }
+        }
+      }
+    },
+    "/v2/nyt/counties": {
+      "get": {
+        "tags": [
+          "NYT"
+        ],
+        "parameters": [
+          {
+            "name": "county",
+            "in": "path",
+            "required": false,
+            "description": "The county that you'd like to search for, separated by comma if you want to search for multiple (i.e. 'Alameda, Humboldt'). Default is full data set",
+            "type": "string"
+          }
+        ],
+        "summary": "Get County Data",
+        "description": "Return all NYT county data or individual county data if specified. Each entry returned represents data for a given day.",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/nytCounties"
+            }
+          }
+        }
+      }
+    },
+    "/v2/nyt/usa": {
+      "get": {
+        "tags": [
+          "NYT"
+        ],
+        "summary": "Get US Nationwide Data",
+        "description": "Return all NYT US nationwide data. Each entry returned represents data for a given day.",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/nytCounties"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -711,6 +784,58 @@
         }
       }
     },
+    "nytState": {
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "fips": {
+          "type": "string"
+        },
+        "cases": {
+          "type": "string"
+        },
+        "deaths": {
+          "type": "string"
+        }
+      }
+    },
+    "nytCounty": {
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "county": {
+          "type": "county"
+        },
+        "state": {
+          "type": "string"
+        },
+        "fips": {
+          "type": "string"
+        },
+        "cases": {
+          "type": "string"
+        },
+        "deaths": {
+          "type": "string"
+        }
+      }
+    },
+    "nytTotal": {
+      "date": {
+        "type": "string"
+      },
+      "cases": {
+        "type": "string"
+      },
+      "deaths": {
+        "type": "string"
+      }
+    },
     "countries": {
       "type": "array",
       "items": {
@@ -727,6 +852,24 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/usaCounty"
+      }
+    },
+    "nytStates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/nytState"
+      }
+    },
+    "nytCounties": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/nytCounty"
+      }
+    },
+    "nytNationWide": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/nytTotal"
       }
     }
   },

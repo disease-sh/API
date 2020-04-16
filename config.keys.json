@@ -7,5 +7,8 @@
   "yesterday_states": "covidapi:yesterday_states",
   "jhu_v2": "covidapi:jhu_v2",
   "historical_v2": "covidapi:historical_v2",
-  "historical_v2_USA": "covidapi:historical_v2_USA"
+  "historical_v2_USA": "covidapi:historical_v2_USA",
+  "nyt_counties": "covidapi:nyt_counties",
+  "nyt_states": "covidapi:nyt_states",
+  "nyt_USA": "covidapi:nyt_usa"
 }
