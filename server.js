@@ -19,12 +19,12 @@ const execAll = async () => {
 
 const execNyt = () => scraper.nytData(keys, redis);
 
-// Update Worldometer and Johns Hopkins data every 10 minutes
 execAll();
-// Update NYT data every hour
 execNyt();
 
+// Update Worldometer and Johns Hopkins data every 10 minutes
 setInterval(execAll, config.interval);
+// Update NYT data every hour
 setInterval(execNyt, config.nyt_interval);
 
 app.use(cors());
