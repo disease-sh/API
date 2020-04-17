@@ -4,19 +4,7 @@ const app = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-describe('TESTING /jhucsse and /v2/jhucsse', () => {
-    it('/jhucsse', (done) => {
-        chai.request(app)
-            .get('/jhucsse')
-            .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                done();
-            });
-    });
-
+describe('TESTING /v2/jhucsse', () => {
     it('/v2/jhucsse', (done) => {
         chai.request(app)
             .get('/v2/jhucsse')
