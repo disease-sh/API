@@ -69,6 +69,12 @@ section{
 	width: 100%;
 }
 
+.json {
+	width: fit-content; 
+	margin: 0 auto;
+	text-align: left;
+}
+
 @media (max-width: 1000px){
 
 	section{
