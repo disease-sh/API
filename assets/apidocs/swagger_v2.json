@@ -17,10 +17,10 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "default"
+      "name": "Default"
     },
     {
-      "name": "Countries",
+      "name": "Countries / Continents",
       "description": "(Data from Worldometers)"
     },
     {
@@ -138,10 +138,110 @@
         }
       }
     },
+    "/v2/continents": {
+      "get": {
+        "tags": [
+          "Countries / Continents"
+        ],
+        "parameters": [
+          {
+            "name": "yesterday",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "For this parameter you can show yesterday data",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "cases",
+              "todayCases",
+              "deaths",
+              "todayDeaths",
+              "recovered",
+              "active",
+              "critical",
+              "casesPerOneMillion",
+              "deathsPerOneMillion"
+            ],
+            "description": "For this parameter you can provide a key from the country model (e.g. cases, todayCases, deaths, recovered, active, etc) to sort the countries from greatest to least, depending on the key",
+            "type": "string"
+          }
+        ],
+        "summary": "Get All Continents Totals for Actual and Yesterday Data",
+        "description": "Returns a JSON array with an element for each continent that has stats available. ",
+        "responses": {
+          "200": {
+            "description": "Status OK",
+            "schema": {
+              "$ref": "#/definitions/continents"
+            }
+          }
+        }
+      }
+    },
+    "/v2/continents/{query}": {
+      "get": {
+        "tags": [
+          "Countries / Continents"
+        ],
+        "parameters": [
+          {
+            "name": "yesterday",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "For this parameter you can show yesterdays data",
+            "type": "string"
+          },
+          {
+            "name": "strict",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false"
+            ],
+            "description": "Defaults to true. Setting to false gives you the ability to fuzzy search countries. Example Oman vs. rOMANia",
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "description": "The continent name",
+            "type": "string"
+          }
+        ],
+        "summary": "Get a Specific Continents Totals for Actual and Yesterday Data",
+        "description": "Get the same data from the /v2/continents endpoint, but filter down to a specific continent.",
+        "responses": {
+          "200": {
+            "description": "Status OK",
+            "schema": {
+              "$ref": "#/definitions/continent"
+            }
+          }
+        }
+      }
+    },
     "/v2/countries": {
       "get": {
         "tags": [
-          "Countries"
+          "Countries / Continents"
         ],
         "parameters": [
           {
@@ -191,7 +291,7 @@
     "/v2/countries/{query}": {
       "get": {
         "tags": [
-          "Countries"
+          "Countries / Continents"
         ],
         "parameters": [
           {
@@ -241,7 +341,7 @@
     "/v2/countries/{country,country,...}": {
       "get": {
         "tags": [
-          "Countries"
+          "Countries / Continents"
         ],
         "parameters": [
           {
@@ -665,7 +765,7 @@
       ],
       "properties": {
         "_id": {
-          "type": "integer",
+          "type": "number",
           "uniqueItems": true
         },
         "iso2": {
@@ -690,6 +790,37 @@
         }
       }
     },
+    "continent":  {
+      "properties": {
+        "continent": {
+          "type": "string"
+        },
+        "updated": {
+          "type": "number"
+        },
+        "cases": {
+          "type": "number"
+        },
+        "todayCases": {
+          "type": "number"
+        },
+        "deaths": {
+          "type": "number"
+        },
+        "todayDeaths": {
+          "type": "number"
+        },
+        "recovered": {
+          "type": "number"
+        },
+        "active": {
+          "type": "number"
+        },
+        "critical": {
+          "type": "number"
+        }
+      }
+    },
     "country": {
       "properties": {
         "country": {
@@ -699,25 +830,25 @@
           "$ref": "#/definitions/countryInfo"
         },
         "cases": {
-          "type": "integer"
+          "type": "number"
         },
         "todayCases": {
-          "type": "integer"
+          "type": "number"
         },
         "deaths": {
-          "type": "integer"
+          "type": "number"
         },
         "todayDeaths": {
-          "type": "integer"
+          "type": "number"
         },
         "recovered": {
-          "type": "integer"
+          "type": "number"
         },
         "active": {
-          "type": "integer"
+          "type": "number"
         },
         "critical": {
-          "type": "integer"
+          "type": "number"
         },
         "casesPerOneMillion": {
           "type": "number"
@@ -726,7 +857,7 @@
           "type": "number"
         },
         "updated": {
-          "type": "integer"
+          "type": "number"
         }
       }
     },
@@ -747,13 +878,13 @@
         },
         "stats": {
           "confirmed": {
-            "type": "integer"
+            "type": "number"
           },
           "deaths": {
-            "type": "integer"
+            "type": "number"
           },
           "recovered": {
-            "type": "integer"
+            "type": "number"
           }
         },
         "coordinates": {
@@ -776,10 +907,10 @@
         },
         "timeline": {
           "cases": {
-            "type": "integer"
+            "type": "number"
           },
           "deaths": {
-            "type": "integer"
+            "type": "number"
           }
         }
       }
