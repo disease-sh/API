@@ -17,8 +17,15 @@ const execAll = async () => {
 	app.emit('scrapper_finished');
 };
 
+const execNyt = () => scraper.nytData(keys, redis);
+
 execAll();
+execNyt();
+
+// Update Worldometer and Johns Hopkins data every 10 minutes
 setInterval(execAll, config.interval);
+// Update NYT data every hour
+setInterval(execNyt, config.nyt_interval);
 
 app.use(cors());
 app.use(express.static('public'));
@@ -56,6 +63,7 @@ app.use(require('./routes/api_worldometers'));
 app.use(require('./routes/api_historical'));
 app.use(require('./routes/api_jhucsse'));
 app.use(require('./routes/api_deprecated'));
+app.use(require('./routes/api_nyt'));
 
 app.listen(config.port, () =>
 	logger.info(`Your app is listening on port ${config.port}`)
