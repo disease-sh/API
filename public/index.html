@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NovelCovid API</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+
+<body>
+
+	<header>
+		<a></a>
+		<nav>
+			<li><a href="/docs" target="_blank">Docs</a></li>
+			<li><a href="https://github.com/NovelCOVID/API" target="_blank">Github</a></li>
+			<li><a href="https://discord.gg/EvbMshU" target="_blank">Discord</a></li>
+			<li><a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank">Donate</a></li>
+		</nav>
+	</header>
+
+
+	<section class="hero">
+		<div class="background-image" style="background-image: url(assets/img/rona.jpg);"></div>
+		<h1>Novel COVID API</h1>
+		<h3>1,000,000,000+ Requests Served Today</h3>
+		<div class="postman">
+			<div>Featured on</div>
+			<a style="opacity: 1;" href="https://covid-19-apis.postman.com" target="_blank">
+        <img style="margin-left: 1vw; height: 6vh; vertical-align: middle;" src="/assets/img/postman.png" alt="Postman">
+      </a>
+		</div>
+	</section>
+
+
+	<section class="features">
+		<h3 class="title">Features</h3>
+		<p>Build anything from console widgets to mobile applications with our free and easy to use API.</p>
+		<hr>
+
+		<ul class="grid">
+			<li>
+				<i class="fa fa-usd"></i>
+				<h4>Free</h4>
+				<p>Our services are free to use, and have a 100/100 page insight performance score.</p>
+			</li>
+			<li>
+				<i class="fa fa-database"></i>
+				<h4>Multi-Source</h4>
+				<p>
+					We source data from <a class="emphasis" href="https://github.com/CSSEGISandData/COVID-19" target="_blank">Johns Hopkins University</a>,
+					the <a class="emphasis" href="https://github.com/nytimes/covid-19-data" target="_blank">New York Times</a>,
+					and <a class="emphasis" href="https://www.worldometers.info/coronavirus/" target="_blank">Worldometers</a> to give you a comphrehensive view of the data.
+				</p>
+			</li>
+			<li>
+				<i class="fa fa-refresh"></i>
+				<h4>Up to Date</h4>
+				<p>Our sources update every 10 minutes.</p>
+			</li>
+			<li>
+				<i class="fa fa-code"></i>
+				<h4>JSON Formatted</h4>
+				<p>Our responses are served in JSON format, making for easy and reliable integration to your service.</p>
+			</li>
+		</div>
+	</section>
+
+	<section class="invite-bot">
+		<img class="discord-img" src="assets/img/discord.png">
+	   	<a href="https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880" target="_blank" class="discord-btn slideleft">Invite our bot here</a>
+	</section>
+
+
+	<section class="snippet">
+		<h3 class="title">Example request and response</h3>
+		<div class="code">
+			https://corona.lmao.ninja/v2/all
+	   </div>
+		<div class="code">
+			{  updated: 1587005200394,<br>
+			cases: 2083304,<br>
+			todayCases: 932,<br>
+			deaths: 134616,<br>
+			todayDeaths: 56,<br>
+			recovered: 510341,<br>
+			active: 1438347,<br>
+			critical: 51142,<br>
+			casesPerOneMillion: 267,<br>
+			deathsPerOneMillion: 17,<br>
+			tests: 17125411,<br>
+			testsPerOneMillion: 2194.8,<br>
+			affectedCountries: 212  }<br>
+	   </div>
+	   	<a href="/docs" target="_blank" class="btn">Check out our docs here</a>
+	</section>
+
+	<footer>
+		<ul>
+			<li><a href="https://github.com/NovelCOVID/API"><i class="fa fa-github-square""></i></a></li>
+		</ul>
+	</footer>
+
+</body>
+
+</html>
