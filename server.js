@@ -28,7 +28,7 @@ setInterval(execAll, config.interval);
 setInterval(execNyt, config.nyt_interval);
 
 app.use(cors());
-app.get('/', async (req, res) => res.redirect('https://github.com/novelcovid/api'));
+app.use(express.static('public'));
 
 app.get('/invite', async (req, res) =>
 	res.redirect('https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880')
