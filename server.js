@@ -19,8 +19,15 @@ const execAll = async () => {
 	app.emit('scrapper_finished');
 };
 
+const execNyt = () => scraper.nytData(keys, redis);
+
 execAll();
+execNyt();
+
+// Update Worldometer and Johns Hopkins data every 10 minutes
 setInterval(execAll, config.interval);
+// Update NYT data every hour
+setInterval(execNyt, config.nyt_interval);
 
 app.get('/invite', async (req, res) =>
 	res.redirect('https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880')
@@ -90,6 +97,11 @@ app.post('/private/cloudflare', require('body-parser').urlencoded({ extended: tr
 		res.send(response.error);
 	}
 });
+app.use(require('./routes/api_worldometers'));
+app.use(require('./routes/api_historical'));
+app.use(require('./routes/api_jhucsse'));
+app.use(require('./routes/api_deprecated'));
+app.use(require('./routes/api_nyt'));
 
 app.listen(config.port, () =>
 	logger.info(`Your app is listening on port ${config.port}`)
