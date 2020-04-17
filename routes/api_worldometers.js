@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { wordToBoolean, splitQuery } = require('../utils/string_utils');
 const countryUtils = require('../utils/country_utils');
 const { redis, keys } = require('./instances');
+const stringUtils = require('../utils/string_utils');
 
 /**
  * Gets data for /all or /yesterday/all endpoint
@@ -55,8 +56,15 @@ router.get('/v2/continents/:query', async (req, res) => {
 	const { query } = req.params;
 	const continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents));
 	const continent = countryUtils.getWorldometersData(continents, query, strict !== 'false', true);
-	if (continent) res.send(continent);
-	else res.status(404).send({ message: 'Continent not found or doesn\'t have any cases' });
+	if (continent) {
+		const countries = JSON.parse(await redis.get(keys.countries));
+		continent.countries = countries
+			.filter(item => stringUtils.wordsStandardize(item.continent).includes(stringUtils.wordsStandardize(continent.continent)))
+			.map(item => item.country ? item.country : 'no data');
+		res.send(continent);
+	} else {
+		res.status(404).send({ message: 'Continent not found or doesn\'t have any cases' });
+	}
 });
 
 router.get('/v2/states', async (req, res) => {
