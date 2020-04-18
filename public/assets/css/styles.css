@@ -131,16 +131,18 @@ ul.grid{
 -------------*/
 
 header{
-	position: absolute;
+	position: sticky;
 	top: 0;
 	left: 0;
 	z-index: 10;
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+	align-items: center;
 	align-items: center;
 	color: #fff;
-	padding: 35px 100px 0;
+	height: 60px;
+	background-color: #31373B;
 }
 
 header h2{
@@ -153,17 +155,15 @@ header nav{
 
 header nav li{
 	margin: 0 15px;
+	font-weight: 700;
 }
 
-header nav li:first-child{
-	margin-left: 0;	
+header nav li .btn--donate {
+	padding: 10px 25px;
+	background-color: #F66014;
+	color: #FFFFFF;
+	border-radius: 10px;
 }
-
-header nav li:last-child{
-	margin-right: 0;	
-}
-
-
 
 @media (max-width: 1000px){
 	header{
@@ -227,6 +227,7 @@ header nav li:last-child{
 .hero h3{
 	font: normal 28px 'Open Sans', sans-serif;
 	margin-bottom: 40px;
+	font-style: italic;
 }
 
 .hero a.btn{
