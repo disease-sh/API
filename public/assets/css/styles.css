@@ -13,10 +13,6 @@ html{
 	color: #555;
 }
 
-ul, nav{
-	list-style: none;
-}
-
 a{
 	text-decoration: none;
 	color: inherit;
@@ -141,7 +137,7 @@ header{
 	align-items: center;
 	align-items: center;
 	color: #fff;
-	height: 60px;
+	height: auto;
 	background-color: #31373B;
 }
 
@@ -149,54 +145,57 @@ header h2{
 	font-family: 'Quicksand', sans-serif;
 }
 
-header nav{
+header div{
 	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 1vh 0vw;
 }
 
-header nav li{
-	margin: 0 15px;
-	font-weight: 700;
+header div a{
+	margin: 1vh 1vw;
 }
 
-header nav li .btn--donate {
+header div .btn--donate {
 	padding: 10px 25px;
 	background-color: #F66014;
 	color: #FFFFFF;
 	border-radius: 10px;
 }
 
-header nav li .btn--twitter {
+header div .btn--twitter {
 	padding: 10px 25px;
 	background-color: #1DA1F2;
 	color: #FFFFFF;
 	border-radius: 10px;
 }
 
-header nav li .btn--discord {
+header div .btn--discord {
 	padding: 10px 25px;
 	background-color: #7289DA;
 	color: #FFFFFF;
 	border-radius: 10px;
 }
 
-header nav li .btn--git {
+header div .btn--git {
 	padding: 10px 25px;
 	background-color: #000;
 	color: #FFFFFF;
 	border-radius: 10px;
 }
 
-header nav li .btn--docs {
+header div .btn--docs {
 	padding: 10px 25px;
 	background-color: #85ea2d;
 	color: #FFFFFF;
 	border-radius: 10px;
 }
 
-@media (max-width: 1000px){
-	header{
-		padding: 20px 50px;
-	}
+header div .btn--facebook {
+	padding: 10px 25px;
+	background-color: #3b5998;
+	color: #FFFFFF;
+	border-radius: 10px;
 }
 
 
@@ -325,6 +324,7 @@ header nav li .btn--docs {
 	padding: 0 30px;
 	flex-basis: 25%;
 	text-align: center;
+	list-style: none;
 }
 
 .features .grid li i{
@@ -424,6 +424,7 @@ footer ul{
 
 footer ul li{
 	margin: 0 8px;	
+	list-style: none;
 }
 
 footer ul li:first-child{
