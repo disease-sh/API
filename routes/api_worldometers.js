@@ -15,7 +15,7 @@ const getAllData = async (key) => {
 	const worldData = countries.find(country => country.country.toLowerCase() === 'world');
 	worldData.affectedCountries = countries.filter(country => country.country.toLowerCase() !== 'world').length;
 	// eslint-disable-next-line no-unused-vars
-	const { country, countryInfo, ...cleanedWorldData } = worldData;
+	const { country, countryInfo, continent, ...cleanedWorldData } = worldData;
 	return cleanedWorldData;
 };
 
