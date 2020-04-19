@@ -17,8 +17,8 @@ const jhudataV2 = async (keys, redis) => {
 		const mm = (date.getMonth() + 1).toString().padStart(2, '0');
 		const yyyy = date.getFullYear();
 		const dateString = `${mm}-${dd}-${yyyy}`;
-		response = await axios.get(`${base}/${dateString}.csv`);
 		logger.info(`USING ${dateString}.csv CSSEGISandData`);
+		response = await axios.get(`${base}/${dateString}.csv`);
 	} catch (err) {
 		logger.err('Error: Requesting JHULocations failed!', err);
 	}
