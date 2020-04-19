@@ -210,6 +210,32 @@ header nav li .btn--docs {
 	}
 }
 
+@media only screen and (max-width: 600px) {
+	header nav li{
+		margin: 0 4px;
+		font-weight: 700;
+	}
+
+	header nav li .btn--donate {
+		padding: 8px 12px;
+	}
+	
+	header nav li .btn--twitter {
+		padding: 8px 12px;
+	}
+	
+	header nav li .btn--discord {
+		padding: 8px 12px;
+	}
+	
+	header nav li .btn--git {
+		padding: 8px 12px;
+	}
+	
+	header nav li .btn--docs {
+		padding: 8px 12px;
+	}
+}
 
 
 /*----------------
