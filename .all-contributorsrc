@@ -131,6 +131,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "OlukaDenis",
+      "name": "Oluka Denis",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/37341054?v=4",
+      "profile": "http://olukadeno@gmail.com",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
