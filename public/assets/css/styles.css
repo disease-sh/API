@@ -165,6 +165,34 @@ header nav li .btn--donate {
 	border-radius: 10px;
 }
 
+header nav li .btn--twitter {
+	padding: 10px 25px;
+	background-color: #1DA1F2;
+	color: #FFFFFF;
+	border-radius: 10px;
+}
+
+header nav li .btn--discord {
+	padding: 10px 25px;
+	background-color: #7289DA;
+	color: #FFFFFF;
+	border-radius: 10px;
+}
+
+header nav li .btn--git {
+	padding: 10px 25px;
+	background-color: #000;
+	color: #FFFFFF;
+	border-radius: 10px;
+}
+
+header nav li .btn--docs {
+	padding: 10px 25px;
+	background-color: #85ea2d;
+	color: #FFFFFF;
+	border-radius: 10px;
+}
+
 @media (max-width: 1000px){
 	header{
 		padding: 20px 50px;
