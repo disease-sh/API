@@ -14,6 +14,20 @@ describe('TESTING /v2/continents', () => {
 				should.exist(res);
 				res.should.have.status(200);
 				res.body.should.be.a('array');
+				for (let row of res.body) {
+					row.should.be.a('object');
+					row.should.have.property('continent');
+					row.should.have.property('cases');
+					row.should.have.property('todayCases');
+					row.should.have.property('deaths');
+					row.should.have.property('todayDeaths');
+					row.should.have.property('updated');
+					row.should.have.property('critical');
+					row.should.have.property('recovered');
+					row.should.have.property('active');
+					row.should.have.property('countries');
+					row.countries.should.be.a('array');
+				}
 				done();
 			});
 	});
@@ -608,7 +622,7 @@ describe('TESTING /v2/states', () => {
 				should.exist(res);
 				res.should.have.status(200);
 				res.body.should.be.a('array');
-				for (var row of res.body) {
+				for (let row of res.body) {
 					row.should.have.property('cases');
 					row.should.have.property('todayCases');
 					row.should.have.property('deaths');
@@ -629,7 +643,7 @@ describe('TESTING /v2/states', () => {
 				should.exist(res);
 				res.should.have.status(200);
 				res.body.should.be.a('array');
-				for (var row of res.body) {
+				for (let row of res.body) {
 					row.should.have.property('cases');
 					row.should.have.property('todayCases');
 					row.should.have.property('deaths');
