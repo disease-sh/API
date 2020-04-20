@@ -65,10 +65,15 @@ const countryExceptions = ['UK', 'UAE', 'DR'];
  */
 const isCountryException = (countryname) => !!countryExceptions.find(exception => stringUtils.wordsStandardize(countryname) === stringUtils.wordsStandardize(exception));
 
+const getCountriesFromContinent = (continent, countries) => countries
+	.filter(country => stringUtils.wordsStandardize(country.continent).includes(stringUtils.wordsStandardize(continent)))
+	.map(country => country.country || 'no data');
+
 module.exports = {
 	getCountryCode,
 	getCountryName,
 	getCountryData,
 	getWorldometersData,
-	isCountryException
+	isCountryException,
+	getCountriesFromContinent
 };
