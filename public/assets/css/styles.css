@@ -316,25 +316,26 @@ header div .btn--facebook {
 .mailing {
 	display: flex;
 	flex-direction: row;
-	height: 30px;
+	height: 40px;
 }
 
 .mailing input {
-	height: 30px;
 	background-color: white;
 	border-style: none;
-	padding: 10px;
+	padding: 0px 2vw;
 	text-align: left;
 	font-size: 16px;
+	border-radius: 10px 0px 0px 10px;
 }
 
 .mailing button {
 	background-color: #2196F3;
 	color: white;
 	border-style: none;
-	padding: 10px;
+	padding: 2vh 2vw;
 	text-align: center;
 	font-size: 12px;
+	border-radius: 0px 10px 10px 0px;
 }
 
 /*----------------------
