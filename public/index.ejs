@@ -36,12 +36,17 @@
 	<section class="hero">
 		<div class="background-image" style="background-image: url(assets/img/rona.jpg);"></div>
 		<h1>Novel COVID API</h1>
-		<h3>1,000,000,000+ Requests Served to Date</h3>
+		<h3>2,000,000,000+ Requests Served to Date</h3>
 		<div class="postman">
 			<div>Featured on</div>
 			<a style="opacity: 1;" href="https://covid-19-apis.postman.com" target="_blank">
         <img style="margin-left: 1vw; height: 6vh; vertical-align: middle;" src="/assets/img/postman.png" alt="Postman">
       </a>
+		</div>
+		<p style="margin-bottom: 0px;">Stay current with API updates, join our mailing list</p>
+		<div class="mailing">
+			<input type="email" placeholder="youremail@domain.com" id="email" name="email">
+			<button>Sign up</button>
 		</div>
 	</section>
 
@@ -141,7 +146,7 @@
 		
 		async function setData() {
 			const response = await fetchAPI();
-			console.log(response)
+			console.log(await response.json())
 			// if (response.status == 200) {
 			// 	let json = await response.json();
 			// 	console.log(json)

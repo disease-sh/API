@@ -310,6 +310,31 @@ header div .btn--facebook {
 .postman {
 	display: flex;
 	align-items: center;
+	margin-bottom: 2vh;
+}
+
+.mailing {
+	display: flex;
+	flex-direction: row;
+	height: 30px;
+}
+
+.mailing input {
+	height: 30px;
+	background-color: white;
+	border-style: none;
+	padding: 10px;
+	text-align: left;
+	font-size: 16px;
+}
+
+.mailing button {
+	background-color: #2196F3;
+	color: white;
+	border-style: none;
+	padding: 10px;
+	text-align: center;
+	font-size: 12px;
 }
 
 /*----------------------
