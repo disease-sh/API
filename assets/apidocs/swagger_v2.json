@@ -41,6 +41,9 @@
   "paths": {
     "/v2/all": {
       "get": {
+        "tags": [
+          "Default"
+        ],
         "parameters": [
           {
             "name": "yesterday",
@@ -67,6 +70,9 @@
     },
     "/v2/states": {
       "get": {
+        "tags": [
+          "Default"
+        ],
         "parameters": [
           {
             "name": "sort",
@@ -107,6 +113,9 @@
     },
     "/v2/states/{states}": {
       "get": {
+        "tags": [
+          "Default"
+        ],
         "parameters": [
           {
             "name": "states",
