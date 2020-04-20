@@ -322,7 +322,7 @@ header div .btn--facebook {
 .mailing input {
 	background-color: white;
 	border-style: none;
-	padding: 0px 2vw;
+	padding: 2vh 2vw;
 	text-align: left;
 	font-size: 16px;
 	border-radius: 10px 0px 0px 10px;
@@ -332,9 +332,9 @@ header div .btn--facebook {
 	background-color: #2196F3;
 	color: white;
 	border-style: none;
-	padding: 2vh 2vw;
+	padding: 1vh 2vw;
 	text-align: center;
-	font-size: 12px;
+	font-size: 14px;
 	border-radius: 0px 10px 10px 0px;
 }
 
