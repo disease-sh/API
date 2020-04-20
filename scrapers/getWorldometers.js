@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const countryUtils = require('../utils/country_utils');
 const logger = require('../utils/logger');
 
-const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion'];
+const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'continent'];
 
 /**
 * Maps a country object to a continent object
@@ -13,7 +13,7 @@ const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'a
 const continentMapping = (element) => {
 	element.continent = element.country;
 	// eslint-disable-next-line no-unused-vars
-	const { country, countryInfo, ...cleanedElement } = element;
+	const { country, countryInfo, casesPerOneMillion, deathsPerOneMillion, tests, testsPerOneMillion, ...cleanedElement } = element;
 	return cleanedElement;
 };
 
@@ -34,13 +34,20 @@ const mapRows = (_, row) => {
 	const country = { updated: Date.now() };
 	cheerio(row).children('td').each((index, cell) => {
 		cell = cheerio.load(cell);
-		if (index === 0) {
-			const countryInfo = countryUtils.getCountryData(cell.text().replace(/(\n|,)/g, ''));
-			country.country = countryInfo.country || cell.text().replace(/(\n|,)/g, '');
-			delete countryInfo.country;
-			country.countryInfo = countryInfo;
-		} else if (columns[index - 1]) {
-			country[columns[index - 1]] = parseInt(cell.text().replace(/(\n|,)/g, '')) || 0;
+		switch (index) {
+			case 0: {
+				const countryInfo = countryUtils.getCountryData(cell.text().replace(/(\n|,)/g, ''));
+				country.country = countryInfo.country || cell.text().replace(/(\n|,)/g, '');
+				delete countryInfo.country;
+				country.countryInfo = countryInfo;
+				break;
+			}
+			case 12:
+				country[columns[index - 1]] = cell.text();
+				break;
+
+			default:
+				country[columns[index - 1]] = parseInt(cell.text().replace(/(\n|,)/g, '')) || 0;
 		}
 	});
 	return country;

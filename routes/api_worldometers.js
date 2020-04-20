@@ -14,7 +14,7 @@ const getAllData = async (key) => {
 	const worldData = countries.find(country => country.country.toLowerCase() === 'world');
 	worldData.affectedCountries = countries.filter(country => country.country.toLowerCase() !== 'world').length;
 	// eslint-disable-next-line no-unused-vars
-	const { country, countryInfo, ...cleanedWorldData } = worldData;
+	const { country, countryInfo, continent, ...cleanedWorldData } = worldData;
 	return cleanedWorldData;
 };
 
@@ -46,7 +46,9 @@ router.get('/v2/countries/:query', async (req, res) => {
 
 router.get('/v2/continents', async (req, res) => {
 	const { sort, yesterday } = req.query;
-	const continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents));
+	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries));
+	const continents = await Promise.all(JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents))
+		.map(async continent => ({ ...continent, countries: countryUtils.getCountriesFromContinent(continent.continent, countries) })));
 	res.send(sort ? continents.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : continents);
 });
 
@@ -55,8 +57,12 @@ router.get('/v2/continents/:query', async (req, res) => {
 	const { query } = req.params;
 	const continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents));
 	const continent = countryUtils.getWorldometersData(continents, query, strict !== 'false', true);
-	if (continent) res.send(continent);
-	else res.status(404).send({ message: 'Continent not found or doesn\'t have any cases' });
+	if (continent) {
+		continent.countries = countryUtils.getCountriesFromContinent(continent.continent, JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries)));
+		res.send(continent);
+	} else {
+		res.status(404).send({ message: 'Continent not found or doesn\'t have any cases' });
+	}
 });
 
 router.get('/v2/states', async (req, res) => {
