@@ -127,7 +127,26 @@
 		</ul>
 	</footer>
 
+	<div id="toast">
+		<div id="desc">
+			<i onclick="closeToast()" style="margin-right: 10px; cursor: pointer; color: white;" class="fa fa-times-circle" aria-hidden="true"></i>
+			Check out our new domain <a style="color: #2196F3; text-decoration: underline;" href="https://disease.sh" target="_blank">disease.sh</a>
+		</div>
+	</div>
+
 	<script>
+
+function launch_toast() {
+    var x = document.getElementById("toast")
+	x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 20000);
+}
+launch_toast();
+	function closeToast() {
+		var x = document.getElementById("toast")
+		x.className = "early-close";
+	}
+		
 		// Read the CSRF token from the <meta> tag
 		const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
