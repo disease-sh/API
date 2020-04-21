@@ -33,6 +33,7 @@
     "ejs": "3.0.2",
     "express": "^4.16.3",
     "ioredis": "*",
+    "mailgun-js": "^0.22.0",
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {

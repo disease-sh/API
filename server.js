@@ -70,21 +70,25 @@ app.use(require('cookie-parser')());
 
 app.get('/', csrfProtection, async (req, res) => res.render('index', { csrfToken: req.csrfToken() }));
 
-app.post('/private/cloudflare', require('body-parser').urlencoded({ extended: true }), csrfProtection, async (req, res) => {
-	let response;
-	try {
-		response = await axios.get('https://disease.sh/v2/all');
-	} catch (err) {
-		logger.err('Error: Requesting private/cloudflare failed', err);
-		res.send(err);
-		return;
-	}
-	if (response.status === 200) {
-		res.send(response.data);
-	} else {
-		// return some kinda of error if you like
-		res.send(response.error);
-	}
+app.post('/private/mailgun', require('body-parser').urlencoded({ extended: true }), csrfProtection, async (req, res) => {
+	const { email } = req.query;
+	console.log(email);
+	const DOMAIN = 'lmao.ninja';
+	const mailgun = require('mailgun-js')({ apiKey: config.mailgunApiKey, domain: DOMAIN });
+	const list = mailgun.lists(`updates@${DOMAIN}`);
+	const newMember = {
+		subscribed: true,
+		address: email
+	};
+	list.members().create(newMember, (error, data) => {
+		console.log(data);
+	});
+	// if (response.status === 200) {
+	// 	res.send(response.data);
+	// } else {
+	// 	// return some kinda of error if you like
+	// 	res.send(response.error);
+	// }
 });
 
 app.use(require('./routes/api_worldometers'));

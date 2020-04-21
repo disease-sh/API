@@ -337,6 +337,11 @@ header div .btn--facebook {
 	font-size: 14px;
 	border-radius: 0px 10px 10px 0px;
 }
+.mailing button:hover {
+	background-color: #31373B;
+	color: #2196F3;
+	cursor: pointer;
+}
 
 /*----------------------
  	Features Section
@@ -491,7 +496,7 @@ footer p a{
     margin: auto;
     background-color: #31373B;
     text-align: left;
-    border-radius: 2px;
+    border-radius: 5px 0px 0px 5px;
 
     position: fixed;
     z-index: 1;
