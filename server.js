@@ -1,5 +1,4 @@
 const express = require('express');
-const axios = require('axios');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
 const csrfProtection = require('csurf')({ cookie: true });
@@ -72,7 +71,6 @@ app.get('/', csrfProtection, async (req, res) => res.render('index', { csrfToken
 
 app.post('/private/mailgun', require('body-parser').urlencoded({ extended: true }), csrfProtection, async (req, res) => {
 	const { email } = req.query;
-	console.log(email);
 	const DOMAIN = 'lmao.ninja';
 	const mailgun = require('mailgun-js')({ apiKey: config.mailgunApiKey, domain: DOMAIN });
 	const list = mailgun.lists(`updates@${DOMAIN}`);
@@ -81,14 +79,12 @@ app.post('/private/mailgun', require('body-parser').urlencoded({ extended: true 
 		address: email
 	};
 	list.members().create(newMember, (error, data) => {
-		console.log(data);
+		if (error) {
+			res.send(error);
+		} else {
+			res.send(data);
+		}
 	});
-	// if (response.status === 200) {
-	// 	res.send(response.data);
-	// } else {
-	// 	// return some kinda of error if you like
-	// 	res.send(response.error);
-	// }
 });
 
 app.use(require('./routes/api_worldometers'));

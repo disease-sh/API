@@ -156,7 +156,7 @@
 		// Read the CSRF token from the <meta> tag
 		const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 		
-		function addEmail() {
+		async function addEmail() {
 			const email = document.getElementById('email').value;
 			if (validateEmail(email)) {
 				let init = {
@@ -166,7 +166,16 @@
 					},
 					method: 'POST'
 				};
-            	return fetch(`/private/mailgun?email=${email}`, init)
+				const response = await fetch(`/private/mailgun?email=${email}`, init);
+				const json = await response.json();
+				if (json.message && json.message === "Mailing list member has been created") {
+					document.getElementById('jointxt').style.color = "#85ea2d";
+					document.getElementById('jointxt').innerText = "success! you are now scubscibed!"
+				}
+				else {
+					document.getElementById('jointxt').style.color = "#F66014";
+					document.getElementById('jointxt').innerText = "something went wrong, try again later"
+				}
 			}
 			else {
 				document.getElementById('jointxt').style.color = "#F66014";
