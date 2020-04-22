@@ -9,8 +9,7 @@ const logger = require('./utils/logger');
 const path = require('path');
 const { redis, config, keys, scraper } = require('./routes/instances');
 
-if (config.sentry_key )
-	Sentry.init({ dsn: config.sentry_key });
+if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 
 const execAll = async () => {
 	await Promise.all([
