@@ -86,7 +86,7 @@ app.post('/private/mailgun', bodyParser.json(), bodyParser.urlencoded({ extended
 	const recaptchaURL = `https://www.google.com/recaptcha/api/siteverify?secret=${config.captchaSecret}&response=${req.body.recaptcha}`;
 	const recaptchaResponse = await axios.get(recaptchaURL);
 	if (recaptchaResponse.data.success) {
-		list.members().create(newMember, (error, data) => res.send(error ? {err: error} : data));
+		list.members().create(newMember, (error, data) => res.send(error ? { err: error } : data));
 	} else {
 		res.send({ err: 'recaptcha error' });
 	}
