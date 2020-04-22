@@ -1,12 +1,14 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
+const Sentry = require('@sentry/node');
 const axios = require('axios');
 const csrfProtection = require('csurf')({ cookie: true });
 const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
 const { redis, config, keys, scraper } = require('./routes/instances');
+Sentry.init({ dsn: 'https://6f4916605ad146fe800ee7d6c82888d4@sentry.farfrom.earth/9' });
 
 const execAll = async () => {
 	await Promise.all([

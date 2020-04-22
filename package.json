@@ -24,6 +24,7 @@
     "test": "mocha ./tests --exit  --timeout 50000"
   },
   "dependencies": {
+    "@sentry/node": "5.12.2",
     "axios": "^0.19.2",
     "cheerio": "^0.22.0",
     "cookie-parser": "1.4.5",
