@@ -310,6 +310,37 @@ header div .btn--facebook {
 .postman {
 	display: flex;
 	align-items: center;
+	margin-bottom: 2vh;
+}
+
+.mailing {
+	display: flex;
+	flex-direction: row;
+	height: 40px;
+}
+
+.mailing input {
+	background-color: white;
+	border-style: none;
+	padding: 2vh 2vw;
+	text-align: left;
+	font-size: 16px;
+	border-radius: 10px 0px 0px 10px;
+}
+
+.mailing button {
+	background-color: #2196F3;
+	color: white;
+	border-style: none;
+	padding: 1vh 2vw;
+	text-align: center;
+	font-size: 14px;
+	border-radius: 0px 10px 10px 0px;
+}
+.mailing button:hover {
+	background-color: #31373B;
+	color: #2196F3;
+	cursor: pointer;
 }
 
 /*----------------------
@@ -438,13 +469,14 @@ footer ul li:last-child{
 footer p{
 	text-transform: uppercase;
 	font-size: 14px;
-	color: rgba(255,255,255,0.6);
+	color: white;
 	margin-bottom: 10px;
 }
 
 footer p a{
-	color: #fff;
+	color: #2196F3;
 }
+
 
 @media (max-width: 700px){
 
@@ -454,9 +486,82 @@ footer p a{
 
 }
 
+/* -- Toast Notification -- */
 
-/* -- Demo ads -- */
+#toast {
+    visibility: hidden;
+    max-width: 0px;
+    height: 50px;
+    /*margin-left: -125px;*/
+    margin: auto;
+    background-color: #31373B;
+    text-align: left;
+    border-radius: 5px 0px 0px 5px;
 
-@media (max-width: 1200px) {
-	#bsaHolder{ display:none;}
+    position: fixed;
+    z-index: 1;
+    right:0;
+    bottom: 14px;
+    font-size: 16px;
+	white-space: nowrap;
+	
+	display: inline-block;
+}
+
+#toast #desc{
+    color: white;
+    padding: 16px;
+    overflow: hidden;
+	white-space: nowrap;
+}
+
+#toast.show {
+    visibility: visible;
+    -webkit-animation: expand 0.5s 0.5s, stay 10s 1s, shrink 0.5s 11s;
+    animation: expand 0.5s 0.5s, stay 10s 1s, shrink 0.5s 11s;
+}
+
+@-webkit-keyframes expand {
+    from {min-width: 0px} 
+    to {min-width: 350px}
+}
+
+@keyframes expand {
+    from {min-width: 0px}
+    to {min-width: 350px}
+}
+@-webkit-keyframes stay {
+    from {min-width: 350px} 
+    to {min-width: 350px}
+}
+
+@keyframes stay {
+    from {min-width: 350px}
+    to {min-width: 350px}
+}
+@-webkit-keyframes shrink {
+    from {min-width: 350px;} 
+    to {min-width: 0px;}
+}
+
+@keyframes shrink {
+    from {min-width: 350px;} 
+    to {min-width: 0px;}
+}
+
+
+#toast.early-close {
+	visibility: visible;
+    -webkit-animation: shrink-early 0.5s 0.5s;
+    animation: shrink-early 0.5 0.5s;
+}
+
+@-webkit-keyframes shrink-early {
+    from {min-width: 350px;} 
+    to {min-width: 0px;}
+}
+
+@keyframes shrink-early {
+    from {min-width: 350px;} 
+    to {min-width: 0px;}
 }

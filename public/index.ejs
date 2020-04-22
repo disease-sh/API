@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="csrf-token" content="<%= csrfToken %>">
     <meta content="NovelCOVID API" property="og:title" />
     <meta content="Most used Open-Sourced & Free API for CoronaVirus Statistics. Over 2,000,000,000+ Requests & 10 TB of Data Served to Date!" property="og:description"/>
     <link rel="icon" href="https://cdn.discordapp.com/icons/689535536934813823/0cf582f280a100016d775994a7e4ba08.jpg" type="image"/>
@@ -14,12 +15,12 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 
 </head>
 
 <body>
-
 	<header>
 		<div>
 			<a class="btn--docs" href="/docs" target="_blank">Docs</a>
@@ -31,7 +32,6 @@
 		</div>
 	</header>
 
-
 	<section class="hero">
 		<div class="background-image" style="background-image: url(assets/img/rona.jpg);"></div>
 		<h1>Novel COVID API</h1>
@@ -41,6 +41,14 @@
 			<a style="opacity: 1;" href="https://covid-19-apis.postman.com" target="_blank">
         <img style="margin-left: 1vw; height: 6vh; vertical-align: middle;" src="/assets/img/postman.png" alt="Postman">
       </a>
+		</div>
+		<p id="jointxt" style="margin-bottom: 0px;">Stay current with API updates, join our mailing list</p>
+		<div class="mailing">
+			<input type="email" placeholder="your-email@domain.com" id="email" name="email">
+			<button class="g-recaptcha"
+			data-sitekey="6LeYb-wUAAAAABsFwfLf5wtN9uRN5EqFtpS3ploJ"
+			data-badge="bottomleft"
+			data-callback="addEmail">Sign up</button>
 		</div>
 	</section>
 
@@ -111,6 +119,11 @@
 	</section>
 
 	<footer>
+		<p>&#127881; Special thanks to 
+			<a href="https://github.com/EliteDaMyth" target="_blank">EliteDaMyth</a>,
+			<a href="https://github.com/Nekiono" target="_blank">Ravy</a>,
+			<a href="https://github.com/ebwinters" target="_blank">Ethan Winters</a>, and
+			<a href="https://github.com/puf17640" target="_blank">Julian Pufler</a> &#127881;</p>
 		<ul>
 			<li><a href="https://github.com/NovelCOVID/API" target="_blank"><i class="fa fa-github-square""></i></a></li>
 			<li><a href="https://twitter.com/covidapi" target="_blank"><i class="fa fa-twitter""></i></a></li>
@@ -118,6 +131,68 @@
 		</ul>
 	</footer>
 
+	<div id="toast">
+		<div id="desc">
+			<i onclick="closeToast()" style="margin-right: 10px; cursor: pointer; color: white;" class="fa fa-times-circle" aria-hidden="true"></i>
+			Check out our new domain <a style="color: #2196F3; background-color: #585c5e; padding: 4px; border-radius: 5px;" href="https://disease.sh" target="_blank">disease.sh</a>
+		</div>
+	</div>
+
+	<script>
+		// toast notification in bottom right corner
+		function launch_toast() {
+			var toast = document.getElementById("toast")
+			toast.className = "show";
+			setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 20000);
+		}
+		launch_toast();
+		function closeToast() {
+			var toast = document.getElementById("toast");
+			toast.className = "early-close";
+		}
+
+		// validate an email for mailing list
+		function validateEmail(email) {
+    		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    		return re.test(String(email).toLowerCase());
+		}
+		
+		// Read the CSRF token from the <meta> tag
+		const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+		
+		async function addEmail(captchaToken) {
+			grecaptcha.reset();
+			const email = document.getElementById('email').value;
+			if (validateEmail(email) && captchaToken.length > 0) {
+				const params = {
+					recaptcha: captchaToken
+				};
+				let init = {
+					credentials: 'same-origin', // <-- includes cookies in the request
+					headers: {
+						'CSRF-Token': token, // <-- is the csrf token as a header
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(params),
+					method: 'POST'
+				};
+				const response = await fetch(`/private/mailgun?email=${email}`, init);
+				const json = await response.json();
+				if (json.message && json.message === "Mailing list member has been created") {
+					document.getElementById('jointxt').style.color = "#85ea2d";
+					document.getElementById('jointxt').innerText = "success! you are now subscribed!"
+				}
+				else {
+					document.getElementById('jointxt').style.color = "#F66014";
+					document.getElementById('jointxt').innerText = "something went wrong, try again later"
+				}
+			}
+			else {
+				document.getElementById('jointxt').style.color = "#F66014";
+				document.getElementById('jointxt').innerText = "please enter a valid email address"
+			}
+		}
+	</script>
 </body>
 
 </html>
