@@ -15,7 +15,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 
 </head>
 
@@ -44,7 +45,10 @@
 		<p id="jointxt" style="margin-bottom: 0px;">Stay current with API updates, join our mailing list</p>
 		<div class="mailing">
 			<input type="email" placeholder="your-email@domain.com" id="email" name="email">
-			<button onclick="addEmail()">Sign up</button>
+			<button class="g-recaptcha"
+			data-sitekey="6LeYb-wUAAAAABsFwfLf5wtN9uRN5EqFtpS3ploJ"
+			data-badge="bottomleft"
+			data-callback="addEmail">Sign up</button>
 		</div>
 	</section>
 
@@ -156,14 +160,20 @@
 		// Read the CSRF token from the <meta> tag
 		const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 		
-		async function addEmail() {
+		async function addEmail(captchaToken) {
+			grecaptcha.reset();
 			const email = document.getElementById('email').value;
-			if (validateEmail(email)) {
+			if (validateEmail(email) && captchaToken.length > 0) {
+				const params = {
+					recaptcha: captchaToken
+				};
 				let init = {
 					credentials: 'same-origin', // <-- includes cookies in the request
 					headers: {
-						'CSRF-Token': token // <-- is the csrf token as a header
+						'CSRF-Token': token, // <-- is the csrf token as a header
+						'Content-Type': 'application/json'
 					},
+					body: JSON.stringify(params),
 					method: 'POST'
 				};
 				const response = await fetch(`/private/mailgun?email=${email}`, init);

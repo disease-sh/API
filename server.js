@@ -1,7 +1,9 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const app = express();
+const axios = require('axios');
 const csrfProtection = require('csurf')({ cookie: true });
+const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
 const { redis, config, keys, scraper } = require('./routes/instances');
@@ -69,7 +71,9 @@ app.use(require('cookie-parser')());
 
 app.get('/', csrfProtection, async (req, res) => res.render('index', { csrfToken: req.csrfToken() }));
 
-app.post('/private/mailgun', require('body-parser').urlencoded({ extended: true }), csrfProtection, async (req, res) => {
+app.use(bodyParser.json());
+app.post('/private/mailgun', bodyParser.urlencoded({ extended: false }), csrfProtection, async (req, res) => {
+	// mailgun data
 	const { email } = req.query;
 	const DOMAIN = 'lmao.ninja';
 	const mailgun = require('mailgun-js')({ apiKey: config.mailgunApiKey, domain: DOMAIN });
@@ -78,13 +82,20 @@ app.post('/private/mailgun', require('body-parser').urlencoded({ extended: true 
 		subscribed: true,
 		address: email
 	};
-	list.members().create(newMember, (error, data) => {
-		if (error) {
-			res.send(error);
-		} else {
-			res.send(data);
-		}
-	});
+	// recaptcha data
+	const recaptchaURL = `https://www.google.com/recaptcha/api/siteverify?secret=${config.captchaSecret}&response=${req.body.recaptcha}`;
+	const recaptchaResponse = await axios.get(recaptchaURL);
+	if (recaptchaResponse.data.success) {
+		list.members().create(newMember, (error, data) => {
+			if (error) {
+				res.send({ err: error });
+			} else {
+				res.send(data);
+			}
+		});
+	} else {
+		res.send({ err: 'recaptcha error' });
+	}
 });
 
 app.use(require('./routes/api_worldometers'));
