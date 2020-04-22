@@ -8,7 +8,9 @@ const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
 const { redis, config, keys, scraper } = require('./routes/instances');
-Sentry.init({ dsn: 'https://6f4916605ad146fe800ee7d6c82888d4@sentry.farfrom.earth/9' });
+
+if (config.sentry_key )
+	Sentry.init({ dsn: config.sentry_key });
 
 const execAll = async () => {
 	await Promise.all([
