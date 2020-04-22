@@ -132,7 +132,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 - [CoronaCord](https://github.com/Tetracyl/CoronaCord), (JavaScript) by [Seif Abdelaziz](https://github.com/Tetracyl)
 - [COVID19-App](https://github.com/Tetracyl/COVID19-App), (C# + Unity) by [Seif Abdelaziz](https://github.com/Tetracyl)
 - [python-corona-api](https://github.com/apex2504/python-corona-api), (Python) by [Rob Wainwright](https://github.com/apex2504)
-- [COVID-19 Tracker CLI](https://github.com/trackercli/covid19-tracker-cli), (JavaScript) by [Filipino developers](https://github.com/trackercli)
+- [COVID-19 Tracker CLI](https://github.com/trackercli/covid19-tracker-cli), (JavaScript) by [Tracker CLI Developers](https://github.com/trackercli)
 
 # License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNovelCOVID%2FAPI.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FNovelCOVID%2FAPI?ref=badge_large)
