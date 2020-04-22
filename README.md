@@ -126,5 +126,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 # Donating
 <a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;"></a>
 
+# Showcases
+- [Alert COVID-19](https://github.com/renanbastos93/alertcovid19), (Golang) by [Renan Bastos](https://github.com/renanbastos93)
+
 # License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNovelCOVID%2FAPI.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FNovelCOVID%2FAPI?ref=badge_large)
