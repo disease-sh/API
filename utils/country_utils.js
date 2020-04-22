@@ -17,7 +17,7 @@ const getCountryName = (countryCode) =>	countryData.find(country => country.iso2
 
 const getCountryData = (countryNameParam) => {
 	const countryName = stringUtils.wordsStandardize(countryNameParam);
-	const nullReturn = { _id: null, country: null, iso2: null, iso3: null, lat: 0, long: 0, flag: 'https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/unknow.png' };
+	const nullReturn = { _id: null, country: null, iso2: null, iso3: null, lat: 0, long: 0, flag: 'https://corona.lmao.ninja/assets/img/flags/unknown.png' };
 	const countryFound = countryData.find(item => (stringUtils.wordsStandardize(item.country) === countryName
 		|| stringUtils.wordsStandardize(item.iso2) === countryName
 		|| stringUtils.wordsStandardize(item.iso3) === countryName
@@ -31,7 +31,7 @@ const getCountryData = (countryNameParam) => {
 		iso3: countryFound.iso3,
 		lat: countryFound.lat,
 		long: countryFound.long,
-		flag: `https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${countryFound.iso2.toLowerCase()}.png`
+		flag: `https://corona.lmao.ninja/assets/img/flags/${countryFound.iso2.toLowerCase()}.png`
 	} : nullReturn;
 };
 

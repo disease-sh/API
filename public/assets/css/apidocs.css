@@ -12,7 +12,7 @@
     top       : 2px;
 } */
 .topbar-wrapper img {
-    content: url('./../logo.png');
+    content: url('./../img/logo.png');
 }
 
 .download-url-wrapper span {

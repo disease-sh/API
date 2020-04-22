@@ -30,6 +30,29 @@ setInterval(execAll, config.interval);
 // Update NYT data every hour
 setInterval(execNyt, config.nyt_interval);
 
+app.use(express.static(path.join(__dirname, '/public')));
+app.use('/docs',
+	swaggerUi.serve,
+	swaggerUi.setup(null, {
+		explorer: true,
+		customSiteTitle: 'NovelCOVID 19 API',
+		customfavIcon: '/assets/img/virus.png',
+		customCssUrl: '/assets/css/apidocs.css',
+		swaggerOptions: {
+			urls: [
+				{
+					name: 'version 2.0.0',
+					url: '/apidocs/swagger_v2.json'
+				},
+				{
+					name: 'version 1.0.0',
+					url: '/apidocs/swagger_v1.json'
+				}
+			]
+		}
+	})
+);
+
 app.use(require('cors')());
 
 app.get('/invite', async (req, res) =>
@@ -42,29 +65,7 @@ app.use(require('./routes/api_worldometers'));
 app.use(require('./routes/api_historical'));
 app.use(require('./routes/api_jhucsse'));
 app.use(require('./routes/api_deprecated'));
-
-app.use(express.static('public'));
-app.use('/docs',
-	swaggerUi.serve,
-	swaggerUi.setup(null, {
-		explorer: true,
-		customSiteTitle: 'NovelCOVID 19 API',
-		customfavIcon: '/public/virus.png',
-		customCssUrl: '/public/apidocs/custom.css',
-		swaggerOptions: {
-			urls: [
-				{
-					name: 'version 2.0.0',
-					url: '/public/apidocs/swagger_v2.json'
-				},
-				{
-					name: 'version 1.0.0',
-					url: '/public/apidocs/swagger_v1.json'
-				}
-			]
-		}
-	})
-);
+app.use(require('./routes/api_nyt'));
 
 app.set('views', path.join(__dirname, '/public'));
 app.set('view engine', 'ejs');
@@ -91,12 +92,6 @@ app.post('/private/mailgun', bodyParser.json(), bodyParser.urlencoded({ extended
 		res.send({ err: 'recaptcha error' });
 	}
 });
-
-app.use(require('./routes/api_worldometers'));
-app.use(require('./routes/api_historical'));
-app.use(require('./routes/api_jhucsse'));
-app.use(require('./routes/api_deprecated'));
-app.use(require('./routes/api_nyt'));
 
 app.listen(config.port, () =>
 	logger.info(`Your app is listening on port ${config.port}`)
