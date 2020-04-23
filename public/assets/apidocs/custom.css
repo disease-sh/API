@@ -1,0 +1,28 @@
+/* .topbar-wrapper img[alt="Swagger UI"], .topbar-wrapper span {
+    visibility: hidden;
+}
+
+.topbar-wrapper span:after {
+    content   : url('./../virus.png');
+    color     : #fff;
+    visibility: visible;
+    display   : block;
+    position  : absolute;
+    padding   : 5px;
+    top       : 2px;
+} */
+.topbar-wrapper img {
+    content: url('./../logo.png');
+}
+
+.download-url-wrapper span {
+    visibility: hidden;
+}
+
+.download-url-wrapper span:after {
+    content    : 'Available Versions';
+    visibility : visible;
+    position   : absolute;
+    top        : 22px;
+    margin-left: -140px;
+}
