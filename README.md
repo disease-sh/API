@@ -123,18 +123,14 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
+# Showcases (Awesome-NovelCOVID)
+
+Did you build a project with our API? We now offer an "awesome-list" for you to add your projects into so people can find out about them!
+
+#### You can find it <a href="https://github.com/puf17640/awesome-novelcovid">here</a>.
+
 # Donating
 <a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;"></a>
-
-# Showcases
-- [Alert COVID-19](https://github.com/renanbastos93/alertcovid19), (Golang) by [Renan Bastos](https://github.com/renanbastos93)
-- [CoronavirusTwitterTracker](https://github.com/Tetracyl/CoronavirusTwitterTracker), (JavaScript) by [Seif Abdelaziz](https://github.com/Tetracyl)
-- [CoronaCord](https://github.com/Tetracyl/CoronaCord), (JavaScript) by [Seif Abdelaziz](https://github.com/Tetracyl)
-- [COVID19-App](https://github.com/Tetracyl/COVID19-App), (C# + Unity) by [Seif Abdelaziz](https://github.com/Tetracyl)
-- [python-corona-api](https://github.com/apex2504/python-corona-api), (Python) by [Rob Wainwright](https://github.com/apex2504)
-- [COVID-19 Tracker CLI](https://github.com/trackercli/covid19-tracker-cli), (JavaScript) by [Tracker CLI Developers](https://github.com/trackercli)
-- [Stop COVID-19](https://stopcovid.dev/), (TypeScript/ JavaScript) by [Drew Payment](https://github.com/drewpayment)
-- [Covid-19 Tracker for Bangladesh](https://github.com/jobayerarman/covidbd), (JavaScript) by [Jobayer Arman](https://github.com/jobayerarman)
 
 # License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNovelCOVID%2FAPI.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FNovelCOVID%2FAPI?ref=badge_large)
