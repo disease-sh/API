@@ -123,6 +123,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
+# Showcases (Awesome-NovelCOVID)
+
+Did you build a project with our API? We now offer an "awesome-list" for you to add your projects into so people can find out about them!
+
+#### You can find it <a href="https://github.com/puf17640/awesome-novelcovid">here</a>.
+
 # Donating
 <a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" width="217" height="50"></a>
 
