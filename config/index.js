@@ -1,5 +1,6 @@
 const keys = require('./config.keys.json');
 let config;
+
 try {
 	config = require('./config.json');
 } catch (err) {
