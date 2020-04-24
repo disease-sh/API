@@ -40,6 +40,6 @@ module.exports = {
 		executeScraperNYTData: async () => {
 			await nytData(keys, redis);
 			logger.info('Finished NYT scraping!');
-		},
-	},
+		}
+	}
 };

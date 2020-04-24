@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
 const { config, scraper: { executeScraper, executeScraperNYTData } } = require('./routes/instances');
-const { exec } = require('child_process');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 
