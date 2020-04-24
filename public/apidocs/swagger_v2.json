@@ -976,6 +976,12 @@
         "type": "string"
       }
     },
+    "continents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/continent"
+      }
+    },
     "countries": {
       "type": "array",
       "items": {
