@@ -26,6 +26,7 @@ const execAll = async (redis) => {
 const execNyt = (redis) => scraper.nytData(keys, redis);
 
 const startFetch = () => {
+    logger.info('Config File!');
     console.log(config);
     if (!!config.redis && config.redis.host && config.redis.port && config.redis.password != null) {
         // All redis related data is present. Its good to go.
