@@ -1,11 +1,12 @@
+const logger = require('../utils/logger');
 const { scraper: { executeScraper, executeScraperNYTData }, redis } = require('../routes/instances');
 
 // eslint-disable-next-line
 before(async () => {
 	await redis.flushall();
-	console.log('Finished flushing all data from redis.');
+	logger.msg('Finished flushing all data from redis.');
 
 	await executeScraper();
 	await executeScraperNYTData();
-	console.log('Scraping finished.');
+	logger.msg('Scraping finished.');
 });
