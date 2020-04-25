@@ -1,9 +1,9 @@
 name: Eslint
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 jobs:
   eslint:
     runs-on: ubuntu-latest
