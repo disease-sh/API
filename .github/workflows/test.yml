@@ -15,9 +15,9 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
-	  - uses: zcong1993/setup-timezone@master
-	    with:
-		  timezone: America/New_York
+      - uses: zcong1993/setup-timezone@master
+        with:
+          timezone: America/New_York
       - name: Start redis server
         uses: supercharge/redis-github-action@1.1.0
         with:
