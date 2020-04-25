@@ -1,9 +1,9 @@
 name: Eslint
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 jobs:
   eslint:
     runs-on: ubuntu-latest
@@ -11,4 +11,3 @@ jobs:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm run lint
-  
