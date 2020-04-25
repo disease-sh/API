@@ -21,6 +21,7 @@ const jhudataV2 = async (keys, redis) => {
 		response = await axios.get(`${base}/${dateString}.csv`);
 	} catch (err) {
 		logger.err('Error: Requesting JHULocations failed!', err);
+		return;
 	}
 
 	const parsed = await csv({
