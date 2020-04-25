@@ -1,10 +1,11 @@
 {
-  "name": "NovelCOVID-API",
-  "version": "1.0.1",
+  "name": "covid19",
+  "version": "0.0.1",
   "description": "A simple Node API for getting coronavirus cases from scraped information.",
-  "main": "server.js",
+  "main": "start.js",
+  "author": "Kavin Varnan <skavinvarnan@gmail.com>",
   "repository": {
-    "url": "https://github.com/NovelCOVID/API"
+    "url": "https://github.com/COVID19-SARS-CoV-2/covid-19-scraper"
   },
   "license": "MIT",
   "keywords": [
@@ -29,6 +30,7 @@
     "cheerio": "^0.22.0",
     "cookie-parser": "1.4.5",
     "cors": "^2.8.5",
+    "cron": "^1.8.2",
     "csurf": "1.11.0",
     "csvtojson": "^2.0.10",
     "ejs": "3.0.2",
