@@ -16,6 +16,5 @@ const warn = (message) => msg(console.warn, message);
 module.exports = {
 	err,
 	info,
-	warn,
-	msg
+	warn
 };
