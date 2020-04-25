@@ -1,4 +1,5 @@
 const keys = require('./config.keys.json');
+let port;
 let config;
 
 try {
@@ -6,10 +7,13 @@ try {
 } catch (err) {
 	config = require('./config.example.json');
 }
-
-console.log(process.env.covid_api_mode);
+port = process.env.SERVER_PORT || config.port || 3000;
+config.redis.host = process.env.REDIS_HOST ? process.env.REDIS_HOST : config.redis.host;
+config.redis.port = process.env.REDIS_PORT ? process.env.REDIS_PORT : config.redis.port;
+config.redis.password = process.env.REDIS_PASSWORD ? process.env.REDIS_PASSWORD : config.redis.password;
 
 module.exports = {
 	config,
-	keys
+	keys,
+	port
 };

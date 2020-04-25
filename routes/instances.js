@@ -10,7 +10,7 @@ const historical = require('../scrapers/historical');
 const nytData = require('../scrapers/nytData');
 
 // KEYS
-const { config, keys } = require('../config');
+const { config, keys, port } = require('../config');
 
 const redis = new Redis(config.redis.host, {
 	password: config.redis.password,
@@ -19,6 +19,7 @@ const redis = new Redis(config.redis.host, {
 
 module.exports = {
 	redis,
+	port,
 	keys,
 	config,
 	scraper: {
