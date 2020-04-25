@@ -70,23 +70,16 @@ const fillResult = (html, yesterday = false) => {
  * @param 	{Object} 	redis 	 Redis instance
  */
 const getStates = async (keys, redis) => {
-	let response;
 	try {
-		response = await axios.get('https://www.worldometers.info/coronavirus/country/us/');
+		const html = cheerio.load((await axios.get('https://www.worldometers.info/coronavirus/country/us/')).data);
+		['states', 'yesterday_states'].forEach(key => {
+			const data = fillResult(html, key.includes('yesterday'));
+			redis.set(keys[key], JSON.stringify(data));
+			logger.info(`Updated ${key} statistics: ${data.length} states`);
+		});
 	} catch (err) {
-		return logger.err('Error: Requesting GetStates failed!', err);
+		logger.err('Error: Requesting GetStates failed!', err);
 	}
-	const html = cheerio.load(response.data);
-
-	// set states
-	const statesData = fillResult(html);
-	redis.set(keys.states, JSON.stringify(statesData));
-	logger.info(`Updated states: ${statesData.length} states`);
-
-	// set yesterday states
-	const statesDataYesterday = fillResult(html, true);
-	redis.set(keys.yesterday_states, JSON.stringify(statesDataYesterday));
-	logger.info(`Updated yesterday states: ${statesDataYesterday.length} states`);
 };
 
 module.exports = getStates;
