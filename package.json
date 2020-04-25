@@ -17,11 +17,14 @@
   ],
   "scripts": {
     "start": "node server.js",
+    "start:scraper": "node server_scraper.js",
     "start:dev": "nodemon --watch routes --watch scrapers --watch utils ./server.js ",
     "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
     "lint:fix": "eslint ./**/*.js --fix --ignore-pattern node_modules/",
     "lint:win32": "eslint ./**/*.js --ignore-pattern node_modules/",
-    "test": "mocha ./tests --exit  --timeout 50000"
+    "test": "mocha ./tests --exit  --timeout 60000",
+    "docker-start": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build",
+    "docker-test": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-exit --build"
   },
   "dependencies": {
     "@sentry/node": "5.12.2",

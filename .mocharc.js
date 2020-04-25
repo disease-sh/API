@@ -1,3 +1,3 @@
 module.exports = {
-    file: ['./tests/mochaGlobalSetup.js']
+    file: ['./tests/mochaSetup.spec.js']
 };
