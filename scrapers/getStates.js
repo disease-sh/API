@@ -74,7 +74,7 @@ const getStates = async (keys, redis) => {
 	try {
 		response = await axios.get('https://www.worldometers.info/coronavirus/country/us/');
 	} catch (err) {
-		logger.err('Error: Requesting GetStates failed!', err);
+		return logger.err('Error: Requesting GetStates failed!', err);
 	}
 	const html = cheerio.load(response.data);
 

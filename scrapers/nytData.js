@@ -30,7 +30,7 @@ const nytData = async (keys, redis) => {
 		logger.info('NYT Data successfully retrieved');
 		await updateCache();
 	} catch (err) {
-		logger.err('Error: Requesting NYT data failed!', err);
+		return logger.err('Error: Requesting NYT data failed!', err);
 	}
 };
 
