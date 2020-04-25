@@ -2,6 +2,7 @@ node_modules/
 json.sqlite
 .vscode/
 config.json
+docker.env
 package-lock.json
 dump.rdb
 yarn.lock

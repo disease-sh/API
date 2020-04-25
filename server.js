@@ -7,31 +7,16 @@ const csrfProtection = require('csurf')({ cookie: true });
 const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
-const { redis, config, keys, scraper } = require('./routes/instances');
+const { config, scraper: { executeScraper, executeScraperNYTData } } = require('./routes/instances');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 
-const execAll = async () => {
-	await Promise.all([
-		scraper.getWorldometerPage(keys, redis),
-		scraper.getStates(keys, redis),
-		scraper.jhuLocations.jhudataV2(keys, redis),
-		scraper.historical.historicalV2(keys, redis),
-		scraper.historical.getHistoricalUSADataV2(keys, redis)
-	]);
-	logger.info('Finished scraping!');
-	app.emit('scrapper_finished');
-};
-
-const execNyt = () => scraper.nytData(keys, redis);
-
-execAll();
-execNyt();
-
+executeScraper();
+executeScraperNYTData();
 // Update Worldometer and Johns Hopkins data every 10 minutes
-setInterval(execAll, config.interval);
+setInterval(executeScraper, config.interval);
 // Update NYT data every hour
-setInterval(execNyt, config.nyt_interval);
+setInterval(executeScraperNYTData, config.nyt_interval);
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/docs',
