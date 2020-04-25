@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  redis:
+    container_name: covid-api-redis-test
+    volumes:
+      - redis-data-test:/data
+
+  app:
+    command: ["npm", "test"]
+    image: covidapi-app-test
+    env_file:
+      - ./config/docker.env
+    environment:
+      - TEST_MODE=true
+    container_name: covid-api-app-test
+
+volumes:
+  redis-data-test:
