@@ -20,7 +20,8 @@ const jhudataV2 = async (keys, redis) => {
 		logger.info(`USING ${dateString}.csv CSSEGISandData`);
 		response = await axios.get(`${base}/${dateString}.csv`);
 	} catch (err) {
-		return logger.err('Error: Requesting JHULocations failed!', err);
+		logger.err('Error: Requesting JHULocations failed!', err);
+		return;
 	}
 
 	const parsed = await csv({

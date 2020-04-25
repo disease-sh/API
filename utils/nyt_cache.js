@@ -32,7 +32,7 @@ exports.updateCache = async () => {
 		this.currentStatus.nytNationwide = parsedNationData.map(numericalStats);
 		logger.info('NYT local cache updated');
 	} catch (err) {
-		return logger.err('Local NYT cache update failed', err);
+		logger.err('Local NYT cache update failed', err);
 	}
 };
 
