@@ -1,10 +1,10 @@
 # Scraper of COVID19 
 Datas are scraped from 
-> https://www.worldometers.info/coronavirus/
+* https://www.worldometers.info/coronavirus/
 
-> https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
+* https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
 
-> https://github.com/nytimes/covid-19-data
+* https://github.com/nytimes/covid-19-data
 
 
 ## This is a fork
