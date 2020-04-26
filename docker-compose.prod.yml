@@ -38,6 +38,6 @@ services:
     env_file:
       - .env
     ports:
-      - "${SERVER_PORT}:3000"
+      - "${SERVER_PORT}:${SERVER_PORT}"
     depends_on:
       - scraper
