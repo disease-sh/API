@@ -19,3 +19,4 @@ jobs:
           name: novelcovid/novelcovid-api
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
+          tags: "latest"
