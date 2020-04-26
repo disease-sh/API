@@ -18,7 +18,7 @@ services:
       - redis-data:/data
 
   scraper:
-    image: novelcovid/novelcovid-api:testcommit
+    image: novelcovid/novelcovid-api:latest
     container_name: covid-api-scraper
     command: ["npm", "run", "start:scraper"]
     restart: always
@@ -30,7 +30,7 @@ services:
       - redis
 
   app:
-    image: novelcovid/novelcovid-api:testcommit
+    image: novelcovid/novelcovid-api:latest
     container_name: covid-api-server
     command: ["npm", "start"]
     restart: always
