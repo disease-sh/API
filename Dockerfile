@@ -1,9 +1,9 @@
 FROM node:13
 
-RUN mkdir -p /home/container
+# WORKDIR create the directory and then execute cd
 WORKDIR /home/container
 
-COPY . /home/container
+COPY ./package.json .
 RUN npm i
 
-CMD [ "node", "server.js" ]
+COPY . .

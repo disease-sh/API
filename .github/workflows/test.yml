@@ -1,9 +1,9 @@
 name: Unittest
 on:
   push:
-    branches: [master]
+    branches: [master, docker-dev]
   pull_request:
-    branches: [master]
+    branches: [master, docker-dev]
   schedule:
     - cron: "0 */2 * * *"
 jobs:
@@ -23,4 +23,4 @@ jobs:
         with:
           redis-version: ${{ matrix.redis-version }}
       - run: npm install
-      - run: npm test
+      - run: npm run docker-test
