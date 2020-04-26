@@ -1,3 +1,6 @@
+![Logo](https://i.imgur.com/m7JoOrQ.png)
+<br><br>
+
 ![GitHub contributors](https://img.shields.io/github/contributors-anon/novelcovid/api?style=for-the-badge)
 ![ESLint](https://img.shields.io/github/workflow/status/NovelCOVID/API/Eslint?label=ESLint&style=for-the-badge)
 ![Tests](https://img.shields.io/github/workflow/status/NovelCOVID/API/Unittest?label=Tests&style=for-the-badge)
