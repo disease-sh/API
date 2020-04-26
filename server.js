@@ -62,7 +62,7 @@ var getcountries = setInterval(async () => {
   const countriesTable = html("table#main_table_countries_today");
   const countriesTableCells = countriesTable
     .children("tbody")
-    .children("tr")
+    .children("tr:not(.row_continent)")
     .children("td");
 
   // count worldometers table columns
