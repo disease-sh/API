@@ -5,8 +5,6 @@ services:
     image: redis:5.0.8-buster
     hostname: redis
     container_name: covid-api-redis
-    env_file:
-      - .env
     networks:
       - redis-net
     volumes:
