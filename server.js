@@ -8,8 +8,12 @@ const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
 const { config, port } = require('./routes/instances');
+const { updateCache } = require('./utils/nyt_cache');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
+
+// Use local cache for NYT data
+updateCache();
 
 app.use(require('cors')());
 app.use(express.static(path.join(__dirname, '/public')));
