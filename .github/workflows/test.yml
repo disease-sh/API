@@ -3,7 +3,7 @@ on:
   push:
     branches: [master]
   pull_request:
-    branches: [master]
+    branches: [master, docker-dev]
   schedule:
     - cron: "0 */2 * * *"
 jobs:
