@@ -8,7 +8,7 @@ services:
 
   app:
     command: ["npm", "test"]
-    image: covidapi-app-test
+    build: .
     environment:
       - TEST_MODE=true
     container_name: covid-api-app-test

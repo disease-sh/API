@@ -1,0 +1,21 @@
+name: Docker Publish
+on:
+  push:
+    branches: [docker-dev]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+      - uses: zcong1993/setup-timezone@master
+        with:
+          timezone: America/Denver
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        if: github.repository != 'NovelCOVID/API'
+        with:
+          name: novelcovid/novelcovid-api
+          username: ebwinters
+          password: ${{ secrets.Docker_Token }}
+          tags: "latest"
