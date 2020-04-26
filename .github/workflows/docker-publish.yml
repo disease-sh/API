@@ -1,7 +1,7 @@
 name: Docker Publish
 on:
   push:
-    branches: [master]
+    branches: [master, docker-dev]
   pull_request:
     branches: [master]
 jobs:
@@ -15,6 +15,7 @@ jobs:
           timezone: America/Denver
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
+        if: github.repository != 'NovelCOVID/API'
         with:
           name: novelcovid/novelcovid-api
           username: ebwinters
