@@ -1,9 +1,7 @@
 name: Docker Publish
 on:
   push:
-    branches: [master, docker-dev]
-  pull_request:
-    branches: [master]
+    branches: [docker-dev]
 jobs:
   publish:
     runs-on: ubuntu-latest
