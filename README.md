@@ -41,7 +41,7 @@ NovelCovid/API Documentation can be found [here](https://corona.lmao.ninja/docs/
 1. Fork and clone git repository
 2. In root project folder, make a new file called `.env`
 3. Copy contents for `example.env` to new `.env` file
-4. Replace password field with `"yourpassword"` and port field same within `docker-compose.yml`.
+4. Replace password field with `"yourpassword"` or leave it blank, and port field same within `docker-compose.yml`.
 5. Replace redis host "localhost" with "redis".
 6. Run command `npm run docker-start-dev`.
 
