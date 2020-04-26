@@ -1,7 +1,7 @@
 name: Unittest
 on:
   push:
-    branches: [master]
+    branches: [master, docker-dev]
   pull_request:
     branches: [master, docker-dev]
   schedule:
