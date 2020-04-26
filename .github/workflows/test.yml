@@ -24,3 +24,8 @@ jobs:
           redis-version: ${{ matrix.redis-version }}
       - run: npm install
       - run: npm run docker-test
+        env:
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          REDIS_PASSWORD: ""
+          SERVER_PORT: 3000
