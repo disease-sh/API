@@ -11,6 +11,7 @@ services:
       - redis-data:/data
 
   app:
+    image: novelcovid/novelcovid-api:latest
     networks:
       - redis-net
     depends_on:
