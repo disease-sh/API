@@ -13,16 +13,9 @@ jobs:
       matrix:
         redis-version: [5]
     steps:
-      - name: Git checkout
-        uses: actions/checkout@v2
       - uses: zcong1993/setup-timezone@master
         with:
           timezone: America/Denver
-      - name: Start redis server
-        uses: supercharge/redis-github-action@1.1.0
-        with:
-          redis-version: ${{ matrix.redis-version }}
-      - run: npm install
       - run: npm run docker-test
         env:
           REDIS_HOST: localhost
