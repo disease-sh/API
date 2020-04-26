@@ -10,7 +10,7 @@ services:
     command: ["npm", "test"]
     image: covidapi-app-test
     env_file:
-      - ./config/docker.env
+      - .env
     environment:
       - TEST_MODE=true
     container_name: covid-api-app-test

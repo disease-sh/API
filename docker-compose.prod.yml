@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
   redis:
+    env_file: .env
     container_name: covid-api-redis
     command:
       [
@@ -9,9 +10,9 @@ services:
         "--appendonly",
         "yes",
         "--requirepass",
-        "123456",
-        # "--port",
-        # "6378",
+        "${REDIS_PASSWORD}",
+        "--port",
+        "${REDIS_PORT}",
       ]
     volumes:
       - redis-data:/data
@@ -23,7 +24,7 @@ services:
     command: ["npm", "run", "start:scraper"]
     restart: always
     env_file:
-      - ./config/docker.env
+      - .env
     networks:
       - redis-net
     depends_on:
@@ -35,8 +36,8 @@ services:
     command: ["npm", "start"]
     restart: always
     env_file:
-      - ./config/docker.env
+      - .env
     ports:
-      - 3000:3000
+      - "${SERVER_PORT}:3000"
     depends_on:
       - scraper

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const keys = require('./config.keys.json');
 let config;
 

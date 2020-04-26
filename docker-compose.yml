@@ -6,7 +6,7 @@ services:
     hostname: redis
     container_name: covid-api-redis
     env_file:
-      - ./config/docker.env
+      - .env
     networks:
       - redis-net
     volumes:
