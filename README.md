@@ -14,13 +14,13 @@
 
 # API
 API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
-https://corona.lmao.ninja/
+https://disease.sh/
 
 # Recommended by Postman
 NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
 # Documentation
-NovelCovid/API Documentation can be found [here](https://corona.lmao.ninja/docs/)
+NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
 
 ## Installation
 
