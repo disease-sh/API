@@ -3,9 +3,14 @@ const CronJob = require('cron').CronJob;
 const logger = require('./utils/logger');
 
 let config = {
-    "interval": "*/10 * * * *", // Every 10th min
-    "nyt_interval": "0 * * * *", // Every one hour
-    "flagsBase": 'https://corona.lmao.ninja/assets/img/flags/'
+    interval: "*/10 * * * *", // Every 10th min
+    nyt_interval: "0 * * * *", // Every one hour
+    flagsBase: 'https://corona.lmao.ninja/assets/img/flags/',
+    redis: {
+        host: "localhost",
+        password: "",
+        port: "6379"
+    }
 }
 
 const getConfig = () => {
