@@ -21,6 +21,7 @@ jobs:
           tags: "latest"
   merge-branch:
     if: github.repository == 'NovelCOVID/API'
+    needs: publish
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
