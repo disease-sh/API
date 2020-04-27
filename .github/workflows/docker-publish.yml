@@ -1,0 +1,33 @@
+name: Docker Publish
+on:
+  push:
+    branches: [docker-dev]
+jobs:
+  publish:
+    if: github.repository == 'NovelCOVID/API'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+      - uses: zcong1993/setup-timezone@master
+        with:
+          timezone: America/Denver
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: novelcovid/novelcovid-api
+          username: ebwinters
+          password: ${{ secrets.Docker_Token }}
+          tags: "latest"
+  merge-branch:
+    if: github.repository == 'NovelCOVID/API'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Merge by labeled
+        uses: devmasx/merge-branch@v1.1.0
+        with:
+          type: now
+          target_branch: 'prod'
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
