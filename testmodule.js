@@ -1,6 +1,7 @@
 const { setConfig, startFetch } = require('./start');
 
 setConfig({
+    flagsBase: 'https://covidstat.info/static/images/flags/',
     redis: {
         host: "localhost",
         password: "",

@@ -5,7 +5,12 @@ const { keys, scraper } = require('./routes/instances');
 
 let config = {
     "interval": "*/10 * * * *", // Every 10th min
-    "nyt_interval": "0 * * * *" // Every one hour
+    "nyt_interval": "0 * * * *", // Every one hour
+    "flagsBase": 'https://corona.lmao.ninja/assets/img/flags/'
+}
+
+const getFlagBase = () => {
+    return config.flagsBase;
 }
 
 const setConfig = (passedConfig) => {
@@ -56,5 +61,6 @@ const startFetch = () => {
 
 module.exports = {
     setConfig,
-    startFetch
+    startFetch,
+    getFlagBase
 }
