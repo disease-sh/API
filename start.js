@@ -1,7 +1,6 @@
 const Redis = require('ioredis');
 const CronJob = require('cron').CronJob;
 const logger = require('./utils/logger');
-const { keys, scraper } = require('./routes/instances');
 
 let config = {
     "interval": "*/10 * * * *", // Every 10th min
@@ -9,15 +8,15 @@ let config = {
     "flagsBase": 'https://corona.lmao.ninja/assets/img/flags/'
 }
 
-const getFlagBase = () => {
-    return config.flagsBase;
-}
+const getConfig = () => {
+    return config;
+};
 
 const setConfig = (passedConfig) => {
     config = {...config, ...passedConfig};
 }
 
-const execAll = async (redis) => {
+const execAll = async (redis, keys, scraper) => {
     await Promise.all([
         scraper.getWorldometerPage(keys, redis),
         scraper.getStates(keys, redis),
@@ -28,9 +27,10 @@ const execAll = async (redis) => {
     logger.info('Finished scraping!');
 };
 
-const execNyt = (redis) => scraper.nytData(keys, redis);
+const execNyt = (redis, keys, scraper) => scraper.nytData(keys, redis);
 
 const startFetch = () => {
+    const { redis, keys, scraper } = require('./routes/instances');
     logger.info('Config File!');
     console.log(config);
     if (!!config.redis && config.redis.host && config.redis.port && config.redis.password != null) {
@@ -40,27 +40,23 @@ const startFetch = () => {
         throw "Redis config should include host, port and password";
     }
 
-    const redis = new Redis(config.redis.host, {
-        password: config.redis.password,
-        port: config.redis.port
-    });
-    execAll(redis).then(() => {});
-    execNyt(redis).then(() => {});
+    execAll(redis, keys, scraper).then(() => {});
+    execNyt(redis, keys, scraper).then(() => {});
 
     // Update Worldometer and Johns Hopkins data every 10 minutes
     new CronJob(config.interval, () => {
         logger.info("*** Worldometer JHU Tick ***");
-        execAll(redis).then(() => {});
+        execAll(redis, keys, scraper).then(() => {});
     }).start();
     // Update NYT data every hour
     new CronJob(config.nyt_interval, () => {
         logger.info("*** NYT Tick ***");
-        execNyt(redis).then(() => {});
+        execNyt(redis, keys, scraper).then(() => {});
     }).start();
 }
 
 module.exports = {
     setConfig,
     startFetch,
-    getFlagBase
+    getConfig
 }

@@ -17,10 +17,10 @@ try {
 } catch (err) {
 	config = require('../config.example.json');
 }
-
-const redis = new Redis(config.redis.host, {
-	password: config.redis.password,
-	port: config.redis.port
+const { getConfig } = require('../start');
+const redis = new Redis(getConfig().redis.host, {
+	password: getConfig().redis.password,
+	port: getConfig().redis.port
 });
 
 module.exports = {
