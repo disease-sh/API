@@ -1,14 +1,11 @@
 # Scraper of COVID19 
-Datas are scraped from 
-* https://www.worldometers.info/coronavirus/
-
-* https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
-
-* https://github.com/nytimes/covid-19-data
-
 
 ## This is a fork
 This repo is a fork. Checkout [NovelCovid API](https://github.com/NovelCOVID/API) for the official documentation.
+
+### PS
+**This library runs along side of your NodeJS project. This library doesn't serve API's, it only scrapes and saves the data to redis.**
+_Useful if you want to get the data from Redis directly_
 
 ## Installation 
 
@@ -49,3 +46,10 @@ startFetch();
 
 #### Data dumped to redis
 Based on the scheduler time the data is scraped and updated to redis. You can find the redis keys [here](https://github.com/COVID19-SARS-CoV-2/covid-19-scraper/blob/master/config.keys.json)
+
+Datas are scraped from 
+* https://www.worldometers.info/coronavirus/
+
+* https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
+
+* https://github.com/nytimes/covid-19-data
