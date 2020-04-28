@@ -309,6 +309,7 @@ header div .btn--facebook {
 
 .postman {
 	display: flex;
+	min-height: 55px;
 	align-items: center;
 	margin-bottom: 2vh;
 	padding: 7.5px 20px;
