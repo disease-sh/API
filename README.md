@@ -45,6 +45,11 @@ NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
 5. Replace redis host "localhost" with "redis".
 6. Run command `docker-compose up --build -d`.
 
+## Run as NPM Library
+1. Add package to your project ```npm install novelcovid-scraper```
+2. Follow the [Getting Started guide here](https://www.npmjs.com/package/novelcovid-scraper#getting-started)
+3. Based on the scheduler time the data is scraped and updated to redis
+
 ## NPM Package
 <dir align ="center">
 <a href="https://www.npmjs.com/package/novelcovid">
