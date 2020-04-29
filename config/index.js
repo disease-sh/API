@@ -1,26 +1,33 @@
-require('dotenv').config();
 const keys = require('./config.keys.json');
-let config;
+const logger = require('../utils/logger');
+const dotenv = require('dotenv').config();
+const config = { redis: { } };
 
-try {
-	config = require('./config.json');
-} catch (err) {
-	config = require('./config.example.json');
+if (dotenv.error) {
+	if (!process.env.DOCKER) {
+		logger.err('Failed to load environment variables', dotenv.error);
+	}
+	logger.info('Using default settings');
+} else {
+	logger.info('Using settings from .env file');
 }
+
 // SERVER PORT
-const port = process.env.SERVER_PORT || config.port || 3000;
+const port = process.env.SERVER_PORT || 3000;
 
 // REDIS CONFIGURATION
-config.redis.host = process.env.REDIS_HOST || config.redis.host || 'localhost';
-config.redis.port = process.env.REDIS_PORT || config.redis.port || 6379;
-config.redis.password = process.env.REDIS_PASSWORD || config.redis.password || '';
+config.redis.host = process.env.REDIS_HOST || (process.env.DOCKER ? 'redis' : 'localhost');
+config.redis.port = process.env.REDIS_PORT || 6379;
+config.redis.password = process.env.REDIS_PASSWORD || '';
 
 // SCRAPER INTERVALS
-// DEFAULT 10 minutes
-config.interval = process.env.INTERVAL || config.interval || 6e5;
-// DEFAULT 24hrs
+config.interval = process.env.INTERVAL || 6e5;
 // eslint-disable-next-line camelcase
-config.nyt_interval = process.env.NYT_INTERVAL || config.nyt_interval || 864e5;
+config.nyt_interval = process.env.NYT_INTERVAL || 864e5;
+
+// SENTRY KEY (ONLY FOR PRODUCTION)
+// eslint-disable-next-line camelcase
+config.sentry_key = process.env.SENTRY_KEY;
 
 module.exports = {
 	config,
