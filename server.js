@@ -68,7 +68,9 @@ app.post('/private/mailgun', bodyParser.json(), bodyParser.urlencoded({ extended
 });
 
 app.use((req, res, next) => {
-	procss.env.TEST_MODE && logger.info(`Status: ${res.statusCode}\t\t URL: ${res.req.path}`);
+	if (process.env.TEST_MODE) {
+		logger.info(`Status: ${res.statusCode}\t\t URL: ${res.req.path}`);
+	}
 	next();
 });
 app.use(require('./routes/api_worldometers'));
