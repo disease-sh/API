@@ -23,9 +23,9 @@ delete config.empty;
 const port = process.env.SERVER_PORT || config.port || 3000;
 
 // REDIS CONFIGURATION
-config.redis.host = process.env.REDIS_HOST || (config.redis && config.redis.host ? config.redis.host : 'redis');
-config.redis.port = process.env.REDIS_PORT || (config.redis && config.redis.port ? config.redis.port : 6379);
-config.redis.password = process.env.REDIS_PASSWORD || (config.redis && config.redis.password ? config.redis.password : '');
+config.redis.host = process.env.REDIS_HOST || config.redis.host || 'redis';
+config.redis.port = process.env.REDIS_PORT || config.redis.port || 6379;
+config.redis.password = process.env.REDIS_PASSWORD || config.redis.password || '';
 
 // SCRAPER INTERVALS
 // DEFAULT 10 minutes
