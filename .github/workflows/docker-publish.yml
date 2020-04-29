@@ -1,7 +1,7 @@
 name: Docker Publish
 on:
   push:
-    branches: [docker-dev]
+    branches: [master]
 jobs:
   publish:
     if: github.repository == 'NovelCOVID/API'
