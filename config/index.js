@@ -1,19 +1,24 @@
-require('dotenv').config();
 const keys = require('./config.keys.json');
-let config;
+const logger = require('../utils/logger');
+let config = { redis: { } };
 
-try {
-	config = require('./config.json');
-} catch (err) {
-	config = require('./config.example.json');
+if (require('dotenv').config().error) {
+	logger.info('Trying to use settings from config.json file');
+	try {
+		config = require('./config.json');
+	} catch (err) {
+		logger.err('You need to either specify a config.json file in /config or a .env file in the directory root', err);
+	}
+} else {
+	logger.info('Using settings from .env file');
 }
 // SERVER PORT
 const port = process.env.SERVER_PORT || config.port || 3000;
 
 // REDIS CONFIGURATION
-config.redis.host = process.env.REDIS_HOST || config.redis.host || 'localhost';
-config.redis.port = process.env.REDIS_PORT || config.redis.port || 6379;
-config.redis.password = process.env.REDIS_PASSWORD || config.redis.password || '';
+config.redis.host = process.env.REDIS_HOST || (config.redis && config.redis.host ? config.redis.host : 'localhost');
+config.redis.port = process.env.REDIS_PORT || (config.redis && config.redis.port ? config.redis.port : 6379);
+config.redis.password = process.env.REDIS_PASSWORD || (config.redis && config.redis.password ? config.redis.password : '');
 
 // SCRAPER INTERVALS
 // DEFAULT 10 minutes
@@ -21,6 +26,10 @@ config.interval = process.env.INTERVAL || config.interval || 6e5;
 // DEFAULT 24hrs
 // eslint-disable-next-line camelcase
 config.nyt_interval = process.env.NYT_INTERVAL || config.nyt_interval || 864e5;
+
+// SENTRY KEY (ONLY FOR PRODUCTION)
+// eslint-disable-next-line camelcase
+config.sentry_key = process.env.SENTRY_KEY || config.sentry_key;
 
 module.exports = {
 	config,
