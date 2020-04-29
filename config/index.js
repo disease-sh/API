@@ -6,7 +6,7 @@ if (require('dotenv').config().error) {
 	try {
 		config = require('./config.json');
 	} catch (err) {
-		logger.warn('You should either specify a config.json file in /config or a .env file in the directory root');
+		logger.warn('You should either specify a config.json file in /config or a .env file in the directory root, you can also find examples for them there');
 	} finally {
 		if (config.empty) {
 			logger.info('Using default settings');
@@ -23,7 +23,7 @@ delete config.empty;
 const port = process.env.SERVER_PORT || config.port || 3000;
 
 // REDIS CONFIGURATION
-config.redis.host = process.env.REDIS_HOST || (config.redis && config.redis.host ? config.redis.host : 'localhost');
+config.redis.host = process.env.REDIS_HOST || (config.redis && config.redis.host ? config.redis.host : 'redis');
 config.redis.port = process.env.REDIS_PORT || (config.redis && config.redis.port ? config.redis.port : 6379);
 config.redis.password = process.env.REDIS_PASSWORD || (config.redis && config.redis.password ? config.redis.password : '');
 
