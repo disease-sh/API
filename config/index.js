@@ -1,17 +1,24 @@
 const keys = require('./config.keys.json');
 const logger = require('../utils/logger');
-let config = { redis: { } };
+let config = { redis: { }, empty: true };
 
 if (require('dotenv').config().error) {
-	logger.info('Trying to use settings from config.json file');
 	try {
 		config = require('./config.json');
 	} catch (err) {
-		logger.err('You need to either specify a config.json file in /config or a .env file in the directory root', err);
+		logger.warn('You should either specify a config.json file in /config or a .env file in the directory root');
+	} finally {
+		if (config.empty) {
+			logger.info('Using default settings');
+		} else {
+			logger.info('Using settings from config.json file');
+		}
 	}
 } else {
 	logger.info('Using settings from .env file');
 }
+delete config.empty;
+
 // SERVER PORT
 const port = process.env.SERVER_PORT || config.port || 3000;
 
