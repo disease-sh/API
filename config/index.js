@@ -4,8 +4,9 @@ const dotenv = require('dotenv').config();
 const config = { redis: { } };
 
 if (dotenv.error) {
-	if (!process.env.DOCKER) 
+	if (!process.env.DOCKER) {
 		logger.err('Failed to load environment variables', dotenv.error);
+	}
 	logger.info('Using default settings');
 } else {
 	logger.info('Using settings from .env file');
@@ -27,8 +28,6 @@ config.nyt_interval = process.env.NYT_INTERVAL || 864e5;
 // SENTRY KEY (ONLY FOR PRODUCTION)
 // eslint-disable-next-line camelcase
 config.sentry_key = process.env.SENTRY_KEY;
-
-console.log(config)
 
 module.exports = {
 	config,
