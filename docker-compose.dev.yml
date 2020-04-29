@@ -23,6 +23,8 @@ services:
     container_name: covid-api-scraper
     command: ["npm", "run", "start:scraper"]
     restart: always
+    environment: 
+      - DOCKER=true
     env_file:
       - .env
     networks:
@@ -35,6 +37,8 @@ services:
     container_name: covid-api-server
     command: ["npm", "start"]
     restart: always
+    environment: 
+      - DOCKER=true
     env_file:
       - .env
     ports:

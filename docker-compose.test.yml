@@ -11,6 +11,7 @@ services:
     build: .
     environment:
       - TEST_MODE=true
+      - DOCKER=true
     container_name: covid-api-app-test
 
 volumes:
