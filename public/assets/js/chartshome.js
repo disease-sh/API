@@ -64,6 +64,7 @@ am4core.ready(function () {
         chart.cursor = new am4charts.XYCursor();
         chart.cursor.behavior = "panXY";
         chart.cursor.xAxis = dateAxis;
+        chart.cursor.yAxis = valueAxis;
         // chart.cursor.snapToSeries = series;
 
         // Create vertical scrollbar and place it before the value axis
