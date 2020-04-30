@@ -1,3 +1,4 @@
+/* eslint-disable */
 const stringToDate = function (data, format) {
     const regex = format.toLocaleLowerCase()
         .replace(/\bd+\b/, '(?<day>\\d+)')
@@ -9,6 +10,7 @@ const stringToDate = function (data, format) {
         new Date(year < 100 ? 2000 + Number(year) : year, month - 1, day) :
         undefined;
 }
+
 am4core.ready(function () {
     am4core.useTheme(am4themes_animated);
     var chart = am4core.create("chartInfectionCurve", am4charts.XYChart);
