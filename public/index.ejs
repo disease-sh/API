@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="theme-color" content="#303136" />
 	<meta name="csrf-token" content="<%= csrfToken %>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
+
 	<!-- Primary Meta Tags -->
 	<title>The NovelCOVID API</title>
 	<meta name="title" content="The NovelCOVID API">
@@ -27,13 +28,14 @@
 	<meta property="twitter:title" content="The NovelCOVID API">
 	<meta property="twitter:description" content="Most used Open-Sourced & Free API for CoronaVirus Statistics. 
 	Over 2,000,000,000+ Requests & 10 TB of Data Served to Date!">
-  <meta property="twitter:image" content="https://disease.sh/assets/img/rona.jpg">
-	
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
-	<link rel="icon" href="https://cdn.discordapp.com/icons/689535536934813823/0cf582f280a100016d775994a7e4ba08.jpg" type="image"/>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+	<meta property="twitter:image" content="https://disease.sh/assets/img/rona.jpg" />
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand" />
+	<link rel="icon" href="https://cdn.discordapp.com/icons/689535536934813823/0cf582f280a100016d775994a7e4ba08.jpg"
+		type="image" />
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 
 </head>
@@ -57,19 +59,27 @@
 		<div class="postman">
 			<div>Featured on</div>
 			<a style="opacity: 1;" href="https://covid-19-apis.postman.com" target="_blank">
-        		<img style="margin-left: 1vw; height: 6vh; vertical-align: middle;" src="/assets/img/postman.png" alt="Postman">
-      		</a>
+				<img style="margin-left: 1vw; height: 6vh; vertical-align: middle;" src="/assets/img/postman.png"
+					alt="Postman" />
+			</a>
 		</div>
 		<p class="newsletterTitle" id="jointxt">Are you a developer?<br>Join our API Newsletter to stay updated!</p>
 		<div class="mailing">
-			<input type="email" placeholder="your-email@domain.com" id="email" name="email">
-			<button class="g-recaptcha"
-			data-sitekey="6LeYb-wUAAAAABsFwfLf5wtN9uRN5EqFtpS3ploJ"
-			data-badge="bottomleft"
-			data-callback="addEmail">Sign up</button>
+			<input type="email" placeholder="your-email@domain.com" id="email" name="email" />
+			<button class="g-recaptcha" data-sitekey="6LeYb-wUAAAAABsFwfLf5wtN9uRN5EqFtpS3ploJ" data-badge="bottomleft"
+				data-callback="addEmail">Sign up</button>
 		</div>
 	</section>
 
+	<section class="covid19stats">
+		<h3 class="title">Covid19 Global Stats</h3>
+
+		<div class="grid-container">
+			<div class="grid-item">
+				<div id="chartInfectionCurve"></div>
+			</div>
+		</div>
+	</section>
 
 	<section class="features">
 		<h3 class="title">Features</h3>
@@ -86,9 +96,12 @@
 				<i class="fa fa-database"></i>
 				<h4>Multi-Source</h4>
 				<p>
-					We source data from <a class="emphasis" href="https://github.com/CSSEGISandData/COVID-19" target="_blank">Johns Hopkins University</a>,
-					the <a class="emphasis" href="https://github.com/nytimes/covid-19-data" target="_blank">New York Times</a>,
-					and <a class="emphasis" href="https://www.worldometers.info/coronavirus/" target="_blank">Worldometers</a> to give you a comphrehensive view of the data.
+					We source data from <a class="emphasis" href="https://github.com/CSSEGISandData/COVID-19"
+						target="_blank">Johns Hopkins University</a>,
+					the <a class="emphasis" href="https://github.com/nytimes/covid-19-data" target="_blank">New York
+						Times</a>,
+					and <a class="emphasis" href="https://www.worldometers.info/coronavirus/"
+						target="_blank">Worldometers</a> to give you a comphrehensive view of the data.
 				</p>
 			</li>
 			<li>
@@ -99,22 +112,23 @@
 			<li>
 				<i class="fa fa-code"></i>
 				<h4>JSON Formatted</h4>
-				<p>Our responses are served in JSON format, making for easy and reliable integration to your service.</p>
+				<p>Our responses are served in JSON format, making for easy and reliable integration to your service.
+				</p>
 			</li>
-		</div>
+		</ul>
 	</section>
 
 	<section class="invite-bot">
 		<img class="discord-img" src="assets/img/discord.png">
-	   	<a href="https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880" target="_blank" class="discord-btn slideleft">Invite our bot here</a>
+		<a href="https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880"
+			target="_blank" class="discord-btn slideleft">Invite our bot here</a>
 	</section>
-
 
 	<section class="snippet">
 		<h3 class="title">Example request and response</h3>
 		<div class="code">
 			https://corona.lmao.ninja/v2/all
-	   </div>
+		</div>
 		<div class="code">
 			<div class="json">
 				{<br>
@@ -130,10 +144,10 @@
 				&emsp;&emsp;deathsPerOneMillion: 17,<br>
 				&emsp;&emsp;tests: 17125411,<br>
 				&emsp;&emsp;testsPerOneMillion: 2194.8,<br>
-				&emsp;&emsp;affectedCountries: 212  <br>}<br>
-    			</div>
-	   	</div>
-	   	<a href="/docs" target="_blank" class="btn">Check out our docs here</a>
+				&emsp;&emsp;affectedCountries: 212 <br>}<br>
+			</div>
+		</div>
+		<a href="/docs" target="_blank" class="btn">Check out our docs here</a>
 	</section>
 
 	<footer>
@@ -141,34 +155,45 @@
 			<a href="https://github.com/EliteDaMyth" target="_blank">EliteDaMyth</a><br>
 			<a href="https://ravy.pink/" target="_blank">Ravy</a><br>
 			<a href="https://github.com/ebwinters" target="_blank">Ethan Winters</a><br>
-			<a href="https://github.com/puf17640" target="_blank">Julian Pufler</a></p>
+			<a href="https://github.com/puf17640" target="_blank">Julian Pufler</a>
+		</p>
+		<p id="termsOfService"><a href="https://github.com/NovelCOVID/API/blob/master/TERMS.md" target="_blank">Terms Of Service</a></p>
 		<ul>
-			<li><a href="https://github.com/NovelCOVID/API/blob/master/TERMS.md" target="_blank">Terms Of Service</a></li>
-			<li><a href="https://github.com/NovelCOVID/API" target="_blank"><i class="fa fa-github-square""></i></a></li>
-			<li><a href="https://twitter.com/covidapi" target="_blank"><i class="fa fa-twitter""></i></a></li>
-			<li><a href="https://www.facebook.com/CoronaAPI/" target="_blank"><i class="fa fa-facebook""></i></a></li>
+			<li><a href="https://github.com/NovelCOVID/API" target="_blank"><i class="fa fa-github-square"></i></a></li>
+			<li><a href=" https://twitter.com/covidapi" target="_blank"><i class="fa fa-twitter"></i></a></li>
+			<li><a href=" https://www.facebook.com/CoronaAPI/" target="_blank"><i class="fa fa-facebook"></i></a></li>
 		</ul>
 	</footer>
 
 	<div id="toast">
 		<div id="desc">
-			<i onclick="closeToast()" style="margin-right: 10px; cursor: pointer; color: white;" class="fa fa-times-circle" aria-hidden="true"></i>
-			Check out our new domain <a style="color: #2196F3; background-color: #585c5e; padding: 4px; border-radius: 5px;" href="https://disease.sh" target="_blank">disease.sh</a>
+			<i onclick="closeToast()" style="margin-right: 10px; cursor: pointer; color: white;"
+				class="fa fa-times-circle" aria-hidden="true"></i>
+			Check out our new domain
+			<a style="color: #2196F3; background-color: #585c5e; padding: 4px; border-radius: 5px;"
+				href="https://disease.sh">disease.sh</a>
 		</div>
 	</div>
 
-	<script>
+	<script src="https://www.amcharts.com/lib/4/core.js"></script>
+	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"
+		integrity="sha256-T/f7Sju1ZfNNfBh7skWn0idlCBcI3RwdLSS4/I7NQKQ=" crossorigin="anonymous"></script>
+	<script src="./assets/js/chartshome.js"></script>
+
+	<script type="text/javascript">
 		// toast notification in bottom right corner
 		function launchToast() {
-			if(window.location.hostname === 'disease.sh')
+			if (window.location.hostname === 'disease.sh')
 				return;
 			var toast = document.getElementById("toast")
 			toast.className = "show";
-			setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 20000);
+			setTimeout(function () { toast.className = toast.className.replace("show", ""); }, 20000);
 		}
 
 		launchToast();
-		
+
 		function closeToast() {
 			var toast = document.getElementById("toast");
 			toast.className = "early-close";
@@ -176,13 +201,13 @@
 
 		// validate an email for mailing list
 		function validateEmail(email) {
-    		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    		return re.test(String(email).toLowerCase());
+			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(String(email).toLowerCase());
 		}
-		
+
 		// Read the CSRF token from the <meta> tag
 		const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-		
+
 		async function addEmail(captchaToken) {
 			grecaptcha.reset();
 			const email = document.getElementById('email').value;

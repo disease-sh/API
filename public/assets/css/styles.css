@@ -2,30 +2,29 @@
  	General
 -------------*/
 
-*{
+* {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
-html{
+html {
 	font: normal 16px sans-serif;
 	color: #555;
 }
 
-a{
+a {
 	text-decoration: none;
 	color: inherit;
 	cursor: pointer;
-
 	opacity: 0.9;
 }
 
-a:hover{
+a:hover {
 	opacity: 1;
 }
 
-a.btn{
+a.btn {
 	color: #fff;
 	border-radius: 4px;
 	text-transform: uppercase;
@@ -35,7 +34,7 @@ a.btn{
 	padding: 18px 42px;
 }
 
-hr{
+hr {
 	width: 150px;
 	height: 2px;
 	background-color: #2196F3;
@@ -43,11 +42,10 @@ hr{
 	margin-bottom: 80px;
 }
 
-section{
+section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
 	padding: 100px 100px;
 }
 
@@ -66,36 +64,32 @@ section{
 }
 
 .json {
-	width: fit-content; 
+	width: fit-content;
 	margin: 0 auto;
 	text-align: left;
 }
 
-@media (max-width: 1000px){
-
-	section{
+@media (max-width: 1000px) {
+	section {
 		padding: 100px 50px;
 	}
-
 }
 
-@media (max-width: 600px){
-
-	section{
+@media (max-width: 600px) {
+	section {
 		padding: 80px 30px;
 	}
-
 }
 
-section h3.title{
+section h3.title {
 	color: #414a4f;
-	text-transform: capitalize; 
+	text-transform: capitalize;
 	font: bold 32px 'Open Sans', sans-serif;
 	margin-bottom: 35px;
 	text-align: center;
 }
 
-section p{
+section p {
 	max-width: 800px;
 	text-align: center;
 	margin-bottom: 35px;
@@ -103,21 +97,21 @@ section p{
 	line-height: 2;
 }
 
-ul.grid{
+ul.grid {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 }
 
-.slideleft:after{
+.slideleft:after {
 	top: 0;
 	z-index: -1;
-	transform: translate3D(-101%,0,0);
-  }
-  
-.slideleft:hover:after{
-	transform: translate3D(0,0,0);
+	transform: translate3D(-101%, 0, 0);
+}
+
+.slideleft:hover:after {
+	transform: translate3D(0, 0, 0);
 	transition: all .5s;
 }
 
@@ -126,7 +120,7 @@ ul.grid{
  	Header
 -------------*/
 
-header{
+header {
 	position: sticky;
 	top: 0;
 	left: 0;
@@ -141,18 +135,18 @@ header{
 	background-color: #31373B;
 }
 
-header h2{
+header h2 {
 	font-family: 'Quicksand', sans-serif;
 }
 
-header div{
+header div {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	margin: 1vh 0vw;
 }
 
-header div a{
+header div a {
 	margin: 1vh 1vw;
 }
 
@@ -198,39 +192,32 @@ header div .btn--facebook {
 	border-radius: 10px;
 }
 
-
-@media (max-width: 700px){
-	header{
-		flex-direction: column;		
+@media (max-width: 700px) {
+	header {
+		flex-direction: column;
 	}
-
-	header h2{
+	header h2 {
 		margin-bottom: 15px;
 	}
 }
 
 @media only screen and (max-width: 600px) {
-	header nav li{
+	header nav li {
 		margin: 0 4px;
 		font-weight: 700;
 	}
-
 	header nav li .btn--donate {
 		padding: 8px 12px;
 	}
-	
 	header nav li .btn--twitter {
 		padding: 8px 12px;
 	}
-	
 	header nav li .btn--discord {
 		padding: 8px 12px;
 	}
-	
 	header nav li .btn--git {
 		padding: 8px 12px;
 	}
-	
 	header nav li .btn--docs {
 		padding: 8px 12px;
 	}
@@ -241,7 +228,7 @@ header div .btn--facebook {
  	Hero Section
 ----------------*/
 
-.hero{
+.hero {
 	position: relative;
 	justify-content: center;
 	min-height: 50vh;
@@ -250,7 +237,7 @@ header div .btn--facebook {
 	text-align: center;
 }
 
-.hero .background-image{
+.hero .background-image {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -261,7 +248,7 @@ header div .btn--facebook {
 	z-index: -1;
 }
 
-.hero .background-image:after{
+.hero .background-image:after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -272,39 +259,34 @@ header div .btn--facebook {
 	opacity: 0.75;
 }
 
-.hero h1{
+.hero h1 {
 	font: bold 60px 'Open Sans', sans-serif;
 	margin-bottom: 15px;
 }
 
-.hero h3{
+.hero h3 {
 	font: normal 28px 'Open Sans', sans-serif;
 	margin-bottom: 40px;
 	font-style: italic;
 }
 
-.hero a.btn{
+.hero a.btn {
 	padding: 20px 46px;
 }
 
-@media (max-width: 800px){
-
-	.hero{
+@media (max-width: 800px) {
+	.hero {
 		min-height: 600px;
 	}
-
-	.hero h1{
+	.hero h1 {
 		font-size: 48px;
 	}
-
-	.hero h3{
+	.hero h3 {
 		font-size: 24px;
 	}
-
-	.hero a.btn{
+	.hero a.btn {
 		padding: 15px 40px;
 	}
-
 }
 
 .postman {
@@ -358,35 +340,67 @@ header div .btn--facebook {
 	margin-bottom: .5rem;
 }
 
+
+/*----------------------
+ 	Stats Section
+----------------------*/
+
+.grid-container {
+	width: 100%;
+	max-width: 1280px;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+
+.grid-container>.grid-item {
+	position: relative;
+	height: 350px;
+	flex: 1;
+	margin: 0;
+	padding: 0;
+}
+
+.grid-container>.grid-item>div {
+	height: 100%;
+}
+
+@media(max-width:1000px) {
+	.grid-container {
+		flex-flow: column nowrap;
+	}
+}
+
+
 /*----------------------
  	Features Section
 ----------------------*/
 
-.features{
+.features {
 	background-color: #f7f7f7;
 }
 
-.features .grid li{
+.features .grid li {
 	padding: 0 30px;
 	flex-basis: 25%;
 	text-align: center;
 	list-style: none;
 }
 
-.features .grid li i{
-    font-size: 50px;
-    color: #2196F3;
-    margin-bottom: 25px;
+.features .grid li i {
+	font-size: 50px;
+	color: #2196F3;
+	margin-bottom: 25px;
 }
 
-.features .grid li h4{
+.features .grid li h4 {
 	color: #555;
-    font-size: 20px;
-    margin-bottom: 25px;
+	font-size: 20px;
+	margin-bottom: 25px;
 }
 
-.features .grid li p{
-    margin: 0;
+.features .grid li p {
+	margin: 0;
 }
 
 .features .emphasis {
@@ -394,43 +408,37 @@ header div .btn--facebook {
 	text-decoration: none;
 }
 
-@media (max-width: 1000px){
-
-	.features .grid li{
+@media (max-width: 1000px) {
+	.features .grid li {
 		flex-basis: 70%;
 		margin-bottom: 65px;
 	}
-
-	.features .grid li:last-child{
+	.features .grid li:last-child {
 		margin-bottom: 0;
 	}
-
 }
 
-
-@media (max-width: 600px){
-
-	.features .grid li{
+@media (max-width: 600px) {
+	.features .grid li {
 		flex-basis: 100%;
 	}
-
 }
-
 
 
 /*--------------------
  	Snippet Section
 --------------------*/
 
-.snippet{
+.snippet {
 	background-color: #fff;
 }
+
 
 /*--------------------
  	Bot Section
 --------------------*/
 
-.invite-bot{
+.invite-bot {
 	background-color: #7289DA;
 }
 
@@ -453,7 +461,7 @@ header div .btn--facebook {
  	Footer
 -------------*/
 
-footer{
+footer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -463,43 +471,42 @@ footer{
 	padding: 30px 0;
 }
 
-footer ul{
+footer ul {
 	display: flex;
 	font-size: 32px;
 }
 
-footer ul li{
-	margin: 0 8px;	
+footer ul li {
+	margin: 0 8px;
 	list-style: none;
 }
 
-footer ul li:first-child{
-	margin-left: 0;	
+footer ul li:first-child {
+	margin-left: 0;
 }
 
-footer ul li:last-child{
-	margin-right: 0;	
+footer ul li:last-child {
+	margin-right: 0;
 }
 
-footer p{
+footer p {
 	text-transform: uppercase;
 	font-size: 17.5px;
 	color: white;
 	margin-bottom: 20px;
 }
 
-footer p a{
+footer p a {
 	color: #2196F3;
 	font-weight: bold;
 }
 
-@media (max-width: 700px){
-
-	footer{
+@media (max-width: 700px) {
+	footer {
 		padding: 50px 15px;
 	}
-
 }
+
 
 /* -- Toast Notification -- */
 
@@ -513,14 +520,14 @@ footer p a{
 	border-radius: 5px 0px 0px 5px;
 	position: fixed;
 	z-index: 1;
-	right:0;
+	right: 0;
 	bottom: 14px;
 	font-size: 16px;
 	white-space: nowrap;
 	display: inline-block;
 }
 
-#toast #desc{
+#toast #desc {
 	color: white;
 	padding: 16px;
 	overflow: hidden;
@@ -534,33 +541,57 @@ footer p a{
 }
 
 @-webkit-keyframes expand {
-	from {min-width: 0px} 
-	to {min-width: 350px}
+	from {
+		min-width: 0px
+	}
+	to {
+		min-width: 350px
+	}
 }
 
 @keyframes expand {
-	from {min-width: 0px}
-	to {min-width: 350px}
+	from {
+		min-width: 0px
+	}
+	to {
+		min-width: 350px
+	}
 }
 
 @-webkit-keyframes stay {
-	from {min-width: 350px} 
-	to {min-width: 350px}
+	from {
+		min-width: 350px
+	}
+	to {
+		min-width: 350px
+	}
 }
 
 @keyframes stay {
-	from {min-width: 350px}
-	to {min-width: 350px}
+	from {
+		min-width: 350px
+	}
+	to {
+		min-width: 350px
+	}
 }
 
 @-webkit-keyframes shrink {
-	from {min-width: 350px;} 
-	to {min-width: 0px;}
+	from {
+		min-width: 350px;
+	}
+	to {
+		min-width: 0px;
+	}
 }
 
 @keyframes shrink {
-	from {min-width: 350px;} 
-	to {min-width: 0px;}
+	from {
+		min-width: 350px;
+	}
+	to {
+		min-width: 0px;
+	}
 }
 
 #toast.early-close {
@@ -570,11 +601,29 @@ footer p a{
 }
 
 @-webkit-keyframes shrink-early {
-	from {min-width: 350px;} 
-	to {min-width: 0px;}
+	from {
+		min-width: 350px;
+	}
+	to {
+		min-width: 0px;
+	}
 }
 
 @keyframes shrink-early {
-	from {min-width: 350px;} 
-	to {min-width: 0px;}
+	from {
+		min-width: 350px;
+	}
+	to {
+		min-width: 0px;
+	}
+}
+
+#termsOfService a {
+	color: white !important;
+}
+
+@media (max-width: 1000px) {
+	.covid19stats {
+		display: none;
+	}
 }
