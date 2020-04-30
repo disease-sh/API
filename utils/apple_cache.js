@@ -9,7 +9,7 @@ exports.currentStatus = {
 };
 
 // Call to retrieve current state of cache
-exports.appleData = () => this.currentStatus.nytCounties;
+exports.appleData = () => this.currentStatus.appleData;
 
 // Retrieves Apple data from Redis and stores it locally when data is updated
 exports.updateAppleCache = async () => {

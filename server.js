@@ -80,6 +80,7 @@ app.use(require('./routes/api_historical'));
 app.use(require('./routes/api_jhucsse'));
 app.use(require('./routes/api_deprecated'));
 app.use(require('./routes/api_nyt'));
+app.use(require('./routes/api_apple'));
 
 app.listen(port, () => logger.info(`Your app is listening on port ${port}`));
 
