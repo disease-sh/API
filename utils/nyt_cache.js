@@ -16,7 +16,7 @@ exports.nytStates = () => this.currentStatus.nytStates;
 exports.nytNationwide = () => this.currentStatus.nytNationwide;
 
 // Retrieves NYT data from Redis and stores it locally when data is updated
-exports.updateCache = async () => {
+exports.updateNYTCache = async () => {
 	try {
 		const { redis, keys } = require('../routes/instances');
 		const [parsedCountyData, parsedStateData, parsedNationData] = await Promise.all([
