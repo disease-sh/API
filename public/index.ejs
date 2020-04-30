@@ -76,7 +76,7 @@
 
 		<div class="grid-container">
 			<div class="grid-item">
-				<div id="chartInfectionCurve"></div>
+				<div id="chartDiv"></div>
 			</div>
 		</div>
 	</section>
@@ -251,75 +251,92 @@
 
 		am4core.ready(function () {
 			am4core.useTheme(am4themes_animated);
-			const chart = am4core.create("chartInfectionCurve", am4charts.XYChart);
+			const chart = am4core.create("chartDiv", am4charts.XYChart);
+			chart.colors.step = 4;
+			chart.legend = new am4charts.Legend();
+			chart.cursor = new am4charts.XYCursor();
+
 			const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+			dateAxis.renderer.minGridDistance = 50;
+			dateAxis.renderer.line.strokeOpacity = 0.5;
+			dateAxis.renderer.line.strokeWidth = 2;
+
 			const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-			const data = JSON.parse('<%- JSON.stringify(chartData) %>'); 
-			const colors = { "CASES": "blue", "DEATHS": "red", "RECOVERED": "green" };
-			
-			Object.keys(data).forEach(item => {
-					createSeries(`${item.toUpperCase()}`, `value_${item}`, data[item]);
-			});
+			valueAxis.renderer.line.strokeOpacity = 0.5;
+			valueAxis.renderer.line.strokeWidth = 2;
 
-			// Create series
-			function createSeries(name, valueTag, data) {
-				const series = chart.series.push(new am4charts.LineSeries());
+			chart.data = generateChartData(JSON.parse('<%- JSON.stringify(chartData) %>'));
+			createAxisAndSeries("cases", "Cases", false, "circle");
+			createAxisAndSeries("recovered", "Recovered", true, "circle");
+			createAxisAndSeries("deaths", "Deaths", true, "circle");
+
+			function createAxisAndSeries(field, name, opposite, bullet) {  
+				var series = chart.series.push(new am4charts.LineSeries());
+				series.dataFields.valueY = field;
+				series.dataFields.dateX = "date";
+				series.strokeWidth = 5;
+				series.yAxis = valueAxis;
 				series.name = name;
-					series.stroke = am4core.color(colors[name]);
-					series.strokeWidth = 2;
-					series.dataFields.valueY = "value" + valueTag;
-					series.dataFields.dateX = "date";
-
-					// Drop-shaped tooltips
-					series.tooltipText = "{value}";
-					series.tooltip.background.cornerRadius = 20;
-					series.tooltip.background.strokeOpacity = 0;
-					series.tooltip.pointerOrientation = "vertical";
-					series.tooltip.label.minWidth = 40;
-					series.tooltip.label.minHeight = 40;
-					series.tooltip.label.textAlign = "middle";
-					series.tooltip.label.textValign = "middle";
-
-					var bullet = series.bullets.push(new am4charts.CircleBullet());
-					bullet.circle.strokeWidth = 2;
-					bullet.circle.radius = 2;
-					bullet.circle.fill = am4core.color("#fff");
-					var bullethover = bullet.states.create("hover");
-					bullethover.properties.scale = 2.5;
-
-					var newData = [];
-					var keys = Object.keys(data);
-					for (let index = 0; index < keys.length; index++) {
-							const item = keys[index];
-							var dataItem = { date: stringToDate(item, 'm/d/Y') }
-							dataItem["value" + valueTag] = data[item];
-							newData.push(dataItem);
-					}
-
-					// Make a panning cursor
-					chart.cursor = new am4charts.XYCursor();
-					chart.cursor.behavior = "panXY";
-					chart.cursor.xAxis = dateAxis;
-					chart.cursor.yAxis = valueAxis;
-					// chart.cursor.snapToSeries = series;
-
-					// Create vertical scrollbar and place it before the value axis
-					chart.scrollbarY = new am4core.Scrollbar();
-					chart.scrollbarY.parent = chart.leftAxesContainer;
-					chart.scrollbarY.toBack();
-
-					// Create a horizontal scrollbar with previe and place it underneath the date axis
-					chart.scrollbarX = new am4charts.XYChartScrollbar();
-					chart.scrollbarX.series.push(series);
-					chart.scrollbarX.parent = chart.bottomAxesContainer;
-
-					series.data = newData;
-					return series;
+				series.tooltipText = "{name}: [bold]{valueY}[/]";
+				series.tensionX = 1;
+				series.showOnInit = true;
+				
+				var interfaceColors = new am4core.InterfaceColorSet();
+				
+				switch(bullet) {
+					case "triangle":
+						var bullet = series.bullets.push(new am4charts.Bullet());
+						bullet.width = 12;
+						bullet.height = 12;
+						bullet.horizontalCenter = "middle";
+						bullet.verticalCenter = "middle";
+						
+						var triangle = bullet.createChild(am4core.Triangle);
+						triangle.stroke = interfaceColors.getFor("background");
+						triangle.strokeWidth = 2;
+						triangle.direction = "top";
+						triangle.width = 10;
+						triangle.height = 10;
+						break;
+					case "rectangle":
+						var bullet = series.bullets.push(new am4charts.Bullet());
+						bullet.width = 10;
+						bullet.height = 10;
+						bullet.horizontalCenter = "middle";
+						bullet.verticalCenter = "middle";
+						
+						var rectangle = bullet.createChild(am4core.Rectangle);
+						rectangle.stroke = interfaceColors.getFor("background");
+						rectangle.strokeWidth = 2;
+						rectangle.width = 10;
+						rectangle.height = 10;
+						break;
+					default:
+						return;
+						var bullet = series.bullets.push(new am4charts.CircleBullet());
+						bullet.width = 5;
+						bullet.height = 5;
+						bullet.circle.stroke = interfaceColors.getFor("background");
+						bullet.circle.strokeWidth = 5;
+						break;
+				}
 			}
 
-			chart.legend = new am4charts.Legend();
-			chart.legend.position = "right";
-			chart.legend.scrollable = true;
+			function generateChartData(data) {
+				var keys = Object.keys(data);
+				var chartData=[];
+				var dates = Object.keys(data[keys[0]]);
+				for(var index=0;index<dates.length; index++){
+					chartData.push({
+						date: dates[index],
+						cases: (data[keys[0]])[dates[index]],
+						recovered:(data[keys[2]])[dates[index]],
+						deaths:(data[keys[1]])[dates[index]]
+					});
+				}
+				console.log(chartData);
+				return chartData;
+			}
 		});
 	</script>
 </body>
