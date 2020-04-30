@@ -35,7 +35,7 @@
 	<link rel="icon" href="https://cdn.discordapp.com/icons/689535536934813823/0cf582f280a100016d775994a7e4ba08.jpg"
 		type="image" />
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 
 </head>
@@ -68,6 +68,20 @@
 			<input type="email" placeholder="your-email@domain.com" id="email" name="email" />
 			<button class="g-recaptcha" data-sitekey="6LeYb-wUAAAAABsFwfLf5wtN9uRN5EqFtpS3ploJ" data-badge="bottomleft"
 				data-callback="addEmail">Sign up</button>
+		</div>
+	</section>
+
+	<section class="covid19stats">
+		<h3 class="title">Covid19 Global Stats</h3>
+
+		<div class="grid-container">
+			<div class="grid-item">
+				<div id="chartInfectionCurve"></div>
+			</div>
+
+			<!-- <div class="grid-item" style="background: blue;">
+				corrales
+			</div> -->
 		</div>
 	</section>
 
@@ -169,6 +183,8 @@
 	<script src="https://www.amcharts.com/lib/4/core.js"></script>
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"
+		integrity="sha256-T/f7Sju1ZfNNfBh7skWn0idlCBcI3RwdLSS4/I7NQKQ=" crossorigin="anonymous"></script>
 	<script src="./assets/js/chartshome.js"></script>
 
 	<script type="text/javascript">
