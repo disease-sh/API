@@ -14,8 +14,9 @@
 [![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
 
 # API
-API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
-https://disease.sh/
+API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain. 
+
+**Check out** our homepage and **sign up** for our newsletter [here](https://disease.sh/)
 
 # Recommended by Postman
 NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
@@ -34,16 +35,16 @@ NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
 2. In root project folder, create a new file called `config.json`
 3. Copy contents for `config.example.json` to new `config.json` file
 4. Replace password field with `""` and port field to whatever localhost port you want.
-5. From root of project, run `npm start`
+5. From root of project, run `npm run start:dev`
 6. In your browser, go to `localhost:{port}` to test your local changes
 
 ## Run with docker-compose.
 1. Fork and clone git repository
-2. In root project folder, make a new file called `config.json`
-3. Copy contents for `config.example.json` to new `config.json` file
-4. Replace password field with `"yourpassword"` and port field same within `docker-compose.yml`.
+2. In root project folder, make a new file called `.env`
+3. Copy contents for `example.env` to new `.env` file
+4. Replace password field with `"yourpassword"` or leave it blank, and port field same within `docker-compose.yml`.
 5. Replace redis host "localhost" with "redis".
-6. Run command `docker-compose up --build -d`.
+6. Run command `npm run docker-start-dev`.
 
 ## NPM Package
 <dir align ="center">
