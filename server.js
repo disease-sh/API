@@ -40,10 +40,10 @@ app.set('views', path.join(__dirname, '/public'));
 app.set('view engine', 'ejs');
 app.use(require('cookie-parser')());
 
-app.get('/', csrfProtection, async (req, res) => res.render('index', { 
-		csrfToken: req.csrfToken(), 
-		chartData: await scraper.historical.getHistoricalAllDataV2(JSON.parse(await redis.get(keys.historical_v2)), 'all') 
-	}));
+app.get('/', csrfProtection, async (req, res) => res.render('index', {
+	csrfToken: req.csrfToken(),
+	chartData: await scraper.historical.getHistoricalAllDataV2(JSON.parse(await redis.get(keys.historical_v2)), 'all')
+}));
 
 app.get('/invite', async (req, res) =>
 	res.redirect('https://discordapp.com/oauth2/authorize?client_id=685268214435020809&scope=bot&permissions=537250880'));
