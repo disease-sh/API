@@ -22,10 +22,10 @@ const fixApostrophe = (country) => {
 	country.country = country.country.replace(/"/g, '\'');
 	return country;
 };
-//hotifx for wordToBoolean
+// hotifx for wordToBoolean
 router.get('/v2/all', async (req, res) => res.send(await getAllData(wordToBoolean(`${req.query.yesterday}`) ? keys.yesterday_countries : keys.countries)));
 
-//hotifx for wordToBoolean
+// hotifx for wordToBoolean
 router.get('/v2/countries', async (req, res) => {
 	const { sort, yesterday } = req.query;
 	const countries = JSON.parse(await redis.get(wordToBoolean(`${yesterday}`) ? keys.yesterday_countries : keys.countries))
@@ -33,7 +33,7 @@ router.get('/v2/countries', async (req, res) => {
 	res.send(sort ? countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : countries);
 });
 
-//hotifx for wordToBoolean
+// hotifx for wordToBoolean
 router.get('/v2/countries/:query', async (req, res) => {
 	const { yesterday, strict } = req.query;
 	const { query } = req.params;
@@ -46,7 +46,7 @@ router.get('/v2/countries/:query', async (req, res) => {
 	else res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 });
 
-//hotifx for wordToBoolean
+// hotifx for wordToBoolean
 router.get('/v2/continents', async (req, res) => {
 	const { sort, yesterday } = req.query;
 	const countries = JSON.parse(await redis.get(wordToBoolean(`${yesterday}`) ? keys.yesterday_countries : keys.countries));
@@ -55,7 +55,7 @@ router.get('/v2/continents', async (req, res) => {
 	res.send(sort ? continents.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : continents);
 });
 
-//hotifx for wordToBoolean
+// hotifx for wordToBoolean
 router.get('/v2/continents/:query', async (req, res) => {
 	const { yesterday, strict } = req.query;
 	const { query } = req.params;
@@ -69,14 +69,14 @@ router.get('/v2/continents/:query', async (req, res) => {
 	}
 });
 
-//hotifx for wordToBoolean
+// hotifx for wordToBoolean
 router.get('/v2/states', async (req, res) => {
 	const { sort, yesterday } = req.query;
 	const states = JSON.parse(await redis.get(wordToBoolean(`${yesterday}`) ? keys.yesterday_states : keys.states)).splice(1);
 	res.send(sort ? states.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : states);
 });
 
-//hotifx for wordToBoolean
+// hotifx for wordToBoolean
 router.get('/v2/states/:query', async (req, res) => {
 	const { yesterday } = req.query;
 	const { query } = req.params;
