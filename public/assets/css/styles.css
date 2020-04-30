@@ -627,3 +627,7 @@ footer p a {
 		display: none;
 	}
 }
+
+g[aria-labelledby="id-66-title"]{
+  display:none;
+}
