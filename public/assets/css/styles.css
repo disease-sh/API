@@ -492,7 +492,7 @@ footer {
 	padding         : 30px 0;
 }
 
-footer ul {
+footer ul{
 	display  : flex;
 	font-size: 32px;
 }
@@ -646,4 +646,8 @@ footer p a {
 	to {
 		min-width: 0px;
 	}
+}
+
+#termsOfService a {
+	color: white !important;
 }
