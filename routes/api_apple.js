@@ -1,30 +1,25 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const countryUtils = require('../utils/country_utils');
-
 const { appleData } = require('../utils/apple_cache');
 
 router.get('/v2/apple/countries', async (req, res) => {
 	const data = [...new Set(appleData().map((element) => element.country))];
-	res.send(data.map((element) => countryUtils.getCountryData(element).country || element));
+	res.send(data);
 });
 
-
-// router.get('/v2/nyt/counties/:county', async (req, res) => {
-// 	const { county: queryCounty } = req.params;
-// 	const data = nytCounties();
-// 	if (queryCounty) {
-// 		const countyArr = queryCounty.trim().split(/,[\s+?]/).map((county) => county.toLowerCase());
-// 		const countyData = data.filter(({ county }) => countyArr.includes(county.toLowerCase()));
-// 		// eslint-disable-next-line no-unused-expressions
-// 		countyData.length > 0
-// 			? res.send(countyData)
-// 			: res.status(404).send({ message: 'County not found or no data found for county' });
-// 	} else {
-// 		res.send(data);
-// 	}
-// });
-
-// router.get('/v2/nyt/usa', async (req, res) => res.send(nytNationwide()));
+router.get('/v2/apple/countries/:country', async (req, res) => {
+	const { country: queryCountry } = req.params;
+	const data = appleData();
+	if (queryCountry) {
+		const countryArr = queryCountry.trim().split(/,[\s+?]/).map((country) => country.toLowerCase());
+		const countryData = data.filter((element) => countryArr.includes(element.country.toLowerCase()));
+		// eslint-disable-next-line no-unused-expressions
+		countryData.length > 0
+			? res.send(countryData)
+			: res.status(404).send({ message: 'Country not found or no data found for county' });
+	} else {
+		res.status(404).send({ message: 'Country not found or no data found for county' });
+	}
+});
 
 module.exports = router;
