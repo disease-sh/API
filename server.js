@@ -15,7 +15,7 @@ if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 // Use local cache for NYT data
 updateCache();
 
-app.use(require('cors')());
+app.use(require('cors')({ origin: '*' }));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(null, {
 	explorer: true,
