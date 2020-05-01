@@ -13,11 +13,9 @@ router.get('/v2/apple/countries/:country', async (req, res) => {
 	if (queryCountry) {
 		const countryArr = queryCountry.trim().split(/,[\s+?]/);
 		console.log(countryArr);
-		const countryData = countryArr.map((countryName) => data[countryName]);
+		const countryData = countryArr.map((countryName) => ({ country: countryName, data: data[countryName] || { message: 'Country not found or no data found for county' } }));
 		// eslint-disable-next-line no-unused-expressions
-		countryData.length > 0
-			? res.send(countryData)
-			: res.status(404).send({ message: 'Country not found or no data found for county' });
+		res.send(countryData);
 	} else {
 		res.status(404).send({ message: 'Country not found or no data found for county' });
 	}
