@@ -13,9 +13,24 @@ const GITHUB_URL = 'https://raw.githubusercontent.com/ActiveConclusion/COVID19_m
 const appleData = async (keys, redis) => {
 	try {
 		const _resolveData = async (url) => {
+			// need to transform data
 			const { data } = await axios.get(url);
 			const parsedData = await csv().fromString(data);
-			redis.set(keys.apple_all, JSON.stringify(parsedData));
+			const formattedData = {};
+			for (const index in parsedData) {
+				const element = parsedData[index];
+				const { country, ...rest } = element;
+				if (rest.subregion_and_city === 'Total') {
+					// eslint-disable-next-line camelcase
+					rest.subregion_and_city = 'all';
+				}
+				if (country in formattedData) {
+					formattedData[country].push(rest);
+				} else {
+					formattedData[country] = [rest];
+				}
+			}
+			redis.set(keys.apple_all, JSON.stringify(formattedData));
 		};
 
 		await _resolveData(GITHUB_URL);

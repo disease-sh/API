@@ -19,7 +19,11 @@ exports.updateAppleCache = async () => {
 		const numericalStats = (element) => (
 			{ ...element, driving: parseFloat(element.driving), transit: parseFloat(element.transit), walking: parseFloat(element.walking) }
 		);
-		this.currentStatus.appleData = parsedAppleData.map(numericalStats);
+		// eslint-disable-next-line array-callback-return
+		Object.keys(parsedAppleData).map((countryName) => {
+			parsedAppleData[countryName] = parsedAppleData[countryName].map(numericalStats);
+		});
+		this.currentStatus.appleData = parsedAppleData;
 		logger.info('Apple local cache updated');
 	} catch (err) {
 		logger.err('Local Apple cache update failed', err);

@@ -3,16 +3,17 @@ const router = require('express').Router();
 const { appleData } = require('../utils/apple_cache');
 
 router.get('/v2/apple/countries', async (req, res) => {
-	const data = [...new Set(appleData().map((element) => element.country))];
-	res.send(data);
+	const data = appleData();
+	res.send(Object.keys(data));
 });
 
 router.get('/v2/apple/countries/:country', async (req, res) => {
 	const { country: queryCountry } = req.params;
 	const data = appleData();
 	if (queryCountry) {
-		const countryArr = queryCountry.trim().split(/,[\s+?]/).map((country) => country.toLowerCase());
-		const countryData = data.filter((element) => countryArr.includes(element.country.toLowerCase()));
+		const countryArr = queryCountry.trim().split(/,[\s+?]/);
+		console.log(countryArr);
+		const countryData = countryArr.map((countryName) => data[countryName]);
 		// eslint-disable-next-line no-unused-expressions
 		countryData.length > 0
 			? res.send(countryData)
