@@ -34,7 +34,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand" />
 	<link rel="icon" href="https://cdn.discordapp.com/icons/689535536934813823/0cf582f280a100016d775994a7e4ba08.jpg"
 		type="image" />
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 
@@ -76,7 +76,7 @@
 
 		<div class="grid-container">
 			<div class="grid-item">
-				<div id="chartInfectionCurve"></div>
+				<div id="chartDiv"></div>
 			</div>
 		</div>
 	</section>
@@ -178,9 +178,6 @@
 	<script src="https://www.amcharts.com/lib/4/core.js"></script>
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"
-		integrity="sha256-T/f7Sju1ZfNNfBh7skWn0idlCBcI3RwdLSS4/I7NQKQ=" crossorigin="anonymous"></script>
-	<script src="./assets/js/chartshome.js"></script>
 
 	<script type="text/javascript">
 		// toast notification in bottom right corner
@@ -240,6 +237,107 @@
 				document.getElementById('jointxt').innerText = "Seems like you didn't enter a valid address."
 			}
 		}
+
+		const stringToDate = function (data, format) {
+			const regex = format.toLocaleLowerCase()
+					.replace(/\bd+\b/, '(?<day>\\d+)')
+					.replace(/\bm+\b/, '(?<month>\\d+)')
+					.replace(/\by+\b/, '(?<year>\\d+)');
+			const parts = new RegExp(regex).exec(data) || {};
+			const { year, month, day } = parts.groups || {};
+			return parts.length === 4 ? 
+				new Date(year < 100 ? 2000 + Number(year) : year, month - 1, day) : undefined;
+		}
+
+		am4core.ready(function () {
+			am4core.useTheme(am4themes_animated);
+			const chart = am4core.create("chartDiv", am4charts.XYChart);
+			chart.colors.step = 4;
+			chart.legend = new am4charts.Legend();
+			chart.cursor = new am4charts.XYCursor();
+
+			const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+			dateAxis.renderer.minGridDistance = 50;
+			dateAxis.renderer.line.strokeOpacity = 0.5;
+			dateAxis.renderer.line.strokeWidth = 2;
+
+			const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+			valueAxis.renderer.line.strokeOpacity = 0.5;
+			valueAxis.renderer.line.strokeWidth = 2;
+
+			chart.data = generateChartData(JSON.parse('<%- JSON.stringify(chartData) %>'));
+			createAxisAndSeries("cases", "Cases", false, "circle");
+			createAxisAndSeries("recovered", "Recovered", true, "circle");
+			createAxisAndSeries("deaths", "Deaths", true, "circle");
+
+			function createAxisAndSeries(field, name, opposite, bullet) {  
+				var series = chart.series.push(new am4charts.LineSeries());
+				series.dataFields.valueY = field;
+				series.dataFields.dateX = "date";
+				series.strokeWidth = 5;
+				series.yAxis = valueAxis;
+				series.name = name;
+				series.tooltipText = "{name}: [bold]{valueY}[/]";
+				series.tensionX = 1;
+				series.showOnInit = true;
+				
+				var interfaceColors = new am4core.InterfaceColorSet();
+				
+				switch(bullet) {
+					case "triangle":
+						var bullet = series.bullets.push(new am4charts.Bullet());
+						bullet.width = 12;
+						bullet.height = 12;
+						bullet.horizontalCenter = "middle";
+						bullet.verticalCenter = "middle";
+						
+						var triangle = bullet.createChild(am4core.Triangle);
+						triangle.stroke = interfaceColors.getFor("background");
+						triangle.strokeWidth = 2;
+						triangle.direction = "top";
+						triangle.width = 10;
+						triangle.height = 10;
+						break;
+					case "rectangle":
+						var bullet = series.bullets.push(new am4charts.Bullet());
+						bullet.width = 10;
+						bullet.height = 10;
+						bullet.horizontalCenter = "middle";
+						bullet.verticalCenter = "middle";
+						
+						var rectangle = bullet.createChild(am4core.Rectangle);
+						rectangle.stroke = interfaceColors.getFor("background");
+						rectangle.strokeWidth = 2;
+						rectangle.width = 10;
+						rectangle.height = 10;
+						break;
+					default:
+						return;
+						var bullet = series.bullets.push(new am4charts.CircleBullet());
+						bullet.width = 5;
+						bullet.height = 5;
+						bullet.circle.stroke = interfaceColors.getFor("background");
+						bullet.circle.strokeWidth = 5;
+						break;
+				}
+			}
+
+			function generateChartData(data) {
+				var keys = Object.keys(data);
+				var chartData=[];
+				var dates = Object.keys(data[keys[0]]);
+				for(var index=0;index<dates.length; index++){
+					chartData.push({
+						date: dates[index],
+						cases: (data[keys[0]])[dates[index]],
+						recovered:(data[keys[2]])[dates[index]],
+						deaths:(data[keys[1]])[dates[index]]
+					});
+				}
+				console.log(chartData);
+				return chartData;
+			}
+		});
 	</script>
 </body>
 
