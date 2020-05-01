@@ -27,9 +27,9 @@ const appleData = async (keys, redis) => {
 					rest.subregion_and_city = 'all';
 				}
 				if (country in formattedData) {
-					formattedData[country].push(rest);
+					formattedData[country].data.push(rest);
 				} else {
-					formattedData[country] = [rest];
+					formattedData[country] = { data: [rest] };
 				}
 			}
 			for (const index in Object.keys(formattedData)) {

@@ -21,7 +21,7 @@ exports.updateAppleCache = async () => {
 		);
 		// eslint-disable-next-line array-callback-return
 		Object.keys(parsedAppleData).map((countryName) => {
-			parsedAppleData[countryName] = parsedAppleData[countryName].map(numericalStats);
+			parsedAppleData[countryName].data = parsedAppleData[countryName].data.map(numericalStats);
 		});
 		this.currentStatus.appleData = parsedAppleData;
 		logger.info('Apple local cache updated');
