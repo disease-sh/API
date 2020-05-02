@@ -3,28 +3,19 @@ const router = require('express').Router();
 const countryUtils = require('../utils/country_utils');
 const { appleData } = require('../utils/apple_cache');
 
-router.get('/v2/apple/countries', async (req, res) => {
-	const data = appleData();
-	res.send(Object.keys(data));
-});
-
-router.get('/v2/apple/countries/:country', async (req, res) => {
+router.get('/v2/apple/countries/:country?', async (req, res) => {
 	const { country: queryCountry } = req.params;
 	const data = appleData();
 	if (queryCountry) {
 		const countryName = queryCountry.trim();
-		// eslint-disable-next-line consistent-return
-		const countryData = () => {
-			const standardizedCountryName = countryUtils.getCountryData(countryName).country || countryName;
-			if (data[standardizedCountryName] && data[standardizedCountryName].subregions) {
-				return { country: standardizedCountryName, subregions: data[standardizedCountryName].subregions };
-			} else {
-				res.status(404).send({ message: `Country ${standardizedCountryName} not found or no data found for county` });
-			}
-		};
-		res.send(countryData());
+		const standardizedCountryName = countryUtils.getCountryData(countryName).country || countryName;
+		if (data[standardizedCountryName] && data[standardizedCountryName].subregions) {
+			res.send({ country: standardizedCountryName, subregions: data[standardizedCountryName].subregions });
+		} else {
+			res.status(404).send({ message: `Country '${standardizedCountryName}' not found or no data found for county` });
+		}
 	} else {
-		res.status(404).send({ message: 'Country not found or no data found for county' });
+		res.send(Object.keys(data));
 	}
 });
 
@@ -37,7 +28,7 @@ router.get('/v2/apple/countries/:country/:subregions', async (req, res) => {
 		const countryData = data[standardizedCountryName];
 		const subregions = querySubregions.trim().split(/,[\s+?]/).map((subregion) => subregion.toLowerCase());
 		const subregiondata = subregions.map((subregion) => {
-			const notFoundMessage = `Subregion ${subregion} not found for ${standardizedCountryName}`;
+			const notFoundMessage = `Subregion '${subregion}' not found for '${standardizedCountryName}'`;
 			if (countryData && countryData.data) {
 				const subregionData = countryData.data.filter((element) => element.subregion_and_city.toLowerCase() === subregion);
 				return {
