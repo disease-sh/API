@@ -815,7 +815,7 @@
           }
         ],
         "summary": "Get apple mobility data for subregions of a country",
-        "description": "Return a list of mobility date for a subregions on every day since January 13th. Each entry has driving, transit, and walking data with an associated number of how many percentages it is up or down since January 13th",
+        "description": "Return a list of mobility data entries for multiple subregions or entries for one subregion on every day since January 13th. Each entry has driving, transit, and walking data with an associated number of how many percentages it is up or down since January 13th",
         "responses": {
           "200": {
             "description": "Status Ok",
