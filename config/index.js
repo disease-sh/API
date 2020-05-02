@@ -25,7 +25,7 @@ config.interval = process.env.INTERVAL || 6e5;
 // eslint-disable-next-line camelcase
 config.nyt_interval = process.env.NYT_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
-config.apple_interval = process.env.NYT_INTERVAL || 864e5;
+config.apple_interval = process.env.APPLE_INTERVAL || 864e5;
 
 // SENTRY KEY (ONLY FOR PRODUCTION)
 // eslint-disable-next-line camelcase
