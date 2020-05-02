@@ -1,3 +1,7 @@
+![Logo](https://i.imgur.com/m7JoOrQ.png)
+<br><br>
+
+![DockerHub Downloads](https://img.shields.io/docker/pulls/novelcovid/novelcovid-api?style=for-the-badge)
 ![GitHub contributors](https://img.shields.io/github/contributors-anon/novelcovid/api?style=for-the-badge)
 ![ESLint](https://img.shields.io/github/workflow/status/NovelCOVID/API/Eslint?label=ESLint&style=for-the-badge)
 ![Tests](https://img.shields.io/github/workflow/status/NovelCOVID/API/Unittest?label=Tests&style=for-the-badge)
@@ -6,19 +10,19 @@
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/novelcovid/api?style=for-the-badge)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/novelcovid/api?style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/novelcovid/api?style=for-the-badge)
-![Discord](https://img.shields.io/discord/689535536934813823?style=for-the-badge)
 # Join our Server!
 [![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/EvbMshU)
 
 # API
-API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain
-https://corona.lmao.ninja/
+API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain. 
+
+**Check out** our homepage and **sign up** for our newsletter [here](https://disease.sh/)
 
 # Recommended by Postman
 NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
 # Documentation
-NovelCovid/API Documentation can be found [here](https://corona.lmao.ninja/docs/)
+NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
 
 ## Installation
 
@@ -31,16 +35,16 @@ NovelCovid/API Documentation can be found [here](https://corona.lmao.ninja/docs/
 2. In root project folder, create a new file called `config.json`
 3. Copy contents for `config.example.json` to new `config.json` file
 4. Replace password field with `""` and port field to whatever localhost port you want.
-5. From root of project, run `npm start`
+5. From root of project, run `npm run start:dev`
 6. In your browser, go to `localhost:{port}` to test your local changes
 
 ## Run with docker-compose.
 1. Fork and clone git repository
-2. In root project folder, make a new file called `config.json`
-3. Copy contents for `config.example.json` to new `config.json` file
-4. Replace password field with `"yourpassword"` and port field same within `docker-compose.yml`.
+2. In root project folder, make a new file called `.env`
+3. Copy contents for `example.env` to new `.env` file
+4. Replace password field with `"yourpassword"` or leave it blank, and port field same within `docker-compose.yml`.
 5. Replace redis host "localhost" with "redis".
-6. Run command `docker-compose up --build -d`.
+6. Run command `npm run docker-start-dev`.
 
 ## NPM Package
 <dir align ="center">
@@ -122,6 +126,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+# Showcases (Awesome-NovelCOVID)
+
+Did you build a project with our API? We now offer an "awesome-list" for you to add your projects into so people can find out about them!
+
+#### You can find it <a href="https://github.com/puf17640/awesome-novelcovid">here</a>.
 
 # Donating
 <a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" width="217" height="50"></a>

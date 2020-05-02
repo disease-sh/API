@@ -11,7 +11,7 @@ const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/c
 const jhudataV2 = async (keys, redis) => {
 	let response;
 	try {
-		const date = new Date();
+		const date = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Denver' }));
 		date.setDate(date.getDate() - 1);
 		const dd = date.getDate().toString().padStart(2, '0');
 		const mm = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -21,6 +21,7 @@ const jhudataV2 = async (keys, redis) => {
 		response = await axios.get(`${base}/${dateString}.csv`);
 	} catch (err) {
 		logger.err('Error: Requesting JHULocations failed!', err);
+		return;
 	}
 
 	const parsed = await csv({

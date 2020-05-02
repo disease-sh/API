@@ -3,9 +3,9 @@ on:
   push:
     branches: [master]
   pull_request:
-    branches: [master]
+    branches: [master, docker-dev]
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: "0 */2 * * *"
 jobs:
   unittests:
     runs-on: ubuntu-latest
@@ -15,9 +15,12 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
-      - name: Start redis server
-        uses: supercharge/redis-github-action@1.1.0
+      - uses: zcong1993/setup-timezone@master
         with:
-          redis-version: ${{ matrix.redis-version }}
-      - run: npm install
-      - run: npm test
+          timezone: America/Denver
+      - run: npm run docker-test
+        env:
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          REDIS_PASSWORD: ""
+          SERVER_PORT: 3000

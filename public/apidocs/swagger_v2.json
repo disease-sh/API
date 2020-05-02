@@ -13,7 +13,7 @@
     "https",
     "http"
   ],
-  "host": "corona.lmao.ninja",
+  "host": "disease.sh",
   "basePath": "/",
   "tags": [
     {
@@ -974,6 +974,12 @@
       },
       "deaths": {
         "type": "string"
+      }
+    },
+    "continents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/continent"
       }
     },
     "countries": {

@@ -63,7 +63,7 @@ const historicalV2 = async (keys, redis) => {
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_global.csv`);
 		recoveredResponse = await axios.get(`${base}time_series_covid19_recovered_global.csv`);
 	} catch (err) {
-		logger.httpErrorLogger(err, 'error in Global JHUhistorical REQUEST');
+		logger.err(err, 'error in Global JHUhistorical REQUEST');
 		return;
 	}
 	const parsedCases = await parseCsvData(casesResponse.data);
@@ -229,6 +229,7 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_US.csv`);
 	} catch (err) {
 		logger.err('Error: Requesting JHUHistorical USA failed!', err);
+		return;
 	}
 	const parsedCases = await parseCsvData(casesResponse.data);
 	const parsedDeaths = await parseCsvData(deathsResponse.data);

@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  redis:
+    env_file: .env
+    container_name: covid-api-redis
+    command:
+      [
+        "redis-server",
+        "--appendonly",
+        "yes",
+        "--requirepass",
+        "${REDIS_PASSWORD}",
+        "--port",
+        "${REDIS_PORT}",
+      ]
+    volumes:
+      - redis-data:/data
+
+  scraper:
+    build: .
+    image: covidapi-scraper
+    container_name: covid-api-scraper
+    command: ["npm", "run", "start:scraper"]
+    restart: always
+    environment: 
+      - DOCKER=true
+    env_file:
+      - .env
+    networks:
+      - redis-net
+    depends_on:
+      - redis
+
+  app:
+    image: covidapi-app
+    container_name: covid-api-server
+    command: ["npm", "start"]
+    restart: always
+    environment: 
+      - DOCKER=true
+    env_file:
+      - .env
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    depends_on:
+      - scraper
