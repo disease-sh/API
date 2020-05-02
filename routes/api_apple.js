@@ -5,7 +5,7 @@ const { splitQuery } = require('../utils/string_utils');
 const { appleData } = require('../utils/apple_cache');
 
 router.get('/v2/apple/countries/:country?', async (req, res) => {
-	let { country: countryName } = req.params;
+	const { country: countryName } = req.params;
 	const data = appleData();
 	if (countryName) {
 		const standardizedCountryName = countryUtils.getCountryData(countryName.trim()).country || countryName.trim();
