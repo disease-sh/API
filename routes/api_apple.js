@@ -13,6 +13,7 @@ router.get('/v2/apple/countries/:country', async (req, res) => {
 	const data = appleData();
 	if (queryCountry) {
 		const countryName = queryCountry.trim();
+		// eslint-disable-next-line consistent-return
 		const countryData = () => {
 			const standardizedCountryName = countryUtils.getCountryData(countryName).country || countryName;
 			if (data[standardizedCountryName] && data[standardizedCountryName].subregions) {
