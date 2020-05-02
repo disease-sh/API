@@ -35,7 +35,7 @@ const appleData = async (keys, redis) => {
 					formattedData[country] = { data: [rest], subregions: [rest.subregion_and_city] };
 				}
 			}
-			for (const index in Object.keys(formattedData)) {
+			for (let index = 0; index < Object.keys(formattedData).length; index++) {
 				const country = Object.keys(formattedData)[index];
 				const standardizedCountry = countryUtils.getCountryData(country).country || country;
 				standardizedData[standardizedCountry] = formattedData[country];
