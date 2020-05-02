@@ -1,5 +1,5 @@
 {
-  "name": "NovelCOVID-API",
+  "name": "novelcovid-api",
   "version": "1.0.1",
   "description": "A simple Node API for getting coronavirus cases from scraped information.",
   "main": "server.js",
