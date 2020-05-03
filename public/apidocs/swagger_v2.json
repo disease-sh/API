@@ -30,6 +30,10 @@
     {
       "name": "NYT",
       "description": "(Data from New York Times)"
+    },
+    {
+      "name": "Apple",
+      "description": "(Mobility data from Apple)"
     }
   ],
   "consumes": [
@@ -748,6 +752,79 @@
           }
         }
       }
+    },
+    "/v2/apple/countries": {
+      "get": {
+        "tags": [
+          "Apple"
+        ],
+        "summary": "Get list of supported countries for Apple mobility data",
+        "description": "Return a list of supported country names",
+        "responses": {
+          "200": {
+            "description": "Status Ok"
+          }
+        }
+      }
+    },
+    "/v2/apple/countries/{country}": {
+      "get": {
+        "tags": [
+          "Apple"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "in": "path",
+            "required": true,
+            "description": "Any valid country name supported by the endpoint. Supported countries can be found in /v2/apple/countres",
+            "type": "string"
+          }
+        ],
+        "summary": "Get list of supported subregions for specific country in the Apple mobility data set",
+        "description": "Return a list of supported subregions in a country where data is available",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/appleCountry"
+            }
+          }
+        }
+      }
+    },
+    "/v2/apple/countries/{country}/{subregions}": {
+      "get": {
+        "tags": [
+          "Apple"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "in": "path",
+            "required": true,
+            "description": "Any valid country name supported by the endpoint. Supported countries can be found in /v2/apple/countres",
+            "type": "string"
+          },
+          {
+            "name": "subregions",
+            "in": "path",
+            "required": true,
+            "description": "Comma separated, or just single value of subregions supported by country for apple mobility data. Can find available subregions on /v2/apple/countries/{country} endpoint",
+            "type": "string"
+          }
+        ],
+        "summary": "Get apple mobility data for subregions of a country",
+        "description": "Return a list of mobility data entries for multiple subregions or entries for one subregion on every day since January 13th. Each entry has driving, transit, and walking data with an associated number of how many percentages it is up or down since January 13th",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/appleSubregions"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -976,6 +1053,47 @@
         "type": "string"
       }
     },
+    "appleCountry": {
+      "type": "object",
+      "country": {
+        "type": "string"
+      },
+      "subregions": {
+        "type": "arrray"
+      }
+    },
+    "appleData": {
+      "type": "object",
+      "subregion_and_city": {
+        "type": "string"
+      },
+      "geo_type": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "driving": {
+        "type": "float"
+      },
+      "transit": {
+        "type": "float"
+      },
+      "walking": {
+        "type": "float"
+      }
+    },
+    "appleSubregion": {
+      "type": "object",
+      "subregion": {
+        "type": "string"
+      },
+      "data": {
+        "items": {
+          "$ref": "#/definitions/appleData"
+        }
+      }
+    },
     "continents": {
       "type": "array",
       "items": {
@@ -1016,6 +1134,12 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/nytTotal"
+      }
+    },
+    "appleSubregions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/appleSubregion"
       }
     }
   },
