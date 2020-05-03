@@ -1,0 +1,170 @@
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const app = require('../server');
+const should = chai.should();
+chai.use(chaiHttp);
+
+describe('TESTING /v2/apple/countries', () => {
+    it('/v2/apple/countries correct type', (done) => {
+        chai.request(app)
+            .get('/v2/apple/countries')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.at.least(1);
+                done();
+            });
+    });
+});
+
+describe('TESTING /v2/apple/countries/country', () => {
+    it('/v2/apple/countries/country correct for all valid', (done) => {
+        chai.request(app)
+            .get('/v2/apple/countries')
+            .end((err, res) => {
+                should.not.exist(err);
+				should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.map((countryName) => {
+                    chai.request(app)
+					    .get(`/v2/apple/countries/${countryName}`)
+					    .end((err2, res2) => {
+                            should.not.exist(err2);
+						    should.exist(res2);
+                            res2.should.have.status(200);
+                            res2.body.should.have.property('country').eql(countryName);
+                            res2.body.should.have.property('subregions');
+                            res2.body.subregions.length.should.be.at.least(1);
+                        });
+                });
+                done();
+            });
+    });
+
+    it('/v2/apple/countries/country correct for invalid country', (done) => {
+        chai.request(app)
+            .get('/v2/apple/countries/agfdsdh')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(404);
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+});
+
+describe('TESTING /v2/apple/countries/country/subregions', () => {
+    it('/v2/apple/countries/country/all correct for all valid', (done) => {
+        chai.request(app)
+            .get('/v2/apple/countries')
+            .end((err, res) => {
+                should.not.exist(err);
+				should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.map((countryName) => {
+                    chai.request(app)
+					    .get(`/v2/apple/countries/${countryName}/all`)
+					    .end((err2, res2) => {
+                            should.not.exist(err2);
+						    should.exist(res2);
+                            res2.should.have.status(200);
+                            res2.body.should.have.property('subregion').eql('all');
+                            res2.body.should.have.property('data');
+                            res2.body.data.length.should.be.at.least(1);
+                            res2.body.data[0].should.have.property('subregion_and_city');
+                            res2.body.data[0].should.have.property('geo_type');
+                            res2.body.data[0].should.have.property('date');
+                            res2.body.data[0].should.have.property('driving');
+                            res2.body.data[0].should.have.property('transit');
+                            res2.body.data[0].should.have.property('walking');
+                        });
+                });
+                done();
+            });
+    });
+
+    it('/v2/apple/countries/country/all correct for invalid country', (done) => {
+        chai.request(app)
+            .get('/v2/apple/countries/agfdsdh/all')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
+    it('/v2/apple/countries/country/all correct for valid subregion list', (done) => {
+        chai.request(app)
+            .get('/v2/apple/countries/usa/illinois, chicago')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.equal(2);
+                res.body[0].should.have.property('subregion').eql('illinois');
+                res.body[0].should.have.property('data');
+                res.body[0].data.length.should.be.at.least(1);
+                res.body[1].should.have.property('subregion').eql('chicago');
+                res.body[1].should.have.property('data');
+                res.body[1].data.length.should.be.at.least(1);
+                done();
+            });
+    });
+
+    it('/v2/apple/countries/country/all correct for invalid single sugbregion', (done) => {
+        chai.request(app)
+            .get('/v2/apple/countries/usa/dasgf')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('subregion');
+                res.body.should.have.property('message');
+                done();
+            });
+    });
+
+    it('/v2/apple/countries/country/all correct for mixed subregion list', (done) => {
+        chai.request(app)
+            .get('/v2/apple/countries/usa/weytsdg, illinois')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.equal(2);
+                res.body[0].should.have.property('subregion');
+                res.body[0].should.have.property('message');
+                res.body[1].should.have.property('subregion').eql('illinois');
+                res.body[1].should.have.property('data');
+                res.body[1].data.length.should.be.at.least(1);
+                done();
+            });
+    });
+
+    it('/v2/apple/countries/country/all correct for invalid subregion list', (done) => {
+        chai.request(app)
+            .get('/v2/apple/countries/usa/dasgf, weytsdg')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.equal(2);
+                res.body[0].should.have.property('subregion');
+                res.body[0].should.have.property('message');
+                res.body[1].should.have.property('subregion');
+                res.body[1].should.have.property('message');
+                done();
+            });
+    });
+})

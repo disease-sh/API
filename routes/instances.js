@@ -8,6 +8,7 @@ const getStates = require('../scrapers/getStates');
 const jhuLocations = require('../scrapers/jhuLocations');
 const historical = require('../scrapers/historical');
 const nytData = require('../scrapers/nytData');
+const appleData = require('../scrapers/appleMobilityData');
 
 // KEYS
 const { config, keys, port } = require('../config');
@@ -28,6 +29,7 @@ module.exports = {
 		jhuLocations,
 		historical,
 		nytData,
+		appleData,
 		executeScraper: async () => {
 			await Promise.all([
 				getWorldometerPage(keys, redis),
@@ -41,6 +43,10 @@ module.exports = {
 		executeScraperNYTData: async () => {
 			await nytData(keys, redis);
 			logger.info('Finished NYT scraping!');
+		},
+		excecuteScraperAppleData: async () => {
+			await appleData(keys, redis);
+			logger.info('Finished Apple scraping!');
 		}
 	}
 };
