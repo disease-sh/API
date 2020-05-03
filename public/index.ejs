@@ -223,6 +223,7 @@
 				};
 				const response = await fetch(`/private/mailgun?email=${email}`, init);
 				const json = await response.json();
+				console.log(json);
 				if (json.message && json.message === "Mailing list member has been created") {
 					document.getElementById('jointxt').style.color = "#85ea2d";
 					document.getElementById('jointxt').innerText = "Thank you so much for joining!"
@@ -334,7 +335,6 @@
 						deaths:(data[keys[1]])[dates[index]]
 					});
 				}
-				console.log(chartData);
 				return chartData;
 			}
 		});
