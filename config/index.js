@@ -31,6 +31,12 @@ config.apple_interval = process.env.APPLE_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
 config.sentry_key = process.env.SENTRY_KEY;
 
+// MAILGUN API KEY (ONLY FOR PRODUCTION)
+config.mailgunApiKey = process.env.MAILGUN_API_KEY;
+
+// RECAPTCHA SECRET (ONLY FOR PRODUCTION)
+config.captchaSecret = process.env.CAPTCHA_SECRET;
+
 module.exports = {
 	config,
 	keys,
