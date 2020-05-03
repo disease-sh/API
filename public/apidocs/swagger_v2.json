@@ -1043,48 +1043,58 @@
       }
     },
     "nytTotal": {
-      "date": {
-        "type": "string"
-      },
-      "cases": {
-        "type": "string"
-      },
-      "deaths": {
-        "type": "string"
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "cases": {
+          "type": "string"
+        },
+        "deaths": {
+          "type": "string"
+        }
       }
     },
     "appleCountry": {
-      "type": "object",
-      "country": {
-        "type": "string"
-      },
-      "subregions": {
-        "type": "arrray"
+      "properties": {
+        "type": "object",
+        "country": {
+          "type": "string"
+        },
+        "subregions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "appleData": {
-      "type": "object",
-      "subregion_and_city": {
-        "type": "string"
-      },
-      "geo_type": {
-        "type": "string"
-      },
-      "date": {
-        "type": "string"
-      },
-      "driving": {
-        "type": "float"
-      },
-      "transit": {
-        "type": "float"
-      },
-      "walking": {
-        "type": "float"
+      "properties": {
+        "type": "object",
+        "subregion_and_city": {
+          "type": "string"
+        },
+        "geo_type": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "driving": {
+          "type": "float"
+        },
+        "transit": {
+          "type": "float"
+        },
+        "walking": {
+          "type": "float"
+        }
       }
     },
     "appleSubregion": {
-      "type": "object",
+      "properties": {
+        "type": "object",
       "subregion": {
         "type": "string"
       },
@@ -1093,6 +1103,8 @@
           "$ref": "#/definitions/appleData"
         }
       }
+      }
+      
     },
     "continents": {
       "type": "array",
