@@ -8,12 +8,14 @@ const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
 const { config, port, redis, scraper, keys } = require('./routes/instances');
-const { updateCache } = require('./utils/nyt_cache');
+const { updateNYTCache } = require('./utils/nyt_cache');
+const { updateAppleCache } = require('./utils/apple_cache');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 
 // Use local cache for NYT data
-updateCache();
+updateNYTCache();
+updateAppleCache();
 
 app.use(require('cors')({ origin: '*' }));
 app.use(express.static(path.join(__dirname, '/public')));
@@ -81,6 +83,7 @@ app.use(require('./routes/api_historical'));
 app.use(require('./routes/api_jhucsse'));
 app.use(require('./routes/api_deprecated'));
 app.use(require('./routes/api_nyt'));
+app.use(require('./routes/api_apple'));
 
 app.listen(port, () => logger.info(`Your app is listening on port ${port}`));
 
