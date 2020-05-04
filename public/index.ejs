@@ -100,8 +100,10 @@
 						target="_blank">Johns Hopkins University</a>,
 					the <a class="emphasis" href="https://github.com/nytimes/covid-19-data" target="_blank">New York
 						Times</a>,
-					and <a class="emphasis" href="https://www.worldometers.info/coronavirus/"
-						target="_blank">Worldometers</a> to give you a comphrehensive view of the data.
+					<a class="emphasis" href="https://www.worldometers.info/coronavirus/"
+						target="_blank">Worldometers</a>, and
+					<a class="emphasis" href="https://github.com/ActiveConclusion/COVID19_mobility"
+					target="_blank">Apple reports</a> to give you a comphrehensive view of the data.
 				</p>
 			</li>
 			<li>
@@ -223,7 +225,6 @@
 				};
 				const response = await fetch(`/private/mailgun?email=${email}`, init);
 				const json = await response.json();
-				console.log(json);
 				if (json.message && json.message === "Mailing list member has been created") {
 					document.getElementById('jointxt').style.color = "#85ea2d";
 					document.getElementById('jointxt').innerText = "Thank you so much for joining!"
