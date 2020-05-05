@@ -6,19 +6,19 @@ const logger = require('../utils/logger');
 const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'continent'];
 
 /**
-* Maps a country object to a continent object
+* Extracts continent specific data from a country data object
 * @param 	{Object} 	element 	Country Data
 * @returns 	{Object} 				Continent Data
 */
 const continentMapping = (element) => {
 	element.continent = element.country;
 	// eslint-disable-next-line no-unused-vars
-	const { country, countryInfo, casesPerOneMillion, deathsPerOneMillion, tests, testsPerOneMillion, ...cleanedElement } = element;
-	return cleanedElement;
+	const { country, countryInfo, casesPerOneMillion, deathsPerOneMillion, tests, testsPerOneMillion, ...countryData } = element;
+	return countryData;
 };
 
 /**
-* Gets country data ordered by country name
+* Returns country data list ordered by country name
 * @param 	{Array} 	data 	Countries Data
 * @returns 	{Array} 			Countries Data Ordered by Country Name
 */
@@ -32,12 +32,13 @@ const getOrderByCountryName = (data) => data.sort((a, b) => a.country < b.countr
 */
 const mapRows = (_, row) => {
 	const country = { updated: Date.now() };
+	const cleanText = (text) => text.replace(/(\n|,)/g, '');
 	cheerio(row).children('td').each((index, cell) => {
 		cell = cheerio.load(cell);
 		switch (index) {
 			case 0: {
-				const countryInfo = countryUtils.getCountryData(cell.text().replace(/(\n|,)/g, ''));
-				country.country = countryInfo.country || cell.text().replace(/(\n|,)/g, '');
+				const countryInfo = cleanText(countryUtils.getCountryData(cell.text()));
+				country.country = countryInfo.country || cleanText(cell.text());
 				delete countryInfo.country;
 				country.countryInfo = countryInfo;
 				break;
@@ -47,7 +48,7 @@ const mapRows = (_, row) => {
 				break;
 
 			default:
-				country[columns[index - 1]] = parseInt(cell.text().replace(/(\n|,)/g, '')) || 0;
+				country[columns[index - 1]] = parseInt(cleanText(cell.text())) || 0;
 		}
 	});
 	return country;
