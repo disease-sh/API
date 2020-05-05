@@ -4,8 +4,14 @@ const wordToBoolean = (word) => word ? ['true', '1'].includes(word.toString()) :
 
 const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 
+const fixApostrophe = (country) => {
+	country.country = country.country.replace(/"/g, '\'');
+	return country;
+};
+
 module.exports = {
 	wordsStandardize,
 	wordToBoolean,
-	splitQuery
+	splitQuery,
+	fixApostrophe
 };
