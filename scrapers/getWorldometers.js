@@ -8,7 +8,7 @@ const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'a
 /**
 * Maps a country object to a continent object
 * @param 	{Object} 	element 	Country Data
-* @returns {Object} 			Continent Data
+* @returns 	{Object} 				Continent Data
 */
 const continentMapping = (element) => {
 	element.continent = element.country;
@@ -20,15 +20,15 @@ const continentMapping = (element) => {
 /**
 * Gets country data ordered by country name
 * @param 	{Array} 	data 	Countries Data
-* @returns {Array} 			Countries Data Ordered by Country Name
+* @returns 	{Array} 			Countries Data Ordered by Country Name
 */
 const getOrderByCountryName = (data) => data.sort((a, b) => a.country < b.country ? -1 : 1);
 
 /**
 * Maps a row from worldometers to a country
-* @param 	{number} 	_ 	index getting passed when using .map()
-* @param 	{Object} 	row	the row to extract data from
-* @returns {Object} 			Countries Data
+* @param 	{number} 	_ 		Index getting passed when using .map()
+* @param 	{Object} 	row		The row to extract data from
+* @returns 	{Object} 			Countries Data
 */
 const mapRows = (_, row) => {
 	const country = { updated: Date.now() };
@@ -55,9 +55,9 @@ const mapRows = (_, row) => {
 
 /**
  * Fills an array full of table data parsed from worldometers
- * @param 	{Object} 	html 		Cheerio HTML object from worldometers site
- * @param 	{string} 	idExtension 	the extension to append to the ID that is used to get the tables (either 'today' or 'yesterday')
- * @returns {Object} 	Object containing countries, continent and world data
+ * @param 	{Object} 	html 			Cheerio HTML object from worldometers site
+ * @param 	{string} 	idExtension 	The extension to append to the ID that is used to get the tables (either 'today' or 'yesterday')
+ * @returns {Object} 					Object containing countries, continent and world data
  */
 function fillResult(html, idExtension) {
 	const countriesTable = html(`table#main_table_countries_${idExtension}`);
@@ -71,8 +71,8 @@ function fillResult(html, idExtension) {
 
 /**
  * Fills redis with countries and yesterday data
- * @param {string} keys Redis keys
- * @param {Object} redis Redis instance
+ * @param {string} 	keys 	Redis keys
+ * @param {Object} 	redis 	Redis instance
  */
 const getWorldometerPage = async (keys, redis) => {
 	try {
