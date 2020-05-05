@@ -32,13 +32,13 @@ const getOrderByCountryName = (data) => data.sort((a, b) => a.country < b.countr
 */
 const mapRows = (_, row) => {
 	const country = { updated: Date.now() };
-	const cleanText = (text) => text.replace(/(\n|,)/g, '');
+	const replaceRegex = /(\n|,)/g;
 	cheerio(row).children('td').each((index, cell) => {
 		cell = cheerio.load(cell);
 		switch (index) {
 			case 0: {
-				const countryInfo = cleanText(countryUtils.getCountryData(cell.text()));
-				country.country = countryInfo.country || cleanText(cell.text());
+				const countryInfo = countryUtils.getCountryData(cell.text().replace(replaceRegex, ''));
+				country.country = countryInfo.country || cell.text().replace(replaceRegex, '');
 				delete countryInfo.country;
 				country.countryInfo = countryInfo;
 				break;
@@ -48,7 +48,7 @@ const mapRows = (_, row) => {
 				break;
 
 			default:
-				country[columns[index - 1]] = parseInt(cleanText(cell.text())) || 0;
+				country[columns[index - 1]] = parseInt(cell.text().replace(replaceRegex, '')) || 0;
 		}
 	});
 	return country;
