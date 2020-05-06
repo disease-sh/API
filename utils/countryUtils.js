@@ -1,4 +1,4 @@
-const stringUtils = require('./string_utils');
+const stringUtils = require('./stringUtils');
 const countryData = require('./countries');
 
 /**
@@ -6,14 +6,14 @@ const countryData = require('./countries');
  * @param {string} countryName country name
  * @returns {string} iso2 country code
  */
-const getCountryCode = (countryName) =>	countryData.find(country => country.country.toLowerCase() === countryName.toLowerCase()).iso2;
+const getCountryCode = (countryName) => countryData.find(country => country.country.toLowerCase() === countryName.toLowerCase()).iso2;
 
 /**
  * Get country name from iso2 code
  * @param {string} countryCode ios2 country code
  * @returns {string}
  */
-const getCountryName = (countryCode) =>	countryData.find(country => country.iso2.toLowerCase() === countryCode.toLowerCase()).country;
+const getCountryName = (countryCode) => countryData.find(country => country.iso2.toLowerCase() === countryCode.toLowerCase()).country;
 
 const getCountryData = (countryNameParam) => {
 	const countryName = stringUtils.wordsStandardize(countryNameParam);
@@ -22,7 +22,7 @@ const getCountryData = (countryNameParam) => {
 		|| stringUtils.wordsStandardize(item.iso2) === countryName
 		|| stringUtils.wordsStandardize(item.iso3) === countryName
 		|| item.id === parseInt(countryName))
-			|| !!(item.possibleNames ? item.possibleNames : []).find(synonym => stringUtils.wordsStandardize(synonym) === countryName));
+		|| !!(item.possibleNames ? item.possibleNames : []).find(synonym => stringUtils.wordsStandardize(synonym) === countryName));
 
 	return countryFound ? {
 		_id: countryFound.id,
@@ -38,7 +38,7 @@ const getCountryData = (countryNameParam) => {
 const fuzzySearch = (ctry, nameParam, standardizedName, selector) => ((ctry.countryInfo || {}).iso3 || '').toLowerCase() === nameParam.toLowerCase()
 	|| ((ctry.countryInfo || {}).iso2 || '').toLowerCase() === nameParam.toLowerCase()
 	|| ((nameParam.length > 3 || isCountryException(nameParam.toLowerCase()))
-	&& stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName));
+		&& stringUtils.wordsStandardize(ctry[selector]).includes(standardizedName));
 
 /**
  * Get all Worldometers data of a certain country

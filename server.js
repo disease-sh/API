@@ -8,8 +8,8 @@ const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
 const { config, port, redis, scraper, keys } = require('./routes/instances');
-const { updateNYTCache } = require('./utils/nyt_cache');
-const { updateAppleCache } = require('./utils/apple_cache');
+const { updateNYTCache } = require('./utils/nytCache');
+const { updateAppleCache } = require('./utils/appleCache');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 
@@ -78,12 +78,12 @@ app.use((req, res, next) => {
 	}
 	next();
 });
-app.use(require('./routes/api_worldometers'));
-app.use(require('./routes/api_historical'));
-app.use(require('./routes/api_jhucsse'));
-app.use(require('./routes/api_deprecated'));
-app.use(require('./routes/api_nyt'));
-app.use(require('./routes/api_apple'));
+app.use(require('./routes/apiWorldometers'));
+app.use(require('./routes/apiHistorical'));
+app.use(require('./routes/apiJHUCSSE'));
+app.use(require('./routes/apiDeprecated'));
+app.use(require('./routes/apiNYT'));
+app.use(require('./routes/apiApple'));
 
 app.listen(port, () => logger.info(`Your app is listening on port ${port}`));
 

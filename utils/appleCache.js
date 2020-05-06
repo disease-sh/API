@@ -2,7 +2,7 @@
 Local cache to avoid unnecessary JSON parsing during Apple mobility data retrieval
 Status of cache will update every time data is successfully scraped
 */
-const logger = require('../utils/logger');
+const logger = require('./logger');
 
 exports.currentStatus = {
 	appleData: undefined
