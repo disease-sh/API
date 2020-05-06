@@ -1,7 +1,7 @@
 const axios = require('axios');
 const csv = require('csvtojson');
-const countryUtils = require('../utils/country_utils');
-const stringUtils = require('../utils/string_utils');
+const countryUtils = require('../utils/countryUtils');
+const stringUtils = require('../utils/stringUtils');
 const logger = require('../utils/logger');
 
 // eslint-disable-next-line max-len
