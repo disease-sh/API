@@ -1,6 +1,6 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const { wordToBoolean, splitQuery, fixApostrophe } = require('../utils/string_utils');
+const { wordToBoolean, splitQuery, fixApostrophe } = require('../utils/stringUtils');
 const countryUtils = require('../utils/countryUtils');
 const { redis, keys } = require('./instances');
 
