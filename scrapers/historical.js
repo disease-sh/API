@@ -54,9 +54,8 @@ function formatRecoveredData(cases, recovered) {
  * @param 	{Object}	redis 	Redis db
  */
 const historicalV2 = async (keys, redis) => {
-	let casesResponse;
-	let deathsResponse;
-	let recoveredResponse;
+	const timelineIndex = 4;
+	let casesResponse, deathsResponse, recoveredResponse;
 	try {
 		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_global.csv`);
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_global.csv`);
@@ -71,32 +70,32 @@ const historicalV2 = async (keys, redis) => {
 	// JHU Data is very poorly formatted, but we fix it :)
 	const formatedRecovered = formatRecoveredData(parsedCases, parsedRecovered);
 	// dates key for timeline
-	const timelineKey = Object.keys(parsedCases[0]).splice(4);
+	const timelineKey = Object.keys(parsedCases[0]).splice(timelineIndex);
 	// format csv data to response
 	const result = parsedCases.map((_, index) => {
 		const newElement = {
 			country: '', countryInfo: {}, province: null, timeline: { cases: {}, deaths: {}, recovered: {} }
 		};
-		const cases = Object.values(parsedCases[index]).splice(4);
-		const deaths = Object.values(parsedDeaths[index]).splice(4);
-		const recovered = Object.values(formatedRecovered[index]).splice(4);
+		const cases = Object.values(parsedCases[index]).splice(timelineIndex);
+		const deaths = Object.values(parsedDeaths[index]).splice(timelineIndex);
+		const recovered = Object.values(formatedRecovered[index]).splice(timelineIndex);
 
 		for (let i = 0; i < cases.length; i++) {
-			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
-			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
-			newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
+			// eslint-disable-next-line no-return-assign
+			[cases, deaths, recovered].map((selector) => newElement.timeline.selector[timelineKey[i]] = parseInt(selector[i]));
 		}
-		// add country inf o to support iso2/3 queries
-		const countryData = countryUtils.getCountryData(Object.values(parsedCases)[index]['Country/Region'].replace('*', ''));
-		newElement.country = countryData.country || Object.values(parsedCases)[index]['Country/Region'];
+
+		// add country info to support iso2/3 queries
+		const parsedAtIndex = Object.values(parsedCases)[index];
+		const countryData = countryUtils.getCountryData(parsedAtIndex['Country/Region'].replace('*', ''));
+		newElement.country = countryData.country || parsedAtIndex['Country/Region'];
 		newElement.countryInfo = countryData;
-		newElement.province = Object.values(parsedCases)[index]['Province/State'] === '' ? null
-			: Object.values(parsedCases)[index]['Province/State'].toLowerCase();
+		newElement.province = parsedAtIndex['Province/State'] === '' ? null
+			: parsedAtIndex['Province/State'].toLowerCase();
 		return newElement;
 	});
 
-	const string = JSON.stringify(result);
-	redis.set(keys.historical_v2, string);
+	redis.set(keys.historical_v2, JSON.stringify(result));
 	logger.info(`Updated JHU CSSE Historical: ${result.length} locations`);
 };
 
@@ -125,6 +124,7 @@ const getHistoricalDataV2 = (data, lastdays = 30) => {
 	});
 };
 
+// TODO: Refactor below this comment
 /**
  * Parses data from historical endpoint and returns data for specific country || province
  * @param 	{array}		data		Full historical data returned from /historical endpoint
