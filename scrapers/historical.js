@@ -37,7 +37,7 @@ function formatRecoveredData(cases, recovered) {
 			Long: country.Long || ''
 		});
 	});
-	const output = countries.map((country) => {
+	return countries.map((country) => {
 		const provinces = recovered.filter(el =>
 			el['Country/Region'] === country.name && el['Province/State'] === country.province
 		);
@@ -46,7 +46,6 @@ function formatRecoveredData(cases, recovered) {
 		});
 		return country;
 	});
-	return output;
 }
 
 /**
