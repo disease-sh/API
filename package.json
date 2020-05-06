@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "start": "node server.js",
-    "start:scraper": "node server_scraper.js",
+    "start:scraper": "node serverScraper.js",
     "start:devserver": "nodemon --watch routes --watch scrapers --watch utils ./server.js",
     "start:dev": "concurrently --kill-others-on-fail --kill-others \"npm:start:devserver\" \"npm:start:scraper\"",
     "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
