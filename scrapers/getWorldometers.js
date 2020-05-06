@@ -11,7 +11,7 @@ const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'a
 * @returns {Object} 			Continent Data
 */
 const continentMapping = (element) => {
-	element.continent = element.country;
+	element.continent = element.country.trim();
 	// eslint-disable-next-line no-unused-vars
 	const { country, countryInfo, casesPerOneMillion, deathsPerOneMillion, tests, testsPerOneMillion, ...cleanedElement } = element;
 	return cleanedElement;
