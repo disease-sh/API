@@ -81,8 +81,9 @@ const historicalV2 = async (keys, redis) => {
 		const recovered = Object.values(formatedRecovered[index]).splice(timelineIndex);
 
 		for (let i = 0; i < cases.length; i++) {
-			// eslint-disable-next-line no-return-assign
-			[cases, deaths, recovered].map((selector) => newElement.timeline.selector[timelineKey[i]] = parseInt(selector[i]));
+			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
+			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
+			newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
 		}
 
 		// add country info to support iso2/3 queries
