@@ -13,7 +13,6 @@ const { updateAppleCache } = require('./utils/appleCache');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 
-// Use local cache for NYT data
 updateNYTCache();
 updateAppleCache();
 
