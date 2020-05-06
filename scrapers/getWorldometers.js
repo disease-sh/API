@@ -86,7 +86,7 @@ const getWorldometerPage = async (keys, redis) => {
 			logger.info(`Updated ${key} continents statistics: ${data.continents.length}`);
 		});
 	} catch (err) {
-		logger.err('Error: Requesting WorldOMeters failed!', err);
+		logger.err('Error: Requesting WorldoMeters failed!', err);
 	}
 };
 
