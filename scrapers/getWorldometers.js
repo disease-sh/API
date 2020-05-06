@@ -1,6 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const countryUtils = require('../utils/country_utils');
+const countryUtils = require('../utils/countryUtils');
 const logger = require('../utils/logger');
 
 const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'continent'];
