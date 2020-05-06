@@ -1,8 +1,8 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const countryUtils = require('../utils/country_utils');
-const { splitQuery } = require('../utils/string_utils');
-const { appleData } = require('../utils/apple_cache');
+const countryUtils = require('../utils/countryUtils');
+const { splitQuery } = require('../utils/stringUtils');
+const { appleData } = require('../utils/appleCache');
 
 router.get('/v2/apple/countries/:country?', async (req, res) => {
 	const { country: countryName } = req.params;

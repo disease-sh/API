@@ -1,6 +1,6 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const { nytCounties, nytStates, nytNationwide } = require('../utils/nyt_cache');
+const { nytCounties, nytStates, nytNationwide } = require('../utils/nytCache');
 
 router.get('/v2/nyt/states', async (req, res) => res.send(nytStates()));
 
