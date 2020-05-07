@@ -56,7 +56,7 @@ const fillResult = (html, yesterday = false) => {
 
 	return tableRows.map((row) => {
 		const cells = row.children.filter((cell) => cell.name === 'td');
-		const stateData = { state: parseStateCell(cells[stateColIndex]) };
+		const stateData = { state: parseStateCell(cells[stateColIndex]), updated: Date.now() };
 		Object.keys(dataColIndexes).forEach((property) => {
 			stateData[property] = parseNumberCell(cells[dataColIndexes[property]]);
 		});
