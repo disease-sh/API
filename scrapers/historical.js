@@ -101,19 +101,27 @@ const historicalV2 = async (keys, redis) => {
 };
 
 /**
+ * Returns correct value for lastdays param given string input
+ * @param 	{string} 	lastdays 	lastdays param
+ * @returns {number} 				Correct lastdays value in integer form
+ */
+const setLastDays = (lastdays) => {
+	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
+	if (!lastdays || isNaN(lastdays)) lastdays = 30;
+	return lastdays;
+};
+
+/**
  * Parses data from historical endpoint and returns data for each country & province
  * @param 	{array}		data		Full historical data returned from /historical endpoint
  * @param 	{string}	lastdays  	How many days to show always take lastest
  * @returns {Object}				The filtered historical data.
  */
 const getHistoricalDataV2 = (data, lastdays = 30) => {
-	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
-	if (!lastdays || isNaN(lastdays)) lastdays = 30;
+	lastdays = setLastDays(lastdays);
 	return data.map(country => {
 		delete country.countryInfo;
-		const cases = {};
-		const deaths = {};
-		const recovered = {};
+		const cases = {}, deaths = {}, recovered = {};
 		Object.keys(country.timeline.cases).slice(lastdays * -1).forEach(key => {
 			cases[key] = country.timeline.cases[key];
 			deaths[key] = country.timeline.deaths[key];
@@ -134,8 +142,7 @@ const getHistoricalDataV2 = (data, lastdays = 30) => {
  * @returns {Object}				The filtered historical data.
  */
 const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30) => {
-	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
-	if (!lastdays || isNaN(lastdays)) lastdays = 30;
+	lastdays = setLastDays(lastdays);
 	const countryInfo = countryUtils.getCountryData(query);
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : query);
 	// filter to either specific province, or provinces to sum country over
@@ -169,17 +176,9 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
 			});
 		});
 	});
-
-	if (province) {
-		return {
-			country: countryData[0].country || standardizedCountryName,
-			province: countryData[0].province || province,
-			timeline
-		};
-	}
 	return {
 		country: countryData[0].country || standardizedCountryName,
-		provinces,
+		province: province ? countryData[0].province || province : provinces,
 		timeline
 	};
 };
@@ -191,8 +190,7 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
  * @returns {Object}				The global deaths and cases
  */
 const getHistoricalAllDataV2 = (data, lastdays = 30) => {
-	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
-	if (!lastdays || isNaN(lastdays)) lastdays = 30;
+	lastdays = setLastDays(lastdays);
 	const cases = {};
 	const deaths = {};
 	const recovered = {};
@@ -219,8 +217,7 @@ const getHistoricalAllDataV2 = (data, lastdays = 30) => {
  * @param 	{Object}	redis 	Redis db
  */
 const getHistoricalUSADataV2 = async (keys, redis) => {
-	let casesResponse;
-	let deathsResponse;
+	let casesResponse, deathsResponse;
 	try {
 		casesResponse = await axios.get(`${base}time_series_covid19_confirmed_US.csv`);
 		deathsResponse = await axios.get(`${base}time_series_covid19_deaths_US.csv`);
@@ -242,14 +239,14 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
 			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
 		}
-		newElement.province = Object.values(parsedCases)[index].Province_State === '' ? null
-			: Object.values(parsedCases)[index].Province_State.toLowerCase();
-		newElement.county = Object.values(parsedCases)[index].Admin2 === '' ? null
-			: Object.values(parsedCases)[index].Admin2.toLowerCase();
+		const element = Object.values(parsedCases)[index];
+		newElement.province = element.Province_State === '' ? null
+			: element.Province_State.toLowerCase();
+		newElement.county = element.Admin2 === '' ? null
+			: element.Admin2.toLowerCase();
 		return newElement;
 	});
-	const string = JSON.stringify(result);
-	redis.set(keys.historical_v2_USA, string);
+	redis.set(keys.historical_v2_USA, JSON.stringify(result));
 	logger.info(`Updated JHU CSSE Historical USA: ${result.length} locations`);
 };
 
@@ -270,12 +267,10 @@ const getHistoricalUSAProvincesV2 = (data) =>
  * @returns {array} 				Array of objects with county case and death information
  */
 const getHistoricalUSAStateDataV2 = (data, state, lastdays = null) => {
-	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
-	if (!lastdays || isNaN(lastdays)) lastdays = 30;
+	lastdays = setLastDays(lastdays);
 	return data.filter(county => county.province === state)
 		.map((county) => {
-			const cases = {};
-			const deaths = {};
+			const cases = {}, deaths = {};
 			Object.keys(county.timeline.cases).slice(-lastdays).forEach(key => {
 				cases[key] = county.timeline.cases[key];
 				deaths[key] = county.timeline.deaths[key];
