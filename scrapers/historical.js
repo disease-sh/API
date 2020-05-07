@@ -125,7 +125,6 @@ const getHistoricalDataV2 = (data, lastdays = 30) => {
 	});
 };
 
-// TODO: Refactor below this comment
 /**
  * Parses data from historical endpoint and returns data for specific country || province
  * @param 	{array}		data		Full historical data returned from /historical endpoint
@@ -141,18 +140,16 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : query);
 	// filter to either specific province, or provinces to sum country over
 	const countryData = data.filter(item => {
+		const deepMatch = () => stringUtils.wordsStandardize(item.country) === standardizedCountryName
+			&& item.countryInfo.iso2 === countryInfo.iso2
+			&& item.countryInfo.iso3 === countryInfo.iso3
+			&& item.countryInfo._id === countryInfo._id;
 		if (item.countryInfo.country) {
 			if (province) {
 				return (item.province === province.toLowerCase() || (item.province === null && province.toLowerCase() === 'mainland'))
-					&& (stringUtils.wordsStandardize(item.country) === standardizedCountryName
-						&& item.countryInfo.iso2 === countryInfo.iso2
-						&& item.countryInfo.iso3 === countryInfo.iso3
-						&& item.countryInfo._id === countryInfo._id);
+					&& deepMatch();
 			}
-			return stringUtils.wordsStandardize(item.country) === standardizedCountryName
-				&& item.countryInfo.iso2 === countryInfo.iso2
-				&& item.countryInfo.iso3 === countryInfo.iso3
-				&& item.countryInfo._id === countryInfo._id;
+			return deepMatch();
 		}
 		return stringUtils.wordsStandardize(item.country) === standardizedCountryName;
 	});
