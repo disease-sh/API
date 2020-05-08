@@ -30,7 +30,7 @@ router.get('/v2/apple/countries/:country/:subregions', async (req, res) => {
 			const subdata = countryData && countryData.data && countryData.data.filter((element) => element.subregion_and_city.toLowerCase() === subregion.toLowerCase());
 			if (subdata && subdata.length > 0) {
 				delete data.message;
-				data.subregion = subdata[0].subregion_and_city
+				data.subregion = subdata[0].subregion_and_city;
 				data.data = subdata;
 			}
 			return data;
