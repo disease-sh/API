@@ -1,6 +1,6 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const { wordToBoolean, splitQuery } = require('../utils/stringUtils');
+const { wordToBoolean, splitQuery, fixApostrophe } = require('../utils/stringUtils');
 const countryUtils = require('../utils/countryUtils');
 const { redis, keys } = require('./instances');
 
@@ -16,11 +16,6 @@ const getAllData = async (key) => {
 	// eslint-disable-next-line no-unused-vars
 	const { country, countryInfo, continent, ...cleanedWorldData } = worldData;
 	return cleanedWorldData;
-};
-
-const fixApostrophe = (country) => {
-	country.country = country.country.replace(/"/g, '\'');
-	return country;
 };
 
 router.get('/v2/all', async (req, res) => res.send(await getAllData(wordToBoolean(req.query.yesterday) ? keys.yesterday_countries : keys.countries)));
