@@ -1,6 +1,11 @@
 const canadaData = require('./getCanada.js');
 const logger = require('../../utils/logger');
 
+/**
+ * Set government data in redis by calling individual country scrapers
+ * @param 	{string} 	keys	 Redis keys
+ * @param 	{Object} 	redis 	 Redis instance
+ */
 const govData = async (keys, redis) => {
 	try {
 		const data = {};
