@@ -10,7 +10,7 @@ const mapRows = (_, row) => {
 		cell = cheerio.load(cell);
 		switch (index) {
 			case 0: {
-				province[columns[index]] = cell.text();
+				province[columns[index]] = cell.text() === 'Canada' ? 'Total' : cell.text();
 				break;
 			}
 			default: {
