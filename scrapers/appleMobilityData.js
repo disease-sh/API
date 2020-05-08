@@ -22,10 +22,8 @@ const appleData = async (keys, redis) => {
 			for (const index in parsedData) {
 				const element = parsedData[index];
 				const { country, ...rest } = element;
-				if (rest.subregion_and_city === 'Total') {
-					// eslint-disable-next-line camelcase
-					rest.subregion_and_city = 'all';
-				}
+				// eslint-disable-next-line camelcase, no-unused-expressions
+				rest.subregion_and_city === 'Total' && (rest.subregion_and_city = 'all');
 				if (country in formattedData) {
 					formattedData[country].data.push(rest);
 					if (formattedData[country].subregions.indexOf(rest.subregion_and_city) === -1) {
@@ -35,8 +33,7 @@ const appleData = async (keys, redis) => {
 					formattedData[country] = { data: [rest], subregions: [rest.subregion_and_city] };
 				}
 			}
-			for (let index = 0; index < Object.keys(formattedData).length; index++) {
-				const country = Object.keys(formattedData)[index];
+			for (const country of Object.keys(formattedData)) {
 				const standardizedCountry = countryUtils.getCountryData(country).country || country;
 				standardizedData[standardizedCountry] = formattedData[country];
 			}

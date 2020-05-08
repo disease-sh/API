@@ -6,38 +6,39 @@ const logger = require('../utils/logger');
 const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'continent'];
 
 /**
-* Maps a country object to a continent object
+* Extracts continent specific data from a country data object
 * @param 	{Object} 	element 	Country Data
-* @returns {Object} 			Continent Data
+* @returns 	{Object} 				Continent Data
 */
 const continentMapping = (element) => {
 	element.continent = element.country.trim();
 	// eslint-disable-next-line no-unused-vars
-	const { country, countryInfo, casesPerOneMillion, deathsPerOneMillion, tests, testsPerOneMillion, ...cleanedElement } = element;
-	return cleanedElement;
+	const { country, countryInfo, casesPerOneMillion, deathsPerOneMillion, tests, testsPerOneMillion, ...countryData } = element;
+	return countryData;
 };
 
 /**
-* Gets country data ordered by country name
+* Returns country data list ordered by country name
 * @param 	{Array} 	data 	Countries Data
-* @returns {Array} 			Countries Data Ordered by Country Name
+* @returns 	{Array} 			Countries Data Ordered by Country Name
 */
 const getOrderByCountryName = (data) => data.sort((a, b) => a.country < b.country ? -1 : 1);
 
 /**
 * Maps a row from worldometers to a country
-* @param 	{number} 	_ 	index getting passed when using .map()
-* @param 	{Object} 	row	the row to extract data from
-* @returns {Object} 			Countries Data
+* @param 	{number} 	_ 		Index getting passed when using .map()
+* @param 	{Object} 	row		The row to extract data from
+* @returns 	{Object} 			Countries Data
 */
 const mapRows = (_, row) => {
 	const country = { updated: Date.now() };
+	const replaceRegex = /(\n|,)/g;
 	cheerio(row).children('td').each((index, cell) => {
 		cell = cheerio.load(cell);
 		switch (index) {
 			case 0: {
-				const countryInfo = countryUtils.getCountryData(cell.text().replace(/(\n|,)/g, ''));
-				country.country = countryInfo.country || cell.text().replace(/(\n|,)/g, '');
+				const countryInfo = countryUtils.getCountryData(cell.text().replace(replaceRegex, ''));
+				country.country = countryInfo.country || cell.text().replace(replaceRegex, '');
 				delete countryInfo.country;
 				country.countryInfo = countryInfo;
 				break;
@@ -47,7 +48,7 @@ const mapRows = (_, row) => {
 				break;
 
 			default:
-				country[columns[index - 1]] = parseInt(cell.text().replace(/(\n|,)/g, '')) || 0;
+				country[columns[index - 1]] = parseInt(cell.text().replace(replaceRegex, '')) || 0;
 		}
 	});
 	return country;
@@ -55,9 +56,9 @@ const mapRows = (_, row) => {
 
 /**
  * Fills an array full of table data parsed from worldometers
- * @param 	{Object} 	html 		Cheerio HTML object from worldometers site
- * @param 	{string} 	idExtension 	the extension to append to the ID that is used to get the tables (either 'today' or 'yesterday')
- * @returns {Object} 	Object containing countries, continent and world data
+ * @param 	{Object} 	html 			Cheerio HTML object from worldometers site
+ * @param 	{string} 	idExtension 	The extension to append to the ID that is used to get the tables (either 'today' or 'yesterday')
+ * @returns {Object} 					Object containing countries, continent and world data
  */
 function fillResult(html, idExtension) {
 	const countriesTable = html(`table#main_table_countries_${idExtension}`);
@@ -71,8 +72,8 @@ function fillResult(html, idExtension) {
 
 /**
  * Fills redis with countries and yesterday data
- * @param {string} keys Redis keys
- * @param {Object} redis Redis instance
+ * @param {string} 	keys 	Redis keys
+ * @param {Object} 	redis 	Redis instance
  */
 const getWorldometerPage = async (keys, redis) => {
 	try {
@@ -85,7 +86,7 @@ const getWorldometerPage = async (keys, redis) => {
 			logger.info(`Updated ${key} continents statistics: ${data.continents.length}`);
 		});
 	} catch (err) {
-		logger.err('Error: Requesting WorldOMeters failed!', err);
+		logger.err('Error: Requesting WorldoMeters failed!', err);
 	}
 };
 
