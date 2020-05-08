@@ -101,24 +101,13 @@ const historicalV2 = async (keys, redis) => {
 };
 
 /**
- * Returns correct value for lastdays param given string input
- * @param 	{string} 	lastdays 	lastdays param
- * @returns {number} 				Correct lastdays value in integer form
- */
-const setLastDays = (lastdays) => {
-	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
-	if (!lastdays || isNaN(lastdays)) lastdays = 30;
-	return lastdays;
-};
-
-/**
  * Parses data from historical endpoint and returns data for each country & province
  * @param 	{array}		data		Full historical data returned from /historical endpoint
  * @param 	{string}	lastdays  	How many days to show always take lastest
  * @returns {Object}				The filtered historical data.
  */
 const getHistoricalDataV2 = (data, lastdays = 30) => {
-	lastdays = setLastDays(lastdays);
+	lastdays = countryUtils.setLastDays(lastdays);
 	return data.map(country => {
 		delete country.countryInfo;
 		const cases = {}, deaths = {}, recovered = {};
@@ -142,7 +131,7 @@ const getHistoricalDataV2 = (data, lastdays = 30) => {
  * @returns {Object}				The filtered historical data.
  */
 const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30) => {
-	lastdays = setLastDays(lastdays);
+	lastdays = countryUtils.setLastDays(lastdays);
 	const countryInfo = countryUtils.getCountryData(query);
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : query);
 	// filter to either specific province, or provinces to sum country over
@@ -190,7 +179,7 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
  * @returns {Object}				The global deaths and cases
  */
 const getHistoricalAllDataV2 = (data, lastdays = 30) => {
-	lastdays = setLastDays(lastdays);
+	lastdays = countryUtils.setLastDays(lastdays);
 	const cases = {};
 	const deaths = {};
 	const recovered = {};
@@ -267,7 +256,7 @@ const getHistoricalUSAProvincesV2 = (data) =>
  * @returns {array} 				Array of objects with county case and death information
  */
 const getHistoricalUSAStateDataV2 = (data, state, lastdays = null) => {
-	lastdays = setLastDays(lastdays);
+	lastdays = countryUtils.setLastDays(lastdays);
 	return data.filter(county => county.province === state)
 		.map((county) => {
 			const cases = {}, deaths = {};
