@@ -23,7 +23,7 @@ const appleData = async (keys, redis) => {
 				const element = parsedData[index];
 				const { country, ...rest } = element;
 				// eslint-disable-next-line camelcase, no-unused-expressions
-				rest.subregion_and_city === 'Total' && (rest.subregion_and_city = 'all');
+				rest.subregion_and_city === 'Total' && (rest.subregion_and_city = 'All');
 				if (country in formattedData) {
 					formattedData[country].data.push(rest);
 					if (formattedData[country].subregions.indexOf(rest.subregion_and_city) === -1) {
