@@ -3,7 +3,8 @@ on:
   push:
     branches: [master]
   pull_request:
-    branches: [*]
+    branches:
+      - '*'
   schedule:
     - cron: "0 */2 * * *"
 jobs:
