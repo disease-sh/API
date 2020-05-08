@@ -47,7 +47,7 @@ const mapRows = (_, row) => {
 				break;
 
 			default:
-				country[columns[index - 1]] = cell.text() === '' ? null : (parseInt(cell.text().replace(/(\n|,)/g, '')) || 0);
+				country[columns[index - 1]] = isNaN(parseInt(cell.text().replace(/(\n|,)/g, ''))) ? null : parseInt(cell.text().replace(/(\n|,)/g, ''));
 		}
 	});
 	return country;
