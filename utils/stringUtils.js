@@ -1,27 +1,27 @@
 /**
  * Returns a standardized version of the word
- * @param 	{string} 	word 	word to standardize 
+ * @param 	{string} 	word 	word to standardize
  * @returns 	{string} 		standardized value
  */
 const wordsStandardize = (word) => word ? word.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : 'null';
 
 /**
- * Returns the correct boolean value for a parameter 
- * @param 	{string} 	word 	parameter received 
+ * Returns the correct boolean value for a parameter
+ * @param 	{string} 	word 	parameter received
  * @returns 	{boolean} 		resulting boolean value
  */
 const wordToBoolean = (word) => word ? ['true', '1'].includes(word.toString()) : false;
 
 /**
- * Splits a query 
- * @param 	{string} 	query 	received query 
+ * Splits a query
+ * @param 	{string} 	query 	received query
  * @returns 	{Array} 		list of arguments
  */
 const splitQuery = (query) => query.indexOf('|') === -1 ? query.split(',') : query.split('|');
 
 /**
  * Fixes unwanted apostrophes in the country names
- * @param 	{Object} 	country 	country 
+ * @param 	{Object} 	country 	country
  * @returns 	{Object} 			cleaned country
  */
 const fixApostrophe = (country) => {
