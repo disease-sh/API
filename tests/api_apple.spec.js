@@ -73,7 +73,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
                             should.not.exist(err2);
 						    should.exist(res2);
                             res2.should.have.status(200);
-                            res2.body.should.have.property('subregion').eql('all');
+                            res2.body.should.have.property('subregion').eql('All');
                             res2.body.should.have.property('data');
                             res2.body.data.length.should.be.at.least(1);
                             res2.body.data[0].should.have.property('subregion_and_city');
@@ -109,10 +109,10 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 res.body.length.should.equal(2);
-                res.body[0].should.have.property('subregion').eql('illinois');
+                res.body[0].should.have.property('subregion').eql('Illinois');
                 res.body[0].should.have.property('data');
                 res.body[0].data.length.should.be.at.least(1);
-                res.body[1].should.have.property('subregion').eql('chicago');
+                res.body[1].should.have.property('subregion').eql('Chicago');
                 res.body[1].should.have.property('data');
                 res.body[1].data.length.should.be.at.least(1);
                 done();
@@ -127,7 +127,6 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
                 should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                res.body.should.have.property('subregion');
                 res.body.should.have.property('message');
                 done();
             });
@@ -142,9 +141,8 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 res.body.length.should.equal(2);
-                res.body[0].should.have.property('subregion');
                 res.body[0].should.have.property('message');
-                res.body[1].should.have.property('subregion').eql('illinois');
+                res.body[1].should.have.property('subregion').eql('Illinois');
                 res.body[1].should.have.property('data');
                 res.body[1].data.length.should.be.at.least(1);
                 done();
@@ -160,9 +158,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 res.body.length.should.equal(2);
-                res.body[0].should.have.property('subregion');
                 res.body[0].should.have.property('message');
-                res.body[1].should.have.property('subregion');
                 res.body[1].should.have.property('message');
                 done();
             });
