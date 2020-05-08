@@ -24,12 +24,13 @@ router.get('/v2/apple/countries/:country/:subregions', async (req, res) => {
 	if (countryName && querySubregions) {
 		const standardizedCountryName = countryUtils.getCountryData(countryName.trim()).country || countryName.trim();
 		const countryData = appleData()[standardizedCountryName];
-		const subregions = splitQuery(querySubregions).map((subregion) => subregion.trim().toLowerCase());
+		const subregions = splitQuery(querySubregions).map((subregion) => subregion.trim());
 		const subregiondata = subregions.map((subregion) => {
-			const data = { subregion, message: `Subregion '${subregion}' not found for '${standardizedCountryName}'` };
-			const subdata = countryData && countryData.data && countryData.data.filter((element) => element.subregion_and_city.toLowerCase() === subregion);
+			const data = { country: standardizedCountryName, message: `Subregion '${subregion}' not found for '${standardizedCountryName}'` };
+			const subdata = countryData && countryData.data && countryData.data.filter((element) => element.subregion_and_city.toLowerCase() === subregion.toLowerCase());
 			if (subdata && subdata.length > 0) {
 				delete data.message;
+				data.subregion = subdata[0].subregion_and_city;
 				data.data = subdata;
 			}
 			return data;
