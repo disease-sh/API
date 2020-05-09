@@ -1095,14 +1095,17 @@
     "appleSubregion": {
       "properties": {
         "type": "object",
-      "subregion": {
-        "type": "string"
-      },
-      "data": {
-        "items": {
-          "$ref": "#/definitions/appleData"
+        "country": {
+          "type": "string"
+        },
+        "subregion": {
+          "type": "string"
+        },
+        "data": {
+          "items": {
+            "$ref": "#/definitions/appleData"
+          }
         }
-      }
       }
       
     },
