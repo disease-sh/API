@@ -82,8 +82,8 @@ Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` a
 
 You can read more about **new Date()** [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
 
-> For further support, you can join our discord server! More Tutorials can be found there too!
-> https://discord.gg/EvbMshU
+> For further support, you can join our Discord server! More Tutorials can be found there too!
+> https://discord.gg/QAY6rAz
 
 ### Sources:
 > https://www.worldometers.info/coronavirus/
