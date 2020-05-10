@@ -34,6 +34,10 @@
     {
       "name": "Apple",
       "description": "(Mobility data from Apple)"
+    },
+    {
+      "name": "Gov",
+      "description": "(Government specific data)"
     }
   ],
   "consumes": [
@@ -822,6 +826,43 @@
             "schema": {
               "$ref": "#/definitions/appleSubregions"
             }
+          }
+        }
+      }
+    },
+    "/v2/gov/": {
+      "get": {
+        "tags": [
+          "Gov"
+        ],
+        "summary": "Get list of supported countries for Government specific data",
+        "description": "Return a list of supported country names",
+        "responses": {
+          "200": {
+            "description": "Status Ok"
+          }
+        }
+      }
+    },
+    "/v2/gov/{country}": {
+      "get": {
+        "tags": [
+          "Gov"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "in": "path",
+            "required": true,
+            "description": "Any valid country name supported by the endpoint. Supported countries can be found in /v2/gov/",
+            "type": "string"
+          }
+        ],
+        "summary": "Get government reported daata for a specific country",
+        "description": "Returns an array of data from the country's government website. Data is structured per-basis, so there is not set structure",
+        "responses": {
+          "200": {
+            "description": "Status Ok"
           }
         }
       }
