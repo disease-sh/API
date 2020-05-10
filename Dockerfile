@@ -1,4 +1,4 @@
-FROM node:13
+FROM node:alpine
 
 # WORKDIR create the directory and then execute cd
 WORKDIR /home/container
