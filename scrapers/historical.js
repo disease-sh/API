@@ -1,24 +1,11 @@
 const axios = require('axios');
-const csv = require('csvtojson');
 const countryUtils = require('../utils/countryUtils');
 const stringUtils = require('../utils/stringUtils');
+const csvUtils = require('../utils/csvUtils');
 const logger = require('../utils/logger');
 
 // eslint-disable-next-line max-len
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/';
-
-/**
- * Parses csv file to program readable format
- * @param 	{Object}	data	Raw csv data
- * @returns {array}				Array of parsed csv data
- */
-async function parseCsvData(data) {
-	const parsedData = await csv({
-		noheader: false,
-		output: 'json'
-	}).fromString(data);
-	return parsedData;
-}
 
 /**
  * Formats recovered data from JHU to match cases data in length and format
@@ -64,9 +51,9 @@ const historicalV2 = async (keys, redis) => {
 		logger.err(err, 'error in Global JHUhistorical REQUEST');
 		return;
 	}
-	const parsedCases = await parseCsvData(casesResponse.data);
-	const parsedDeaths = await parseCsvData(deathsResponse.data);
-	const parsedRecovered = await parseCsvData(recoveredResponse.data);
+	const parsedCases = await csvUtils.parseCsvData(casesResponse.data);
+	const parsedDeaths = await csvUtils.parseCsvData(deathsResponse.data);
+	const parsedRecovered = await csvUtils.parseCsvData(recoveredResponse.data);
 	// JHU Data is very poorly formatted, but we fix it :)
 	const formatedRecovered = formatRecoveredData(parsedCases, parsedRecovered);
 	// dates key for timeline
@@ -214,8 +201,8 @@ const getHistoricalUSADataV2 = async (keys, redis) => {
 		logger.err('Error: Requesting JHUHistorical USA failed!', err);
 		return;
 	}
-	const parsedCases = await parseCsvData(casesResponse.data);
-	const parsedDeaths = await parseCsvData(deathsResponse.data);
+	const parsedCases = await csvUtils.parseCsvData(casesResponse.data);
+	const parsedDeaths = await csvUtils.parseCsvData(deathsResponse.data);
 	const timelineKey = Object.keys(parsedCases[0]).splice(11);
 	const result = parsedCases.map((_, index) => {
 		const newElement = {
