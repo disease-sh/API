@@ -19,7 +19,7 @@ const italyData = async () => {
 			regionData.totalHospitalized = parseInt(row.totale_ospedalizzati);
 			regionData.homeIsolation = parseInt(row.isolamento_domiciliare);
 			regionData.newCases = parseInt(row.nuovi_positivi);
-			regionData.totalCases = parseInt(row.totale_casi)
+			regionData.totalCases = parseInt(row.totale_casi);
 			regionData.recovered = parseInt(row.dimessi_guariti);
 			regionData.deaths = parseInt(row.deceduti);
 			return regionData;
