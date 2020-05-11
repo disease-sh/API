@@ -4,7 +4,7 @@ const app = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-const countries = ['Canada'].sort();
+const countries = ['Canada', 'Italy'].sort();
 
 describe('TESTING /v2/gov general', () => {
     it('/v2/gov correct countries', (done) => {
@@ -71,4 +71,53 @@ describe('TESTING /v2/gov/canada', () => {
                 done();
             });
     });
-})
+});
+
+describe('TESTING /v2/gov/italy', () => {
+    it('/v2/gov/italy correct amount of provinces', (done) => {
+        chai.request(app)
+            .get('/v2/gov/italy')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.equal(21);
+                done();
+            });
+    });
+
+    it('/v2/gov/italy correct fields set', (done) => {
+        chai.request(app)
+            .get('/v2/gov/italy')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.map((element) => {
+                    element.should.have.property('updated');
+                    element.should.have.property('region');
+                    element.should.have.property('lat');
+                    element.should.have.property('long');
+                    element.should.have.property('hospitalizedWithSymptoms');
+                    element.hospitalizedWithSymptoms.should.be.at.least(0);
+                    element.should.have.property('intensiveCare');
+                    element.intensiveCare.should.be.at.least(0);
+                    element.should.have.property('totalHospitalized');
+                    element.totalHospitalized.should.be.at.least(0);
+                    element.should.have.property('homeIsolation');
+                    element.homeIsolation.should.be.at.least(0);
+                    element.should.have.property('newCases');
+                    element.newCases.should.be.at.least(0);
+                    element.should.have.property('totalCases');
+                    element.totalCases.should.be.at.least(0);
+                    element.should.have.property('recovered');
+                    element.recovered.should.be.at.least(0);
+                    element.should.have.property('deaths');
+                    element.deaths.should.be.at.least(0);
+                });
+                done();
+            });
+    });
+});
