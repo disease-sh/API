@@ -859,7 +859,7 @@
           }
         ],
         "summary": "Get government reported daata for a specific country",
-        "description": "Returns an array of data from the country's government website. Data is structured per-basis, so there is not set structure",
+        "description": "Returns an array of data from the country's government website scraped once a day. Data is structured per-basis, so there is not set structure",
         "responses": {
           "200": {
             "description": "Status Ok"
