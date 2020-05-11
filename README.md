@@ -98,6 +98,8 @@ You can read more about **new Date()** [here](https://developer.mozilla.org/en-U
 
 > https://github.com/pcm-dpc/COVID-19
 
+> https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Situationsberichte/Gesamt.html
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
