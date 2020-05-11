@@ -1,5 +1,6 @@
 const canadaData = require('./getCanada');
 const italyData = require('./getItaly');
+const germanyData = require('./getGermany');
 const logger = require('../../utils/logger');
 
 /**
@@ -16,7 +17,8 @@ const govData = async (keys, redis) => {
 		};
 		await Promise.all([
 			{ country: 'Canada', fn: canadaData },
-			{ country: 'Italy', fn: italyData }
+			{ country: 'Italy', fn: italyData },
+			{ country: 'Germany', fn: germanyData }
 		].map(_resolveData));
 		redis.set(keys.gov_countries, JSON.stringify(data));
 		logger.info(`Updated gov data: ${Object.keys(data).length} government sources`);
