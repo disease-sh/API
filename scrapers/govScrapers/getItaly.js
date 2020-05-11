@@ -9,8 +9,21 @@ const italyData = async () => {
 	try {
 		italyResponse = await axios.get(url);
 		const parsedItalyData = await csvUtils.parseCsvData(italyResponse.data);
-		console.log(parsedItalyData);
-		return parsedItalyData;
+		return parsedItalyData.map((row) => {
+			const regionData = { updated: Date.now() };
+			regionData.region = row.denominazione_regione;
+			regionData.lat = row.lat;
+			regionData.long = row.long;
+			regionData.hospitalizedWithSymptoms = parseInt(row.ricoverati_con_sintomi);
+			regionData.intensiveCare = parseInt(row.terapia_intensiva);
+			regionData.totalHospitalized = parseInt(row.totale_ospedalizzati);
+			regionData.homeIsolation = parseInt(row.isolamento_domiciliare);
+			regionData.newCases = parseInt(row.nuovi_positivi);
+			regionData.totalCases = parseInt(row.totale_casi)
+			regionData.recovered = parseInt(row.dimessi_guariti);
+			regionData.deaths = parseInt(row.deceduti);
+			return regionData;
+		});
 	} catch (err) {
 		logger.err(err, 'Error: Requesting Italy Gov Data failed!');
 		return null;
