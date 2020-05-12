@@ -9,7 +9,7 @@ const italyData = async () => {
 	try {
 		italyResponse = await axios.get(url);
 		const parsedItalyData = await csvUtils.parseCsvData(italyResponse.data);
-		return parsedItalyData.map((row) => ({ 
+		return parsedItalyData.map((row) => ({
 			updated: Date.now(),
 			region: row.denominazione_regione,
 			lat: row.lat,
