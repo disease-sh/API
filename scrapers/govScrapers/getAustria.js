@@ -3,8 +3,8 @@ const logger = require('../../utils/logger');
 
 /**
  * Transform province data from Austrian government site
- * @param 	{string} 	provinces		string containing javascript code
- * @returns {Object}				      Object containing the parsed data
+ * @param 	{string} 	provinces	String containing javascript code
+ * @returns 	{Object}			Object containing the parsed data
  */
 const transformProvinces = (provinces) => {
 	const data = JSON.parse(provinces.split('\n')[0].match(/(\[[^\]]*\])/g)[0]);
@@ -20,7 +20,7 @@ const transformProvinces = (provinces) => {
 /**
  * Transform district data from Austrian government site
  * @param 	{Object} 	districts		Object containing json data
- * @returns {Object}				      Object containing the parsed data
+ * @returns 	{Object}				Object containing the parsed data
  */
 const transformDistricts = (districts) => districts.objects.bezirke.geometries.map(geo => ({
 	district: geo.properties.name,
@@ -30,8 +30,8 @@ const transformDistricts = (districts) => districts.objects.bezirke.geometries.m
 
 /**
  * Transform data from Austrian government site, either casesByAge or percentageBySex
- * @param 	{string} 	toTransform	string containing javascript code
- * @returns {Object}				      Object containing the parsed data
+ * @param 	{string} 	toTransform	String containing javascript code
+ * @returns 	{Object}			Object containing the parsed data
  */
 const transformBySexOrAge = (toTransform) => {
 	const data = { };
