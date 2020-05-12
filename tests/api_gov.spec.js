@@ -4,7 +4,7 @@ const app = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-const countries = ['Canada', 'Italy', 'Germany'].sort();
+const countries = ['Austria', 'Canada', 'Italy', 'Germany'].sort();
 
 describe('TESTING /v2/gov general', () => {
     it('/v2/gov correct countries', (done) => {
@@ -16,7 +16,7 @@ describe('TESTING /v2/gov general', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 res.body.length.should.be.at.least(1);
-                res.body.sort().map((country, index) => {
+                res.body.sort().forEach((country, index) => {
                     country.should.equal(countries[index]);
                 });
                 done();
@@ -58,7 +58,7 @@ describe('TESTING /v2/gov/canada', () => {
                 should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
-                res.body.map((element) => {
+                res.body.forEach((element) => {
                     element.should.have.property('updated');
                     element.should.have.property('province');
                     element.should.have.property('cases');
@@ -95,7 +95,7 @@ describe('TESTING /v2/gov/italy', () => {
                 should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
-                res.body.map((element) => {
+                res.body.forEach((element) => {
                     element.should.have.property('updated');
                     element.should.have.property('region');
                     element.should.have.property('lat');
@@ -144,7 +144,7 @@ describe('TESTING /v2/gov/germany', () => {
                 should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
-                res.body.map((element) => {
+                res.body.forEach((element) => {
                     element.should.have.property('updated');
                     element.should.have.property('province');
                     element.should.have.property('cases');
@@ -154,6 +154,93 @@ describe('TESTING /v2/gov/germany', () => {
                     element.casesPerHundredThousand.should.be.at.least(0);
                     element.should.have.property('deaths');
                     element.deaths.should.be.at.least(0);
+                });
+                done();
+            });
+    });
+});
+
+describe('TESTING /v2/gov/austria', () => {
+    it('/v2/gov/austria correct properties', (done) => {
+        chai.request(app)
+            .get('/v2/gov/austria')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('provinces');
+                res.body.should.have.property('districts');
+                res.body.should.have.property('percentageBySex');
+                res.body.should.have.property('casesByAge');
+                res.body.should.have.property('updated');
+                done();
+            });
+    });
+
+    it('/v2/gov/austria correct province properties', (done) => {
+        chai.request(app)
+            .get('/v2/gov/austria')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('provinces');
+                res.body.districts.should.be.a('array');
+                res.body.provinces.forEach((element) => {
+                    element.should.have.property('province');
+                    element.should.have.property('cases');
+                });
+                done();
+            });
+    });
+
+    it('/v2/gov/austria correct district properties', (done) => {
+        chai.request(app)
+            .get('/v2/gov/austria')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('districts');
+                res.body.districts.should.be.a('array');
+                res.body.districts.forEach((element) => {
+                    element.should.have.property('district');
+                    element.should.have.property('cases');
+                    element.should.have.property('population');
+                });
+                done();
+            });
+    });
+
+    it('/v2/gov/austria correct percentageBySex properties', (done) => {
+        chai.request(app)
+            .get('/v2/gov/austria')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('percentageBySex');
+                res.body.percentageBySex.should.have.property('male')
+                res.body.percentageBySex.should.have.property('female')
+                done();
+            });
+    });
+
+    it('/v2/gov/austria correct casesByAge properties', (done) => {
+        chai.request(app)
+            .get('/v2/gov/austria')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('casesByAge');
+                ['<5', '5-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '>84'].forEach(key => {
+                    res.body.casesByAge.should.have.property(key);
                 });
                 done();
             });
