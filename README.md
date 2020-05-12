@@ -100,6 +100,8 @@ You can read more about **new Date()** [here](https://developer.mozilla.org/en-U
 
 > https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Situationsberichte/Gesamt.html
 
+> https://info.gesundheitsministerium.at/
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

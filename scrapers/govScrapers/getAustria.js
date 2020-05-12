@@ -1,26 +1,28 @@
 const axios = require('axios');
 const logger = require('../../utils/logger');
 
+const stdString = /(\[[^\]]*\])/g;
+
 /**
  * Transform province data from Austrian government site
- * @param 	{string} 	provinces	String containing javascript code
- * @returns 	{Object}			Object containing the parsed data
+ * @param 		{string} 	provinces	String containing javascript code
+ * @returns 	{Object}				Object containing the parsed data
  */
 const transformProvinces = (provinces) => {
-	const data = JSON.parse(provinces.split('\n')[0].match(/(\[[^\]]*\])/g)[0]);
+	const data = JSON.parse(provinces.split('\n')[0].match(stdString)[0]);
 	// eslint-disable-next-line id-length
-	const provinceMapper = { W: 'Vienna', V: 'Vorarlberg', T: 'Tyrol', Stmk: 'Styria', Sbg: 'Salzburg',
+	const provinceMapping = { W: 'Vienna', V: 'Vorarlberg', T: 'Tyrol', Stmk: 'Styria', Sbg: 'Salzburg',
 		OÖ: 'Upper Austria', NÖ: 'Lower Austria', Ktn: 'Carinthia', Bgld: 'Burgenland' };
 	return data.map(province => ({
-		province: provinceMapper[province.label],
+		province: provinceMapping[province.label],
 		cases: parseInt(province.y)
 	}));
 };
 
 /**
  * Transform district data from Austrian government site
- * @param 	{Object} 	districts		Object containing json data
- * @returns 	{Object}				Object containing the parsed data
+ * @param 		{Object} 	districts		Object containing json data
+ * @returns 	{Object}					Object containing the parsed data
  */
 const transformDistricts = (districts) => districts.objects.bezirke.geometries.map(geo => ({
 	district: geo.properties.name,
@@ -30,14 +32,14 @@ const transformDistricts = (districts) => districts.objects.bezirke.geometries.m
 
 /**
  * Transform data from Austrian government site, either casesByAge or percentageBySex
- * @param 	{string} 	toTransform	String containing javascript code
- * @returns 	{Object}			Object containing the parsed data
+ * @param 		{string} 	toTransform		String containing javascript code
+ * @returns 	{Object}					Object containing the parsed data
  */
 const transformBySexOrAge = (toTransform) => {
 	const data = { };
-	const labelMapper = { männlich: 'male', weiblich: 'female' };
+	const labelMapping = { männlich: 'male', weiblich: 'female' };
 	// eslint-disable-next-line no-return-assign
-	JSON.parse(toTransform.split('\n')[0].match(/(\[[^\]]*\])/g)[0]).forEach(line => data[labelMapper[line.label] || line.label] = line.y);
+	JSON.parse(toTransform.split('\n')[0].match(stdString)[0]).forEach((line) => data[labelMapping[line.label] || line.label] = line.y);
 	return data;
 };
 
