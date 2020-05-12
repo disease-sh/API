@@ -8,7 +8,7 @@ const columns = ['province', 'cases', 'casePreviousDayChange', 'casesPerHundredT
  * Return object reflecting a row of data from German government site
  * @param 	{number} 	_ 		Index getting passed when using .map()
  * @param 	{Object} 	row		The row to extract data from
- * @returns {Object}			Data for German province with entires for each column in @constant columns
+ * @returns {Object}				Data for German province with entries for each column in @constant columns
  */
 const mapRows = (_, row) => {
 	const province = { updated: Date.now() };
@@ -30,7 +30,7 @@ const mapRows = (_, row) => {
 /**
  * Scrapes German government site and fills array of data from table
  */
-const GermanyData = async () => {
+const germanyData = async () => {
 	try {
 		const html = cheerio.load((await axios.get('https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Fallzahlen.html')).data);
 		return html(`table`).children('tbody:first-of-type').children('tr').map(mapRows).get();
@@ -40,4 +40,4 @@ const GermanyData = async () => {
 	}
 };
 
-module.exports = GermanyData;
+module.exports = germanyData;

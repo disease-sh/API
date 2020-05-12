@@ -8,7 +8,7 @@ const columns = ['province', 'cases', 'probableCases', 'deaths'];
  * Return object reflecting a row of data from Canadian government site
  * @param 	{number} 	_ 		Index getting passed when using .map()
  * @param 	{Object} 	row		The row to extract data from
- * @returns {Object}			Data for canadian province with entires for each column in @constant columns
+ * @returns {Object}				Data for canadian province with entries for each column in @constant columns
  */
 const mapRows = (_, row) => {
 	const province = { updated: Date.now() };
