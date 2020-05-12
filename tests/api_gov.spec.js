@@ -239,6 +239,9 @@ describe('TESTING /v2/gov/austria', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('casesByAge');
+                ['<5', '5-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '>84'].forEach(key => {
+                    res.body.casesByAge.should.have.property(key);
+                });
                 done();
             });
     });
