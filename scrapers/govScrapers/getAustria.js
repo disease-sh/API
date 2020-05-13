@@ -5,17 +5,18 @@ const stdString = /(\[[^\]]*\])/g;
 
 /**
  * Transform province data from Austrian government site
- * @param 		{string} 	provinces	String containing javascript code
+ * @param 		{string} 	cases	String containing javascript code for case data
+ * @param 		{string} 	deathsRecovered	String containing javascript code for deaths and recovered data
  * @returns 	{Object}				Object containing the parsed data
  */
-const transformProvinces = (provinces) => {
-	const data = JSON.parse(provinces.split('\n')[0].match(stdString)[0]);
+const transformProvinces = (cases, deathsRecovered) => {
+	const data = [cases, deathsRecovered].map(value => JSON.parse(value.split('\n')[0].match(stdString)[0]));
 	// eslint-disable-next-line id-length
-	const provinceMapping = { W: 'Vienna', V: 'Vorarlberg', T: 'Tyrol', Stmk: 'Styria', Sbg: 'Salzburg',
-		OÖ: 'Upper Austria', NÖ: 'Lower Austria', Ktn: 'Carinthia', Bgld: 'Burgenland' };
-	return data.map(province => ({
-		province: provinceMapping[province.label],
-		cases: parseInt(province.y)
+	return data[0].map((province, i) => ({
+		province: data[1][i].label,
+		cases: parseInt(province.y),
+		recovered: parseInt(data[1][i].y),
+		deaths: parseInt(data[1][i].z)
 	}));
 };
 
@@ -48,16 +49,23 @@ const transformBySexOrAge = (toTransform) => {
  */
 const austriaData = async () => {
 	try {
-		const bundesland = (await axios.get('https://info.gesundheitsministerium.at/data/Bundesland.js')).data;
+		const bundeslandFälle = (await axios.get('https://info.gesundheitsministerium.at/data/Bundesland.js')).data;
+		const bundeslandTodGenesen = (await axios.get('https://info.gesundheitsministerium.at/data/GenesenTodesFaelleBL.js')).data;
 		const bezirk = (await axios.get('https://info.gesundheitsministerium.at/data/austria_map.json')).data;
-		const geschlechterverteilung = (await axios.get('https://info.gesundheitsministerium.at/data/Geschlechtsverteilung.js')).data;
-		const altersverteilung = (await axios.get('https://info.gesundheitsministerium.at/data/Altersverteilung.js')).data;
+		const geschlechterverteilungFälle = (await axios.get('https://info.gesundheitsministerium.at/data/Geschlechtsverteilung.js')).data;
+		const altersverteilungFälle = (await axios.get('https://info.gesundheitsministerium.at/data/Altersverteilung.js')).data;
+		const geschlechterverteilungTode = (await axios.get('https://info.gesundheitsministerium.at/data/VerstorbenGeschlechtsverteilung.js')).data;
+		const altersverteilungTode = (await axios.get('https://info.gesundheitsministerium.at/data/AltersverteilungTodesfaelle.js')).data;
 		return {
 			updated: Date.now(),
-			provinces: transformProvinces(bundesland),
+			provinces: transformProvinces(bundeslandFälle, bundeslandTodGenesen),
 			districts: transformDistricts(bezirk),
-			percentageBySex: transformBySexOrAge(geschlechterverteilung),
-			casesByAge: transformBySexOrAge(altersverteilung)
+			percentageBySex: {
+				cases: transformBySexOrAge(geschlechterverteilungFälle),
+				deaths: transformBySexOrAge(geschlechterverteilungTode)
+			},
+			casesByAge: transformBySexOrAge(altersverteilungFälle),
+			deathsByAge: transformBySexOrAge(altersverteilungTode)
 		};
 	} catch (err) {
 		logger.err('Error: Requesting Austria Gov Data failed!', err);

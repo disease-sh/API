@@ -191,6 +191,8 @@ describe('TESTING /v2/gov/austria', () => {
                 res.body.provinces.forEach((element) => {
                     element.should.have.property('province');
                     element.should.have.property('cases');
+                    element.should.have.property('recovered');
+                    element.should.have.property('deaths');
                 });
                 done();
             });
@@ -224,8 +226,12 @@ describe('TESTING /v2/gov/austria', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('percentageBySex');
-                res.body.percentageBySex.should.have.property('male')
-                res.body.percentageBySex.should.have.property('female')
+                res.body.percentageBySex.should.have.property('cases')
+                res.body.percentageBySex.cases.should.have.property('male')
+                res.body.percentageBySex.cases.should.have.property('female')
+                res.body.percentageBySex.should.have.property('deaths')
+                res.body.percentageBySex.deaths.should.have.property('male')
+                res.body.percentageBySex.deaths.should.have.property('female')
                 done();
             });
     });
@@ -241,6 +247,10 @@ describe('TESTING /v2/gov/austria', () => {
                 res.body.should.have.property('casesByAge');
                 ['<5', '5-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '>84'].forEach(key => {
                     res.body.casesByAge.should.have.property(key);
+                });
+                res.body.should.have.property('deathsByAge');
+                ['<5', '5-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '>84'].forEach(key => {
+                    res.body.deathsByAge.should.have.property(key);
                 });
                 done();
             });
