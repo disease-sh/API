@@ -5,11 +5,12 @@ const stdString = /(\[[^\]]*\])/g;
 
 /**
  * Transform province data from Austrian government site
- * @param 		{string} 	provinces	String containing javascript code
+ * @param 		{string} 	cases	String containing javascript code for case data
+ * @param 		{string} 	deathsRecovered	String containing javascript code for deaths and recovered data
  * @returns 	{Object}				Object containing the parsed data
  */
 const transformProvinces = (cases, deathsRecovered) => {
-	const data = [cases, deathsRecovered].map(value => JSON.parse(value.split('\n')[0].match(/(\[[^\]]*\])/g)[0]));
+	const data = [cases, deathsRecovered].map(value => JSON.parse(value.split('\n')[0].match(stdString)[0]));
 	// eslint-disable-next-line id-length
 	return data[0].map((province, i) => ({
 		province: data[1][i].label,
