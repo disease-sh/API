@@ -434,29 +434,6 @@ header div .btn--facebook {
 }
 
 
-/*--------------------
- 	Bot Section
---------------------*/
-
-.invite-bot {
-	background-color: #7289DA;
-}
-
-.discord-img {
-	width: 45%;
-}
-
-.discord-btn {
-	color: #7289DA;
-	border-radius: 4px;
-	text-transform: uppercase;
-	background-color: #fff;
-	font-weight: 800;
-	text-align: center;
-	padding: 18px 42px;
-}
-
-
 /*-------------
  	Footer
 -------------*/
