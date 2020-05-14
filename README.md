@@ -11,7 +11,7 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/novelcovid/api?style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/novelcovid/api?style=for-the-badge)
 # Join our Server!
-[![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/xk9FZE3)
+[![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/cEDxzfW)
 
 # API
 API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain. 
@@ -83,7 +83,7 @@ Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` a
 You can read more about **new Date()** [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
 
 > For further support, you can join our discord server! More Tutorials can be found there too!
-> https://discord.gg/xk9FZE3
+> https://discord.gg/cEDxzfW
 
 ### Sources:
 > https://www.worldometers.info/coronavirus/
