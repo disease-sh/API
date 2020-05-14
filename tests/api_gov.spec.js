@@ -4,7 +4,7 @@ const app = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-const countries = ['Austria', 'Canada', 'Italy', 'Germany'].sort();
+const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland'].sort();
 
 describe('TESTING /v2/gov general', () => {
     it('/v2/gov correct countries', (done) => {
@@ -251,6 +251,32 @@ describe('TESTING /v2/gov/austria', () => {
                 res.body.should.have.property('deathsByAge');
                 ['<5', '5-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '>84'].forEach(key => {
                     res.body.deathsByAge.should.have.property(key);
+                });
+                done();
+            });
+    });
+});
+
+describe('TESTING /v2/gov/switzerland', () => {
+    it('/v2/gov/switzerland correct fields set', (done) => {
+        chai.request(app)
+            .get('/v2/gov/switzerland')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.forEach((element) => {
+                    element.should.have.property('updated');
+                    element.should.have.property('canton');
+                    element.should.have.property('cases');
+                    element.should.have.property('deaths');
+                    element.should.have.property('recovered');
+                    element.should.have.property('newHospitalizations');
+                    element.should.have.property('hospitalizations');
+                    element.should.have.property('intensiveCare');
+                    element.should.have.property('critical');
+                    element.should.have.property('source');
                 });
                 done();
             });
