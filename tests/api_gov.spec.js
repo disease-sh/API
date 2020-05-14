@@ -4,7 +4,7 @@ const app = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria'].sort();
+const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'UK'].sort();
 
 describe('TESTING /v2/gov general', () => {
     it('/v2/gov correct countries', (done) => {
@@ -304,3 +304,27 @@ describe('TESTING /v2/gov/nigeria', () => {
             });
     });
 });
+
+describe('TESTING /v2/gov/uk', () => {
+    it('/v2/gov/uk correct properties', (done) => {
+        chai.request(app)
+            .get('/v2/gov/uk')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('updated');
+                res.body.should.have.property('disclaimer');
+                res.body.should.have.property('cases');
+                res.body.cases.should.have.property('dailyRecords');
+                res.body.cases.should.have.property('countries');
+                res.body.cases.should.have.property('regions');
+                res.body.should.have.property('deaths');
+                res.body.cases.should.have.property('countries');
+                res.body.cases.should.have.property('overview');
+                done();
+            });
+    });
+});
+
