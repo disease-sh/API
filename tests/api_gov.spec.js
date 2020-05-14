@@ -4,7 +4,7 @@ const app = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'UK'].sort();
+const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'UK', 'India'].sort();
 
 describe('TESTING /v2/gov general', () => {
     it('/v2/gov correct countries', (done) => {
@@ -328,3 +328,41 @@ describe('TESTING /v2/gov/uk', () => {
     });
 });
 
+describe('TESTING /v2/gov/india', () => {
+    it('/v2/gov/india correct total', (done) => {
+        chai.request(app)
+            .get('/v2/gov/india')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('total');
+                res.body.total.should.have.property('cases');
+                res.body.total.should.have.property('active');
+                res.body.total.should.have.property('recovered');
+                res.body.total.should.have.property('deaths');
+                done();
+            });
+    });
+
+    it('/v2/gov/india correct states', (done) => {
+        chai.request(app)
+            .get('/v2/gov/india')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('states');
+                res.body.states.forEach(state => {
+                    state.should.have.property('state');
+                    state.should.have.property('cases');
+                    state.should.have.property('active');
+                    state.should.have.property('recovered');
+                    state.should.have.property('deaths');
+                });
+                done();
+            });
+    });
+});
