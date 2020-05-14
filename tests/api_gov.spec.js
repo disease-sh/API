@@ -321,8 +321,8 @@ describe('TESTING /v2/gov/uk', () => {
                 res.body.cases.should.have.property('countries');
                 res.body.cases.should.have.property('regions');
                 res.body.should.have.property('deaths');
-                res.body.cases.should.have.property('countries');
-                res.body.cases.should.have.property('overview');
+                res.body.deaths.should.have.property('countries');
+                res.body.deaths.should.have.property('overview');
                 done();
             });
     });
