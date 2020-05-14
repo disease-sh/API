@@ -11,7 +11,7 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/novelcovid/api?style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/novelcovid/api?style=for-the-badge)
 # Join our Server!
-[![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/xk9FZE3)
+[![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/cEDxzfW)
 
 # API
 API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain. 
@@ -46,7 +46,7 @@ NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
 3. Change the env variables to fit your environment (leave them blank for default values)
 4. Run `npm run docker-start-dev`
 
-## NPM Package
+## Recommended Javascript Wrapper
 <dir align ="center">
 <a href="https://www.npmjs.com/package/novelcovid">
     <img src="https://img.shields.io/npm/v/novelcovid?logo=npm&style=for-the-badge" alt="Version">
@@ -59,31 +59,11 @@ NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
 </a>
 </dir>
 
-We suggest you load the module via `require`, considering ES modules in Node.js are not yet stable.
-
-Executing a method will return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
-The examples here utilise [async/await](https://javascript.info/async-await) to access the data.
-
-JavaScript:
-
-```js
-const { NovelCovid } = require('novelcovid');
-```
-
-TypeScript:
-```ts
-import { NovelCovid } from 'novelcovid';
-```
-### Methods
- Everything is listed on the [npm](https://www.npmjs.com/package/novelcovid) site.
-
-## **Note**
-Since `data.updated` returns milliseconds, you can do `new Date(data.updated)` as it returns an **ISO Date**
-
-You can read more about **new Date()** [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+- [Github](https://github.com/novelcovid/node-api)
+- [NPM](https://npmjs.com/novelcovid)
 
 > For further support, you can join our discord server! More Tutorials can be found there too!
-> https://discord.gg/xk9FZE3
+> https://discord.gg/cEDxzfW
 
 ### Sources:
 > https://www.worldometers.info/coronavirus/

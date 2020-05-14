@@ -298,6 +298,7 @@ describe('TESTING /v2/gov/nigeria', () => {
                     state.should.have.property('deaths');
                     state.should.have.property('active');
                     state.should.have.property('recovered');
+                    state.should.have.property('updated');
                 });
                 done();
             });
