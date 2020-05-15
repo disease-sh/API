@@ -1,130 +1,55 @@
-![Logo](https://i.imgur.com/m7JoOrQ.png)
-<br><br>
+# Scraper of COVID19 
 
-![DockerHub Downloads](https://img.shields.io/docker/pulls/novelcovid/novelcovid-api?style=for-the-badge)
-![GitHub contributors](https://img.shields.io/github/contributors-anon/novelcovid/api?style=for-the-badge)
-![ESLint](https://img.shields.io/github/workflow/status/NovelCOVID/API/Eslint?label=ESLint&style=for-the-badge)
-![Tests](https://img.shields.io/github/workflow/status/NovelCOVID/API/Unittest?label=Tests&style=for-the-badge)
-![GitHub top language](https://img.shields.io/github/languages/top/novelcovid/api?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/novelcovid/api?style=for-the-badge)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/novelcovid/api?style=for-the-badge)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/novelcovid/api?style=for-the-badge)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/novelcovid/api?style=for-the-badge)
-# Join our Server!
-[![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/cEDxzfW)
+## This is a fork
+This repo is a fork. Checkout [NovelCovid API](https://github.com/NovelCOVID/API) for the official documentation.
 
-# API
-API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain. 
+### PS
+**This library runs along side of your NodeJS project. This library doesn't serve API's, it only scrapes and saves the data to redis.**
+_Useful if you want to get the data from Redis directly_
 
-**Check out** our homepage and **sign up** for our newsletter [here](https://disease.sh/)
+## Installation 
 
-# Recommended by Postman
-NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
+```shell script
+yarn add novelcovid-scraper
+or
+npm install novelcovid-scraper
+```
 
-# Documentation
-NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
+## Getting Started
 
-## Installation
+#### Import novelcovid-scraper
+```javascript
+const { setConfig, startFetch } = require('novelcovid-scraper');
+```
 
-### Without Docker
+#### Set Config
+```javascript
+setConfig({
+  interval: '*/10 * * * *',  // Optional: Default (*/10 * * * *) Every 10 mins 
+  nyt_interval: '0 * * * *', // Optional: Default (0 * * * *) Every hour
+  redis: {
+    host: "localhost",       // Mandatory
+    password: "",            // Mandatory
+    port: "6379"             // Mandatory
+  } 
+});
+```
+1. ```interval``` denotes the frequency of fetching data from Worldometer and JHU
+2. ```nyt_interval``` denotes the frequency of fetching data from nytimes
+3. Redis parameters are mandatory. You can install redis by checking this link https://redis.io/topics/quickstart
+4. [Cron](https://www.npmjs.com/package/cron) library user for scheduler. You can generate your own cron scheduler [here](https://crontab.guru/)
 
-#### Redis
-1. Download redis from https://redis.io/topics/quickstart
-2. Start redis server using `redis-server`
+#### Start server
+```javascript
+startFetch();
+```
 
-#### Project
-1. Fork and clone the git repository
-2. In the new folder you will find a `example.env` file, duplicate it and rename it to `.env` only.
-3. Change the env variables to fit your environment (leave them blank for default values)
-4. Run `npm run start:dev`
-5. Open your browser and navigate to `localhost:{PORT}` (PORT being the port specified in your `.env` file)
-6. You should now see the APIs landing page
+#### Data dumped to redis
+Based on the scheduler time the data is scraped and updated to redis. You can find the redis keys [here](https://github.com/COVID19-SARS-CoV-2/covid-19-scraper/blob/master/config.keys.json)
 
-### With docker-compose
-1. Fork and clone the git repository
-2. In the new folder you will find a `example.env` file, duplicate it and rename it to `.env` only.
-3. Change the env variables to fit your environment (leave them blank for default values)
-4. Run `npm run docker-start-dev`
+Datas are scraped from 
+* https://www.worldometers.info/coronavirus/
 
-## Recommended Javascript Wrapper
-<dir align ="center">
-<a href="https://www.npmjs.com/package/novelcovid">
-    <img src="https://img.shields.io/npm/v/novelcovid?logo=npm&style=for-the-badge" alt="Version">
-</a>
-<a href="https://www.npmjs.com/package/novelcovid">
-	<img src="https://img.shields.io/bundlephobia/min/novelcovid?color=red&label=SIZE&logo=npm&style=for-the-badge", alt="Size">
-</a>
-<a href="https://www.npmjs.com/package/novelcovid">
-<img src="https://img.shields.io/npm/dw/novelcovid?logo=npm&style=for-the-badge", alt="Downloads">
-</a>
-</dir>
+* https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
 
-- [Github](https://github.com/novelcovid/node-api)
-- [NPM](https://npmjs.com/novelcovid)
-
-> For further support, you can join our discord server! More Tutorials can be found there too!
-> https://discord.gg/cEDxzfW
-
-### Sources:
-> https://www.worldometers.info/coronavirus/
-
-> https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
-
-> https://github.com/nytimes/covid-19-data
-
-> https://github.com/ActiveConclusion/COVID19_mobility
-
-> https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html
-
-> https://github.com/pcm-dpc/COVID-19
-
-> https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Situationsberichte/Gesamt.html
-
-> https://info.gesundheitsministerium.at/
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/EliteDaMyth"><img src="https://avatars2.githubusercontent.com/u/28687771?v=4" width="100px;" alt=""/><br /><sub><b>EliteDaMyth</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=EliteDaMyth" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ebwinters"><img src="https://avatars0.githubusercontent.com/u/4297028?v=4" width="100px;" alt=""/><br /><sub><b>Ethan Winters</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3Aebwinters" title="Bug reports">🐛</a> <a href="https://github.com/NovelCOVID/API/commits?author=ebwinters" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/dicedtomatoreal"><img src="https://avatars0.githubusercontent.com/u/35403473?v=4" width="100px;" alt=""/><br /><sub><b>dicedtomato</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=dicedtomatoreal" title="Code">💻</a></td>
-    <td align="center"><a href="https://404discord.xyz/"><img src="https://avatars0.githubusercontent.com/u/41652412?v=4" width="100px;" alt=""/><br /><sub><b>apollyon600</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=apollyon600" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://jshelley.uk"><img src="https://avatars0.githubusercontent.com/u/22616014?v=4" width="100px;" alt=""/><br /><sub><b>James Shelley</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/pulls?q=is%3Apr+reviewed-by%3AJamesShelley" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="http://RyanHarlow.com"><img src="https://avatars2.githubusercontent.com/u/42226213?v=4" width="100px;" alt=""/><br /><sub><b>Ryan Harlow</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3ARyanHarlow" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/alitas"><img src="https://avatars1.githubusercontent.com/u/1144691?v=4" width="100px;" alt=""/><br /><sub><b>Ali Tas</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3Aalitas" title="Bug reports">🐛</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/buster95"><img src="https://avatars0.githubusercontent.com/u/15637669?v=4" width="100px;" alt=""/><br /><sub><b>Walter Corrales</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=buster95" title="Code">💻</a></td>
-    <td align="center"><a href="https://AhmadAwais.com"><img src="https://avatars1.githubusercontent.com/u/960133?v=4" width="100px;" alt=""/><br /><sub><b>Ahmad Awais ⚡️</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=ahmadawais" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://discord.gg/rk7cVyk"><img src="https://avatars1.githubusercontent.com/u/39545629?v=4" width="100px;" alt=""/><br /><sub><b>MrAugu</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3AMrAugu" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="http://chroventer.github.io"><img src="https://avatars2.githubusercontent.com/u/34645569?v=4" width="100px;" alt=""/><br /><sub><b>Ayyan Lewis</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3Achroventer" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="http://bensommer.co.uk"><img src="https://avatars0.githubusercontent.com/u/39101651?v=4" width="100px;" alt=""/><br /><sub><b>Ben Sommer</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3Abenjamin-sommer" title="Bug reports">🐛</a> <a href="https://github.com/NovelCOVID/API/commits?author=benjamin-sommer" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/nibble-4bits"><img src="https://avatars1.githubusercontent.com/u/38052706?v=4" width="100px;" alt=""/><br /><sub><b>Luis De Anda</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=nibble-4bits" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://coviddetail.com"><img src="https://avatars0.githubusercontent.com/u/17516174?v=4" width="100px;" alt=""/><br /><sub><b>puf17640</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3Apuf17640" title="Bug reports">🐛</a> <a href="https://github.com/NovelCOVID/API/commits?author=puf17640" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="http://olukadeno@gmail.com"><img src="https://avatars1.githubusercontent.com/u/37341054?v=4" width="100px;" alt=""/><br /><sub><b>Oluka Denis</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3AOlukaDenis" title="Bug reports">🐛</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-# Showcases (Awesome-NovelCOVID)
-
-Did you build a project with our API? We now offer an "awesome-list" for you to add your projects into so people can find out about them!
-
-#### You can find it <a href="https://github.com/puf17640/awesome-novelcovid">here</a>.
-
-# Donating
-<a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" width="217" height="50"></a>
-
-# License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNovelCOVID%2FAPI.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FNovelCOVID%2FAPI?ref=badge_large)
+* https://github.com/nytimes/covid-19-data
