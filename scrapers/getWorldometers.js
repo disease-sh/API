@@ -37,6 +37,9 @@ const mapRows = (_, row) => {
 		cell = cheerio.load(cell);
 		switch (index) {
 			case 0: {
+				break;
+			}
+			case 1: {
 				const countryInfo = countryUtils.getCountryData(cell.text().replace(replaceRegex, ''));
 				country.country = countryInfo.country || cell.text().replace(replaceRegex, '');
 				delete countryInfo.country;
@@ -44,11 +47,11 @@ const mapRows = (_, row) => {
 				break;
 			}
 			case 12:
-				country[columns[index - 1]] = cell.text();
+				country[columns[index - 2]] = cell.text();
 				break;
 
 			default:
-				country[columns[index - 1]] = parseInt(cell.text().replace(replaceRegex, '')) || 0;
+				country[columns[index - 2]] = parseInt(cell.text().replace(replaceRegex, '')) || 0;
 		}
 	});
 	return country;
