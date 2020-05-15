@@ -36,9 +36,6 @@ const mapRows = (_, row) => {
 	cheerio(row).children('td').each((index, cell) => {
 		cell = cheerio.load(cell);
 		switch (index) {
-			case 0: {
-				break;
-			}
 			case 1: {
 				const countryInfo = countryUtils.getCountryData(cell.text().replace(replaceRegex, ''));
 				country.country = countryInfo.country || cell.text().replace(replaceRegex, '');
