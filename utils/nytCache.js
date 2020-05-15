@@ -24,13 +24,15 @@ exports.updateNYTCache = async () => {
 			keys.nyt_states,
 			keys.nyt_USA
 		].map(async (key) => JSON.parse(await redis.get(key))));
-		const numericalStats = (element) => (
-			{ ...element, deaths: parseInt(element.deaths), cases: parseInt(element.cases) }
-		);
-		this.currentStatus.nytCounties = parsedCountyData.map(numericalStats);
-		this.currentStatus.nytStates = parsedStateData.map(numericalStats);
-		this.currentStatus.nytNationwide = parsedNationData.map(numericalStats);
-		logger.info('NYT local cache updated');
+		if (!(parsedCountyData && parsedStateData && parsedNationData)) {
+			logger.warn('Could not update NYT cache, no error.')
+		}else{
+			const numericalStats = (element) => ({ ...element, deaths: parseInt(element.deaths), cases: parseInt(element.cases) });
+			this.currentStatus.nytCounties = parsedCountyData.map(numericalStats);
+			this.currentStatus.nytStates = parsedStateData.map(numericalStats);
+			this.currentStatus.nytNationwide = parsedNationData.map(numericalStats);
+			logger.info('NYT local cache updated');
+		}
 	} catch (err) {
 		logger.err('Local NYT cache update failed', err);
 	}
