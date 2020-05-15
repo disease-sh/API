@@ -3,17 +3,27 @@ const cheerio = require('cheerio');
 const countryUtils = require('../utils/countryUtils');
 const logger = require('../utils/logger');
 
-const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population'];
+const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent'];
+
+const toPerOneMillion = (population, property) => parseFloat((1e6 / population * property).toFixed(2));
 
 /**
 * Extracts continent specific data from a country data object
 * @param 	{Object} 	element 	Country Data
 * @returns 	{Object} 				Continent Data
 */
-const continentMapping = (element) => {
-	element.continent = element.country.trim();
+const continentMapping = (element, countries) => {
 	// eslint-disable-next-line no-unused-vars
-	const { country, countryInfo, casesPerOneMillion, deathsPerOneMillion, tests, testsPerOneMillion, ...countryData } = element;
+	const continentCountries = countries.filter(country => country.continent === element.continent);
+	element.population = continentCountries.map(country => country.population).reduce((sum, pop) => sum + pop);
+	element.tests = continentCountries.map(country => country.tests).reduce((sum, tests) => sum + tests);
+	element.casesPerOneMillion = toPerOneMillion(element.population, element.cases);
+	element.deathsPerOneMillion = toPerOneMillion(element.population, element.deaths);
+	element.testsPerOneMillion = toPerOneMillion(element.population, element.tests);
+	element.activePerOneMillion = toPerOneMillion(element.population, element.active);
+	element.recoveredPerOneMillion = toPerOneMillion(element.population, element.recovered);
+	element.criticalPerOneMillion = toPerOneMillion(element.population, element.critical);
+	const { country, countryInfo, ...countryData } = element;
 	return countryData;
 };
 
@@ -46,10 +56,17 @@ const mapRows = (_, row) => {
 				country.countryInfo = countryInfo;
 				break;
 			}
+			case 14 : {
+				country[columns[index - 2]] = cell.text();
+				break;
+			}
 			default:
-				country[columns[index - 2]] = parseInt(cell.text().replace(replaceRegex, '')) || 0;
+				country[columns[index - 2]] = parseFloat(cell.text().replace(replaceRegex, '')) || 0;
 		}
 	});
+	country.activePerOneMillion = toPerOneMillion(country.population, country.active);
+	country.recoveredPerOneMillion = toPerOneMillion(country.population, country.recovered);
+	country.criticalPerOneMillion = toPerOneMillion(country.population, country.critical);
 	return country;
 };
 
@@ -62,10 +79,14 @@ const mapRows = (_, row) => {
 function fillResult(html, idExtension) {
 	const countriesTable = html(`table#main_table_countries_${idExtension}`);
 	const countries = countriesTable.children('tbody:first-of-type').children('tr:not(.row_continent)').map(mapRows).get();
-	const continents = countriesTable.children('tbody:first-of-type').children('tr.row_continent').map(mapRows).get().map(continentMapping).filter(data => !!data.continent);
+	const continents = countriesTable.children('tbody:first-of-type').children('tr.row_continent').map(mapRows).get().map(el => continentMapping(el, countries)).filter(data => !!data.continent);
 	const world = countries.shift();
+	world.population = countries.map(country => country.population).reduce((sum, pop) => sum + pop);
 	world.tests = countries.map(country => country.tests).reduce((sum, test) => sum + test);
-	world.testsPerOneMillion = parseFloat(((1e6 / (1e6 / (world.casesPerOneMillion / world.cases))) * world.tests).toFixed(1));
+	world.testsPerOneMillion = toPerOneMillion(world.population, world.tests);
+	world.activePerOneMillion = toPerOneMillion(world.population, world.active);
+	world.recoveredPerOneMillion = toPerOneMillion(world.population, world.recovered);
+	world.criticalPerOneMillion = toPerOneMillion(world.population, world.critical);
 	return { world, countries, continents };
 }
 
