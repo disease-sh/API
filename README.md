@@ -19,10 +19,10 @@
 
 **Check out** our homepage and **sign up** for our newsletter [here](https://disease.sh/)
 
-# Recommended by Postman
+## Recommended by Postman
 NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
-# Documentation
+## Documentation
 NovelCovid API Documentation can be found [here](https://disease.sh/docs/)
 
 # Installation
