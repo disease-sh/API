@@ -53,7 +53,7 @@ router.get('/v2/continents/:query', async (req, res) => {
 	const continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents));
 	const continent = countryUtils.getWorldometersData(continents, query, strict !== 'false', true);
 	if (continent) {
-		continent.countries = countryUtils.getCountriesFromContinent(continent.continent, JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries)));
+		// continent.countries = countryUtils.getCountriesFromContinent(continent.continent, JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries)));
 		res.send(continent);
 	} else {
 		res.status(404).send({ message: 'Continent not found or doesn\'t have any cases' });
