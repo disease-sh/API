@@ -41,9 +41,9 @@ router.get('/v2/countries/:query', async (req, res) => {
 
 router.get('/v2/continents', async (req, res) => {
 	const { sort, yesterday } = req.query;
-	// const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries));
-	const continents = await Promise.all(JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents)));
-	// .map(async continent => ({ ...continent, countries: countryUtils.getCountriesFromContinent(continent.continent, countries) })));
+	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries));
+	const continents = await Promise.all(JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents))
+		.map(async continent => ({ ...continent, countries: countryUtils.getCountriesFromContinent(continent.continent, countries) })));
 	res.send(sort ? continents.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : continents);
 });
 
@@ -53,7 +53,7 @@ router.get('/v2/continents/:query', async (req, res) => {
 	const continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents));
 	const continent = countryUtils.getWorldometersData(continents, query, strict !== 'false', true);
 	if (continent) {
-		// continent.countries = countryUtils.getCountriesFromContinent(continent.continent, JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries)));
+		continent.countries = countryUtils.getCountriesFromContinent(continent.continent, JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries)));
 		res.send(continent);
 	} else {
 		res.status(404).send({ message: 'Continent not found or doesn\'t have any cases' });
