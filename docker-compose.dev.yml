@@ -33,9 +33,10 @@ services:
       - redis
 
   app:
+    build: .
     image: covidapi-app
     container_name: covid-api-server
-    command: ["npm", "start"]
+    command: ["npm", "run", "start:devserver"]
     restart: always
     environment: 
       - DOCKER=true
