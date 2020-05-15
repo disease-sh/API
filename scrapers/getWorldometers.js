@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const countryUtils = require('../utils/countryUtils');
 const logger = require('../utils/logger');
 
-const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'continent'];
+const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population'];
 
 /**
 * Extracts continent specific data from a country data object
@@ -46,10 +46,6 @@ const mapRows = (_, row) => {
 				country.countryInfo = countryInfo;
 				break;
 			}
-			case 12:
-				country[columns[index - 2]] = cell.text();
-				break;
-
 			default:
 				country[columns[index - 2]] = parseInt(cell.text().replace(replaceRegex, '')) || 0;
 		}
