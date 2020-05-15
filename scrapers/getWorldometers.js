@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const countryUtils = require('../utils/countryUtils');
 const logger = require('../utils/logger');
 
-const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population'];
+const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent'];
 
 /**
 * Extracts continent specific data from a country data object
@@ -46,6 +46,10 @@ const mapRows = (_, row) => {
 				country.countryInfo = countryInfo;
 				break;
 			}
+			case 14 : {
+				country[columns[index - 2]] = cell.text();
+				break;
+			}
 			default:
 				country[columns[index - 2]] = parseInt(cell.text().replace(replaceRegex, '')) || 0;
 		}
@@ -64,6 +68,7 @@ function fillResult(html, idExtension) {
 	const countries = countriesTable.children('tbody:first-of-type').children('tr:not(.row_continent)').map(mapRows).get();
 	const continents = countriesTable.children('tbody:first-of-type').children('tr.row_continent').map(mapRows).get().map(continentMapping).filter(data => !!data.continent);
 	const world = countries.shift();
+	world.population = countries.map(country => country.population).reduce((sum, pop) => sum + pop);
 	world.tests = countries.map(country => country.tests).reduce((sum, test) => sum + test);
 	world.testsPerOneMillion = parseFloat(((1e6 / (1e6 / (world.casesPerOneMillion / world.cases))) * world.tests).toFixed(1));
 	return { world, countries, continents };
