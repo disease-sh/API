@@ -3,17 +3,18 @@ const cheerio = require('cheerio');
 const countryUtils = require('../utils/countryUtils');
 const logger = require('../utils/logger');
 
-const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active', 'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent'];
+const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active',
+	'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent'];
 
 const toPerOneMillion = (population, property) => parseFloat((1e6 / population * property).toFixed(2));
 
 /**
 * Extracts continent specific data from a country data object
 * @param 	{Object} 	element 	Country Data
+* @param 	{Object} 	countries 	Country List
 * @returns 	{Object} 				Continent Data
 */
 const continentMapping = (element, countries) => {
-	// eslint-disable-next-line no-unused-vars
 	const continentCountries = countries.filter(country => country.continent === element.continent);
 	element.population = continentCountries.map(country => country.population).reduce((sum, pop) => sum + pop);
 	element.tests = continentCountries.map(country => country.tests).reduce((sum, tests) => sum + tests);
@@ -23,6 +24,7 @@ const continentMapping = (element, countries) => {
 	element.activePerOneMillion = toPerOneMillion(element.population, element.active);
 	element.recoveredPerOneMillion = toPerOneMillion(element.population, element.recovered);
 	element.criticalPerOneMillion = toPerOneMillion(element.population, element.critical);
+	// eslint-disable-next-line no-unused-vars
 	const { country, countryInfo, ...countryData } = element;
 	return countryData;
 };

@@ -18,8 +18,9 @@ exports.updateAppleCache = async () => {
 		const parsedAppleData = JSON.parse(await redis.get(keys.apple_all));
 		const numericalStats = (element) => ({ ...element, driving: parseFloat(element.driving), transit: parseFloat(element.transit), walking: parseFloat(element.walking) });
 		if (!parsedAppleData) {
-			logger.warn('Could not update Apple cache, no error.')
-		}else {
+			logger.warn('Could not update Apple cache, no error.');
+		} else {
+			// eslint-disable-next-line no-return-assign
 			Object.keys(parsedAppleData).forEach((countryName) => parsedAppleData[countryName].data = parsedAppleData[countryName].data.map(numericalStats));
 			this.currentStatus.appleData = parsedAppleData;
 			logger.info('Apple local cache updated');
