@@ -10,11 +10,12 @@
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/novelcovid/api?style=for-the-badge)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/novelcovid/api?style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/novelcovid/api?style=for-the-badge)
-# Join our Server!
-[![Discord server](https://discordapp.com/api/guilds/689535536934813823/embed.png?style=banner4)](https://discord.gg/cEDxzfW)
 
-# API
-API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Strain. 
+# Welcome to the NovelCOVID API
+
+| Information | Discord | Donate |
+|:------------|:---------|:-------|
+| This API provides a big range of detailed information about COVID19 from global data overviews to city/region specific mobility data. We also provide official government data for some countries, more to be added soon.<br><br>The core-team currently consists of 4 people from 4 different countries working hard to keep this up and running, but it's an open-source project, so if you want, come help us| [![Discord server](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F2x%2Fdiscord-logo.png&f=1&nofb=1)](https://discord.gg/cEDxzfW) | [![BuyMeACoffee](https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-1.svg)](https://www.buymeacoffee.com/covidapi/shop) |
 
 **Check out** our homepage and **sign up** for our newsletter [here](https://disease.sh/)
 
@@ -22,17 +23,17 @@ API for Current cases and more stuff about COVID-19 or the Novel Coronavirus Str
 NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
 # Documentation
-NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
+NovelCovid API Documentation can be found [here](https://disease.sh/docs/)
 
-## Installation
+# Installation
 
-### Without Docker
+## Without Docker
 
-#### Redis
+### Redis
 1. Download redis from https://redis.io/topics/quickstart
 2. Start redis server using `redis-server`
 
-#### Project
+### Project
 1. Fork and clone the git repository
 2. In the new folder you will find a `example.env` file, duplicate it and rename it to `.env` only.
 3. Change the env variables to fit your environment (leave them blank for default values)
@@ -40,13 +41,13 @@ NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
 5. Open your browser and navigate to `localhost:{PORT}` (PORT being the port specified in your `.env` file)
 6. You should now see the APIs landing page
 
-### With docker-compose
+## With docker-compose
 1. Fork and clone the git repository
 2. In the new folder you will find a `example.env` file, duplicate it and rename it to `.env` only.
 3. Change the env variables to fit your environment (leave them blank for default values)
 4. Run `npm run docker-start-dev`
 
-## Recommended Javascript Wrapper
+# Recommended Javascript Wrapper
 <dir align ="center">
 <a href="https://www.npmjs.com/package/novelcovid">
     <img src="https://img.shields.io/npm/v/novelcovid?logo=npm&style=for-the-badge" alt="Version">
@@ -65,7 +66,13 @@ NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
 > For further support, you can join our discord server! More Tutorials can be found there too!
 > https://discord.gg/cEDxzfW
 
-### Sources:
+# Showcases (Awesome-NovelCOVID)
+
+Did you build a project with our API? We now offer an "awesome-list" for you to add your projects into so people can find out about them!
+
+#### You can find it <a href="https://github.com/puf17640/awesome-novelcovid">here</a>.
+
+# Sources:
 > https://www.worldometers.info/coronavirus/
 
 > https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
@@ -82,7 +89,15 @@ NovelCovid/API Documentation can be found [here](https://disease.sh/docs/)
 
 > https://info.gesundheitsministerium.at/
 
-## Contributors ✨
+> https://www.mohfw.gov.in/
+
+> https://covid19.ncdc.gov.ng/
+
+> https://github.com/openZH/covid_19/
+
+> https://coronavirus.data.gov.uk
+
+# Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -116,15 +131,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-# Showcases (Awesome-NovelCOVID)
-
-Did you build a project with our API? We now offer an "awesome-list" for you to add your projects into so people can find out about them!
-
-#### You can find it <a href="https://github.com/puf17640/awesome-novelcovid">here</a>.
-
-# Donating
-<a href="https://www.buymeacoffee.com/covidapi/shop" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" width="217" height="50"></a>
 
 # License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNovelCOVID%2FAPI.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FNovelCOVID%2FAPI?ref=badge_large)
