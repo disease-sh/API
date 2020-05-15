@@ -36,16 +36,19 @@ NovelCovid API Documentation can be found [here](https://disease.sh/docs/)
 ### Project
 1. Fork and clone the git repository
 2. In the new folder you will find a `example.env` file, duplicate it and rename it to `.env` only.
-3. Change the env variables to fit your environment (leave them blank for default values)
-4. Run `npm run start:dev`
-5. Open your browser and navigate to `localhost:{PORT}` (PORT being the port specified in your `.env` file)
-6. You should now see the APIs landing page
+3. in the new `.env` file, change `REDIS_HOST` to localhost
+4. Change the env variables to fit your environment (leave them blank for default values)
+6. In one window run `redis-server`
+7. In another window run `npm run start:dev`
+8. Open your browser and navigate to `localhost:{PORT}` (PORT being the port specified in your `.env` file)
+9. You should now see the APIs landing page
 
 ## With docker-compose
 1. Fork and clone the git repository
 2. In the new folder you will find a `example.env` file, duplicate it and rename it to `.env` only.
 3. Change the env variables to fit your environment (leave them blank for default values)
-4. Run `npm run docker-start-dev`
+4. Run `npm run docker-start-dev` to run the local version of the API with Docker
+5. Run `npm run docker-start` to run the published version of the API with Docker
 
 # Recommended Javascript Wrapper
 <dir align ="center">
