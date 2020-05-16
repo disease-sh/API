@@ -10,9 +10,11 @@ const transformNull = (object) => {
 	if (typeof object !== 'object') {
 		return object;
 	}
-	const nulls = Object.entries(object).filter(entry => entry[1] === null);
-	// eslint-disable-next-line no-return-assign
-	nulls.forEach(entry => object[entry[0]] = 0);
+	Object.entries(object).forEach((entry) => {
+		if (entry[1] === null) {
+			object[entry[0]] = 0;
+		}
+	});
 	return object;
 };
 
