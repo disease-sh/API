@@ -3,13 +3,19 @@ const cherrio = require('cheerio');
 const rootCas = require('ssl-root-cas').create();
 const https = require('https');
 const { resolve } = require('path');
+const logger = require('../../utils/logger');
 const slugify = require('slugify');
 rootCas.addFile(resolve(__dirname, '..', 'govScrapers', 'credentials', 'vietnam.pem'));
 const httpsAgent = new https.Agent({ ca: rootCas });
 const columns = ['City', 'Cases', 'BeintgTreated', 'Recovered', 'Deaths'];
-const getVietnamData = async () => {
-	const html = cherrio.load((await axios.get('https://ncov.moh.gov.vn/', { httpsAgent })).data);
-	return JSON.stringify(html('table#sailorTable').children('tbody:first-of-type').children('tr').map(maprows).get(), null, 4);
+const vietnamData = async () => {
+	try {
+		const html = cherrio.load((await axios.get('https://ncov.moh.gov.vn/', { httpsAgent })).data);
+		return html('table#sailorTable').children('tbody:first-of-type').children('tr').map(maprows).get().filter(el => !el.City.startsWith('BN'));
+	} catch (err) {
+		logger.err('Error: Requesting Vietnam Gov Data failed!', err);
+		return null;
+	}
 };
 
 const maprows = (_, row) => {
@@ -29,4 +35,4 @@ const maprows = (_, row) => {
 	});
 	return city;
 };
-module.exports = getVietnamData();
+module.exports = vietnamData;

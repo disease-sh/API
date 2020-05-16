@@ -6,8 +6,9 @@ const switzerlandData = require('./getSwitzerland');
 const nigeriaData = require('./getNigeria');
 const ukData = require('./getUK');
 const indiaData = require('./getIndia');
-const logger = require('../../utils/logger');
 const vietnamData = require('./getVietnam');
+const logger = require('../../utils/logger');
+
 
 /**
  * Set government data in redis by calling individual country scrapers
