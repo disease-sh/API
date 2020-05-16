@@ -2,6 +2,23 @@ const stringUtils = require('./stringUtils');
 const countryData = require('./countries');
 
 /**
+ * Transform null values to 0
+ * @param {Object} object country/continent object
+ * @returns  {Object} 		transformed object
+ */
+const transformNull = (object) => {
+	if (typeof object !== 'object') {
+		return object;
+	}
+	Object.entries(object).forEach((entry) => {
+		if (entry[1] === null) {
+			object[entry[0]] = 0;
+		}
+	});
+	return object;
+};
+
+/**
  * Get iso2 code from country name
  * @param 	{string} 	countryName 	country name
  * @returns {string} 					iso2 country code
@@ -94,5 +111,6 @@ module.exports = {
 	getCountryData,
 	getWorldometersData,
 	isCountryException,
-	getCountriesFromContinent
+	getCountriesFromContinent,
+	transformNull
 };
