@@ -67,6 +67,7 @@ const mapRows = (_, row) => {
 				entry[selector] = parseFloat(cell.text().replace(replaceRegex, '')) || null;
 		}
 	});
+	// eslint-disable-next-line no-unused-expressions
 	!entry.active && (entry.active = entry.cases - entry.recovered - entry.deaths);
 	entry.activePerOneMillion = toPerOneMillion(entry.population, entry.active);
 	entry.recoveredPerOneMillion = toPerOneMillion(entry.population, entry.recovered);
