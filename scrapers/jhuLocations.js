@@ -4,6 +4,27 @@ const logger = require('../utils/logger');
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/';
 
 /**
+ * Extract data values from a CSV row entry
+ * @param 	{Object} 	loc 	CSV row from JHU repo
+ * @returns {Object} 			data extracted from CSV row
+ */
+const extractData = (loc) => ({
+	country: loc[3],
+	province: loc[2] || null,
+	county: loc[1] || null,
+	updatedAt: loc[4],
+	stats: {
+		confirmed: parseInt(loc[7]),
+		deaths: parseInt(loc[8]),
+		recovered: parseInt(loc[9])
+	},
+	coordinates: {
+		latitude: loc[5],
+		longitude: loc[6]
+	}
+});
+
+/**
  * Sets redis store full of today's JHU data scraped from their hosted CSV
  * @param {string} 	keys 	JHU data redis key
  * @param {Object} 	redis 	Redis instance
@@ -29,26 +50,8 @@ const jhudataV2 = async (keys, redis) => {
 		output: 'csv'
 	}).fromString(response.data);
 
-	const result = [];
-	parsed.splice(1).forEach((loc) => {
-		result.push({
-			country: loc[3],
-			province: loc[2] || null,
-			county: loc[1] || null,
-			updatedAt: loc[4],
-			stats: {
-				confirmed: parseInt(loc[7]),
-				deaths: parseInt(loc[8]),
-				recovered: parseInt(loc[9])
-			},
-			coordinates: {
-				latitude: loc[5],
-				longitude: loc[6]
-			}
-		});
-	});
-	const string = JSON.stringify(result);
-	redis.set(keys.jhu_v2, string);
+	const result = parsed.splice(1).map(extractData);
+	redis.set(keys.jhu_v2, JSON.stringify(result));
 	logger.info(`Updated JHU CSSE: ${result.length} locations`);
 };
 
