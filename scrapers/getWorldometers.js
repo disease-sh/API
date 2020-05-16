@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const countryUtils = require('../utils/countryUtils');
 const logger = require('../utils/logger');
 
-const columns = ['cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active',
+const columns = ['index', 'country', 'cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active',
 	'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent'];
 
 const toPerOneMillion = (population, property) => parseFloat((1e6 / population * property).toFixed(2));
@@ -43,9 +43,10 @@ const getOrderByCountryName = (data) => data.sort((a, b) => a.country < b.countr
 * @returns 	{Object} 			Countries Data
 */
 const mapRows = (_, row) => {
-	const country = { updated: Date.now() };
+	const entry = { updated: Date.now() };
 	const replaceRegex = /(\n|,)/g;
 	cheerio(row).children('td').each((index, cell) => {
+		const selector = columns[index];
 		cell = cheerio.load(cell);
 		switch (index) {
 			case 0: {
@@ -53,23 +54,23 @@ const mapRows = (_, row) => {
 			}
 			case 1: {
 				const countryInfo = countryUtils.getCountryData(cell.text().replace(replaceRegex, ''));
-				country.country = countryInfo.country || cell.text().replace(replaceRegex, '');
+				entry[selector] = countryInfo.country || cell.text().replace(replaceRegex, '');
 				delete countryInfo.country;
-				country.countryInfo = countryInfo;
+				entry.countryInfo = countryInfo;
 				break;
 			}
 			case 14 : {
-				country[columns[index - 2]] = cell.text();
+				entry[selector] = cell.text();
 				break;
 			}
 			default:
-				country[columns[index - 2]] = parseFloat(cell.text().replace(replaceRegex, '')) || 0;
+				entry[selector] = parseFloat(cell.text().replace(replaceRegex, '')) || 0;
 		}
 	});
-	country.activePerOneMillion = toPerOneMillion(country.population, country.active);
-	country.recoveredPerOneMillion = toPerOneMillion(country.population, country.recovered);
-	country.criticalPerOneMillion = toPerOneMillion(country.population, country.critical);
-	return country;
+	entry.activePerOneMillion = toPerOneMillion(entry.population, entry.active);
+	entry.recoveredPerOneMillion = toPerOneMillion(entry.population, entry.recovered);
+	entry.criticalPerOneMillion = toPerOneMillion(entry.population, entry.critical);
+	return entry;
 };
 
 /**
