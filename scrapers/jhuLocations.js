@@ -65,24 +65,12 @@ const generalizedJhudataV2 = (data) => {
 	const statesResult = {};
 
 	data.forEach((loc) => {
-		const defaultData = {
-			country: loc.country,
-			province: loc.province || null,
-			updatedAt: loc.updatedAt,
-			stats: {
-				confirmed: loc.stats.confirmed,
-				deaths: loc.stats.deaths,
-				recovered: loc.stats.recovered
-			},
-			coordinates: {
-				latitude: loc.coordinates.latitude,
-				longitude: loc.coordinates.longitude
-			}
-		};
-		// city exists only for US entries
+		const { province, ...defaultData } = loc;
+		defaultData.province = province || null;
+		// county will only for US entries
 		if (loc.county !== null) {
 			if (statesResult[loc.province]) {
-				// sum
+				// add stats to sum for existing US state
 				statesResult[loc.province].stats.confirmed += loc.stats.confirmed;
 				statesResult[loc.province].stats.deaths += loc.stats.deaths;
 				statesResult[loc.province].stats.recovered += loc.stats.recovered;
