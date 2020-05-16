@@ -6,7 +6,7 @@ const logger = require('../utils/logger');
 const columns = ['index', 'country', 'cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active',
 	'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent'];
 
-const toPerOneMillion = (population, property) => parseFloat((1e6 / population * property).toFixed(2));
+const toPerOneMillion = (population, property) => property && parseFloat((1e6 / population * property).toFixed(2));
 
 /**
 * Extracts continent specific data from a country data object
@@ -64,9 +64,11 @@ const mapRows = (_, row) => {
 				break;
 			}
 			default:
-				entry[selector] = parseFloat(cell.text().replace(replaceRegex, '')) || 0;
+				entry[selector] = parseFloat(cell.text().replace(replaceRegex, '')) || null;
 		}
 	});
+	// eslint-disable-next-line no-unused-expressions
+	!entry.active && (entry.active = entry.cases - entry.recovered - entry.deaths);
 	entry.activePerOneMillion = toPerOneMillion(entry.population, entry.active);
 	entry.recoveredPerOneMillion = toPerOneMillion(entry.population, entry.recovered);
 	entry.criticalPerOneMillion = toPerOneMillion(entry.population, entry.critical);
