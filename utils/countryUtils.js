@@ -2,17 +2,19 @@ const stringUtils = require('./stringUtils');
 const countryData = require('./countries');
 
 /**
- * 
- * @param {*} countryName 
+ * Transform null values to 0
+ * @param {Object} object country/continent object
+ * @returns  {Object} 		transformed object
  */
 const transformNull = (object) => {
-	if (typeof(object) !== 'object') return object;
+	if (typeof object !== 'object') {
+		return object;
+	}
 	const nulls = Object.entries(object).filter(entry => entry[1] === null);
-	nulls.forEach(entry => {
-		object[entry[0]] = 0;
-	});
+	// eslint-disable-next-line no-return-assign
+	nulls.forEach(entry => object[entry[0]] = 0);
 	return object;
-}
+};
 
 /**
  * Get iso2 code from country name

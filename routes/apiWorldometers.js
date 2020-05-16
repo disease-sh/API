@@ -47,7 +47,8 @@ router.get('/v2/continents', async (req, res) => {
 	const { sort, yesterday, allowNull } = req.query;
 	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries));
 	const continents = await Promise.all(JSON.parse(await redis.get(!wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents))
-		.map(continent => ({ ...continent, countries: countryUtils.getCountriesFromContinent(continent.continent, countries) })).map(continent => !wordToBoolean(allowNull) ? countryUtils.transformNull(continent) : continent));
+		.map(continent => ({ ...continent, countries: countryUtils.getCountriesFromContinent(continent.continent, countries) }))
+		.map(continent => !wordToBoolean(allowNull) ? countryUtils.transformNull(continent) : continent));
 	res.send(sort ? continents.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : continents);
 });
 
