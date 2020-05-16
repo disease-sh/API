@@ -1,30 +1,16 @@
 const axios = require('axios');
-const cherrio = require('cheerio');
-const rootCas = require('ssl-root-cas').create();
-const https = require('https');
-const { resolve } = require('path');
+const cheerio = require('cheerio');
 const logger = require('../../utils/logger');
-const slugify = require('slugify');
-rootCas.addFile(resolve(__dirname, '..', 'govScrapers', 'credentials', 'vietnam.pem'));
-const httpsAgent = new https.Agent({ ca: rootCas });
-const columns = ['City', 'Cases', 'BeintgTreated', 'Recovered', 'Deaths'];
-const vietnamData = async () => {
-	try {
-		const html = cherrio.load((await axios.get('https://ncov.moh.gov.vn/', { httpsAgent })).data);
-		return html('table#sailorTable').children('tbody:first-of-type').children('tr').map(maprows).get().filter(el => !el.City.startsWith('BN'));
-	} catch (err) {
-		logger.err('Error: Requesting Vietnam Gov Data failed!', err);
-		return null;
-	}
-};
 
-const maprows = (_, row) => {
+const columns = ['city', 'cases', 'beingTreated', 'recovered', 'deaths'];
+
+const mapRows = (_, row) => {
 	const city = { updated: Date.now() };
-	cherrio(row).children('td').each((index, cell) => {
-		cell = cherrio.load(cell);
+	cheerio(row).children('td').each((index, cell) => {
+		cell = cheerio.load(cell);
 		switch (index) {
 			case 0: {
-				city[columns[index]] = slugify(cell.text(), { locale: 'vi' });
+				city[columns[index]] = cell.text().trim();
 				break;
 			}
 			default: {
@@ -35,4 +21,18 @@ const maprows = (_, row) => {
 	});
 	return city;
 };
+
+/**
+ * Scrapes Vietnam government site and fills array of data from table
+ */
+const vietnamData = async () => {
+	try {
+		const html = cheerio.load((await axios.default({ method: 'GET', url: 'http://ncov.moh.gov.vn/', httpsAgent: new require('https').Agent({ rejectUnauthorized: false }) })).data);
+		return html('table#sailorTable').children('tbody:first-of-type').children('tr').map(mapRows).get().filter(el => !el.city.startsWith('BN'));
+	} catch (err) {
+		logger.err('Error: Requesting Vietnam Gov Data failed!', err);
+		return null;
+	}
+};
+
 module.exports = vietnamData;

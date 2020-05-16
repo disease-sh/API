@@ -256,27 +256,6 @@ describe('TESTING /v2/gov/austria', () => {
             });
     });
 });
-describe('TESTING /v2/gov/vietnam', () => {
-    it('/v2/gov/vietnam correct fields set', (done) => {
-        chai.request(app)
-            .get('/v2/gov/vietnam')
-            .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
-                res.body.forEach((element) => {
-                    element.should.have.property('updated');
-                    element.should.have.property('city');
-                    element.should.have.property('cases');
-                    element.should.have.property('beingtreated');
-                    element.should.have.property('recovered');
-                    element.should.have.property('deaths');
-                });
-                done();
-            });
-    });
-})
 
 describe('TESTING /v2/gov/switzerland', () => {
     it('/v2/gov/switzerland correct fields set', (done) => {
@@ -382,6 +361,28 @@ describe('TESTING /v2/gov/india', () => {
                     state.should.have.property('active');
                     state.should.have.property('recovered');
                     state.should.have.property('deaths');
+                });
+                done();
+            });
+    });
+});
+
+describe('TESTING /v2/gov/vietnam', () => {
+    it('/v2/gov/vietnam correct fields set', (done) => {
+        chai.request(app)
+            .get('/v2/gov/vietnam')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.forEach((element) => {
+                    element.should.have.property('updated');
+                    element.should.have.property('city');
+                    element.should.have.property('cases');
+                    element.should.have.property('beingTreated');
+                    element.should.have.property('recovered');
+                    element.should.have.property('deaths');
                 });
                 done();
             });
