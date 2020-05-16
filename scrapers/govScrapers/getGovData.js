@@ -9,7 +9,6 @@ const indiaData = require('./getIndia');
 const vietnamData = require('./getVietnam');
 const logger = require('../../utils/logger');
 
-
 /**
  * Set government data in redis by calling individual country scrapers
  * @param 	{string} 	keys	 Redis keys
@@ -39,6 +38,5 @@ const govData = async (keys, redis) => {
 		logger.err('Error: Requesting Gov data failed!', err);
 	}
 };
-
 
 module.exports = govData;
