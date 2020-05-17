@@ -4,7 +4,7 @@ const app = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'UK', 'India', 'Vietnam'].sort();
+const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'UK', 'India', 'Vietnam', 'New Zealand'].sort();
 
 describe('TESTING /v2/gov general', () => {
     it('/v2/gov correct countries', (done) => {
@@ -383,6 +383,48 @@ describe('TESTING /v2/gov/vietnam', () => {
                     element.should.have.property('beingTreated');
                     element.should.have.property('recovered');
                     element.should.have.property('deaths');
+                });
+                done();
+            });
+    });
+});
+
+describe('TESTING /v2/gov/new zealand', () => {
+    it('/v2/gov/new zealand correct amount', (done) => {
+        chai.request(app)
+            .get('/v2/gov/new zealand')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('updated');
+                res.body.should.have.property('provinces');
+                res.body.provinces.length.should.equal(21);
+                done();
+            });
+    });
+
+    it('/v2/gov/new zealand correct fields set', (done) => {
+        chai.request(app)
+            .get('/v2/gov/new zealand')
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.provinces.forEach(province => {
+                    province.should.have.property('province');
+                    province.should.have.property('active');
+                    province.active.should.be.at.least(0);
+                    province.should.have.property('cases');
+                    province.cases.should.be.at.least(0);
+                    province.should.have.property('recovered');
+                    province.recovered.should.be.at.least(0);
+                    province.should.have.property('deaths');
+                    province.deaths.should.be.at.least(0);
+                    province.should.have.property('newCases');
+                    province.newCases.should.be.at.least(0);
                 });
                 done();
             });
