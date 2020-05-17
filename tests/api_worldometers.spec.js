@@ -17,14 +17,23 @@ describe('TESTING /v2/continents', () => {
 				for (let row of res.body) {
 					row.should.be.a('object');
 					row.should.have.property('continent');
+					should.exist(row.continent);
 					row.should.have.property('cases');
+					should.exist(row.cases);
 					row.should.have.property('todayCases');
+					should.exist(row.todayCases);
 					row.should.have.property('deaths');
+					should.exist(row.deaths);
 					row.should.have.property('todayDeaths');
+					should.exist(row.todayDeaths);
 					row.should.have.property('updated');
+					should.exist(row.updated);
 					row.should.have.property('critical');
+					should.exist(row.critical);
 					row.should.have.property('recovered');
+					should.exist(row.recovered);
 					row.should.have.property('active');
+					should.exist(row.active);
 					row.should.have.property('countries');
 					row.countries.should.be.a('array');
 				}
@@ -132,6 +141,19 @@ describe('TESTING /v2/all', () => {
 				should.exist(res);
 				res.should.have.status(200);
 				res.body.should.be.a('object');
+				res.body.should.have.property('active');
+				res.body.should.have.property('cases');
+				res.body.should.have.property('todayCases');
+				res.body.should.have.property('deaths');
+				res.body.should.have.property('todayDeaths');
+				res.body.should.have.property('recovered');
+				res.body.should.have.property('critical');
+				res.body.should.have.property('casesPerOneMillion');
+				res.body.should.have.property('deathsPerOneMillion');
+				res.body.should.have.property('affectedCountries');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('tests');
+				res.body.should.have.property('testsPerOneMillion');
 				done();
 			});
 	});
@@ -459,13 +481,29 @@ describe('TESTING /v2/countries', () => {
 						res.body.should.be.a('object');
 						res.body.country.should.equal(element.country.replace(/'/g, "\""));
 						res.body.should.have.property('cases');
+						should.exist(res.body.cases);
 						res.body.should.have.property('todayCases');
+						should.exist(res.body.todayCases);
 						res.body.should.have.property('deaths');
+						should.exist(res.body.deaths);
 						res.body.should.have.property('todayDeaths');
+						should.exist(res.body.todayDeaths);
 						res.body.should.have.property('casesPerOneMillion');
+						should.exist(res.body.casesPerOneMillion);
 						res.body.should.have.property('updated');
+						should.exist(res.body.updated);
 						res.body.should.have.property('tests');
+						should.exist(res.body.tests);
 						res.body.should.have.property('testsPerOneMillion');
+						should.exist(res.body.testsPerOneMillion);
+						res.body.should.have.property('active');
+						should.exist(res.body.active);
+						res.body.should.have.property('activePerOneMillion');
+						should.exist(res.body.activePerOneMillion);
+						res.body.should.have.property('recovered');
+						should.exist(res.body.recovered);
+						res.body.should.have.property('recoveredPerOneMillion');
+						should.exist(res.body.recoveredPerOneMillion);
 					}
 					else {
 						res.body.should.be.a('object');
@@ -488,13 +526,29 @@ describe('TESTING /v2/countries', () => {
 						res.body.should.be.a('object');
 						res.body.country.should.equal(element.country.replace(/'/g, "\""));
 						res.body.should.have.property('cases');
+						should.exist(res.body.cases);
 						res.body.should.have.property('todayCases');
+						should.exist(res.body.todayCases);
 						res.body.should.have.property('deaths');
+						should.exist(res.body.deaths);
 						res.body.should.have.property('todayDeaths');
+						should.exist(res.body.todayDeaths);
 						res.body.should.have.property('casesPerOneMillion');
+						should.exist(res.body.casesPerOneMillion);
 						res.body.should.have.property('updated');
+						should.exist(res.body.updated);
 						res.body.should.have.property('tests');
+						should.exist(res.body.tests);
 						res.body.should.have.property('testsPerOneMillion');
+						should.exist(res.body.testsPerOneMillion);
+						res.body.should.have.property('active');
+						should.exist(res.body.active);
+						res.body.should.have.property('activePerOneMillion');
+						should.exist(res.body.activePerOneMillion);
+						res.body.should.have.property('recovered');
+						should.exist(res.body.recovered);
+						res.body.should.have.property('recoveredPerOneMillion');
+						should.exist(res.body.recoveredPerOneMillion);
 					}
 					else {
 						res.body.should.be.a('object');
@@ -515,6 +569,24 @@ describe('TESTING /v2/states', () => {
 				should.exist(res);
 				res.should.have.status(200);
 				res.body.should.be.a('array');
+				for (const row of res.body) {
+					row.should.have.property('state');
+					should.exist(row.state);
+					row.should.have.property('cases');
+					should.exist(row.cases);
+					row.should.have.property('todayCases');
+					should.exist(row.todayCases);
+					row.should.have.property('deaths');
+					should.exist(row.deaths);
+					row.should.have.property('todayDeaths');
+					should.exist(row.todayDeaths);
+					row.should.have.property('active');
+					should.exist(row.active);
+					row.should.have.property('tests');
+					should.exist(row.tests);
+					row.should.have.property('testsPerOneMillion');
+					should.exist(row.testsPerOneMillion);
+				}
 				done();
 			});
 	});
