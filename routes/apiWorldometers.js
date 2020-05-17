@@ -66,18 +66,19 @@ router.get('/v2/continents/:query', async (req, res) => {
 });
 
 router.get('/v2/states', async (req, res) => {
-	const { sort, yesterday } = req.query;
-	const states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states)).splice(1);
+	const { sort, yesterday, allowNull } = req.query;
+	const states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states))
+		.splice(1).map(state => !wordToBoolean(allowNull) ? countryUtils.transformNull(state) : state);
 	res.send(sort ? states.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : states);
 });
 
 router.get('/v2/states/:query', async (req, res) => {
-	const { yesterday } = req.query;
+	const { yesterday, allowNull } = req.query;
 	const { query } = req.params;
 	const states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states)).splice(1);
 	const stateData = splitQuery(query)
 		.map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase()))
-		.filter(value => value);
+		.filter(value => value).map(state => !wordToBoolean(allowNull) ? countryUtils.transformNull(state) : state);;
 	if (stateData.length > 0) {
 		res.send(stateData.length === 1 ? stateData[0] : stateData);
 	} else {
