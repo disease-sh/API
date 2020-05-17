@@ -14,9 +14,9 @@ const transformProvinces = (cases, deathsRecovered) => {
 	// eslint-disable-next-line id-length
 	return data[0].map((province, i) => ({
 		province: data[1][i].label,
-		cases: parseInt(province.y),
-		recovered: parseInt(data[1][i].y),
-		deaths: parseInt(data[1][i].z)
+		cases: parseInt(province.y) || null,
+		recovered: parseInt(data[1][i].y) || null,
+		deaths: parseInt(data[1][i].z) || null
 	}));
 };
 
@@ -27,8 +27,8 @@ const transformProvinces = (cases, deathsRecovered) => {
  */
 const transformDistricts = (districts) => districts.objects.bezirke.geometries.map(geo => ({
 	district: geo.properties.name,
-	cases: parseInt(geo.properties.Anzahl),
-	population: parseInt(geo.properties.Einwohner)
+	cases: parseInt(geo.properties.Anzahl) || null,
+	population: parseInt(geo.properties.Einwohner) || null
 }));
 
 /**

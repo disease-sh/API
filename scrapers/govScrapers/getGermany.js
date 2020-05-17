@@ -20,7 +20,7 @@ const mapRows = (_, row) => {
 				break;
 			}
 			default: {
-				province[columns[index]] = parseInt(cell.text().replace(/\./g, ''));
+				province[columns[index]] = parseInt(cell.text().replace(/\./g, '')) || null;
 			}
 		}
 	});
