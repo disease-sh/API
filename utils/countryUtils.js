@@ -2,7 +2,7 @@ const stringUtils = require('./stringUtils');
 const countryData = require('./countries');
 
 /**
- * Transform null values to 0
+ * Transform null values to 0 (DEEPLY TRANSFORM)
  * @param {Object} object country/continent object
  * @returns  {Object} 		transformed object
  */
@@ -13,6 +13,10 @@ const transformNull = (object) => {
 	Object.entries(object).forEach((entry) => {
 		if (entry[1] === null) {
 			object[entry[0]] = 0;
+		} else if (typeof entry[1] === 'object') {
+			object[entry[0]] = transformNull(entry[1]);
+		} else if (typeof entry[1] === 'array') {
+			object[entry[0]] = entry[1].map(transformNull);
 		}
 	});
 	return object;
