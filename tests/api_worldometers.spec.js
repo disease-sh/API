@@ -586,6 +586,10 @@ describe('TESTING /v2/states', () => {
 					should.exist(row.tests);
 					row.should.have.property('testsPerOneMillion');
 					should.exist(row.testsPerOneMillion);
+					row.should.have.property('deathsPerOneMillion');
+					should.exist(row.deathsPerOneMillion);
+					row.should.have.property('casesPerOneMillion');
+					should.exist(row.casesPerOneMillion);
 				}
 				done();
 			});
