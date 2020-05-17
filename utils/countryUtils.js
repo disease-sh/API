@@ -15,8 +15,6 @@ const transformNull = (object) => {
 			object[entry[0]] = 0;
 		} else if (typeof entry[1] === 'object') {
 			object[entry[0]] = transformNull(entry[1]);
-		} else if (typeof entry[1] === 'array') {
-			object[entry[0]] = entry[1].map(transformNull);
 		}
 	});
 	return object;

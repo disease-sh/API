@@ -78,7 +78,7 @@ router.get('/v2/states/:query', async (req, res) => {
 	const states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states)).splice(1);
 	const stateData = splitQuery(query)
 		.map(state => states.find(state2 => state.toLowerCase() === state2.state.toLowerCase()))
-		.filter(value => value).map(state => !wordToBoolean(allowNull) ? countryUtils.transformNull(state) : state);;
+		.filter(value => value).map(state => !wordToBoolean(allowNull) ? countryUtils.transformNull(state) : state);
 	if (stateData.length > 0) {
 		res.send(stateData.length === 1 ? stateData[0] : stateData);
 	} else {
