@@ -10,13 +10,8 @@ const transformNull = (object) => {
 	if (typeof object !== 'object') {
 		return object;
 	}
-	Object.entries(object).forEach((entry) => {
-		if (entry[1] === null) {
-			object[entry[0]] = 0;
-		} else if (typeof entry[1] === 'object') {
-			object[entry[0]] = transformNull(entry[1]);
-		}
-	});
+	// eslint-disable-next-line no-return-assign
+	Object.entries(object).forEach((entry) => object[entry[0]] = entry[1] === null ? 0 : transformNull(entry[1]));
 	return object;
 };
 
