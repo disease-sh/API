@@ -14,14 +14,14 @@ const italyData = async () => {
 			region: row.denominazione_regione,
 			lat: row.lat,
 			long: row.long,
-			hospitalizedWithSymptoms: parseInt(row.ricoverati_con_sintomi),
-			intensiveCare: parseInt(row.terapia_intensiva),
-			totalHospitalized: parseInt(row.totale_ospedalizzati),
-			homeIsolation: parseInt(row.isolamento_domiciliare),
-			newCases: parseInt(row.nuovi_positivi),
-			totalCases: parseInt(row.totale_casi),
-			recovered: parseInt(row.dimessi_guariti),
-			deaths: parseInt(row.deceduti)
+			hospitalizedWithSymptoms: parseInt(row.ricoverati_con_sintomi) || null,
+			intensiveCare: parseInt(row.terapia_intensiva) || null,
+			totalHospitalized: parseInt(row.totale_ospedalizzati) || null,
+			homeIsolation: parseInt(row.isolamento_domiciliare) || null,
+			newCases: parseInt(row.nuovi_positivi) || null,
+			totalCases: parseInt(row.totale_casi) || null,
+			recovered: parseInt(row.dimessi_guariti) || null,
+			deaths: parseInt(row.deceduti) || null
 		}));
 	} catch (err) {
 		logger.err(err, 'Error: Requesting Italy Gov Data failed!');

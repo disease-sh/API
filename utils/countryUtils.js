@@ -2,7 +2,7 @@ const stringUtils = require('./stringUtils');
 const countryData = require('./countries');
 
 /**
- * Transform null values to 0
+ * Transform null values to 0 (DEEPLY TRANSFORM)
  * @param {Object} object country/continent object
  * @returns  {Object} 		transformed object
  */
@@ -10,11 +10,8 @@ const transformNull = (object) => {
 	if (typeof object !== 'object') {
 		return object;
 	}
-	Object.entries(object).forEach((entry) => {
-		if (entry[1] === null) {
-			object[entry[0]] = 0;
-		}
-	});
+	// eslint-disable-next-line no-return-assign
+	Object.entries(object).forEach((entry) => object[entry[0]] = entry[1] === null ? 0 : transformNull(entry[1]));
 	return object;
 };
 

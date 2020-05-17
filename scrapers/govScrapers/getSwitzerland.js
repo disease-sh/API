@@ -12,14 +12,14 @@ const switzerlandData = async () => {
 			const transformed = {
 				updated: Date.parse(`${row.date} ${row.time}`.trim()),
 				canton: row.abbreviation_canton_and_fl,
-				tests: row.ncumul_tested ? parseInt(row.ncumul_tested) : 'N/A',
-				cases: row.ncumul_conf ? parseInt(row.ncumul_conf) : 'N/A',
-				newHospitalizations: row.new_hosp ? parseInt(row.new_hosp) : 'N/A',
-				hospitalizations: row.current_hosp ? parseInt(row.current_hosp) : 'N/A',
-				intensiveCare: row.current_icu ? parseInt(row.current_icu) : 'N/A',
-				critical: row.current_vent ? parseInt(row.current_vent) : 'N/A',
-				recovered: row.ncumul_released ? parseInt(row.ncumul_released) : 'N/A',
-				deaths: row.ncumul_deceased ? parseInt(row.ncumul_deceased) : 'N/A',
+				tests: parseInt(row.ncumul_tested) || null,
+				cases: parseInt(row.ncumul_conf) || null,
+				newHospitalizations: parseInt(row.new_hosp) || null,
+				hospitalizations: parseInt(row.current_hosp) || null,
+				intensiveCare: parseInt(row.current_icu) || null,
+				critical: parseInt(row.current_vent) || null,
+				recovered: parseInt(row.ncumul_released) || null,
+				deaths: parseInt(row.ncumul_deceased) || null,
 				source: row.source
 			};
 			delete transformed.date;

@@ -14,7 +14,7 @@ const mapRows = (_, row) => {
 				break;
 			}
 			default: {
-				city[columns[index]] = parseInt(cell.text().replace(/\./g, ''));
+				city[columns[index]] = parseInt(cell.text().replace(/\./g, '')) || null;
 				break;
 			}
 		}
