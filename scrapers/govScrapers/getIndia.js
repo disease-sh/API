@@ -24,7 +24,7 @@ const mapRows = (_, row) => {
 				break;
 			}
 			default: {
-				state[columns[index]] = parseInt(cell.text().trim());
+				state[columns[index]] = parseInt(cell.text().trim()) || null;
 			}
 		}
 	});

@@ -19,7 +19,7 @@ const mapRows = (_, row) => {
 				break;
 			}
 			default: {
-				state[columns[index]] = parseInt(cell.text().replace(/,/g, ''));
+				state[columns[index]] = parseInt(cell.text().replace(/,/g, '')) || null;
 			}
 		}
 	});

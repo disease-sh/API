@@ -1,7 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const logger = require('../utils/logger');
-
 /**
  * Get state name from html table cell
  * @param 	{Object} 	cell 	Table cell from states table
@@ -28,7 +27,7 @@ const parseStateCell = (cell) => {
  */
 const parseNumberCell = (cell) => {
 	const cellValue = cell.children.length !== 0 ? cell.children[0].data : '';
-	return parseFloat(cellValue.replace(/[,+\-\s]/g, '')) || 0;
+	return parseFloat(cellValue.replace(/[,+\-\s]/g, '')) || null;
 };
 
 /**
@@ -50,6 +49,8 @@ const fillResult = (html, yesterday = false) => {
 		deaths: 3,
 		todayDeaths: 4,
 		active: 5,
+		casesPerOneMillion: 6,
+		deathsPerOneMillion: 7,
 		tests: 8,
 		testsPerOneMillion: 9
 	};
@@ -57,9 +58,8 @@ const fillResult = (html, yesterday = false) => {
 	return tableRows.map((row) => {
 		const cells = row.children.filter((cell) => cell.name === 'td');
 		const stateData = { state: parseStateCell(cells[stateColIndex]), updated: Date.now() };
-		Object.keys(dataColIndexes).forEach((property) => {
-			stateData[property] = parseNumberCell(cells[dataColIndexes[property]]);
-		});
+		// eslint-disable-next-line no-return-assign
+		Object.keys(dataColIndexes).forEach((property) => stateData[property] = parseNumberCell(cells[dataColIndexes[property]]));
 		return stateData;
 	});
 };
