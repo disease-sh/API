@@ -170,12 +170,15 @@ const getHistoricalAllDataV2 = (data, lastdays = 30) => {
 	const cases = {};
 	const deaths = {};
 	const recovered = {};
+	const dailyCases = {};
 	data.forEach(country => {
+		let lastkey = undefined;
 		Object.keys(country.timeline.cases).slice(lastdays * -1).forEach(key => {
 			/* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
 			cases[key] ? cases[key] += country.timeline.cases[key] : cases[key] = country.timeline.cases[key];
 			deaths[key] ? deaths[key] += country.timeline.deaths[key] : deaths[key] = country.timeline.deaths[key];
 			recovered[key] ? recovered[key] += country.timeline.recovered[key] : recovered[key] = country.timeline.recovered[key];
+			lastkey ? dailyCases[key] = cases[key] - cases[lastkey] : dailyCases[key] = 0, lastkey = key;
 			return true;
 		});
 		return true;
@@ -183,7 +186,8 @@ const getHistoricalAllDataV2 = (data, lastdays = 30) => {
 	return {
 		cases,
 		deaths,
-		recovered
+		recovered,
+		dailyCases
 	};
 };
 
