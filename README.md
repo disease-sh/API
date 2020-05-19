@@ -100,6 +100,14 @@ Did you build a project with our API? We now offer an "awesome-list" for you to 
 
 > https://coronavirus.data.gov.uk
 
+# Wrappers
+
+These are the available API wrappers created by the community. They are not necessarily maintained by any of this project's authors or contributors.
+
+### C#
+
+* [Covid19Tracker.NET by @egbakou](https://github.com/egbakou/Covid19Tracker.NET)
+
 # Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
