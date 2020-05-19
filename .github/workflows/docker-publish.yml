@@ -12,13 +12,20 @@ jobs:
       - uses: zcong1993/setup-timezone@master
         with:
           timezone: America/Denver
-      - name: Publish to Registry
+      - name: Publish latest to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: novelcovid/novelcovid-api
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
           tags: "latest"
+      - name: Publish hashed tag to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: novelcovid/novelcovid-api
+          username: ebwinters
+          password: ${{ secrets.Docker_Token }}
+          tags: ${{ sGITHUB_SHA }}
   merge-branch:
     if: github.repository == 'NovelCOVID/API'
     needs: publish
