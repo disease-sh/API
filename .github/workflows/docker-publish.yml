@@ -25,7 +25,7 @@ jobs:
           name: novelcovid/novelcovid-api
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
-          tags: ${{ $GITHUB_SHA }}
+          tags: ${{ GITHUB_SHA }}
   merge-branch:
     if: github.repository == 'NovelCOVID/API'
     needs: publish
