@@ -4,7 +4,7 @@ const app = require('../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'UK', 'India', 'Vietnam', 'New Zealand'].sort();
+const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand'].sort();
 
 describe('TESTING /v2/gov general', () => {
 	it('/v2/gov correct countries', (done) => {
