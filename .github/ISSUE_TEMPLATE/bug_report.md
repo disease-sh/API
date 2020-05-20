@@ -2,7 +2,7 @@
 name: Bug report
 about: File a bug report to notify community
 title: "[BUG]"
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
