@@ -13,19 +13,19 @@ jobs:
         with:
           timezone: America/Denver
       - name: Publish latest to Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: docker/build-push-action@v1
         with:
-          name: novelcovid/novelcovid-api
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
-          tags: "latest"
+          repository: novelcovid/novelcovid-api
+          tags: latest
       - name: Publish hashed tag to Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: docker/build-push-action@v1
         with:
-          name: novelcovid/novelcovid-api
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
-          tags: ${{ github.sha }}
+          repository: novelcovid/novelcovid-api
+          tag_with_sha: true
   merge-branch:
     if: github.repository == 'NovelCOVID/API'
     needs: publish

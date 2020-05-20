@@ -304,29 +304,6 @@ describe('TESTING /v2/gov/nigeria', () => {
     });
 });
 
-describe('TESTING /v2/gov/uk', () => {
-    it('/v2/gov/uk correct properties', (done) => {
-        chai.request(app)
-            .get('/v2/gov/uk')
-            .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                res.body.should.have.property('updated');
-                res.body.should.have.property('disclaimer');
-                res.body.should.have.property('cases');
-                res.body.cases.should.have.property('dailyRecords');
-                res.body.cases.should.have.property('countries');
-                res.body.cases.should.have.property('regions');
-                res.body.should.have.property('deaths');
-                res.body.deaths.should.have.property('countries');
-                res.body.deaths.should.have.property('overview');
-                done();
-            });
-    });
-});
-
 describe('TESTING /v2/gov/india', () => {
     it('/v2/gov/india correct total', (done) => {
         chai.request(app)
