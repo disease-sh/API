@@ -15,16 +15,16 @@ jobs:
       - name: Publish latest to Registry
         uses: docker/build-push-action@v1
         with:
-          repository: novelcovid/novelcovid-api
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
+          repository: novelcovid/novelcovid-api
           tags: latest
       - name: Publish hashed tag to Registry
         uses: docker/build-push-action@v1
         with:
-          repository: novelcovid/novelcovid-api
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
+          repository: novelcovid/novelcovid-api
           tag_with_sha: true
   merge-branch:
     if: github.repository == 'NovelCOVID/API'
