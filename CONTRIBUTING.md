@@ -38,7 +38,7 @@ To submit a project (Dashboards, Mobile Applications, Desktop Applications, Bots
 - 2 spaces for indentation rather than tabs
 - You can try running `npm run lint` for style unification
 
-See [Installation](./README.md##installation) section for further instructions.
+See [Installation](./README.md#installation) section for further instructions.
 
 
 We encourage you to pitch in and join the [NovelCOVID API Team](https://github.com/NovelCOVID/API#contributors-)!
