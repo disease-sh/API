@@ -100,6 +100,9 @@ Did you build a project with our API? We now offer an "awesome-list" for you to 
 
 > https://coronavirus.data.gov.uk
 
+# Contributing
+- [How to Contribute](./CONTRIBUTING.md)
+
 # Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
