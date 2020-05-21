@@ -132,6 +132,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="http://olukadeno@gmail.com"><img src="https://avatars1.githubusercontent.com/u/37341054?v=4" width="100px;" alt=""/><br /><sub><b>Oluka Denis</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3AOlukaDenis" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/himanshu2406"><img src="https://avatars2.githubusercontent.com/u/37951606?v=4" width="100px;" alt=""/><br /><sub><b>Himanshu Rathore</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=himanshu2406" title="Code">💻</a></td>
+    <td align="center"><a href="https://lioncoding.com"><img src="https://avatars0.githubusercontent.com/u/26142591?v=4" width="100px;" alt=""/><br /><sub><b>Kodjo Laurent Egbakou</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=egbakou" title="Documentation">📖</a></td>
   </tr>
 </table>
 
