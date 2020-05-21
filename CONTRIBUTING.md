@@ -27,7 +27,7 @@ Please write new test cases for new code you create.
 
 Unsure where to begin contributing to API ? You can start by looking through these issues labels:
 
-* [Enhancement issues](https://github.com/ExpDev07/coronavirus-tracker-api/labels/enhancement) - issues for new feature or request
+* [Enhancement issues](https://github.com/NovelCOVID/API/labels/enhancement) - issues for new feature or request
 * [bug issues](https://github.com//NovelCOVID/API/labels/bug) -  report a bug
 * [Documentation issues](https://github.com/NovelCOVID/API/labels/documentation) - improvements or additions to documentation
 
