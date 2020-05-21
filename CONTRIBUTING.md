@@ -1,9 +1,9 @@
-# Contribution to NovelCOVID  API
+# Contributing to the NovelCOVID  API
 
-Thanks for taking the time to contribute!
-Every commit supports the open source ecosystem in case of [COVID-19](https://en.wikipedia.org/wiki/2019%E2%80%9320_coronavirus_pandemic).
+Thanks for taking your time to consider contributing to the project!
+In this file, you are going to find helpful tips on how to contribute your ideas!
 
-We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
+We try to make contributing as easy and transparent as possible, whether it's:
 
 - Reporting a bug
 
@@ -16,32 +16,27 @@ We love your input! We want to make contributing to this project as easy and tra
 
 ## Testing
 
-We have a handful of unit tests to cover most of functions.
-Please write new test cases for new code you create.
+We have a handful of unit tests to cover most of the APIs functionality.
+Please always create tests for your code additions so we can easily see if your code works as expected.
 
 ## Submitting changes
 
-* If you're unable to find an open issue, [open a new one](https://github.com/NovelCOVID/API/issues/new). Be sure to include a **title and clear description**, as much relevant information as possible.
+* If you're unable to find an open issue, [open a new one](https://github.com/NovelCOVID/API/issues/new). Be sure to include a **title, a clear description of your idea or issue** and give as much relevant information as possible.
 * Open  a new [GitHub Pull Request to API](https://github.com/NovelCOVID/API/pulls) with a clear list of what you've done (read more about [pull requests](http://help.github.com/pull-requests/)). Include the relevant issue number if applicable.
-* We will love you forever if you include unit tests. We can always use more test coverage
 
-Unsure where to begin contributing to API ? You can start by looking through these issues labels:
+Unsure where to begin contributing? You can start by looking through these issues labels:
 
-* [Enhancement issues](https://github.com/NovelCOVID/API/labels/enhancement) - issues for new feature or request
-* [bug issues](https://github.com//NovelCOVID/API/labels/bug) -  report a bug
-* [Documentation issues](https://github.com/NovelCOVID/API/labels/documentation) - improvements or additions to documentation
+* [Enhancement issues](https://github.com/NovelCOVID/API/labels/enhancement) 
+* [Bug issues](https://github.com/NovelCOVID/API/labels/bug) 
+* [Documentation issues](https://github.com/NovelCOVID/API/labels/documentation)
 
-To submit a project (Dashboards, Mobile Applications, Desktop Applications, Bots, Wrappers,... etc) that using the NovelCOVID API, do it [here](https://github.com/NovelCOVID/awesome-novelcovid).      
+To submit a project (Dashboards, Mobile Applications, Desktop Applications, Bots, Wrappers,... etc) using the NovelCOVID API, head over to our [awesome-novelcovid](https://github.com/NovelCOVID/awesome-novelcovid) list.      
 
 ## Use a Consistent Coding Style
 
-- 2 spaces for indentation rather than tabs
-- You can try running `npm run lint` for style unification
+- Please use `npm run lint` for style unification
 
 See [Installation](./README.md#installation) section for further instructions.
-
-
-We encourage you to pitch in and join the [NovelCOVID API Team](https://github.com/NovelCOVID/API#contributors-)!
 
 Thanks! :heart: :heart: :heart:
 
