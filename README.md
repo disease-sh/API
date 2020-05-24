@@ -114,7 +114,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/EliteDaMyth"><img src="https://avatars2.githubusercontent.com/u/28687771?v=4" width="100px;" alt=""/><br /><sub><b>EliteDaMyth</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=EliteDaMyth" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/ebwinters"><img src="https://avatars0.githubusercontent.com/u/4297028?v=4" width="100px;" alt=""/><br /><sub><b>Ethan Winters</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3Aebwinters" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/dicedtomatoreal"><img src="https://avatars0.githubusercontent.com/u/35403473?v=4" width="100px;" alt=""/><br /><sub><b>dicedtomato</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=dicedtomatoreal" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/himanshu2406"><img src="https://avatars2.githubusercontent.com/u/37951606?v=4" width="100px;" alt=""/><br /><sub><b>Himanshu Rathore</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=himanshu2406" title="Code">💻</a></td>
     <td align="center"><a href="https://404discord.xyz/"><img src="https://avatars0.githubusercontent.com/u/41652412?v=4" width="100px;" alt=""/><br /><sub><b>apollyon600</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=apollyon600" title="Documentation">📖</a></td>
     <td align="center"><a href="https://jshelley.uk"><img src="https://avatars0.githubusercontent.com/u/22616014?v=4" width="100px;" alt=""/><br /><sub><b>James Shelley</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/pulls?q=is%3Apr+reviewed-by%3AJamesShelley" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="http://RyanHarlow.com"><img src="https://avatars2.githubusercontent.com/u/42226213?v=4" width="100px;" alt=""/><br /><sub><b>Ryan Harlow</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3ARyanHarlow" title="Bug reports">🐛</a></td>
@@ -131,7 +131,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="http://olukadeno@gmail.com"><img src="https://avatars1.githubusercontent.com/u/37341054?v=4" width="100px;" alt=""/><br /><sub><b>Oluka Denis</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/issues?q=author%3AOlukaDenis" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/himanshu2406"><img src="https://avatars2.githubusercontent.com/u/37951606?v=4" width="100px;" alt=""/><br /><sub><b>Himanshu Rathore</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=himanshu2406" title="Code">💻</a></td>
     <td align="center"><a href="https://lioncoding.com"><img src="https://avatars0.githubusercontent.com/u/26142591?v=4" width="100px;" alt=""/><br /><sub><b>Kodjo Laurent Egbakou</b></sub></a><br /><a href="https://github.com/NovelCOVID/API/commits?author=egbakou" title="Documentation">📖</a></td>
   </tr>
 </table>
