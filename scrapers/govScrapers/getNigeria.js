@@ -29,7 +29,7 @@ const mapRows = (_, row) => {
 /**
  * Scrapes Nigerian government site and fills array of data from table
  */
-const canadaData = async () => {
+const nigeriaData = async () => {
 	try {
 		const stateData = cheerio.load((await axios.get('https://covid19.ncdc.gov.ng/report/')).data);
 		return stateData(`#custom1`).children('tbody').children('tr').map(mapRows).get();
@@ -39,4 +39,4 @@ const canadaData = async () => {
 	}
 };
 
-module.exports = canadaData;
+module.exports = nigeriaData;
