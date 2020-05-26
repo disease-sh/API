@@ -109,7 +109,6 @@ describe('TESTING /v2/gov/italy', () => {
                     element.should.have.property('homeIsolation');
                     element.homeIsolation.should.be.at.least(0);
                     element.should.have.property('newCases');
-                    element.newCases.should.be.at.least(0);
                     element.should.have.property('totalCases');
                     element.totalCases.should.be.at.least(0);
                     element.should.have.property('recovered');
