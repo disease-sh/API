@@ -24,10 +24,10 @@
       ]
     },
     {
-      "login": "dicedtomatoreal",
-      "name": "dicedtomato",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/35403473?v=4",
-      "profile": "https://github.com/dicedtomatoreal",
+      "login": "himanshu2406",
+      "name": "Himanshu Rathore",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/37951606?v=4",
+      "profile": "https://github.com/himanshu2406",
       "contributions": [
         "code"
       ]
@@ -139,6 +139,15 @@
       "profile": "http://olukadeno@gmail.com",
       "contributions": [
         "bug"
+      ]
+    },
+    {
+      "login": "egbakou",
+      "name": "Kodjo Laurent Egbakou",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/26142591?v=4",
+      "profile": "https://lioncoding.com",
+      "contributions": [
+        "doc"
       ]
     }
   ],
