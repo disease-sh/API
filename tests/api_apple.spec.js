@@ -27,7 +27,7 @@ describe('TESTING /v2/apple/countries/country', () => {
                     chai.request(app)
 					    .get(`/v2/apple/countries/${countryName}`)
 					    .end((err2, res2) => {
-                            testBasicProperties(err2, res2, 'object');
+                            testBasicProperties(err2, res2, 200, 'object');
                             res2.body.should.have.property('country').eql(countryName);
                             res2.body.should.have.property('subregions');
                             res2.body.subregions.length.should.be.at.least(1);
@@ -58,7 +58,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
                     chai.request(app)
 					    .get(`/v2/apple/countries/${countryName}/all`)
 					    .end((err2, res2) => {
-                            testBasicProperties(err2, res2, 'object');
+                            testBasicProperties(err2, res2, 200, 'object');
                             res2.body.should.have.property('subregion').eql('All');
                             res2.body.should.have.property('data');
                             res2.body.data.length.should.be.at.least(1);
