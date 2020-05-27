@@ -2,6 +2,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../server');
 const should = chai.should();
+const { testBasicProperties } = require('./mochaSetup.spec');
+
 chai.use(chaiHttp);
 
 describe('TESTING /v2/apple/countries', () => {
@@ -9,10 +11,7 @@ describe('TESTING /v2/apple/countries', () => {
         chai.request(app)
             .get('/v2/apple/countries')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 'array');
                 res.body.length.should.be.at.least(1);
                 done();
             });
@@ -24,17 +23,12 @@ describe('TESTING /v2/apple/countries/country', () => {
         chai.request(app)
             .get('/v2/apple/countries')
             .end((err, res) => {
-                should.not.exist(err);
-				should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 'array');
                 res.body.map((countryName) => {
                     chai.request(app)
 					    .get(`/v2/apple/countries/${countryName}`)
 					    .end((err2, res2) => {
-                            should.not.exist(err2);
-						    should.exist(res2);
-                            res2.should.have.status(200);
+                            testBasicProperties(err2, res2, 'object');
                             res2.body.should.have.property('country').eql(countryName);
                             res2.body.should.have.property('subregions');
                             res2.body.subregions.length.should.be.at.least(1);
@@ -62,17 +56,12 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries')
             .end((err, res) => {
-                should.not.exist(err);
-				should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 'array');
                 res.body.map((countryName) => {
                     chai.request(app)
 					    .get(`/v2/apple/countries/${countryName}/all`)
 					    .end((err2, res2) => {
-                            should.not.exist(err2);
-						    should.exist(res2);
-                            res2.should.have.status(200);
+                            testBasicProperties(err2, res2, 'object');
                             res2.body.should.have.property('subregion').eql('All');
                             res2.body.should.have.property('data');
                             res2.body.data.length.should.be.at.least(1);
@@ -92,9 +81,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries/agfdsdh/all')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
+                testBasicProperties(err, res, 'object');
                 res.body.should.have.property('message');
                 done();
             });
@@ -104,10 +91,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries/usa/illinois, chicago')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 'array');
                 res.body.length.should.equal(2);
                 res.body[0].should.have.property('subregion').eql('Illinois');
                 res.body[0].should.have.property('data');
@@ -123,10 +107,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries/usa/dasgf')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('object');
+                testBasicProperties(err, res, 'object');
                 res.body.should.have.property('message');
                 done();
             });
@@ -136,10 +117,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries/usa/weytsdg, illinois')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 'array');
                 res.body.length.should.equal(2);
                 res.body[0].should.have.property('message');
                 res.body[1].should.have.property('subregion').eql('Illinois');
@@ -153,10 +131,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries/usa/dasgf, weytsdg')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 'array');
                 res.body.length.should.equal(2);
                 res.body[0].should.have.property('message');
                 res.body[1].should.have.property('message');
