@@ -1,7 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../server');
-const should = chai.should();
 const { testBasicProperties } = require('./testingFunctions');
 
 chai.use(chaiHttp);
@@ -11,7 +10,7 @@ describe('TESTING /v2/apple/countries', () => {
         chai.request(app)
             .get('/v2/apple/countries')
             .end((err, res) => {
-                testBasicProperties(err, res, 'array');
+                testBasicProperties(err, res, 200, 'array');
                 res.body.length.should.be.at.least(1);
                 done();
             });
@@ -23,7 +22,7 @@ describe('TESTING /v2/apple/countries/country', () => {
         chai.request(app)
             .get('/v2/apple/countries')
             .end((err, res) => {
-                testBasicProperties(err, res, 'array');
+                testBasicProperties(err, res, 200, 'array');
                 res.body.map((countryName) => {
                     chai.request(app)
 					    .get(`/v2/apple/countries/${countryName}`)
@@ -42,9 +41,7 @@ describe('TESTING /v2/apple/countries/country', () => {
         chai.request(app)
             .get('/v2/apple/countries/agfdsdh')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(404);
+                testBasicProperties(err, res, 404, 'object');
                 res.body.should.have.property('message');
                 done();
             });
@@ -56,7 +53,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries')
             .end((err, res) => {
-                testBasicProperties(err, res, 'array');
+                testBasicProperties(err, res, 200, 'array');
                 res.body.map((countryName) => {
                     chai.request(app)
 					    .get(`/v2/apple/countries/${countryName}/all`)
@@ -81,7 +78,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries/agfdsdh/all')
             .end((err, res) => {
-                testBasicProperties(err, res, 'object');
+                testBasicProperties(err, res, 200, 'object');
                 res.body.should.have.property('message');
                 done();
             });
@@ -91,7 +88,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries/usa/illinois, chicago')
             .end((err, res) => {
-                testBasicProperties(err, res, 'array');
+                testBasicProperties(err, res, 200, 'array');
                 res.body.length.should.equal(2);
                 res.body[0].should.have.property('subregion').eql('Illinois');
                 res.body[0].should.have.property('data');
@@ -107,7 +104,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries/usa/dasgf')
             .end((err, res) => {
-                testBasicProperties(err, res, 'object');
+                testBasicProperties(err, res, 200, 'object');
                 res.body.should.have.property('message');
                 done();
             });
@@ -117,7 +114,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries/usa/weytsdg, illinois')
             .end((err, res) => {
-                testBasicProperties(err, res, 'array');
+                testBasicProperties(err, res, 200, 'array');
                 res.body.length.should.equal(2);
                 res.body[0].should.have.property('message');
                 res.body[1].should.have.property('subregion').eql('Illinois');
@@ -131,7 +128,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
         chai.request(app)
             .get('/v2/apple/countries/usa/dasgf, weytsdg')
             .end((err, res) => {
-                testBasicProperties(err, res, 'array');
+                testBasicProperties(err, res, 200, 'array');
                 res.body.length.should.equal(2);
                 res.body[0].should.have.property('message');
                 res.body[1].should.have.property('message');
