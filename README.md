@@ -11,6 +11,10 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/novelcovid/api?style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/novelcovid/api?style=for-the-badge)
 
+**Live global stats (provided by [egbakou/novelcovid-api-badges](https://github.com/ExpDev07/coronavirus-tracker-api)) from this API:**
+
+![cases](https://novelcovid-api-badges.herokuapp.com/confirmed) ![today-cases](https://novelcovid-api-badges.herokuapp.com/todaycases) ![deaths](https://novelcovid-api-badges.herokuapp.com/deaths) ![today-deaths](https://novelcovid-api-badges.herokuapp.com/todaydeaths) ![recovered](https://novelcovid-api-badges.herokuapp.com/recovered/) ![actives](https://novelcovid-api-badges.herokuapp.com/actives/)
+
 # Welcome to the NovelCOVID API
 
 | Information | Discord | Donate |
