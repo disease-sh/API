@@ -2,7 +2,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../server');
 const countryData = require('../utils/countries');
-const should = chai.should();
+const { testBasicProperties } = require('./testingFunctions');
+
 chai.use(chaiHttp);
 
 describe('TESTING /v2/historical', () => {
@@ -10,10 +11,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 200, 'array');
                 done();
             });
     });
@@ -22,10 +20,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/all')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('object');
+                testBasicProperties(err, res, 200, 'object');
                 done();
             });
     });
@@ -34,10 +29,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/all?lastdays=15')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('object');
+                testBasicProperties(err, res, 200, 'object');
                 Object.keys(res.body.cases).length.should.equal(15);
                 done();
             });
@@ -47,9 +39,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
+                testBasicProperties(err, res, 200, 'array');
                 Object.keys(res.body[0].timeline.cases).length.should.equal(30);
                 done();
             });
@@ -59,9 +49,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical?lastday=rgf3vwre')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
+                testBasicProperties(err, res, 200, 'array');
                 Object.keys(res.body[0].timeline.cases).length.should.equal(30);
                 done();
             });
@@ -71,9 +59,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical?lastdays=15')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
+                testBasicProperties(err, res, 200, 'array');
                 Object.keys(res.body[0].timeline.cases).length.should.equal(15);
                 done();
             });
@@ -83,9 +69,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/usa?lastdays=all')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
+                testBasicProperties(err, res, 200, 'object');
                 Object.keys(res.body.timeline.cases)[0].should.equal('1/22/20');
                 done();
             });
@@ -95,10 +79,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/diamond%20princess')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('object');
+                testBasicProperties(err, res, 200, 'object');
                 done();
             });
     });
@@ -107,10 +88,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/asdfghjkl')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(404);
-                res.body.should.be.a('object');
+                testBasicProperties(err, res, 404, 'object');
                 res.body.should.have.property('message');
                 done();
             });
@@ -120,10 +98,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/usa, 156, drc')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 200, 'array');
                 done();
             });
     });
@@ -132,10 +107,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/usa/sdgdf,gsfd')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 200, 'array');
                 res.body[0].should.have.property('message');
                 done();
             });
@@ -145,10 +117,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/156/bejing,hubei')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 200, 'array');
                 done();
             });
     });
@@ -157,10 +126,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/nl/aruba|mainland|bonaire, sint eustatius and saba')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 200, 'array');
                 res.body.length.should.equal(3);
                 res.body[2].should.have.property('country');
                 done();
@@ -171,10 +137,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/gbr/mainland')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('object');
+                testBasicProperties(err, res, 200, 'object');
                 res.body.country.should.equal('UK');
                 res.body.province.should.equal('mainland');
                 done();
@@ -269,10 +232,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/usacounties')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
-                res.body.should.be.a('array');
+                testBasicProperties(err, res, 200, 'array');
                 done();
             });
     });
@@ -281,10 +241,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/usacounties/sdfgw3')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(404);
-                res.body.should.be.a('object');
+                testBasicProperties(err, res, 404, 'object');
                 res.body.should.have.property('message');
                 done();
             });
@@ -294,9 +251,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/usacounties/illinois?lastdays=15')
             .end((err, res) => {
-                should.not.exist(err);
-                should.exist(res);
-                res.should.have.status(200);
+                testBasicProperties(err, res, 200, 'array');
                 Object.keys(res.body[0].timeline.cases).length.should.equal(15);
                 done();
             });
@@ -306,10 +261,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/usacounties')
             .end((err, states) => {
-                should.not.exist(err);
-                should.exist(states);
-                states.should.have.status(200);
-                states.body.should.be.a('array');
+                testBasicProperties(err, res, 200, 'array');
                 states.body.map((state) => {
                     chai.request(app)
                     .get(`/v2/historical/usacounties/${state}`)
