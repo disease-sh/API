@@ -59,7 +59,7 @@ const mapRows = (_, row) => {
 				entry.countryInfo = countryInfo;
 				break;
 			}
-			case 14 : {
+			case 14: {
 				entry[selector] = cell.text();
 				break;
 			}

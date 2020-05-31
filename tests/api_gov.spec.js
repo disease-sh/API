@@ -290,7 +290,7 @@ describe('TESTING /v2/gov/nigeria', () => {
 				should.not.exist(err);
 				should.exist(res);
 				res.should.have.status(200);
-				res.body.should.be.a('array').of.length(35);
+				res.body.length.should.be.at.least(35);
 				res.body.forEach((state) => {
 					state.should.have.property('state');
 					state.should.have.property('cases');
