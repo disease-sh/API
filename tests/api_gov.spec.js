@@ -1,7 +1,8 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../server');
-const should = chai.should();
+const { testBasicProperties } = require('./testingFunctions');
+
 chai.use(chaiHttp);
 
 const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand'].sort();
@@ -11,10 +12,7 @@ describe('TESTING /v2/gov general', () => {
 		chai.request(app)
 			.get('/v2/gov')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				res.body.length.should.be.at.least(1);
 				res.body.sort().forEach((country, index) => {
 					country.should.equal(countries[index]);
@@ -27,9 +25,7 @@ describe('TESTING /v2/gov general', () => {
 		chai.request(app)
 			.get('/v2/gov/fsdgdshgabv')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(404);
+				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
 				done();
 			});
@@ -41,10 +37,7 @@ describe('TESTING /v2/gov/canada', () => {
 		chai.request(app)
 			.get('/v2/gov/canada')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				res.body.length.should.equal(15);
 				done();
 			});
@@ -54,10 +47,7 @@ describe('TESTING /v2/gov/canada', () => {
 		chai.request(app)
 			.get('/v2/gov/canada')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('province');
@@ -78,10 +68,7 @@ describe('TESTING /v2/gov/italy', () => {
 		chai.request(app)
 			.get('/v2/gov/italy')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				res.body.length.should.equal(21);
 				done();
 			});
@@ -91,10 +78,7 @@ describe('TESTING /v2/gov/italy', () => {
 		chai.request(app)
 			.get('/v2/gov/italy')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('region');
@@ -126,10 +110,7 @@ describe('TESTING /v2/gov/germany', () => {
 		chai.request(app)
 			.get('/v2/gov/germany')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				res.body.length.should.equal(17);
 				done();
 			});
@@ -139,10 +120,7 @@ describe('TESTING /v2/gov/germany', () => {
 		chai.request(app)
 			.get('/v2/gov/germany')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('province');
@@ -164,10 +142,7 @@ describe('TESTING /v2/gov/austria', () => {
 		chai.request(app)
 			.get('/v2/gov/austria')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('provinces');
 				res.body.should.have.property('districts');
 				res.body.should.have.property('percentageBySex');
@@ -181,10 +156,7 @@ describe('TESTING /v2/gov/austria', () => {
 		chai.request(app)
 			.get('/v2/gov/austria')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('provinces');
 				res.body.districts.should.be.a('array');
 				res.body.provinces.forEach((element) => {
@@ -201,10 +173,7 @@ describe('TESTING /v2/gov/austria', () => {
 		chai.request(app)
 			.get('/v2/gov/austria')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('districts');
 				res.body.districts.should.be.a('array');
 				res.body.districts.forEach((element) => {
@@ -220,10 +189,7 @@ describe('TESTING /v2/gov/austria', () => {
 		chai.request(app)
 			.get('/v2/gov/austria')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('percentageBySex');
 				res.body.percentageBySex.should.have.property('cases')
 				res.body.percentageBySex.cases.should.have.property('male')
@@ -239,10 +205,7 @@ describe('TESTING /v2/gov/austria', () => {
 		chai.request(app)
 			.get('/v2/gov/austria')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('casesByAge');
 				['<5', '5-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '>84'].forEach(key => {
 					res.body.casesByAge.should.have.property(key);
@@ -261,10 +224,7 @@ describe('TESTING /v2/gov/switzerland', () => {
 		chai.request(app)
 			.get('/v2/gov/switzerland')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('canton');
@@ -309,10 +269,7 @@ describe('TESTING /v2/gov/india', () => {
 		chai.request(app)
 			.get('/v2/gov/india')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('total');
 				res.body.total.should.have.property('cases');
 				res.body.total.should.have.property('active');
@@ -326,10 +283,7 @@ describe('TESTING /v2/gov/india', () => {
 		chai.request(app)
 			.get('/v2/gov/india')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('states');
 				res.body.states.forEach(state => {
 					state.should.have.property('state');
@@ -348,10 +302,7 @@ describe('TESTING /v2/gov/vietnam', () => {
 		chai.request(app)
 			.get('/v2/gov/vietnam')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('city');
@@ -370,10 +321,7 @@ describe('TESTING /v2/gov/new zealand', () => {
 		chai.request(app)
 			.get('/v2/gov/new zealand')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
 				res.body.should.have.property('provinces');
 				res.body.provinces.length.should.equal(21);
@@ -385,10 +333,7 @@ describe('TESTING /v2/gov/new zealand', () => {
 		chai.request(app)
 			.get('/v2/gov/new zealand')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.provinces.forEach(province => {
 					province.should.have.property('province');
 					province.should.have.property('active');
