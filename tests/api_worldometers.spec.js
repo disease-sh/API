@@ -1,8 +1,10 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const should = chai.should();
 const app = require('../server');
 const countryData = require('../utils/countries');
-const should = chai.should();
+const { testBasicProperties } = require('./testingFunctions');
+
 chai.use(chaiHttp);
 
 describe('TESTING /v2/continents', () => {
@@ -10,10 +12,7 @@ describe('TESTING /v2/continents', () => {
 		chai.request(app)
 			.get('/v2/continents')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				for (let row of res.body) {
 					row.should.be.a('object');
 					row.should.have.property('continent');
@@ -61,10 +60,7 @@ describe('TESTING /v2/continents', () => {
 		chai.request(app)
 			.get('/v2/continents/europe')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('continent').eql('Europe');
 				done();
 			});
@@ -74,10 +70,7 @@ describe('TESTING /v2/continents', () => {
 		chai.request(app)
 			.get('/v2/continents/euro?strict=false')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('continent').eql('Europe');
 				done();
 			});
@@ -87,10 +80,7 @@ describe('TESTING /v2/continents', () => {
 		chai.request(app)
 			.get('/v2/continents/asdfghjkl')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(404);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
 				done();
 			});
@@ -100,9 +90,7 @@ describe('TESTING /v2/continents', () => {
 		chai.request(app)
 			.get('/v2/continents?sort=cases')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
+				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
 				res.body.forEach(element => {
 					maxCases.should.be.at.least(element.cases);
@@ -118,10 +106,7 @@ describe('TESTING /v2/all', () => {
 		chai.request(app)
 			.get('/v2/all')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('cases');
 				should.exist(res.body.cases);
 				res.body.should.have.property('todayCases');
@@ -162,10 +147,7 @@ describe('TESTING /v2/all', () => {
 		chai.request(app)
 			.get('/v2/all?yesterday')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('cases');
 				should.exist(res.body.cases);
 				res.body.should.have.property('todayCases');
@@ -206,10 +188,7 @@ describe('TESTING /v2/all', () => {
 		chai.request(app)
 			.get('/v2/all?yesterday=true')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('cases');
 				should.exist(res.body.cases);
 				res.body.should.have.property('todayCases');
@@ -250,9 +229,7 @@ describe('TESTING /v2/all', () => {
 		chai.request(app)
 			.get('/v2/all')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
+				testBasicProperties(err, res, 200, 'object');
 				chai.request(app)
 					.get('/v2/all?yesterday')
 					.end((err2, res2) => {
@@ -271,10 +248,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/usa')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
 				res.body.should.have.property('countryInfo');
 				res.body.should.have.property('cases');
@@ -302,10 +276,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/usa?yesterday')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
 				res.body.should.have.property('countryInfo');
 				res.body.should.have.property('cases');
@@ -333,10 +304,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/united%20states')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
 				res.body.should.have.property('countryInfo');
 				done();
@@ -347,10 +315,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/united%20states?yesterday=true')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
 				res.body.should.have.property('countryInfo');
 				done();
@@ -361,10 +326,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/us')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
 				res.body.should.have.property('countryInfo');
 				done();
@@ -375,10 +337,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/us?yesterday')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
 				res.body.should.have.property('countryInfo');
 				done();
@@ -389,10 +348,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/840')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
 				res.body.should.have.property('countryInfo');
 				done();
@@ -403,10 +359,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/840?yesterday')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
 				res.body.should.have.property('countryInfo');
 				done();
@@ -417,10 +370,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/diamond%20princess')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country');
 				res.body.should.have.property('countryInfo');
 				done();
@@ -431,10 +381,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/asdfghjkl')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(404);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
 				done();
 			});
@@ -444,10 +391,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries/asdfghjkl?yesterday=true')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(404);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
 				done();
 			});
@@ -457,9 +401,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries?sort=cases')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
+				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
 				res.body.forEach(element => {
 					maxCases.should.be.at.least(element.cases);
@@ -473,10 +415,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 		.get('/v2/countries/netherlands?strict=false')
 		.end((err, res) => {
-			should.not.exist(err);
-			should.exist(res);
-			res.should.have.status(200);
-			res.body.should.be.a('object');
+			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('Caribbean Netherlands');
 			done();
 		});
@@ -486,10 +425,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 		.get('/v2/countries/sudan?strict=false')
 		.end((err, res) => {
-			should.not.exist(err);
-			should.exist(res);
-			res.should.have.status(200);
-			res.body.should.be.a('object');
+			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('South Sudan');
 			done();
 		});
@@ -499,10 +435,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 		.get('/v2/countries/guinea?strict=false')
 		.end((err, res) => {
-			should.not.exist(err);
-			should.exist(res);
-			res.should.have.status(200);
-			res.body.should.be.a('object');
+			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('Equatorial Guinea');
 			done();
 		});
@@ -512,10 +445,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 		.get('/v2/countries/netherlands?yesterday=true&strict=false')
 		.end((err, res) => {
-			should.not.exist(err);
-			should.exist(res);
-			res.should.have.status(200);
-			res.body.should.be.a('object');
+			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('Caribbean Netherlands');
 			done();
 		});
@@ -525,10 +455,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 		.get('/v2/countries/sudan?yesterday=true&strict=false')
 		.end((err, res) => {
-			should.not.exist(err);
-			should.exist(res);
-			res.should.have.status(200);
-			res.body.should.be.a('object');
+			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('South Sudan');
 			done();
 		});
@@ -538,10 +465,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 		.get('/v2/countries/guinea?yesterday=true&strict=false')
 		.end((err, res) => {
-			should.not.exist(err);
-			should.exist(res);
-			res.should.have.status(200);
-			res.body.should.be.a('object');
+			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('Equatorial Guinea');
 			done();
 		});
@@ -551,9 +475,7 @@ describe('TESTING /v2/countries', () => {
 		chai.request(app)
 			.get('/v2/countries?sort=cases&yesterday=true')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
+				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
 				res.body.forEach(element => {
 					maxCases.should.be.at.least(element.cases);
@@ -683,10 +605,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				for (const row of res.body) {
 					row.should.have.property('state');
 					should.exist(row.state);
@@ -715,10 +634,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states?yesterday=true')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				done();
 			});
 	});
@@ -727,9 +643,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states?sort=cases')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
+				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
 				res.body.forEach(element => {
 					maxCases.should.be.at.least(element.cases);
@@ -743,9 +657,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states?sort=cases&yesterday=true')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
+				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
 				res.body.forEach(element => {
 					maxCases.should.be.at.least(element.cases);
@@ -759,10 +671,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states?sort=gsdfb325fsd')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				done();
 			});
 	});
@@ -771,10 +680,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states?sort=gsdfb325fsd&yesterday=true')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				done();
 			});
 	});
@@ -783,10 +689,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states/Illinois')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.state.should.equal("Illinois");
 				res.body.should.have.property('cases');
 				res.body.should.have.property('todayCases');
@@ -803,10 +706,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states/Illinois')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.state.should.equal("Illinois");
 				res.body.should.have.property('cases');
 				res.body.should.have.property('todayCases');
@@ -823,10 +723,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states/Illinois,New%20York')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				for (let row of res.body) {
 					row.should.have.property('cases');
 					row.should.have.property('todayCases');
@@ -844,10 +741,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states/Illinois,New%20York?yesterday=true')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
-				res.body.should.be.a('array');
+				testBasicProperties(err, res, 200, 'array');
 				for (let row of res.body) {
 					row.should.have.property('cases');
 					row.should.have.property('todayCases');
@@ -865,10 +759,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states/asdfghjkl')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(404);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
 				done();
 			});
@@ -878,10 +769,7 @@ describe('TESTING /v2/states', () => {
 		chai.request(app)
 			.get('/v2/states/asdfghjkl?yesterday=true')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(404);
-				res.body.should.be.a('object');
+				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
 				done();
 			});
