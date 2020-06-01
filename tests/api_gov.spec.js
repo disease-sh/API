@@ -247,9 +247,7 @@ describe('TESTING /v2/gov/nigeria', () => {
 		chai.request(app)
 			.get('/v2/gov/nigeria')
 			.end((err, res) => {
-				should.not.exist(err);
-				should.exist(res);
-				res.should.have.status(200);
+				testBasicProperties(err, res, 200, 'array');
 				res.body.length.should.be.at.least(35);
 				res.body.forEach((state) => {
 					state.should.have.property('state');

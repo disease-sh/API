@@ -1,5 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const should = chai.should();
 const app = require('../server');
 const countryData = require('../utils/countries');
 const { testBasicProperties } = require('./testingFunctions');
@@ -261,7 +262,7 @@ describe('TESTING /v2/historical', () => {
         chai.request(app)
             .get('/v2/historical/usacounties')
             .end((err, states) => {
-                testBasicProperties(err, res, 200, 'array');
+                testBasicProperties(err, states, 200, 'array');
                 states.body.map((state) => {
                     chai.request(app)
                     .get(`/v2/historical/usacounties/${state}`)
