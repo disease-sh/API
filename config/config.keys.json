@@ -1,10 +1,10 @@
 {
   "countries": "covidapi:countries",
   "yesterday_countries": "covidapi:yesterday_countries",
-  "yesterday2_countries": "covidapi:yesterday2_countries",
+  "twoDaysAgo_countries": "covidapi:yesterday2_countries",
   "continents": "covidapi:continents",
   "yesterday_continents": "covidapi:yesterday_continents",
-  "yesterday2_continents": "covidapi:yesterday2_continents",
+  "twoDaysAgo_continents": "covidapi:yesterday2_continents",
   "states": "covidapi:states",
   "yesterday_states": "covidapi:yesterday_states",
   "jhu_v2": "covidapi:jhu_v2",

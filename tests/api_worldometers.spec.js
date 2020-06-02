@@ -225,13 +225,112 @@ describe('TESTING /v2/all', () => {
 			});
 	});
 
-	it('/v2/all/yesterday less than v2/all', (done) => {
+	it('/v2/all?yesterday less than v2/all', (done) => {
 		chai.request(app)
 			.get('/v2/all')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				chai.request(app)
 					.get('/v2/all?yesterday')
+					.end((err2, res2) => {
+						should.not.exist(err2);
+						should.exist(res2);
+						res2.should.have.status(200);
+						res.body.cases.should.be.at.least(res2.body.cases);
+						done();
+					})
+			});
+	});
+
+	it('/v2/all?twoDaysAgo', (done) => {
+		chai.request(app)
+			.get('/v2/all?twoDaysAgo')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('cases');
+				should.exist(res.body.cases);
+				res.body.should.have.property('todayCases');
+				should.exist(res.body.todayCases);
+				res.body.should.have.property('deaths');
+				should.exist(res.body.deaths);
+				res.body.should.have.property('todayDeaths');
+				should.exist(res.body.todayDeaths);
+				res.body.should.have.property('updated');
+				should.exist(res.body.updated);
+				res.body.should.have.property('critical');
+				should.exist(res.body.critical);
+				res.body.should.have.property('recovered');
+				should.exist(res.body.recovered);
+				res.body.should.have.property('active');
+				should.exist(res.body.active);
+				res.body.should.have.property('tests');
+				should.exist(res.body.tests);
+				res.body.should.have.property('population');
+				should.exist(res.body.population);
+				res.body.should.have.property('casesPerOneMillion');
+				should.exist(res.body.casesPerOneMillion);
+				res.body.should.have.property('deathsPerOneMillion');
+				should.exist(res.body.deathsPerOneMillion);
+				res.body.should.have.property('testsPerOneMillion');
+				should.exist(res.body.testsPerOneMillion);
+				res.body.should.have.property('activePerOneMillion');
+				should.exist(res.body.activePerOneMillion);
+				res.body.should.have.property('criticalPerOneMillion');
+				should.exist(res.body.criticalPerOneMillion);
+				res.body.should.have.property('recoveredPerOneMillion');
+				should.exist(res.body.recoveredPerOneMillion);
+				done();
+			});
+	});
+
+	it('/v2/all?twoDaysAgo=true', (done) => {
+		chai.request(app)
+			.get('/v2/all?twoDaysAgo=true')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('cases');
+				should.exist(res.body.cases);
+				res.body.should.have.property('todayCases');
+				should.exist(res.body.todayCases);
+				res.body.should.have.property('deaths');
+				should.exist(res.body.deaths);
+				res.body.should.have.property('todayDeaths');
+				should.exist(res.body.todayDeaths);
+				res.body.should.have.property('updated');
+				should.exist(res.body.updated);
+				res.body.should.have.property('critical');
+				should.exist(res.body.critical);
+				res.body.should.have.property('recovered');
+				should.exist(res.body.recovered);
+				res.body.should.have.property('active');
+				should.exist(res.body.active);
+				res.body.should.have.property('tests');
+				should.exist(res.body.tests);
+				res.body.should.have.property('population');
+				should.exist(res.body.population);
+				res.body.should.have.property('casesPerOneMillion');
+				should.exist(res.body.casesPerOneMillion);
+				res.body.should.have.property('deathsPerOneMillion');
+				should.exist(res.body.deathsPerOneMillion);
+				res.body.should.have.property('testsPerOneMillion');
+				should.exist(res.body.testsPerOneMillion);
+				res.body.should.have.property('activePerOneMillion');
+				should.exist(res.body.activePerOneMillion);
+				res.body.should.have.property('criticalPerOneMillion');
+				should.exist(res.body.criticalPerOneMillion);
+				res.body.should.have.property('recoveredPerOneMillion');
+				should.exist(res.body.recoveredPerOneMillion);
+				done();
+			});
+	});
+
+	it('/v2/all?twoDaysAgo less than v2/all?yesterday', (done) => {
+		chai.request(app)
+			.get('/v2/all?yesterday')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				chai.request(app)
+					.get('/v2/all?twoDaysAgo')
 					.end((err2, res2) => {
 						should.not.exist(err2);
 						should.exist(res2);
