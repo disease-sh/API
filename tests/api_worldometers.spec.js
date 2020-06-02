@@ -145,7 +145,7 @@ describe('TESTING /v2/all', () => {
 	
 	it('/v2/all?yesterday', (done) => {
 		chai.request(app)
-			.get('/v2/all?yesterday')
+			.get('/v2/all?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('cases');
@@ -184,7 +184,7 @@ describe('TESTING /v2/all', () => {
 			});
 	});
 
-	it('/v2/all?yesterday=true', (done) => {
+	it('/v2/all?yesterday', (done) => {
 		chai.request(app)
 			.get('/v2/all?yesterday=true')
 			.end((err, res) => {
@@ -231,7 +231,7 @@ describe('TESTING /v2/all', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				chai.request(app)
-					.get('/v2/all?yesterday')
+					.get('/v2/all?yesterday=true')
 					.end((err2, res2) => {
 						should.not.exist(err2);
 						should.exist(res2);
@@ -243,47 +243,6 @@ describe('TESTING /v2/all', () => {
 	});
 
 	it('/v2/all?twoDaysAgo', (done) => {
-		chai.request(app)
-			.get('/v2/all?twoDaysAgo')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object');
-				res.body.should.have.property('cases');
-				should.exist(res.body.cases);
-				res.body.should.have.property('todayCases');
-				should.exist(res.body.todayCases);
-				res.body.should.have.property('deaths');
-				should.exist(res.body.deaths);
-				res.body.should.have.property('todayDeaths');
-				should.exist(res.body.todayDeaths);
-				res.body.should.have.property('updated');
-				should.exist(res.body.updated);
-				res.body.should.have.property('critical');
-				should.exist(res.body.critical);
-				res.body.should.have.property('recovered');
-				should.exist(res.body.recovered);
-				res.body.should.have.property('active');
-				should.exist(res.body.active);
-				res.body.should.have.property('tests');
-				should.exist(res.body.tests);
-				res.body.should.have.property('population');
-				should.exist(res.body.population);
-				res.body.should.have.property('casesPerOneMillion');
-				should.exist(res.body.casesPerOneMillion);
-				res.body.should.have.property('deathsPerOneMillion');
-				should.exist(res.body.deathsPerOneMillion);
-				res.body.should.have.property('testsPerOneMillion');
-				should.exist(res.body.testsPerOneMillion);
-				res.body.should.have.property('activePerOneMillion');
-				should.exist(res.body.activePerOneMillion);
-				res.body.should.have.property('criticalPerOneMillion');
-				should.exist(res.body.criticalPerOneMillion);
-				res.body.should.have.property('recoveredPerOneMillion');
-				should.exist(res.body.recoveredPerOneMillion);
-				done();
-			});
-	});
-
-	it('/v2/all?twoDaysAgo=true', (done) => {
 		chai.request(app)
 			.get('/v2/all?twoDaysAgo=true')
 			.end((err, res) => {
@@ -324,13 +283,54 @@ describe('TESTING /v2/all', () => {
 			});
 	});
 
+	it('/v2/all?twoDaysAgo=1', (done) => {
+		chai.request(app)
+			.get('/v2/all?twoDaysAgo=1')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('cases');
+				should.exist(res.body.cases);
+				res.body.should.have.property('todayCases');
+				should.exist(res.body.todayCases);
+				res.body.should.have.property('deaths');
+				should.exist(res.body.deaths);
+				res.body.should.have.property('todayDeaths');
+				should.exist(res.body.todayDeaths);
+				res.body.should.have.property('updated');
+				should.exist(res.body.updated);
+				res.body.should.have.property('critical');
+				should.exist(res.body.critical);
+				res.body.should.have.property('recovered');
+				should.exist(res.body.recovered);
+				res.body.should.have.property('active');
+				should.exist(res.body.active);
+				res.body.should.have.property('tests');
+				should.exist(res.body.tests);
+				res.body.should.have.property('population');
+				should.exist(res.body.population);
+				res.body.should.have.property('casesPerOneMillion');
+				should.exist(res.body.casesPerOneMillion);
+				res.body.should.have.property('deathsPerOneMillion');
+				should.exist(res.body.deathsPerOneMillion);
+				res.body.should.have.property('testsPerOneMillion');
+				should.exist(res.body.testsPerOneMillion);
+				res.body.should.have.property('activePerOneMillion');
+				should.exist(res.body.activePerOneMillion);
+				res.body.should.have.property('criticalPerOneMillion');
+				should.exist(res.body.criticalPerOneMillion);
+				res.body.should.have.property('recoveredPerOneMillion');
+				should.exist(res.body.recoveredPerOneMillion);
+				done();
+			});
+	});
+
 	it('/v2/all?twoDaysAgo less than v2/all?yesterday', (done) => {
 		chai.request(app)
-			.get('/v2/all?yesterday')
+			.get('/v2/all?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				chai.request(app)
-					.get('/v2/all?twoDaysAgo')
+					.get('/v2/all?twoDaysAgo=true')
 					.end((err2, res2) => {
 						should.not.exist(err2);
 						should.exist(res2);
@@ -373,7 +373,35 @@ describe('TESTING /v2/countries', () => {
 
 	it('/v2/countries/usa?yesterday get correct properties', (done) => {
 		chai.request(app)
-			.get('/v2/countries/usa?yesterday')
+			.get('/v2/countries/usa?yesterday=true')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('country').eql('USA');
+				res.body.should.have.property('countryInfo');
+				res.body.should.have.property('cases');
+				res.body.should.have.property('todayCases');
+				res.body.should.have.property('casesPerOneMillion');
+				res.body.should.have.property('deaths');
+				res.body.should.have.property('todayDeaths');
+				res.body.should.have.property('deathsPerOneMillion');
+				res.body.should.have.property('recovered');
+				res.body.should.have.property('recoveredPerOneMillion');
+				res.body.should.have.property('active');
+				res.body.should.have.property('activePerOneMillion');
+				res.body.should.have.property('critical');
+				res.body.should.have.property('criticalPerOneMillion');
+				res.body.should.have.property('population');
+				res.body.should.have.property('continent');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('tests');
+				res.body.should.have.property('testsPerOneMillion');
+				done();
+			});
+	});
+
+	it('/v2/countries/usa?twoDaysAgo get correct properties', (done) => {
+		chai.request(app)
+			.get('/v2/countries/usa?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -410,9 +438,20 @@ describe('TESTING /v2/countries', () => {
 			});
 	});
 
-	it('/v2/countries?yesterday=true get correct alternate name', (done) => {
+	it('/v2/countries?yesterday get correct alternate name', (done) => {
 		chai.request(app)
 			.get('/v2/countries/united%20states?yesterday=true')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('country').eql('USA');
+				res.body.should.have.property('countryInfo');
+				done();
+			});
+	});
+
+	it('/v2/countries?twoDaysAgo get correct alternate name', (done) => {
+		chai.request(app)
+			.get('/v2/countries/united%20states?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -434,7 +473,18 @@ describe('TESTING /v2/countries', () => {
 
 	it('/v2/countries?yesterday get correct ios2', (done) => {
 		chai.request(app)
-			.get('/v2/countries/us?yesterday')
+			.get('/v2/countries/us?yesterday=true')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('country').eql('USA');
+				res.body.should.have.property('countryInfo');
+				done();
+			});
+	});
+
+	it('/v2/countries?twoDaysAgo get correct ios2', (done) => {
+		chai.request(app)
+			.get('/v2/countries/us?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -456,7 +506,18 @@ describe('TESTING /v2/countries', () => {
 
 	it('/v2/countries?yesterday get correct id', (done) => {
 		chai.request(app)
-			.get('/v2/countries/840?yesterday')
+			.get('/v2/countries/840?yesterday=true')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('country').eql('USA');
+				res.body.should.have.property('countryInfo');
+				done();
+			});
+	});
+
+	it('/v2/countries?twoDaysAgo get correct id', (done) => {
+		chai.request(app)
+			.get('/v2/countries/840?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -489,6 +550,16 @@ describe('TESTING /v2/countries', () => {
 	it('/v2/countries?yesterday get incorrect country name', (done) => {
 		chai.request(app)
 			.get('/v2/countries/asdfghjkl?yesterday=true')
+			.end((err, res) => {
+				testBasicProperties(err, res, 404, 'object');
+				res.body.should.have.property('message');
+				done();
+			});
+	});
+
+	it('/v2/countries?twoDaysAgo get incorrect country name', (done) => {
+		chai.request(app)
+			.get('/v2/countries/asdfghjkl?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
@@ -540,7 +611,7 @@ describe('TESTING /v2/countries', () => {
 		});
 	});
 
-	it('/v2/countries/netherlands?yesterday=true&strict=false gives Caribbean Netherlands', (done) => {
+	it('/v2/countries/netherlands?yesterday&strict=false gives Caribbean Netherlands', (done) => {
 		chai.request(app)
 		.get('/v2/countries/netherlands?yesterday=true&strict=false')
 		.end((err, res) => {
@@ -646,6 +717,63 @@ describe('TESTING /v2/countries', () => {
 		it(`/v2/countries/${element.country}?yesterday=true correct country name`, (done) => {
 			chai.request(app)
 				.get(`/v2/countries/${element.country}?yesterday=true`)
+				.end((err, res) => {
+					should.not.exist(err);
+					should.exist(res);
+					if (res.status === 200) {
+						res.body.should.be.a('object');
+						res.body.country.should.equal(element.country.replace(/'/g, "\""));
+						res.body.should.have.property('countryInfo');
+						should.exist(res.body.countryInfo);
+						res.body.should.have.property('cases');
+						should.exist(res.body.cases);
+						res.body.should.have.property('todayCases');
+						should.exist(res.body.todayCases);
+						res.body.should.have.property('casesPerOneMillion');
+						should.exist(res.body.casesPerOneMillion);
+						res.body.should.have.property('deaths');
+						should.exist(res.body.deaths);
+						res.body.should.have.property('todayDeaths');
+						should.exist(res.body.todayDeaths);
+						res.body.should.have.property('deathsPerOneMillion');
+						should.exist(res.body.deathsPerOneMillion);
+						res.body.should.have.property('recovered');
+						should.exist(res.body.recovered);
+						res.body.should.have.property('recoveredPerOneMillion');
+						should.exist(res.body.recoveredPerOneMillion);
+						res.body.should.have.property('active');
+						should.exist(res.body.active);
+						res.body.should.have.property('activePerOneMillion');
+						should.exist(res.body.activePerOneMillion);
+						res.body.should.have.property('critical');
+						should.exist(res.body.critical);
+						res.body.should.have.property('criticalPerOneMillion');
+						should.exist(res.body.criticalPerOneMillion);
+						res.body.should.have.property('population');
+						should.exist(res.body.population);
+						res.body.should.have.property('continent');
+						should.exist(res.body.continent);
+						res.body.should.have.property('updated');
+						should.exist(res.body.updated);
+						res.body.should.have.property('tests');
+						should.exist(res.body.tests);
+						res.body.should.have.property('testsPerOneMillion');
+						should.exist(res.body.testsPerOneMillion);
+					}
+					else {
+						res.body.should.be.a('object');
+						res.body.should.have.property('message');
+					}
+					done();
+				});
+		});
+	});
+
+	// Test that all twoDaysAgo countries map to their respective country
+	countryData.map((element) => {
+		it(`/v2/countries/${element.country}?twoDaysAgo=true correct country name`, (done) => {
+			chai.request(app)
+				.get(`/v2/countries/${element.country}?twoDaysAgo=true`)
 				.end((err, res) => {
 					should.not.exist(err);
 					should.exist(res);

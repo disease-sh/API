@@ -105,9 +105,9 @@ const getWorldometerPage = async (keys, redis) => {
 		const html = cheerio.load((await axios.get('https://www.worldometers.info/coronavirus')).data);
 		['today', 'yesterday', 'yesterday2'].forEach(key => {
 			const data = fillResult(html, key);
-			redis.set(keys[`${key === 'today' ? '' : `${key}_`}countries`], JSON.stringify([data.world, ...getOrderByCountryName(data.countries)]));
+			redis.set(keys[`${key === 'today' ? '' : key === 'yesterday2' ? 'twoDaysAgo_' : 'yesterday_'}countries`], JSON.stringify([data.world, ...getOrderByCountryName(data.countries)]));
 			logger.info(`Updated ${key} countries statistics: ${data.countries.length + 1}`);
-			redis.set(keys[`${key === 'today' ? '' : `${key}_`}continents`], JSON.stringify(getOrderByCountryName(data.continents)));
+			redis.set(keys[`${key === 'today' ? '' : key === 'yesterday2' ? 'twoDaysAgo_' : 'yesterday_'}continents`], JSON.stringify(getOrderByCountryName(data.continents)));
 			logger.info(`Updated ${key} continents statistics: ${data.continents.length}`);
 		});
 	} catch (err) {
