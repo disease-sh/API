@@ -19,22 +19,22 @@ const getAllData = async (key) => {
 };
 
 router.get('/v2/all', async (req, res) => {
-	const { yesterday, allowNull } = req.query;
-	const data = await getAllData(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries);
+	const { yesterday, yesterday2, allowNull } = req.query;
+	const data = await getAllData(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(yesterday2) ? keys.yesterday2_countries : keys.countries);
 	res.send(!wordToBoolean(allowNull) ? countryUtils.transformNull(data) : data);
 });
 
 router.get('/v2/countries', async (req, res) => {
-	const { sort, yesterday, allowNull } = req.query;
-	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries))
+	const { sort, yesterday, yesterday2, allowNull } = req.query;
+	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(yesterday2) ? keys.yesterday2_countries : keys.countries))
 		.filter(country => country.country.toLowerCase() !== 'world').map(fixApostrophe).map(country => !wordToBoolean(allowNull) ? countryUtils.transformNull(country) : country);
 	res.send(sort ? countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : countries);
 });
 
 router.get('/v2/countries/:query', async (req, res) => {
-	const { yesterday, strict, allowNull } = req.query;
+	const { yesterday, yesterday2, strict, allowNull } = req.query;
 	const { query } = req.params;
-	let countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries))
+	let countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(yesterday2) ? keys.yesterday2_countries : keys.countries))
 		.filter(country => country.country.toLowerCase() !== 'world').map(fixApostrophe);
 	countries = splitQuery(query)
 		.map(country => countryUtils.getWorldometersData(countries, country, strict !== 'false'))
@@ -44,8 +44,8 @@ router.get('/v2/countries/:query', async (req, res) => {
 });
 
 router.get('/v2/continents', async (req, res) => {
-	const { sort, yesterday, allowNull } = req.query;
-	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries));
+	const { sort, yesterday, yesterday2, allowNull } = req.query;
+	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(yesterday2) ? keys.yesterday2_countries : keys.countries));
 	const continents = await Promise.all(JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents))
 		.map(continent => ({ ...continent, countries: countryUtils.getCountriesFromContinent(continent.continent, countries) }))
 		.map(continent => !wordToBoolean(allowNull) ? countryUtils.transformNull(continent) : continent));
@@ -53,12 +53,12 @@ router.get('/v2/continents', async (req, res) => {
 });
 
 router.get('/v2/continents/:query', async (req, res) => {
-	const { yesterday, strict, allowNull } = req.query;
+	const { yesterday, yesterday2, strict, allowNull } = req.query;
 	const { query } = req.params;
-	const continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents));
+	const continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : wordToBoolean(yesterday2) ? keys.yesterday2_continents : keys.continents));
 	const continent = countryUtils.getWorldometersData(continents, query, strict !== 'false', true);
 	if (continent) {
-		continent.countries = countryUtils.getCountriesFromContinent(continent.continent, JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : keys.countries)));
+		continent.countries = countryUtils.getCountriesFromContinent(continent.continent, JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(yesterday2) ? keys.yesterday2_countries : keys.countries)));
 		res.send(!wordToBoolean(allowNull) ? countryUtils.transformNull(continent) : continent);
 	} else {
 		res.status(404).send({ message: 'Continent not found or doesn\'t have any cases' });
