@@ -84,6 +84,7 @@ app.use(require('./routes/apiDeprecated'));
 app.use(require('./routes/apiNYT'));
 app.use(require('./routes/apiApple'));
 app.use(require('./routes/apiGov'));
+app.use(require('./routes/apiEbola'));
 
 app.listen(port, () => logger.info(`Your app is listening on port ${port}`));
 

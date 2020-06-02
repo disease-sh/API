@@ -10,6 +10,7 @@ const historical = require('../scrapers/historical');
 const nytData = require('../scrapers/nytData');
 const appleData = require('../scrapers/appleMobilityData');
 const govData = require('../scrapers/govScrapers/getGovData');
+const getEbola = require('../scrapers/getEbola');
 
 // KEYS
 const { config, keys, port } = require('../config');
@@ -52,6 +53,10 @@ module.exports = {
 		excecuteScraperGov: async () => {
 			await govData(keys, redis);
 			logger.info('Finished Government scraping!');
+		},
+		excecuteScraperEbola: async () => {
+			await getEbola(keys, redis);
+			logger.info('Finished Ebola scraping!');
 		}
 	}
 };
