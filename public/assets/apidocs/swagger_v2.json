@@ -57,6 +57,19 @@
             ],
             "description": "For this parameter you can show yesterday data",
             "type": "string"
+          },
+          {
+            "name": "twoDaysAgo",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "For this parameter you can show data from two days ago",
+            "type": "string"
           }
         ],
         "summary": "Get Global Totals for Actual and Yesterday Data",
@@ -167,6 +180,19 @@
             "type": "string"
           },
           {
+            "name": "twoDaysAgo",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "For this parameter you can show data from two days ago",
+            "type": "string"
+          },
+          {
             "name": "sort",
             "in": "query",
             "required": false,
@@ -214,6 +240,19 @@
               "0"
             ],
             "description": "For this parameter you can show yesterdays data",
+            "type": "string"
+          },
+          {
+            "name": "twoDaysAgo",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "For this parameter you can show data from two days ago",
             "type": "string"
           },
           {
@@ -267,6 +306,19 @@
             "type": "string"
           },
           {
+            "name": "twoDaysAgo",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "For this parameter you can show data from two days ago",
+            "type": "string"
+          },
+          {
             "name": "sort",
             "in": "query",
             "required": false,
@@ -317,6 +369,19 @@
             "type": "string"
           },
           {
+            "name": "twoDaysAgo",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "For this parameter you can show data from two days ago",
+            "type": "string"
+          },
+          {
             "name": "strict",
             "in": "query",
             "required": false,
@@ -364,6 +429,19 @@
               "0"
             ],
             "description": "For this parameter you can show yesterday data",
+            "type": "string"
+          },
+          {
+            "name": "twoDaysAgo",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "For this parameter you can show data from two days ago",
             "type": "string"
           },
           {

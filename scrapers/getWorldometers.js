@@ -4,7 +4,7 @@ const countryUtils = require('../utils/countryUtils');
 const logger = require('../utils/logger');
 
 const columns = ['index', 'country', 'cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'todayRecovered', 'active',
-	'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent', 'caseX', 'deathX', 'testX'];
+	'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent', 'oneCasePerPeople', 'oneDeathPerPeople', 'oneTestPerPeople'];
 
 const toPerOneMillion = (population, property) => property && parseFloat((1e6 / population * property).toFixed(2));
 
@@ -25,8 +25,8 @@ const continentMapping = (element, countries) => {
 	element.recoveredPerOneMillion = toPerOneMillion(element.population, element.recovered);
 	element.criticalPerOneMillion = toPerOneMillion(element.population, element.critical);
 	// eslint-disable-next-line no-unused-vars
-	const { country, countryInfo, ...countryData } = element;
-	return countryData;
+	const { country, countryInfo, oneCasePerPeople, oneDeathPerPeople, oneTestPerPeople, ...continentData } = element;
+	return continentData;
 };
 
 /**
@@ -61,11 +61,6 @@ const mapRows = (_, row) => {
 			}
 			case 15: {
 				entry[selector] = cell.text();
-				break;
-			}
-			case 16:
-			case 17:
-			case 18: {
 				break;
 			}
 			default:
@@ -108,11 +103,11 @@ function fillResult(html, idExtension) {
 const getWorldometerPage = async (keys, redis) => {
 	try {
 		const html = cheerio.load((await axios.get('https://www.worldometers.info/coronavirus')).data);
-		['today', 'yesterday'].forEach(key => {
+		['today', 'yesterday', 'yesterday2'].forEach(key => {
 			const data = fillResult(html, key);
-			redis.set(keys[`${key === 'today' ? '' : 'yesterday_'}countries`], JSON.stringify([data.world, ...getOrderByCountryName(data.countries)]));
+			redis.set(keys[`${key === 'today' ? '' : key === 'yesterday2' ? 'twoDaysAgo_' : 'yesterday_'}countries`], JSON.stringify([data.world, ...getOrderByCountryName(data.countries)]));
 			logger.info(`Updated ${key} countries statistics: ${data.countries.length + 1}`);
-			redis.set(keys[`${key === 'today' ? '' : 'yesterday_'}continents`], JSON.stringify(getOrderByCountryName(data.continents)));
+			redis.set(keys[`${key === 'today' ? '' : key === 'yesterday2' ? 'twoDaysAgo_' : 'yesterday_'}continents`], JSON.stringify(getOrderByCountryName(data.continents)));
 			logger.info(`Updated ${key} continents statistics: ${data.continents.length}`);
 		});
 	} catch (err) {
