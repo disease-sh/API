@@ -38,6 +38,10 @@
     {
       "name": "Gov",
       "description": "(Government specific data)"
+    },
+    {
+      "name": "Ebola",
+      "description": "(Ebola virus outbreak data)"
     }
   ],
   "consumes": [
@@ -944,6 +948,23 @@
           }
         }
       }
+    },
+    "/v2/ebola": {
+      "get": {
+        "tags": [
+          "Ebola"
+        ],
+        "summary": "Get Ebola virus data on the current outbreak",
+        "description": "Returns the date which the data was most recently updated, source license, and province-specific data for cases, possible cases, and deaths",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/ebola"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1226,7 +1247,37 @@
           }
         }
       }
-      
+    },
+    "ebolaProvince": {
+      "properties": {
+        "province": {
+          "type": "string"
+        },
+        "cases": {
+          "type": "number"
+        },
+        "probableCases": {
+          "type": "number"
+        },
+        "deaths": {
+          "type": "number"
+        }
+      }
+    },
+    "ebola": {
+      "properties": {
+        "updated": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "provinces": {
+          "items": {
+            "$ref": "#/definitions/ebolaProvince"
+          }
+        }
+      }
     },
     "continents": {
       "type": "array",
