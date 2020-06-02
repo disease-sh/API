@@ -3,8 +3,8 @@ const cheerio = require('cheerio');
 const countryUtils = require('../utils/countryUtils');
 const logger = require('../utils/logger');
 
-const columns = ['index', 'country', 'cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'active',
-	'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent'];
+const columns = ['index', 'country', 'cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'todayRecovered', 'active',
+	'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent', 'caseX', 'deathX', 'testX'];
 
 const toPerOneMillion = (population, property) => property && parseFloat((1e6 / population * property).toFixed(2));
 
@@ -59,8 +59,13 @@ const mapRows = (_, row) => {
 				entry.countryInfo = countryInfo;
 				break;
 			}
-			case 14: {
+			case 15: {
 				entry[selector] = cell.text();
+				break;
+			}
+			case 16:
+			case 17:
+			case 18: {
 				break;
 			}
 			default:
