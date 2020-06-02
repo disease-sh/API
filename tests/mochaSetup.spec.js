@@ -10,6 +10,6 @@ before(async () => {
 	await executeScraperNYTData();
 	await excecuteScraperAppleData();
 	await excecuteScraperGov();
-	excecuteScraperEbola();
+	await excecuteScraperEbola();
 	logger.info('Scraping finished.');
 });
