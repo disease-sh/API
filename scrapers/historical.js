@@ -14,20 +14,15 @@ const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/c
  * @returns {array} 				JSON formatted recovered data in same structure as cases data
  */
 function formatRecoveredData(cases, recovered) {
-	const countries = [];
 	const dates = Object.keys(cases[0]).slice(4);
-	cases.forEach((country) => {
-		countries.push({
-			name: country['Country/Region'],
-			province: country['Province/State'] || '',
-			Lat: country.Lat || '',
-			Long: country.Long || ''
-		});
-	});
+	const countries = cases.map((country) => ({
+		name: country['Country/Region'],
+		province: country['Province/State'] || '',
+		Lat: country.Lat || '',
+		Long: country.Long || ''
+	}));
 	return countries.map((country) => {
-		const provinces = recovered.filter(el =>
-			el['Country/Region'] === country.name && el['Province/State'] === country.province
-		);
+		const provinces = recovered.filter(el => el['Country/Region'] === country.name && el['Province/State'] === country.province);
 		dates.forEach(date => {
 			country[date] = provinces[0] ? parseInt(provinces[0][date]) : 0;
 		});
