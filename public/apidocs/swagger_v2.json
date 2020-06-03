@@ -954,6 +954,21 @@
         "tags": [
           "Ebola"
         ],
+        "parameters": [
+          {
+            "name": "allowNull",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "Lets you turn off the automatic null-to-0 transformation",
+            "type": "string"
+          }
+        ],
         "summary": "Get Ebola virus data on the current outbreak",
         "description": "Returns the date which the data was most recently updated, source license, and province-specific data for cases, possible cases, and deaths",
         "responses": {
