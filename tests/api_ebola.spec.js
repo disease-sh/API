@@ -28,4 +28,19 @@ describe('TESTING /v2/ebola general', () => {
 				done();
 			});
 	});
+
+	it('/v2/ebola allowNull false gives all numbers', (done) => {
+		chai.request(app)
+			.get('/v2/ebola')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+                res.body.should.have.property('provinces');
+                res.body.provinces.forEach((obj) => {
+					element.cases.should.be.at.least(0);
+					element.probableCases.should.be.at.least(0);
+					element.deaths.should.be.at.least(0);
+				})
+				done();
+			});
+	});
 });
