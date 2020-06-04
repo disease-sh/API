@@ -12,6 +12,7 @@ describe('TESTING /v3/ebola general', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
+				res.body.should.have.property('sourceUpdated');
 				res.body.should.have.property('source');
 				res.body.should.have.property('provinces');
 				done();

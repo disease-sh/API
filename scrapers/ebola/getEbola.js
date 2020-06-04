@@ -40,7 +40,8 @@ const ebolaData = async (keys, redis) => {
 		const html = cheerio.load((await axios.get('https://www.ecdc.europa.eu/en/all-topics-z/ebola-and-marburg-fevers/threats-and-outbreaks/ebola-outbreak-DRC-geographical-distribution')).data);
 		const provinces = html(`table`).children('tbody:first-of-type').children('tr').map(mapRows).get();
 		const data = {
-			updated: html('div.ct__last-update').children('span:nth-of-type(2)').text().replace(/\n/g, ''),
+			updated: Date.now(),
+			sourceUpdated: html('div.ct__last-update').children('span:nth-of-type(2)').text().replace(/\n/g, ''),
 			source: 'European Centre for Disease Prevention and Control (© ECDC [2005-2019].)',
 			provinces
 		};
