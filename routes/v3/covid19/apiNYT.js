@@ -36,6 +36,6 @@ router.get('/v3/covid19/nyt/counties/:county', async (req, res) => {
 	}
 });
 
-router.get('/v2/nyt/usa', async (req, res) => res.send(nytNationwide()));
+router.get('/v3/covid19/nyt/usa', async (req, res) => res.send(nytNationwide()));
 
 module.exports = router;

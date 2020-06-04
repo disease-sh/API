@@ -7,7 +7,7 @@ router.get('/v3/covdi19/jhucsse', async (req, res) =>
 	res.send(scraper.jhuLocations.generalizedJhudataV2(JSON.parse(await redis.get(keys.jhu_v2))))
 );
 
-router.get('/v3/covdi19/jhucsse/counties/:county?', async (req, res) => {
+router.get('/v3/covid19/jhucsse/counties/:county?', async (req, res) => {
 	const { county } = req.params;
 	const queriedCounties = splitQuery(county || '');
 	let countyData;

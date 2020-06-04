@@ -4,43 +4,20 @@ const { wordToBoolean, splitQuery, fixApostrophe } = require('../../utils/string
 const countryUtils = require('../../utils/countryUtils');
 const { redis, keys } = require('../instances');
 
-/**
- * Gets data for /all or /yesterday/all endpoint
- * @param 	{string}	key 	Appropriate redis key
- * @returns {Object} 			Global data
- */
-const getAllData = async (key) => {
-	const countries = JSON.parse(await redis.get(key));
-	const worldData = countries.find(country => country.country.toLowerCase() === 'world');
-	worldData.affectedCountries = countries.length - 1;
-	// eslint-disable-next-line no-unused-vars
-	const { country, countryInfo, continent, ...cleanedWorldData } = worldData;
-	return cleanedWorldData;
-};
-
 router.get('/v2/all', async (req, res) => {
 	const { yesterday, twoDaysAgo, allowNull } = req.query;
-	const data = await getAllData(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries);
-	res.send(!wordToBoolean(allowNull) ? countryUtils.transformNull(data) : data);
+	res.redirect(`/v3/covid19/all?yesterday=${yesterday}&twoDaysAgo=${twoDaysAgo}&allowNull=${allowNull}`);
 });
 
 router.get('/v2/countries', async (req, res) => {
 	const { sort, yesterday, twoDaysAgo, allowNull } = req.query;
-	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries))
-		.filter(country => country.country.toLowerCase() !== 'world').map(fixApostrophe).map(country => !wordToBoolean(allowNull) ? countryUtils.transformNull(country) : country);
-	res.send(sort ? countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : countries);
+	res.redirect(`/v3/covid19/countries?sort=${sort}&yesterday=${yesterday}&twoDaysAgo=${twoDaysAgo}&allowNull=${allowNull}`);
 });
 
 router.get('/v2/countries/:query', async (req, res) => {
 	const { yesterday, twoDaysAgo, strict, allowNull } = req.query;
 	const { query } = req.params;
-	let countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries))
-		.filter(country => country.country.toLowerCase() !== 'world').map(fixApostrophe);
-	countries = splitQuery(query)
-		.map(country => countryUtils.getWorldometersData(countries, country, strict !== 'false'))
-		.filter(value => value).map(country => !wordToBoolean(allowNull) ? countryUtils.transformNull(country) : country);
-	if (countries.length > 0) res.send(countries.length === 1 ? countries[0] : countries);
-	else res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
+	res.redirect(`/v3/covid19/countries/${query || ''}?yesterday=${yesterday}&twoDaysAgo=${twoDaysAgo}&strict=${strict}&allowNull=${allowNull}`);
 });
 
 router.get('/v2/continents', async (req, res) => {
