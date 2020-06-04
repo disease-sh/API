@@ -6,9 +6,9 @@ const { testBasicProperties } = require('./testingFunctions');
 chai.use(chaiHttp);
 
 describe('TESTING /v2/ebola general', () => {
-	it('/v2/ebola correct properties', (done) => {
+	it('/v3/ebola correct properties', (done) => {
 		chai.request(app)
-			.get('/v2/ebola')
+			.get('/v3/ebola')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
@@ -18,9 +18,9 @@ describe('TESTING /v2/ebola general', () => {
 			});
 	});
 	
-	it('/v2/ebola provinces filled', (done) => {
+	it('/v3/ebola provinces filled', (done) => {
 		chai.request(app)
-			.get('/v2/ebola')
+			.get('/v3/ebola')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('provinces');
@@ -29,9 +29,9 @@ describe('TESTING /v2/ebola general', () => {
 			});
 	});
 
-	it('/v2/ebola allowNull false gives all numbers', (done) => {
+	it('/v3/ebola allowNull false gives all numbers', (done) => {
 		chai.request(app)
-			.get('/v2/ebola')
+			.get('/v3/ebola')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('provinces');

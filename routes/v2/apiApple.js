@@ -3,7 +3,7 @@ const router = require('express').Router();
 
 router.get('/v2/apple/countries/:country?', async (req, res) => {
 	const { country: countryName } = req.params;
-	res.redirect(`/v3/covid19/apple/countries/${countryName}`);
+	res.redirect(`/v3/covid19/apple/countries/${countryName || ''}`);
 });
 
 router.get('/v2/apple/countries/:country/:subregions', async (req, res) => {
