@@ -86,13 +86,13 @@ app.use(require('./routes/v2/apiNYT'));
 app.use(require('./routes/v2/apiApple'));
 app.use(require('./routes/v2/apiGov'));
 // v3 routes
-app.use(require('./routes/v3/covid19/apiWorldometers'));
-app.use(require('./routes/v3/covid19/apiHistorical'));
-app.use(require('./routes/v3/covid19/apiJHUCSSE'));
-app.use(require('./routes/v3/covid19/apiDeprecated'));
-app.use(require('./routes/v3/covid19/apiNYT'));
-app.use(require('./routes/v3/covid19/apiApple'));
-app.use(require('./routes/v3/covid19/apiGov'));
+app.use(require('./routes/v3/covid-19/apiWorldometers'));
+app.use(require('./routes/v3/covid-19/apiHistorical'));
+app.use(require('./routes/v3/covid-19/apiJHUCSSE'));
+app.use(require('./routes/v3/covid-19/apiDeprecated'));
+app.use(require('./routes/v3/covid-19/apiNYT'));
+app.use(require('./routes/v3/covid-19/apiApple'));
+app.use(require('./routes/v3/covid-19/apiGov'));
 app.use(require('./routes/v3/ebola/apiEbola'));
 
 app.listen(port, () => logger.info(`Your app is listening on port ${port}`));

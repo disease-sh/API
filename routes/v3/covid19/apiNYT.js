@@ -2,9 +2,9 @@
 const router = require('express').Router();
 const { nytCounties, nytStates, nytNationwide } = require('../../../utils/nytCache');
 
-router.get('/v3/covid19/nyt/states', async (req, res) => res.send(nytStates()));
+router.get('/v3/covid-19/nyt/states', async (req, res) => res.send(nytStates()));
 
-router.get('/v3/covid19/nyt/states/:state', async (req, res) => {
+router.get('/v3/covid-19/nyt/states/:state', async (req, res) => {
 	const { state: queryState } = req.params;
 	const data = nytStates();
 	if (queryState) {
@@ -19,9 +19,9 @@ router.get('/v3/covid19/nyt/states/:state', async (req, res) => {
 	}
 });
 
-router.get('/v3/covid19/nyt/counties', async (req, res) => res.send(nytCounties()));
+router.get('/v3/covid-19/nyt/counties', async (req, res) => res.send(nytCounties()));
 
-router.get('/v3/covid19/nyt/counties/:county', async (req, res) => {
+router.get('/v3/covid-19/nyt/counties/:county', async (req, res) => {
 	const { county: queryCounty } = req.params;
 	const data = nytCounties();
 	if (queryCounty) {
@@ -36,6 +36,6 @@ router.get('/v3/covid19/nyt/counties/:county', async (req, res) => {
 	}
 });
 
-router.get('/v3/covid19/nyt/usa', async (req, res) => res.send(nytNationwide()));
+router.get('/v3/covid-19/nyt/usa', async (req, res) => res.send(nytNationwide()));
 
 module.exports = router;

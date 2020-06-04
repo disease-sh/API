@@ -4,7 +4,7 @@ const countryUtils = require('../../../utils/countryUtils');
 const { splitQuery } = require('../../../utils/stringUtils');
 const { appleData } = require('../../../utils/appleCache');
 
-router.get('/v3/covid19/apple/countries/:country?', async (req, res) => {
+router.get('/v3/covid-19/apple/countries/:country?', async (req, res) => {
 	const { country: countryName } = req.params;
 	const data = appleData();
 	if (countryName) {
@@ -19,7 +19,7 @@ router.get('/v3/covid19/apple/countries/:country?', async (req, res) => {
 	}
 });
 
-router.get('/v3/covid19/apple/countries/:country/:subregions', async (req, res) => {
+router.get('/v3/covid-19/apple/countries/:country/:subregions', async (req, res) => {
 	const { country: countryName, subregions: querySubregions } = req.params;
 	if (countryName && querySubregions) {
 		const standardizedCountryName = countryUtils.getCountryData(countryName.trim()).country || countryName.trim();

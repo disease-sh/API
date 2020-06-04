@@ -7,10 +7,10 @@ const { testBasicProperties } = require('../../testingFunctions');
 
 chai.use(chaiHttp);
 
-describe('TESTING /v3/covid19/continents', () => {
-	it('/v3/covid19/continents', (done) => {
+describe('TESTING /v3/covid-19/continents', () => {
+	it('/v3/covid-19/continents', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/continents')
+			.get('/v3/covid-19/continents')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				for (let row of res.body) {
@@ -56,9 +56,9 @@ describe('TESTING /v3/covid19/continents', () => {
 			});
 	});
 
-	it('/v3/covid19/continents/ get correct properties', (done) => {
+	it('/v3/covid-19/continents/ get correct properties', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/continents/europe')
+			.get('/v3/covid-19/continents/europe')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('continent').eql('Europe');
@@ -66,9 +66,9 @@ describe('TESTING /v3/covid19/continents', () => {
 			});
 	});
 
-	it('/v3/covid19/continents/ fuzzy search', (done) => {
+	it('/v3/covid-19/continents/ fuzzy search', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/continents/euro?strict=false')
+			.get('/v3/covid-19/continents/euro?strict=false')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('continent').eql('Europe');
@@ -76,9 +76,9 @@ describe('TESTING /v3/covid19/continents', () => {
 			});
 	});
 
-	it('/v3/covid19/continents/ get incorrect continent name', (done) => {
+	it('/v3/covid-19/continents/ get incorrect continent name', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/continents/asdfghjkl')
+			.get('/v3/covid-19/continents/asdfghjkl')
 			.end((err, res) => {
 				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
@@ -86,9 +86,9 @@ describe('TESTING /v3/covid19/continents', () => {
 			});
 	});
 
-	it('/v3/covid19/continents?sort works', (done) => {
+	it('/v3/covid-19/continents?sort works', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/continents?sort=cases')
+			.get('/v3/covid-19/continents?sort=cases')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
@@ -101,10 +101,10 @@ describe('TESTING /v3/covid19/continents', () => {
 	});
 });
 
-describe('TESTING /v3/covid19/all', () => {
-	it('/v3/covid19/all', (done) => {
+describe('TESTING /v3/covid-19/all', () => {
+	it('/v3/covid-19/all', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/all')
+			.get('/v3/covid-19/all')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('cases');
@@ -143,9 +143,9 @@ describe('TESTING /v3/covid19/all', () => {
 			});
 	});
 	
-	it('/v3/covid19/all?yesterday', (done) => {
+	it('/v3/covid-19/all?yesterday', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/all?yesterday=true')
+			.get('/v3/covid-19/all?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('cases');
@@ -184,9 +184,9 @@ describe('TESTING /v3/covid19/all', () => {
 			});
 	});
 
-	it('/v3/covid19/all?yesterday', (done) => {
+	it('/v3/covid-19/all?yesterday', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/all?yesterday=true')
+			.get('/v3/covid-19/all?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('cases');
@@ -225,13 +225,13 @@ describe('TESTING /v3/covid19/all', () => {
 			});
 	});
 
-	it('/v3/covid19/all?yesterday less than v2/all', (done) => {
+	it('/v3/covid-19/all?yesterday less than v2/all', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/all')
+			.get('/v3/covid-19/all')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				chai.request(app)
-					.get('/v3/covid19/all?yesterday=true')
+					.get('/v3/covid-19/all?yesterday=true')
 					.end((err2, res2) => {
 						should.not.exist(err2);
 						should.exist(res2);
@@ -242,9 +242,9 @@ describe('TESTING /v3/covid19/all', () => {
 			});
 	});
 
-	it('/v3/covid19/all?twoDaysAgo', (done) => {
+	it('/v3/covid-19/all?twoDaysAgo', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/all?twoDaysAgo=true')
+			.get('/v3/covid-19/all?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('cases');
@@ -283,9 +283,9 @@ describe('TESTING /v3/covid19/all', () => {
 			});
 	});
 
-	it('/v3/covid19/all?twoDaysAgo=1', (done) => {
+	it('/v3/covid-19/all?twoDaysAgo=1', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/all?twoDaysAgo=1')
+			.get('/v3/covid-19/all?twoDaysAgo=1')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('cases');
@@ -324,13 +324,13 @@ describe('TESTING /v3/covid19/all', () => {
 			});
 	});
 
-	it('/v3/covid19/all?twoDaysAgo less than v2/all?yesterday', (done) => {
+	it('/v3/covid-19/all?twoDaysAgo less than v2/all?yesterday', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/all?yesterday=true')
+			.get('/v3/covid-19/all?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				chai.request(app)
-					.get('/v3/covid19/all?twoDaysAgo=true')
+					.get('/v3/covid-19/all?twoDaysAgo=true')
 					.end((err2, res2) => {
 						should.not.exist(err2);
 						should.exist(res2);
@@ -342,10 +342,10 @@ describe('TESTING /v3/covid19/all', () => {
 	});
 });
 
-describe('TESTING /v3/covid19/countries', () => {
-	it('/v3/covid19/countries/usa get correct properties', (done) => {
+describe('TESTING /v3/covid-19/countries', () => {
+	it('/v3/covid-19/countries/usa get correct properties', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/usa')
+			.get('/v3/covid-19/countries/usa')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -371,9 +371,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries/usa?yesterday get correct properties', (done) => {
+	it('/v3/covid-19/countries/usa?yesterday get correct properties', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/usa?yesterday=true')
+			.get('/v3/covid-19/countries/usa?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -399,9 +399,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries/usa?twoDaysAgo get correct properties', (done) => {
+	it('/v3/covid-19/countries/usa?twoDaysAgo get correct properties', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/usa?twoDaysAgo=true')
+			.get('/v3/covid-19/countries/usa?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -427,9 +427,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries/ get correct alternate name', (done) => {
+	it('/v3/covid-19/countries/ get correct alternate name', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/united%20states')
+			.get('/v3/covid-19/countries/united%20states')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -438,9 +438,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries?yesterday get correct alternate name', (done) => {
+	it('/v3/covid-19/countries?yesterday get correct alternate name', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/united%20states?yesterday=true')
+			.get('/v3/covid-19/countries/united%20states?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -449,9 +449,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries?twoDaysAgo get correct alternate name', (done) => {
+	it('/v3/covid-19/countries?twoDaysAgo get correct alternate name', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/united%20states?twoDaysAgo=true')
+			.get('/v3/covid-19/countries/united%20states?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -460,9 +460,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries/ get correct ios2', (done) => {
+	it('/v3/covid-19/countries/ get correct ios2', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/us')
+			.get('/v3/covid-19/countries/us')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -471,9 +471,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries?yesterday get correct ios2', (done) => {
+	it('/v3/covid-19/countries?yesterday get correct ios2', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/us?yesterday=true')
+			.get('/v3/covid-19/countries/us?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -482,9 +482,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries?twoDaysAgo get correct ios2', (done) => {
+	it('/v3/covid-19/countries?twoDaysAgo get correct ios2', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/us?twoDaysAgo=true')
+			.get('/v3/covid-19/countries/us?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -493,9 +493,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries/ get correct id', (done) => {
+	it('/v3/covid-19/countries/ get correct id', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/840')
+			.get('/v3/covid-19/countries/840')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -504,9 +504,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries?yesterday get correct id', (done) => {
+	it('/v3/covid-19/countries?yesterday get correct id', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/840?yesterday=true')
+			.get('/v3/covid-19/countries/840?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -515,9 +515,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries?twoDaysAgo get correct id', (done) => {
+	it('/v3/covid-19/countries?twoDaysAgo get correct id', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/840?twoDaysAgo=true')
+			.get('/v3/covid-19/countries/840?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country').eql('USA');
@@ -526,9 +526,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries/diamond%20princess', (done) => {
+	it('/v3/covid-19/countries/diamond%20princess', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/diamond%20princess')
+			.get('/v3/covid-19/countries/diamond%20princess')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('country');
@@ -537,9 +537,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries/ get incorrect country name', (done) => {
+	it('/v3/covid-19/countries/ get incorrect country name', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/asdfghjkl')
+			.get('/v3/covid-19/countries/asdfghjkl')
 			.end((err, res) => {
 				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
@@ -547,9 +547,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries?yesterday get incorrect country name', (done) => {
+	it('/v3/covid-19/countries?yesterday get incorrect country name', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/asdfghjkl?yesterday=true')
+			.get('/v3/covid-19/countries/asdfghjkl?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
@@ -557,9 +557,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries?twoDaysAgo get incorrect country name', (done) => {
+	it('/v3/covid-19/countries?twoDaysAgo get incorrect country name', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries/asdfghjkl?twoDaysAgo=true')
+			.get('/v3/covid-19/countries/asdfghjkl?twoDaysAgo=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
@@ -567,9 +567,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries?sort works', (done) => {
+	it('/v3/covid-19/countries?sort works', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries?sort=cases')
+			.get('/v3/covid-19/countries?sort=cases')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
@@ -581,9 +581,9 @@ describe('TESTING /v3/covid19/countries', () => {
 			});
 	});
 
-	it('/v3/covid19/countries/netherlands?strict=false gives Caribbean Netherlands', (done) => {
+	it('/v3/covid-19/countries/netherlands?strict=false gives Caribbean Netherlands', (done) => {
 		chai.request(app)
-		.get('/v3/covid19/countries/netherlands?strict=false')
+		.get('/v3/covid-19/countries/netherlands?strict=false')
 		.end((err, res) => {
 			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('Caribbean Netherlands');
@@ -591,9 +591,9 @@ describe('TESTING /v3/covid19/countries', () => {
 		});
 	});
 
-	it('/v3/covid19/countries/sudan?strict=false gives South Sudan', (done) => {
+	it('/v3/covid-19/countries/sudan?strict=false gives South Sudan', (done) => {
 		chai.request(app)
-		.get('/v3/covid19/countries/sudan?strict=false')
+		.get('/v3/covid-19/countries/sudan?strict=false')
 		.end((err, res) => {
 			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('South Sudan');
@@ -601,9 +601,9 @@ describe('TESTING /v3/covid19/countries', () => {
 		});
 	});
 
-	it('/v3/covid19/countries/guinea?strict=false gives Equatorial Guinea', (done) => {
+	it('/v3/covid-19/countries/guinea?strict=false gives Equatorial Guinea', (done) => {
 		chai.request(app)
-		.get('/v3/covid19/countries/guinea?strict=false')
+		.get('/v3/covid-19/countries/guinea?strict=false')
 		.end((err, res) => {
 			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('Equatorial Guinea');
@@ -611,9 +611,9 @@ describe('TESTING /v3/covid19/countries', () => {
 		});
 	});
 
-	it('/v3/covid19/countries/netherlands?yesterday&strict=false gives Caribbean Netherlands', (done) => {
+	it('/v3/covid-19/countries/netherlands?yesterday&strict=false gives Caribbean Netherlands', (done) => {
 		chai.request(app)
-		.get('/v3/covid19/countries/netherlands?yesterday=true&strict=false')
+		.get('/v3/covid-19/countries/netherlands?yesterday=true&strict=false')
 		.end((err, res) => {
 			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('Caribbean Netherlands');
@@ -621,9 +621,9 @@ describe('TESTING /v3/covid19/countries', () => {
 		});
 	});
 
-	it('/v3/covid19/countries/sudan?yesterday=true&strict=false gives South Sudan', (done) => {
+	it('/v3/covid-19/countries/sudan?yesterday=true&strict=false gives South Sudan', (done) => {
 		chai.request(app)
-		.get('/v3/covid19/countries/sudan?yesterday=true&strict=false')
+		.get('/v3/covid-19/countries/sudan?yesterday=true&strict=false')
 		.end((err, res) => {
 			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('South Sudan');
@@ -631,9 +631,9 @@ describe('TESTING /v3/covid19/countries', () => {
 		});
 	});
 
-	it('/v3/covid19/countries/guinea?yesterday=true&strict=false gives Equatorial Guinea', (done) => {
+	it('/v3/covid-19/countries/guinea?yesterday=true&strict=false gives Equatorial Guinea', (done) => {
 		chai.request(app)
-		.get('/v3/covid19/countries/guinea?yesterday=true&strict=false')
+		.get('/v3/covid-19/countries/guinea?yesterday=true&strict=false')
 		.end((err, res) => {
 			testBasicProperties(err, res, 200, 'object');
 			res.body.should.have.property('country').eql('Equatorial Guinea');
@@ -641,9 +641,9 @@ describe('TESTING /v3/covid19/countries', () => {
 		});
 	});
 
-	it('/v3/covid19/countries?sort&yesterday=true works', (done) => {
+	it('/v3/covid-19/countries?sort&yesterday=true works', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/countries?sort=cases&yesterday=true')
+			.get('/v3/covid-19/countries?sort=cases&yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
@@ -657,9 +657,9 @@ describe('TESTING /v3/covid19/countries', () => {
 
 	// Test that all countries map to their respective country
 	countryData.map((element) => {
-		it(`/v3/covid19/countries/${element.country} correct country name`, (done) => {
+		it(`/v3/covid-19/countries/${element.country} correct country name`, (done) => {
 			chai.request(app)
-				.get(`/v3/covid19/countries/${element.country}`)
+				.get(`/v3/covid-19/countries/${element.country}`)
 				.end((err, res) => {
 					should.not.exist(err);
 					should.exist(res);
@@ -714,9 +714,9 @@ describe('TESTING /v3/covid19/countries', () => {
 
 	// Test that all yesterday countries map to their respective country
 	countryData.map((element) => {
-		it(`/v3/covid19/countries/${element.country}?yesterday=true correct country name`, (done) => {
+		it(`/v3/covid-19/countries/${element.country}?yesterday=true correct country name`, (done) => {
 			chai.request(app)
-				.get(`/v3/covid19/countries/${element.country}?yesterday=true`)
+				.get(`/v3/covid-19/countries/${element.country}?yesterday=true`)
 				.end((err, res) => {
 					should.not.exist(err);
 					should.exist(res);
@@ -771,9 +771,9 @@ describe('TESTING /v3/covid19/countries', () => {
 
 	// Test that all twoDaysAgo countries map to their respective country
 	countryData.map((element) => {
-		it(`/v3/covid19/countries/${element.country}?twoDaysAgo=true correct country name`, (done) => {
+		it(`/v3/covid-19/countries/${element.country}?twoDaysAgo=true correct country name`, (done) => {
 			chai.request(app)
-				.get(`/v3/covid19/countries/${element.country}?twoDaysAgo=true`)
+				.get(`/v3/covid-19/countries/${element.country}?twoDaysAgo=true`)
 				.end((err, res) => {
 					should.not.exist(err);
 					should.exist(res);
@@ -827,10 +827,10 @@ describe('TESTING /v3/covid19/countries', () => {
 	});
 });
 
-describe('TESTING /v3/covid19/states', () => {
-	it('/v3/covid19/states', (done) => {
+describe('TESTING /v3/covid-19/states', () => {
+	it('/v3/covid-19/states', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states')
+			.get('/v3/covid-19/states')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				for (const row of res.body) {
@@ -857,18 +857,18 @@ describe('TESTING /v3/covid19/states', () => {
 			});
 	});
 
-	it('/v3/covid19/states?yesterday=true', (done) => {
+	it('/v3/covid-19/states?yesterday=true', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states?yesterday=true')
+			.get('/v3/covid-19/states?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				done();
 			});
 	});
 
-	it('/v3/covid19/states?sort works', (done) => {
+	it('/v3/covid-19/states?sort works', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states?sort=cases')
+			.get('/v3/covid-19/states?sort=cases')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
@@ -880,9 +880,9 @@ describe('TESTING /v3/covid19/states', () => {
 			});
 	});
 
-	it('/v3/covid19/states?sort&yesterday works', (done) => {
+	it('/v3/covid-19/states?sort&yesterday works', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states?sort=cases&yesterday=true')
+			.get('/v3/covid-19/states?sort=cases&yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
@@ -894,27 +894,27 @@ describe('TESTING /v3/covid19/states', () => {
 			}); 
 	});
 
-	it('/v3/covid19/states?sort bad param', (done) => {
+	it('/v3/covid-19/states?sort bad param', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states?sort=gsdfb325fsd')
+			.get('/v3/covid-19/states?sort=gsdfb325fsd')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				done();
 			});
 	});
 
-	it('/v3/covid19/states?sort&yesterday=true bad param', (done) => {
+	it('/v3/covid-19/states?sort&yesterday=true bad param', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states?sort=gsdfb325fsd&yesterday=true')
+			.get('/v3/covid-19/states?sort=gsdfb325fsd&yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				done();
 			});
 	});
 
-	it('/v3/covid19/states/state works', (done) => {
+	it('/v3/covid-19/states/state works', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states/Illinois')
+			.get('/v3/covid-19/states/Illinois')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.state.should.equal("Illinois");
@@ -929,9 +929,9 @@ describe('TESTING /v3/covid19/states', () => {
 			});
 	});
 
-	it('/v3/covid19/states/state?yesterday=true works', (done) => {
+	it('/v3/covid-19/states/state?yesterday=true works', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states/Illinois')
+			.get('/v3/covid-19/states/Illinois')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.state.should.equal("Illinois");
@@ -946,9 +946,9 @@ describe('TESTING /v3/covid19/states', () => {
 			});
 	});
 
-	it('/v3/covid19/states/state1,state2', (done) => {
+	it('/v3/covid-19/states/state1,state2', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states/Illinois,New%20York')
+			.get('/v3/covid-19/states/Illinois,New%20York')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				for (let row of res.body) {
@@ -964,9 +964,9 @@ describe('TESTING /v3/covid19/states', () => {
 			});
 	});
 
-	it('/v3/covid19/states/state1,state2?yesterday=true', (done) => {
+	it('/v3/covid-19/states/state1,state2?yesterday=true', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states/Illinois,New%20York?yesterday=true')
+			.get('/v3/covid-19/states/Illinois,New%20York?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				for (let row of res.body) {
@@ -982,9 +982,9 @@ describe('TESTING /v3/covid19/states', () => {
 			});
 	});
 
-	it('/v3/covid19/states/ get incorrect state name', (done) => {
+	it('/v3/covid-19/states/ get incorrect state name', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states/asdfghjkl')
+			.get('/v3/covid-19/states/asdfghjkl')
 			.end((err, res) => {
 				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
@@ -992,9 +992,9 @@ describe('TESTING /v3/covid19/states', () => {
 			});
 	});
 
-	it('/v3/covid19/states?yesterday=true get incorrect state name', (done) => {
+	it('/v3/covid-19/states?yesterday=true get incorrect state name', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states/asdfghjkl?yesterday=true')
+			.get('/v3/covid-19/states/asdfghjkl?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
@@ -1002,16 +1002,16 @@ describe('TESTING /v3/covid19/states', () => {
 			});
 	});
 
-	it('/v3/covid19/states/state?yesterday is less than today', (done) => {
+	it('/v3/covid-19/states/state?yesterday is less than today', (done) => {
 		chai.request(app)
-			.get('/v3/covid19/states/illinois?yesterday=true')
+			.get('/v3/covid-19/states/illinois?yesterday=true')
 			.end((err, yesterdayRes) => {
 				should.not.exist(err);
 				should.exist(yesterdayRes);
 				yesterdayRes.should.have.status(200);
 				yesterdayRes.body.should.be.a('object');
 				chai.request(app)
-					.get('/v3/covid19/states/illinois')
+					.get('/v3/covid-19/states/illinois')
 					.end((err2, todayRes) => {
 						should.not.exist(err2);
 						should.exist(todayRes);

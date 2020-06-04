@@ -4,7 +4,7 @@ const countryUtils = require('../../../utils/countryUtils');
 const { wordToBoolean } = require('../../../utils/stringUtils');
 const { redis, keys } = require('../../instances');
 
-router.get('/v3/covid19/gov/:country?', async (req, res) => {
+router.get('/v3/covid-19/gov/:country?', async (req, res) => {
 	const { allowNull } = req.query;
 	const { country: countryName } = req.params;
 	const data = JSON.parse(await redis.get(keys.gov_countries));

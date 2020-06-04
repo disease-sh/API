@@ -7,28 +7,28 @@ const { testBasicProperties } = require('../../testingFunctions');
 
 chai.use(chaiHttp);
 
-describe('TESTING /v3/covid19/historical', () => {
-    it('/v3/covid19/historical', (done) => {
+describe('TESTING /v3/covid-19/historical', () => {
+    it('/v3/covid-19/historical', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical')
+            .get('/v3/covid-19/historical')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'array');
                 done();
             });
     });
 
-    it('/v3/covid19/historical/all', (done) => {
+    it('/v3/covid-19/historical/all', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/all')
+            .get('/v3/covid-19/historical/all')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'object');
                 done();
             });
     });
 
-    it('/v3/covid19/historical/all lastdays param', (done) => {
+    it('/v3/covid-19/historical/all lastdays param', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/all?lastdays=15')
+            .get('/v3/covid-19/historical/all?lastdays=15')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'object');
                 Object.keys(res.body.cases).length.should.equal(15);
@@ -36,9 +36,9 @@ describe('TESTING /v3/covid19/historical', () => {
             });
     });
 
-    it('/v3/covid19/historical/ correct number default dates', (done) => {
+    it('/v3/covid-19/historical/ correct number default dates', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical')
+            .get('/v3/covid-19/historical')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'array');
                 Object.keys(res.body[0].timeline.cases).length.should.equal(30);
@@ -46,9 +46,9 @@ describe('TESTING /v3/covid19/historical', () => {
             });
     });
 
-    it('/v3/covid19/historical/ handles bad date string', (done) => {
+    it('/v3/covid-19/historical/ handles bad date string', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical?lastday=rgf3vwre')
+            .get('/v3/covid-19/historical?lastday=rgf3vwre')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'array');
                 Object.keys(res.body[0].timeline.cases).length.should.equal(30);
@@ -56,9 +56,9 @@ describe('TESTING /v3/covid19/historical', () => {
             });
     });
 
-    it('/v3/covid19/historical/ correct number specified dates', (done) => {
+    it('/v3/covid-19/historical/ correct number specified dates', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical?lastdays=15')
+            .get('/v3/covid-19/historical?lastdays=15')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'array');
                 Object.keys(res.body[0].timeline.cases).length.should.equal(15);
@@ -66,9 +66,9 @@ describe('TESTING /v3/covid19/historical', () => {
             });
     });
 
-    it('/v3/covid19/historical/usa?lastdays=all correct first date', (done) => {
+    it('/v3/covid-19/historical/usa?lastdays=all correct first date', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/usa?lastdays=all')
+            .get('/v3/covid-19/historical/usa?lastdays=all')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'object');
                 Object.keys(res.body.timeline.cases)[0].should.equal('1/22/20');
@@ -76,18 +76,18 @@ describe('TESTING /v3/covid19/historical', () => {
             });
     });
 
-    it('/v3/covid19/historical/diamond%20princess', (done) => {
+    it('/v3/covid-19/historical/diamond%20princess', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/diamond%20princess')
+            .get('/v3/covid-19/historical/diamond%20princess')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'object');
                 done();
             });
     });
 
-    it('/v3/covid19/historical/ incorrect country name', (done) => {
+    it('/v3/covid-19/historical/ incorrect country name', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/asdfghjkl')
+            .get('/v3/covid-19/historical/asdfghjkl')
             .end((err, res) => {
                 testBasicProperties(err, res, 404, 'object');
                 res.body.should.have.property('message');
@@ -95,18 +95,18 @@ describe('TESTING /v3/covid19/historical', () => {
             });
     });
 
-    it('/v3/covid19/historical/ correct country name list', (done) => {
+    it('/v3/covid-19/historical/ correct country name list', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/usa, 156, drc')
+            .get('/v3/covid-19/historical/usa, 156, drc')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'array');
                 done();
             });
     });
 
-    it('/v3/covid19/historical/ incorrect province name list', (done) => {
+    it('/v3/covid-19/historical/ incorrect province name list', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/usa/sdgdf,gsfd')
+            .get('/v3/covid-19/historical/usa/sdgdf,gsfd')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'array');
                 res.body[0].should.have.property('message');
@@ -114,18 +114,18 @@ describe('TESTING /v3/covid19/historical', () => {
             });
     });
 
-    it('/v3/covid19/historical/ correct province name list', (done) => {
+    it('/v3/covid-19/historical/ correct province name list', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/156/bejing,hubei')
+            .get('/v3/covid-19/historical/156/bejing,hubei')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'array');
                 done();
             });
     });
 
-    it('/v3/covid19/historical/ correct province name list split', (done) => {
+    it('/v3/covid-19/historical/ correct province name list split', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/nl/aruba|mainland|bonaire, sint eustatius and saba')
+            .get('/v3/covid-19/historical/nl/aruba|mainland|bonaire, sint eustatius and saba')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'array');
                 res.body.length.should.equal(3);
@@ -134,9 +134,9 @@ describe('TESTING /v3/covid19/historical', () => {
             });
     });
 
-    it('/v3/covid19/historical/ correct country name given province', (done) => {
+    it('/v3/covid-19/historical/ correct country name given province', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/gbr/mainland')
+            .get('/v3/covid-19/historical/gbr/mainland')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'object');
                 res.body.country.should.equal('UK');
@@ -147,9 +147,9 @@ describe('TESTING /v3/covid19/historical', () => {
 
     // Test that all countries map to their respective country
     countryData.map((element) => {
-        it(`/v3/covid19/historical/${element.country} correct country name`, (done) => {
+        it(`/v3/covid-19/historical/${element.country} correct country name`, (done) => {
             chai.request(app)
-                .get(`/v3/covid19/historical/${element.country}`)
+                .get(`/v3/covid-19/historical/${element.country}`)
                 .end((err, res) => {
                     should.not.exist(err);
                     should.exist(res);
@@ -168,9 +168,9 @@ describe('TESTING /v3/covid19/historical', () => {
 
     // Test that all country iso2 codes map to their respective country
     countryData.map((element) => {
-        it(`/v3/covid19/historical/${element.iso2} correct country name`, (done) => {
+        it(`/v3/covid-19/historical/${element.iso2} correct country name`, (done) => {
             chai.request(app)
-                .get(`/v3/covid19/historical/${element.iso2}`)
+                .get(`/v3/covid-19/historical/${element.iso2}`)
                 .end((err, res) => {
                     should.not.exist(err);
                     should.exist(res);
@@ -189,9 +189,9 @@ describe('TESTING /v3/covid19/historical', () => {
 
     // Test that all country iso3 codes map to their respective country
     countryData.map((element) => {
-        it(`/v3/covid19/historical/${element.iso3} correct country name`, (done) => {
+        it(`/v3/covid-19/historical/${element.iso3} correct country name`, (done) => {
             chai.request(app)
-                .get(`/v3/covid19/historical/${element.iso3}`)
+                .get(`/v3/covid-19/historical/${element.iso3}`)
                 .end((err, res) => {
                     should.not.exist(err);
                     should.exist(res);
@@ -210,9 +210,9 @@ describe('TESTING /v3/covid19/historical', () => {
 
     // Test that all country ids map to their respective country
     countryData.map((element) => {
-        it(`/v3/covid19/historical/${element.id} correct country name`, (done) => {
+        it(`/v3/covid-19/historical/${element.id} correct country name`, (done) => {
             chai.request(app)
-                .get(`/v3/covid19/historical/${element.id}`)
+                .get(`/v3/covid-19/historical/${element.id}`)
                 .end((err, res) => {
                     should.not.exist(err);
                     should.exist(res);
@@ -229,18 +229,18 @@ describe('TESTING /v3/covid19/historical', () => {
         });
     });
 
-    it('/v3/covid19/historical/usacounties correct response', (done) => {
+    it('/v3/covid-19/historical/usacounties correct response', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/usacounties')
+            .get('/v3/covid-19/historical/usacounties')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'array');
                 done();
             });
     });
 
-    it('/v3/covid19/historical/usacounties incorrect state name', (done) => {
+    it('/v3/covid-19/historical/usacounties incorrect state name', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/usacounties/sdfgw3')
+            .get('/v3/covid-19/historical/usacounties/sdfgw3')
             .end((err, res) => {
                 testBasicProperties(err, res, 404, 'object');
                 res.body.should.have.property('message');
@@ -248,9 +248,9 @@ describe('TESTING /v3/covid19/historical', () => {
             });
     });
 
-    it('/v3/covid19/historical/usacounties/illinois correct number specified dates', (done) => {
+    it('/v3/covid-19/historical/usacounties/illinois correct number specified dates', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/usacounties/illinois?lastdays=15')
+            .get('/v3/covid-19/historical/usacounties/illinois?lastdays=15')
             .end((err, res) => {
                 testBasicProperties(err, res, 200, 'array');
                 Object.keys(res.body[0].timeline.cases).length.should.equal(15);
@@ -258,14 +258,14 @@ describe('TESTING /v3/covid19/historical', () => {
             });
     });
 
-    it ('/v3/covid19/historical/usacounties/state correct response all states', (done) => {
+    it ('/v3/covid-19/historical/usacounties/state correct response all states', (done) => {
         chai.request(app)
-            .get('/v3/covid19/historical/usacounties')
+            .get('/v3/covid-19/historical/usacounties')
             .end((err, states) => {
                 testBasicProperties(err, states, 200, 'array');
                 states.body.map((state) => {
                     chai.request(app)
-                    .get(`/v3/covid19/historical/usacounties/${state}`)
+                    .get(`/v3/covid-19/historical/usacounties/${state}`)
                     .end((err2, res) => {
                         should.not.exist(err);
                         should.exist(res);

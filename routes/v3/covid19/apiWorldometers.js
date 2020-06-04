@@ -18,20 +18,20 @@ const getAllData = async (key) => {
 	return cleanedWorldData;
 };
 
-router.get('/v3/covid19/all', async (req, res) => {
+router.get('/v3/covid-19/all', async (req, res) => {
 	const { yesterday, twoDaysAgo, allowNull } = req.query;
 	const data = await getAllData(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries);
 	res.send(!wordToBoolean(allowNull) ? countryUtils.transformNull(data) : data);
 });
 
-router.get('/v3/covid19/countries', async (req, res) => {
+router.get('/v3/covid-19/countries', async (req, res) => {
 	const { sort, yesterday, twoDaysAgo, allowNull } = req.query;
 	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries))
 		.filter(country => country.country.toLowerCase() !== 'world').map(fixApostrophe).map(country => !wordToBoolean(allowNull) ? countryUtils.transformNull(country) : country);
 	res.send(sort ? countries.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : countries);
 });
 
-router.get('/v3/covid19/countries/:query', async (req, res) => {
+router.get('/v3/covid-19/countries/:query', async (req, res) => {
 	const { yesterday, twoDaysAgo, strict, allowNull } = req.query;
 	const { query } = req.params;
 	let countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries))
@@ -43,7 +43,7 @@ router.get('/v3/covid19/countries/:query', async (req, res) => {
 	else res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
 });
 
-router.get('/v3/covid19/continents', async (req, res) => {
+router.get('/v3/covid-19/continents', async (req, res) => {
 	const { sort, yesterday, twoDaysAgo, allowNull } = req.query;
 	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries));
 	const continents = await Promise.all(JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : keys.continents))
@@ -52,7 +52,7 @@ router.get('/v3/covid19/continents', async (req, res) => {
 	res.send(sort ? continents.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : continents);
 });
 
-router.get('/v3/covid19/continents/:query', async (req, res) => {
+router.get('/v3/covid-19/continents/:query', async (req, res) => {
 	const { yesterday, twoDaysAgo, strict, allowNull } = req.query;
 	const { query } = req.params;
 	const continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_continents : keys.continents));
@@ -66,14 +66,14 @@ router.get('/v3/covid19/continents/:query', async (req, res) => {
 	}
 });
 
-router.get('/v3/covid19/states', async (req, res) => {
+router.get('/v3/covid-19/states', async (req, res) => {
 	const { sort, yesterday, allowNull } = req.query;
 	const states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states))
 		.splice(1).map(state => !wordToBoolean(allowNull) ? countryUtils.transformNull(state) : state);
 	res.send(sort ? states.sort((a, b) => a[sort] > b[sort] ? -1 : 1) : states);
 });
 
-router.get('/v3/covid19/states/:query', async (req, res) => {
+router.get('/v3/covid-19/states/:query', async (req, res) => {
 	const { yesterday, allowNull } = req.query;
 	const { query } = req.params;
 	const states = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_states : keys.states)).splice(1);
