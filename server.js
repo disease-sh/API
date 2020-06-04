@@ -85,7 +85,6 @@ app.use(require('./routes/v2/apiDeprecated'));
 app.use(require('./routes/v2/apiNYT'));
 app.use(require('./routes/v2/apiApple'));
 app.use(require('./routes/v2/apiGov'));
-app.use(require('./routes/v2/apiEbola'));
 // v3 routes
 app.use(require('./routes/v3/covid19/apiWorldometers'));
 app.use(require('./routes/v3/covid19/apiHistorical'));
