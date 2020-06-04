@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { redis, keys, scraper } = require('../../instances');
 const { splitQuery } = require('../../../utils/stringUtils');
 
-router.get('/v3/covdi19/jhucsse', async (req, res) =>
+router.get('/v3/covid19/jhucsse', async (req, res) =>
 	res.send(scraper.jhuLocations.generalizedJhudataV2(JSON.parse(await redis.get(keys.jhu_v2))))
 );
 
