@@ -1,11 +1,11 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../server');
-const { testBasicProperties } = require('./testingFunctions');
+const app = require('../../../server');
+const { testBasicProperties } = require('../../testingFunctions');
 
 chai.use(chaiHttp);
 
-describe('TESTING /v2/ebola general', () => {
+describe('TESTING /v3/ebola general', () => {
 	it('/v3/ebola correct properties', (done) => {
 		chai.request(app)
 			.get('/v3/ebola')
