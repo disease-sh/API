@@ -1,8 +1,8 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const { wordToBoolean, splitQuery, fixApostrophe } = require('../utils/stringUtils');
-const countryUtils = require('../utils/countryUtils');
-const { redis, keys } = require('./instances');
+const { wordToBoolean, splitQuery, fixApostrophe } = require('../../utils/stringUtils');
+const countryUtils = require('../../utils/countryUtils');
+const { redis, keys } = require('../instances');
 
 /**
  * Gets data for /all or /yesterday/all endpoint

@@ -1,7 +1,7 @@
 const axios = require('axios');
 const csv = require('csvtojson');
-const logger = require('../utils/logger');
-const { updateNYTCache } = require('../utils/nytCache');
+const logger = require('../../utils/logger');
+const { updateNYTCache } = require('../../utils/nytCache');
 
 const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master';
 const US_COUNTY_DATA_URL = `${GITHUB_BASE_URL}/us-counties.csv`;

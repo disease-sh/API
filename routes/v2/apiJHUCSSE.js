@@ -1,7 +1,7 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const { redis, keys, scraper } = require('./instances');
-const { splitQuery } = require('../utils/stringUtils');
+const { redis, keys, scraper } = require('../instances');
+const { splitQuery } = require('../../utils/stringUtils');
 
 router.get('/v2/jhucsse', async (req, res) =>
 	res.send(scraper.jhuLocations.generalizedJhudataV2(JSON.parse(await redis.get(keys.jhu_v2))))

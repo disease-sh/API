@@ -3,14 +3,14 @@ const Redis = require('ioredis');
 
 // LOCAL FUNCTIONS
 const logger = require('../utils/logger');
-const getWorldometerPage = require('../scrapers/getWorldometers');
-const getStates = require('../scrapers/getStates');
-const jhuLocations = require('../scrapers/jhuLocations');
-const historical = require('../scrapers/historical');
-const nytData = require('../scrapers/nytData');
-const appleData = require('../scrapers/appleMobilityData');
-const govData = require('../scrapers/govScrapers/getGovData');
-const getEbola = require('../scrapers/getEbola');
+const getWorldometerPage = require('../scrapers/covid19/getWorldometers');
+const getStates = require('../scrapers/covid19/getStates');
+const jhuLocations = require('../scrapers/covid19/jhuLocations');
+const historical = require('../scrapers/covid19/historical');
+const nytData = require('../scrapers/covid19/nytData');
+const appleData = require('../scrapers/covid19/appleMobilityData');
+const govData = require('../scrapers/covid19/govScrapers/getGovData');
+const getEbola = require('../scrapers/ebola/getEbola');
 
 // KEYS
 const { config, keys, port } = require('../config');

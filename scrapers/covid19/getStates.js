@@ -1,6 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const logger = require('../utils/logger');
+const logger = require('../../utils/logger');
 /**
  * Get state name from html table cell
  * @param 	{Object} 	cell 	Table cell from states table

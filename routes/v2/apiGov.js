@@ -1,8 +1,8 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const countryUtils = require('../utils/countryUtils');
-const { wordToBoolean } = require('../utils/stringUtils');
-const { redis, keys } = require('./instances');
+const countryUtils = require('../../utils/countryUtils');
+const { wordToBoolean } = require('../../utils/stringUtils');
+const { redis, keys } = require('../instances');
 
 router.get('/v2/gov/:country?', async (req, res) => {
 	const { allowNull } = req.query;

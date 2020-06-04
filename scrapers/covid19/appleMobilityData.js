@@ -1,8 +1,8 @@
 const axios = require('axios');
 const csv = require('csvtojson');
-const logger = require('../utils/logger');
-const countryUtils = require('../utils/countryUtils');
-const { updateAppleCache } = require('../utils/appleCache');
+const logger = require('../../utils/logger');
+const countryUtils = require('../../utils/countryUtils');
+const { updateAppleCache } = require('../../utils/appleCache');
 
 const GITHUB_URL = 'https://raw.githubusercontent.com/ActiveConclusion/COVID19_mobility/master/apple_reports/apple_mobility_report.csv';
 

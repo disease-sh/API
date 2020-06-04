@@ -1,8 +1,8 @@
 const axios = require('axios');
-const countryUtils = require('../utils/countryUtils');
-const stringUtils = require('../utils/stringUtils');
-const csvUtils = require('../utils/csvUtils');
-const logger = require('../utils/logger');
+const countryUtils = require('../../utils/countryUtils');
+const stringUtils = require('../../utils/stringUtils');
+const csvUtils = require('../../utils/csvUtils');
+const logger = require('../../utils/logger');
 
 // eslint-disable-next-line max-len
 const base = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/';

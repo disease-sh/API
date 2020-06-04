@@ -77,14 +77,24 @@ app.use((req, res, next) => {
 	}
 	next();
 });
-app.use(require('./routes/apiWorldometers'));
-app.use(require('./routes/apiHistorical'));
-app.use(require('./routes/apiJHUCSSE'));
-app.use(require('./routes/apiDeprecated'));
-app.use(require('./routes/apiNYT'));
-app.use(require('./routes/apiApple'));
-app.use(require('./routes/apiGov'));
-app.use(require('./routes/apiEbola'));
+// v2 routes
+app.use(require('./routes/v2/apiWorldometers'));
+app.use(require('./routes/v2/apiHistorical'));
+app.use(require('./routes/v2/apiJHUCSSE'));
+app.use(require('./routes/v2/apiDeprecated'));
+app.use(require('./routes/v2/apiNYT'));
+app.use(require('./routes/v2/apiApple'));
+app.use(require('./routes/v2/apiGov'));
+app.use(require('./routes/v2/apiEbola'));
+// v3 routes
+app.use(require('./routes/v3/covid19/apiWorldometers'));
+app.use(require('./routes/v3/covid19/apiHistorical'));
+app.use(require('./routes/v3/covid19/apiJHUCSSE'));
+app.use(require('./routes/v3/covid19/apiDeprecated'));
+app.use(require('./routes/v3/covid19/apiNYT'));
+app.use(require('./routes/v3/covid19/apiApple'));
+app.use(require('./routes/v3/covid19/apiGov'));
+app.use(require('./routes/v3/ebola/apiEbola'));
 
 app.listen(port, () => logger.info(`Your app is listening on port ${port}`));
 
