@@ -4,7 +4,7 @@ const { redis, keys } = require('../../instances');
 const countryUtils = require('../../../utils/countryUtils');
 const { wordToBoolean } = require('../../../utils/stringUtils');
 
-router.get('/v3/ebola', async (req, res) => {
+router.get('v3/ebola/ecdc', async (req, res) => {
 	const { allowNull } = req.query;
 	const data = JSON.parse(await redis.get(keys.ebola));
 	res.send(!wordToBoolean(allowNull) ? countryUtils.transformNull(data) : data);

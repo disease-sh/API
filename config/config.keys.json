@@ -15,5 +15,5 @@
   "nyt_USA": "covidapi:nyt_usa",
   "apple_all": "covidapi:apple_all",
   "gov_countries": "covidapi:gov_countries",
-  "ebola": "ebola:general"
+  "ebola": "ebola:ecdc"
 }
