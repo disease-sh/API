@@ -45,7 +45,7 @@ const ebolaData = async (keys, redis) => {
 			source: 'European Centre for Disease Prevention and Control (© ECDC [2005-2019].)',
 			provinces
 		};
-		redis.set(keys.ebola, JSON.stringify(data));
+		redis.set(keys.ebola_ecdc, JSON.stringify(data));
 		logger.info(`Updated ebola data: ${provinces.length} provinces`);
 	} catch (err) {
 		logger.err('Error: Requesting Canada Gov Data failed!', err);
