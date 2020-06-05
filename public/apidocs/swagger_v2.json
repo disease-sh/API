@@ -38,6 +38,10 @@
     {
       "name": "Gov",
       "description": "(Government specific data)"
+    },
+    {
+      "name": "Ebola",
+      "description": "(Ebola virus outbreak data)"
     }
   ],
   "consumes": [
@@ -944,6 +948,38 @@
           }
         }
       }
+    },
+    "/v2/ebola": {
+      "get": {
+        "tags": [
+          "Ebola"
+        ],
+        "parameters": [
+          {
+            "name": "allowNull",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "Lets you turn off the automatic null-to-0 transformation",
+            "type": "string"
+          }
+        ],
+        "summary": "Get Ebola virus data on the current outbreak",
+        "description": "Returns the date which the data was most recently updated by the source as well as the API, the source license, and province-specific data for cases, possible cases, and deaths",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/ebola"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1226,7 +1262,41 @@
           }
         }
       }
-      
+    },
+    "ebolaProvince": {
+      "properties": {
+        "province": {
+          "type": "string"
+        },
+        "cases": {
+          "type": "number"
+        },
+        "probableCases": {
+          "type": "number"
+        },
+        "deaths": {
+          "type": "number"
+        }
+      }
+    },
+    "ebola": {
+      "properties": {
+        "updated": {
+          "type": "string"
+        },
+        "sourceUpdated": {
+          "type": "string",
+          "format": "date"
+        },
+        "source": {
+          "type": "string"
+        },
+        "provinces": {
+          "items": {
+            "$ref": "#/definitions/ebolaProvince"
+          }
+        }
+      }
     },
     "continents": {
       "type": "array",

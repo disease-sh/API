@@ -1,7 +1,7 @@
 name: Unittest
 on:
   push:
-    branches: [master]
+    branches: [master, v3-update]
   pull_request:
     branches:
       - '*'
