@@ -22,6 +22,8 @@
 ## Recommended by Postman
 NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
+[![Run in Postman](https://run-beta.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/11144369-e27366d6-7699-46f4-b58e-2b2b2e637be5-Szf6Z9B3)
+
 ## Documentation
 NovelCovid API Documentation can be found [here](https://disease.sh/docs/)
 
