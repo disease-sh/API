@@ -53,8 +53,6 @@ describe('TESTING /v3/covid-19/gov/canada', () => {
 					element.should.have.property('province');
 					element.should.have.property('cases');
 					element.cases.should.be.at.least(0);
-					element.should.have.property('probableCases');
-					element.probableCases.should.be.at.least(0);
 					element.should.have.property('deaths');
 					element.deaths.should.be.at.least(0);
 				});
