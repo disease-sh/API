@@ -8,8 +8,7 @@ const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
 const { config, port, redis, scraper, keys } = require('./routes/instances');
-const { updateNYTCache } = require('./utils/nytCache');
-const { updateAppleCache } = require('./utils/appleCache');
+const { updateNYTCache, updateAppleCache } = require('./utils/cache');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 
