@@ -7,13 +7,15 @@ const logger = require('./logger');
 exports.currentStatus = {
 	nytCounties: undefined,
 	nytStates: undefined,
-	nytNationwide: undefined
+	nytNationwide: undefined,
+	appleData: undefined
 };
 
 // Series of get calls to retrieve current state of cache
 exports.nytCounties = () => this.currentStatus.nytCounties;
 exports.nytStates = () => this.currentStatus.nytStates;
 exports.nytNationwide = () => this.currentStatus.nytNationwide;
+exports.appleData = () => this.currentStatus.appleData;
 
 // Retrieves NYT data from Redis and stores it locally when data is updated
 exports.updateNYTCache = async () => {
@@ -38,3 +40,21 @@ exports.updateNYTCache = async () => {
 	}
 };
 
+// Retrieves Apple data from Redis and stores it locally when data is updated
+exports.updateAppleCache = async () => {
+	try {
+		const { redis, keys } = require('../routes/instances');
+		const parsedAppleData = JSON.parse(await redis.get(keys.apple_all));
+		const numericalStats = (element) => ({ ...element, driving: parseFloat(element.driving), transit: parseFloat(element.transit), walking: parseFloat(element.walking) });
+		if (!parsedAppleData) {
+			logger.warn('Could not update Apple cache, no error.');
+		} else {
+			// eslint-disable-next-line no-return-assign
+			Object.keys(parsedAppleData).forEach((countryName) => parsedAppleData[countryName].data = parsedAppleData[countryName].data.map(numericalStats));
+			this.currentStatus.appleData = parsedAppleData;
+			logger.info('Apple local cache updated');
+		}
+	} catch (err) {
+		logger.err('Local Apple cache update failed', err);
+	}
+};
