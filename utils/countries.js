@@ -122,7 +122,7 @@ module.exports = [
 	{ country: 'S. Korea', iso2: 'KR', iso3: 'KOR', id: 410, lat: 37, long: 127.5, possibleNames: ['Korea del Sur', 'South Korea', 'Korea, South', 'Republic of Korea'] },
 	{ country: 'Kuwait', iso2: 'KW', iso3: 'KWT', id: 414, lat: 29.3375, long: 47.6581 },
 	{ country: 'Kyrgyzstan', iso2: 'KG', iso3: 'KGZ', id: 417, lat: 41, long: 75 },
-	{ country: 'Lao People\'s Democratic Republic', iso2: 'LA', iso3: 'LAO', id: 418, lat: 18, long: 105, possibleNames: ['Laos'] },
+	{ country: 'Lao People"s Democratic Republic', iso2: 'LA', iso3: 'LAO', id: 418, lat: 18, long: 105, possibleNames: ['Laos'] },
 	{ country: 'Latvia', iso2: 'LV', iso3: 'LVA', id: 428, lat: 57, long: 25 },
 	{ country: 'Lebanon', iso2: 'LB', iso3: 'LBN', id: 422, lat: 33.8333, long: 35.8333 },
 	{ country: 'Lesotho', iso2: 'LS', iso3: 'LSO', id: 426, lat: -29.5, long: 28.5 },
