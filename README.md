@@ -1,4 +1,4 @@
-![Logo](https://i.imgur.com/m7JoOrQ.png)
+![Logo](./public/assets/img/icon-long.png)
 <br><br>
 
 ![DockerHub Downloads](https://img.shields.io/docker/pulls/novelcovid/novelcovid-api?style=for-the-badge)
@@ -11,21 +11,21 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/novelcovid/api?style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/novelcovid/api?style=for-the-badge)
 
-# Welcome to the NovelCOVID API
+# Welcome to disease.sh - An open API for disease-related statistics
 
 | Information | Discord | Donate |
 |:------------|:---------|:-------|
-| This API provides a big range of detailed information about COVID19 from global data overviews to city/region specific mobility data. We also provide official government data for some countries, more to be added soon.<br><br>The core-team currently consists of 4 people from 4 different countries working hard to keep this up and running, but it's an open-source project, so if you want, come help us!| [![Discord server](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F2x%2Fdiscord-logo.png&f=1&nofb=1)](https://discord.gg/cEDxzfW) | [![BuyMeACoffee](https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-1.svg)](https://www.buymeacoffee.com/covidapi/shop) |
+| This API provides a big range of detailed information about multiple viruses. From COVID19 global data overviews to city/region specific mobility data, and data on the current outbreak of Ebola in the DRC. We also provide official government data for some countries, more to be added soon.<br><br>The core-team currently consists of 4 people from 4 different countries working hard to keep this up and running, but it's an open-source project, so if you want, come help us!| [![Discord server](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F2x%2Fdiscord-logo.png&f=1&nofb=1)](https://discord.gg/cEDxzfW) | [![BuyMeACoffee](https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-1.svg)](https://www.buymeacoffee.com/covidapi/shop) |
 
 **Check out** our homepage and **sign up** for our newsletter [here](https://disease.sh/)
 
 ## Recommended by Postman
-NovelCovid API is recommended by Postman [here](https://covid-19-apis.postman.com/)
+Disease.sh is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
 [![Run in Postman](https://run-beta.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/11144369-e27366d6-7699-46f4-b58e-2b2b2e637be5-Szf6Z9B3)
 
 ## Documentation
-NovelCovid API Documentation can be found [here](https://disease.sh/docs/)
+Disease.sh Documentation can be found [here](https://disease.sh/docs/)
 
 # Installation
 
