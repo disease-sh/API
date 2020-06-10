@@ -665,7 +665,7 @@ describe('TESTING /v2/countries', () => {
 					should.exist(res);
 					if (res.status === 200) {
 						res.body.should.be.a('object');
-						res.body.country.should.equal(element.country.replace(/'/g, "\""));
+						res.body.country.should.equal(element.country);
 						res.body.should.have.property('countryInfo');
 						should.exist(res.body.countryInfo);
 						res.body.should.have.property('cases');
@@ -722,7 +722,7 @@ describe('TESTING /v2/countries', () => {
 					should.exist(res);
 					if (res.status === 200) {
 						res.body.should.be.a('object');
-						res.body.country.should.equal(element.country.replace(/'/g, "\""));
+						res.body.country.should.equal(element.country);
 						res.body.should.have.property('countryInfo');
 						should.exist(res.body.countryInfo);
 						res.body.should.have.property('cases');
@@ -779,7 +779,7 @@ describe('TESTING /v2/countries', () => {
 					should.exist(res);
 					if (res.status === 200) {
 						res.body.should.be.a('object');
-						res.body.country.should.equal(element.country.replace(/'/g, "\""));
+						res.body.country.should.equal(element.country);
 						res.body.should.have.property('countryInfo');
 						should.exist(res.body.countryInfo);
 						res.body.should.have.property('cases');
