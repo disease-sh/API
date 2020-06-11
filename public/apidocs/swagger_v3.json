@@ -817,7 +817,7 @@
       "/v2/apple/countries": {
         "get": {
           "tags": [
-            "Apple"
+            "Covid-19 Apple"
           ],
           "summary": "Get list of supported countries for Apple mobility data",
           "description": "Return a list of supported country names",
@@ -831,7 +831,7 @@
       "/v2/apple/countries/{country}": {
         "get": {
           "tags": [
-            "Apple"
+            "Covid-19 Apple"
           ],
           "parameters": [
             {
@@ -857,7 +857,7 @@
       "/v2/apple/countries/{country}/{subregions}": {
         "get": {
           "tags": [
-            "Apple"
+            "Covid-19 Apple"
           ],
           "parameters": [
             {
@@ -871,11 +871,11 @@
               "name": "subregions",
               "in": "path",
               "required": true,
-              "description": "Comma separated, or just single value of subregions supported by country for apple mobility data. Can find available subregions on /v2/apple/countries/{country} endpoint",
+              "description": "Comma separated subregions supported by country for apple mobility data. Can find available subregions on /v2/apple/countries/{country} endpoint",
               "type": "string"
             }
           ],
-          "summary": "Get apple mobility data for subregions of a country",
+          "summary": "Get Covid-19 Apple mobility data for subregions of a country",
           "description": "Return a list of mobility data entries for multiple subregions or entries for one subregion on every day since January 13th. Each entry has driving, transit, and walking data with an associated number of how many percentages it is up or down since January 13th",
           "responses": {
             "200": {
