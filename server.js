@@ -19,7 +19,7 @@ app.use(require('cors')({ origin: '*' }));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(null, {
 	explorer: true,
-	customSiteTitle: 'NovelCOVID API Docs',
+	customSiteTitle: 'disease.sh Docs - An open API for disease-related statistics',
 	customfavIcon: '/assets/img/virus.png',
 	customCssUrl: '/assets/css/apidocs.css',
 	swaggerOptions: {
