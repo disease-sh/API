@@ -751,19 +751,18 @@
       "/v2/nyt/states": {
         "get": {
           "tags": [
-            "NYT"
+            "Covid-19 NYT"
           ],
           "parameters": [
             {
               "name": "state",
               "in": "path",
               "required": false,
-              "description": "The state that you'd like to search for, separated by comma if you want to search for multiple (i.e. 'California, Washington'. Default is full data set",
+              "description": "State name(s), separated by commas (i.e. 'Illinois, California'). Default is full data set",
               "type": "string"
             }
           ],
-          "summary": "Get State Data",
-          "description": "Return all NYT state data or individual state data if specified. Each entry returned represents data for a given day.",
+          "summary": "Get Covid-19 time series data for a states or set of states, with an entry for each day since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -777,19 +776,18 @@
       "/v2/nyt/counties": {
         "get": {
           "tags": [
-            "NYT"
+            "Covid-19 NYT"
           ],
           "parameters": [
             {
               "name": "county",
               "in": "path",
               "required": false,
-              "description": "The county that you'd like to search for, separated by comma if you want to search for multiple (i.e. 'Alameda, Humboldt'). Default is full data set",
+              "description": "County name(s), separated by commas (i.e. 'Alameda, Humboldt'). Default is full data set",
               "type": "string"
             }
           ],
-          "summary": "Get County Data",
-          "description": "Return all NYT county data or individual county data if specified. Each entry returned represents data for a given day.",
+          "summary": "Get Covid-19 time series data for a county or set of counties, with an entry for each day since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -803,10 +801,9 @@
       "/v2/nyt/usa": {
         "get": {
           "tags": [
-            "NYT"
+            "Covid-19 NYT"
           ],
-          "summary": "Get US Nationwide Data",
-          "description": "Return all NYT US nationwide data. Each entry returned represents data for a given day.",
+          "summary": "Get Covid-19 time series data for the entire USA, with an entry for each day since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
