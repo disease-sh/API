@@ -890,7 +890,7 @@
       "/v2/gov/": {
         "get": {
           "tags": [
-            "Gov"
+            "Covid-19 Government"
           ],
           "summary": "Get list of supported countries for Government specific data",
           "description": "Return a list of supported country names",
@@ -904,7 +904,7 @@
       "/v2/gov/{country}": {
         "get": {
           "tags": [
-            "Gov"
+            "Covid-19 Government"
           ],
           "parameters": [
             {
@@ -915,8 +915,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get government reported daata for a specific country",
-          "description": "Returns an array of data from the country's government website scraped once a day. Data is structured per-basis, so there is not set structure",
+          "summary": "Get Covid-19 government reported data for a specific country",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -927,7 +926,7 @@
       "/v2/ebola": {
         "get": {
           "tags": [
-            "Ebola"
+            "Ebola ECDC"
           ],
           "parameters": [
             {
@@ -944,8 +943,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Ebola virus data on the current outbreak",
-          "description": "Returns the date which the data was most recently updated by the source as well as the API, the source license, and province-specific data for cases, possible cases, and deaths",
+          "summary": "Get Ebola virus data on the current outbreak from the European Center for Disease Control",
           "responses": {
             "200": {
               "description": "Status Ok",
