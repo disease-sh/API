@@ -84,7 +84,10 @@
           "summary": "Get Global Covid-19 Totals for today and yesterday data",
           "responses": {
             "200": {
-              "description": "Status OK"
+              "description": "Status OK",
+              "schema": {
+                "$ref": "#/definitions/country"
+              }
             }
           }
         }
@@ -126,7 +129,10 @@
           "summary": "Get Covid-19 Totals for all US States",
           "responses": {
             "200": {
-              "description": "Status OK"
+              "description": "Status OK",
+              "schema": {
+                "$ref": "#/definitions/state"
+              }
             }
           }
         }
@@ -161,7 +167,10 @@
           "summary": "Get Covid-19 Totals for a specific US State(s)",
           "responses": {
             "200": {
-              "description": "Status OK"
+              "description": "Status OK",
+              "schema": {
+                "$ref": "#/definitions/state"
+              }
             }
           }
         }
@@ -456,7 +465,10 @@
           "summary": "Get Covid-19 totals for a specific set of countries",
           "responses": {
             "200": {
-              "description": "Status Ok"
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/country"
+              }
             }
           }
         }
@@ -469,7 +481,10 @@
           "summary": "Get Covid-19 totals for all countries",
           "responses": {
             "200": {
-              "description": "Status Ok"
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/county"
+              }
             }
           }
         }
@@ -956,6 +971,43 @@
       }
     },
     "definitions": {
+        "state": {
+            "properties": {
+              "state": {
+                "type": "string"
+              },
+              "updated": {
+                "type": "number"
+              },
+              "cases": {
+                "type": "string"
+              },
+              "todayCases": {
+                "type": "string"
+              },
+              "deaths": {
+                "type": "string"
+              },
+              "todayDeaths": {
+                "type": "string"
+              },
+              "active": {
+                "type": "string"
+              },
+              "casesPerOneMillion": {
+                "type": "string"
+              },
+              "deathsPerOneMillion": {
+                "type": "string"
+              },
+              "tests": {
+                "type": "string"
+              },
+              "testsPerOneMillion": {
+                "type": "string"
+              }
+            }
+        },
       "countryHistorical": {
         "properties": {
           "country": {
