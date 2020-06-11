@@ -16,7 +16,7 @@ const mergeData = (recovered, deceased, cities) => {
 	const type = cities ? 'city' : 'department';
 	const merge = Object.keys(recovered).map((key) => key in deceased
 		? { [type]: key, deceased: deceased[key], recovered: recovered[key] }
-		: { [type]: key, recovered: recovered[key] }, {});
+		: { [type]: key, recovered: recovered[key] });
 	return merge;
 };
 
