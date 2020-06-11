@@ -453,7 +453,7 @@
               "type": "string"
             }
           ],
-          "summary": "et Covid-19 totals for a specific set of countries",
+          "summary": "Get Covid-19 totals for a specific set of countries",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -464,10 +464,9 @@
       "/v2/jhucsse": {
         "get": {
           "tags": [
-            "JHUCSSE"
+            "Covid-19 JHUCSSE"
           ],
-          "summary": "Get All JHU CSSE",
-          "description": "Get JHU CSSE Data. This includes confirmed cases, deaths, recovered, and coordinates. Data is updated every 10 minutes",
+          "summary": "Get Covid-19 totals for all countries",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -478,10 +477,9 @@
       "/v2/jhucsse/counties": {
         "get": {
           "tags": [
-            "JHUCSSE"
+            "Covid-19 JHUCSSE"
           ],
-          "summary": "Get All US County Data from JHU CSSE",
-          "description": "Get JHU CSSE county specific data. This includes confirmed cases, deaths, recovered, and coordinates. Data is updated every 10 minutes",
+          "summary": "Get Covid-19 totals for all US counties",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -495,19 +493,18 @@
       "/v2/jhucsse/counties/countyName": {
         "get": {
           "tags": [
-            "JHUCSSE"
+            "Covid-19 JHUCSSE"
           ],
           "parameters": [
             {
               "name": "countyName",
               "in": "path",
               "required": true,
-              "description": "For this parameter you can use the name of any county from the /counties endpoint",
+              "description": "Name of any county in the USA. All counties are listed in the /jhucsse/counties/ endpoint",
               "type": "string"
             }
           ],
-          "summary": "Get county data for a single county from JHU CSSE",
-          "description": "Get JHU CSSE county specific data. This includes confirmed cases, deaths, recovered, and coordinates. Returns array because there are duplicate names. Data is updated every 10 minutes",
+          "summary": "Get Covid-19 totals for a specific county",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -521,7 +518,7 @@
       "/v2/historical": {
         "get": {
           "tags": [
-            "JHUCSSE"
+            "Covid-19 JHUCSSE"
           ],
           "parameters": [
             {
@@ -529,12 +526,11 @@
               "in": "query",
               "required": false,
               "default": 30,
-              "description": "number of days you want the data to go back to. Default is 30. Use all for full data set. Ex: 15, all, 24",
+              "description": "Number of days you want the returned data to go back. Default is 30 days. Use 'all' for full data set. Ex: 15, all, 24",
               "type": "string"
             }
           ],
-          "summary": "Get Historical Data",
-          "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths, cases, and recoveries for each country. Updated each day at 23:59 UTC. Data is updated every 10 minutes",
+          "summary": "Get Covid-19 time series data for all countries since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -545,13 +541,36 @@
           }
         }
       },
+      "/v2/historical/all": {
+        "get": {
+          "tags": [
+            "Covid-19 JHUCSSE"
+          ],
+          "parameters": [
+            {
+              "name": "lastdays",
+              "in": "query",
+              "required": false,
+              "default": 30,
+              "description": "Number of days you want the returned data to go back. Default is 30 days. Use 'all' for full data set. Ex: 15, all, 24",
+              "type": "string"
+            }
+          ],
+          "summary": "Get global summed Covid-19 time series data since the pandemic began",
+          "responses": {
+            "200": {
+              "description": "Status Ok"
+            }
+          }
+        }
+      },
       "/v2/historical/usacounties": {
         "get": {
           "tags": [
-            "JHUCSSE"
+            "Covid-19 JHUCSSE"
           ],
           "summary": "Get All Possible USA states to query /historical/usacounties/{state} endpoint with.",
-          "description": "Returns a list of states that are available for querying the /historical/usacounties/{state} endpoint with.",
+          "description": "Returns a list of states and American provinces",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -562,14 +581,14 @@
       "/v2/historical/usacounties/{state}": {
         "get": {
           "tags": [
-            "JHUCSSE"
+            "Covid-19 JHUCSSE"
           ],
           "parameters": [
             {
               "name": "state",
               "in": "path",
               "required": true,
-              "description": "A valid US state name, validated in the array returned from /v2/historical/usacounties",
+              "description": "US state name, validated in the array returned from /v2/historical/usacounties",
               "type": "string"
             },
             {
@@ -577,12 +596,11 @@
               "in": "query",
               "required": false,
               "default": 30,
-              "description": "number of days you want the data to go back to. Default is 30. Use all for full data set. Ex: 15, all, 24",
+              "description": "Number of days you want the returned data to go back. Default is 30 days. Use 'all' for full data set. Ex: 15, all, 24",
               "type": "string"
             }
           ],
-          "summary": "Get Historical Data for all Counties in a Specified State",
-          "description": "Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths and cases. Updated each day at 23:59 UTC. Data is updated every 10 minutes",
+          "summary": "Get Covid-19 time series data for all counties in a specified state since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -596,14 +614,14 @@
       "/v2/historical/{query}": {
         "get": {
           "tags": [
-            "JHUCSSE"
+            "Covid-19 JHUCSSE"
           ],
           "parameters": [
             {
               "name": "query",
               "in": "path",
               "required": true,
-              "description": "For this parameter you can use Country Name && Country Id && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
+              "description": "A country name, iso2, iso3, or country ID code",
               "type": "string"
             },
             {
@@ -611,12 +629,11 @@
               "in": "query",
               "required": false,
               "default": 30,
-              "description": "number of days you want the data to go back to. Default is 30. Use all for full data set. Ex: 15, all, 24",
+              "description": "Number of days you want the returned data to go back. Default is 30 days. Use 'all' for full data set. Ex: 15, all, 24",
               "type": "string"
             }
           ],
-          "summary": "Get Historical Data by Country Name",
-          "description": "Get a country's time series using a country iso code, country ID, or of course, country name. Data is updated every 10 minutes",
+          "summary": "Get Covid-19 time series data for a specific country since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -630,27 +647,26 @@
       "/v2/historical/{country,country,...}": {
         "get": {
           "tags": [
-            "JHUCSSE"
+            "Covid-19 JHUCSSE"
           ],
           "parameters": [
             {
               "name": "query",
               "in": "path",
               "required": true,
-              "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards separated by commas",
-              "type": ""
+              "description": "A country name, iso2, iso3, or country ID code",
+              "type": "string"
             },
             {
               "name": "lastdays",
               "in": "query",
               "required": false,
               "default": 30,
-              "description": "number of days you want the data to go back to. Default is 30. Use all for full data set. Ex: 15, all, 24",
+              "description": "Number of days you want the returned data to go back. Default is 30 days. Use 'all' for full data set. Ex: 15, all, 24",
               "type": "string"
             }
           ],
-          "summary": "Get Historical Data by multiple Country Names",
-          "description": "Get multiple countrys' time series using multiple country iso codes, country IDs, or of course, country names. Data is updated every 10 minutes",
+          "summary": "Get Covid-19 time series data for a specific set of countries since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -661,21 +677,21 @@
       "/v2/historical/{query}/{province}": {
         "get": {
           "tags": [
-            "JHUCSSE"
+            "Covid-19 JHUCSSE"
           ],
           "parameters": [
             {
               "name": "query",
               "in": "path",
               "required": true,
-              "description": "For this parameter you can use Country Name && Country Id && ISOs (ISO 2 | ISO 3) 3166 Country Standards",
+              "description": "A country name, iso2, iso3, or country ID code",
               "type": "string"
             },
             {
               "name": "province",
               "in": "path",
               "required": true,
-              "description": "Province name",
+              "description": "Province name, can be found in /v2/historical/{query} result",
               "type": "string"
             },
             {
@@ -683,12 +699,11 @@
               "in": "query",
               "required": false,
               "default": 30,
-              "description": "number of days you want the data to go back to. Default is 30. Use all for full data set. Ex: 15, all, 24",
+              "description": "Number of days you want the returned data to go back. Default is 30 days. Use 'all' for full data set. Ex: 15, all, 24",
               "type": "string"
             }
           ],
-          "summary": "Get Historical Data by Province Name",
-          "description": "Get a province within a country's time series. Example is /v2/historical/chn/tibet. CHN is China's iso3 code. Data is updated every 10 minutes",
+          "summary": "Get Covid-19 time series data for a specific province in a country since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -699,15 +714,15 @@
       "/v2/historical/{query}/{province,province,...}": {
         "get": {
           "tags": [
-            "JHUCSSE"
+            "Covid-19 JHUCSSE"
           ],
           "parameters": [
             {
               "name": "query",
               "in": "path",
               "required": true,
-              "description": "For this parameter you can use multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards separated by commas",
-              "type": ""
+              "description": "Multiple country names, iso2, iso3, or country IDs separated by commas",
+              "type": "string"
             },
             {
               "name": "provinces",
@@ -721,36 +736,11 @@
               "in": "query",
               "required": false,
               "default": 30,
-              "description": "number of days you want the data to go back to. Default is 30. Use all for full data set. Ex: 15, all, 24",
+              "description": "Number of days you want the returned data to go back. Default is 30 days. Use 'all' for full data set. Ex: 15, all, 24",
               "type": "string"
             }
           ],
-          "summary": "Get Historical Data by multiple Province Names",
-          "description": "Get multiple provinces' time series using multiple Country Names && Country Ids && ISOs (ISO 2 | ISO 3) 3166 Country Standards. Data is updated every 10 minutes",
-          "responses": {
-            "200": {
-              "description": "Status Ok"
-            }
-          }
-        }
-      },
-      "/v2/historical/all": {
-        "get": {
-          "tags": [
-            "JHUCSSE"
-          ],
-          "parameters": [
-            {
-              "name": "lastdays",
-              "in": "query",
-              "required": false,
-              "default": 30,
-              "description": "number of days you want the data to go back to. Default is 30. Use all for full data set. Ex: 15, all, 24",
-              "type": "string"
-            }
-          ],
-          "summary": "Get Historical Data",
-          "description": "Return time series data globally. Data is updated every 10 minutes",
+          "summary": "Get Covid-19 time series data for a set of provinces in a country since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -1339,5 +1329,5 @@
       "description": "Find out more about this API",
       "url": "https://github.com/NovelCovid/API"
     }
-  }
+  }}
   
