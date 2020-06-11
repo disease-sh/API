@@ -5,7 +5,7 @@ const { testBasicProperties } = require('./testingFunctions');
 
 chai.use(chaiHttp);
 
-const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand'].sort();
+const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia'].sort();
 
 describe('TESTING /v2/gov general', () => {
 	it('/v2/gov correct countries', (done) => {
@@ -344,5 +344,21 @@ describe('TESTING /v2/gov/new zealand', () => {
 				});
 				done();
 			});
-	});
+  });
+
+  describe('TESTING /v2/gov/colombia', () => {
+    it('/v2/gov/vietnam correct fields set', (done) => {
+      chai.request(app)
+        .get('/v2/gov/vietnam')
+        .end((err, res) => {
+          testBasicProperties(err, res, 200, 'array');
+          res.body.forEach((element) => {
+            element.should.have.property('updated');
+            element.should.have.property('departments');
+            element.should.have.property('cities');
+          });
+          done();
+        });
+    });
+  });
 });

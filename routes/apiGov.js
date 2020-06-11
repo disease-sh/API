@@ -13,7 +13,7 @@ router.get('/v2/gov/:country?', async (req, res) => {
 		if (data[standardizedCountryName]) {
 			res.send(!wordToBoolean(allowNull) ? countryUtils.transformNull(data[standardizedCountryName]) : data[standardizedCountryName]);
 		} else {
-			res.status(404).send({ message: `Country '${standardizedCountryName}' not found or no data found for county` });
+			res.status(404).send({ message: `Country '${standardizedCountryName}' not found or no data found for country` });
 		}
 	} else {
 		res.send(Object.keys(data));
