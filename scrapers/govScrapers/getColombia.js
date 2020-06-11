@@ -1,26 +1,22 @@
 const axios = require('axios');
 const logger = require('../../utils/logger');
 
-const filters = ['Recuperado', 'Fallecido'];
-
-
 const transformData = (data, cities) => {
 	const state = 13;
-	const pos = cities
-		? 11 : 12;
-	const recovered = filterData(data, state, filters[0], pos);
-	const deceased = filterData(data, state, filters[1], pos);
-	const merged = mergeData(recovered, deceased);
+	const pos = cities ? 11 : 12;
+	const recovered = filterData(data, state, 'Recuperado', pos);
+	const deceased = filterData(data, state, 'Fallecido', pos);
+	const merged = cities
+		? mergeData(recovered, deceased, cities)
+		: mergeData(recovered, deceased);
 	return merged;
 };
 
-const mergeData = (recovered, deceased) => {
-	const merge = Object.keys(recovered).reduce((map, key) => {
-		map[key] = key in deceased
-			? { deceased: deceased[key], recovered: recovered[key] }
-			: { recovered: recovered[key] };
-		return map;
-	}, {});
+const mergeData = (recovered, deceased, cities) => {
+	const type = cities ? 'city' : 'department';
+	const merge = Object.keys(recovered).map((key) => key in deceased
+		? { [type]: key, deceased: deceased[key], recovered: recovered[key] }
+		: { [type]: key, recovered: recovered[key] }, {});
 	return merge;
 };
 
@@ -38,10 +34,9 @@ const filterData = (data, state, filter, pos) =>
 const colombiaData = async () => {
 	try {
 		const colombiaResponse = (await axios.get('https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json')).data;
-		console.log(colombiaResponse.data);
 		return {
 			updated: Date.now(),
-			department: transformData(colombiaResponse.data, false),
+			departments: transformData(colombiaResponse.data, false),
 			cities: transformData(colombiaResponse.data, true)
 		};
 	} catch (err) {

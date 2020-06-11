@@ -347,16 +347,15 @@ describe('TESTING /v2/gov/new zealand', () => {
   });
 
   describe('TESTING /v2/gov/colombia', () => {
-    it('/v2/gov/vietnam correct fields set', (done) => {
+    it('/v2/gov/colombia correct fields set', (done) => {
       chai.request(app)
-        .get('/v2/gov/vietnam')
+        .get('/v2/gov/colombia')
         .end((err, res) => {
-          testBasicProperties(err, res, 200, 'array');
-          res.body.forEach((element) => {
-            element.should.have.property('updated');
-            element.should.have.property('departments');
-            element.should.have.property('cities');
-          });
+          testBasicProperties(err, res, 200, 'object');
+          res.body.should.have.property('updated');
+          res.body.should.have.property('departments');
+          res.body.should.have.property('cities');
+          res.body.departments.length.should.equal(34);
           done();
         });
     });
