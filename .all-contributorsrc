@@ -149,6 +149,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "jsebastianms1",
+      "name": "Juan Sebastián Marulanda Sánchez",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/22509688?v=4",
+      "profile": "https://github.com/jsebastianms1",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
