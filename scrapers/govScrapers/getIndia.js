@@ -28,7 +28,7 @@ const mapRows = (_, row) => {
 			}
 		}
 	});
-	state.active = state.cases - state.recovered - state.deaths;
+	state.active = state.total - state.recovered - state.deaths;
 	delete state.number;
 	return state;
 };
