@@ -2,7 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const logger = require('../../utils/logger');
 
-const columns = ['number', 'state', 'active', 'recovered', 'deaths', "total"];
+const columns = ['number', 'state', 'active', 'recovered', 'deaths', 'total'];
 
 /**
  * Return object reflecting a row of data from India government site
