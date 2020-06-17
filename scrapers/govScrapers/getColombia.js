@@ -1,32 +1,42 @@
 const axios = require('axios');
 const logger = require('../../utils/logger');
 
-const transformData = (data, cities) => {
+const transformData = (data, municipalities) => {
 	const state = 13;
-	const pos = cities ? 11 : 12;
-	const recovered = filterData(data, state, 'Recuperado', pos);
-	const deceased = filterData(data, state, 'Fallecido', pos);
-	const merged = cities
-		? mergeData(recovered, deceased, cities)
-		: mergeData(recovered, deceased);
-	return merged;
+	const gender = 15;
+	const pos = municipalities ? 11 : 12;
+	const info = getInfo(data, state, gender, pos, municipalities);
+	const result = renameKeys(info);
+	return result;
 };
 
-const mergeData = (recovered, deceased, cities) => {
-	const type = cities ? 'city' : 'department';
-	const merge = Object.keys(recovered).map((key) => key in deceased
-		? { [type]: key, deceased: deceased[key], recovered: recovered[key] }
-		: { [type]: key, recovered: recovered[key] });
-	return merge;
+const renameKeys = (info) =>
+	info.map((element) => {
+		if (element.Recuperado) element.recovered = element.Recuperado; delete element.Recuperado;
+		if (element.Fallecido) element.deceased = element.Fallecido; delete element.Fallecido;
+		if (element['Hospital UCI']) element.ICU = element['Hospital UCI']; delete element['Hospital UCI'];
+		if (element.Casa) element.homeIsolation = element.Casa; delete element.Casa;
+		if (element.Hospital) element.hospitalized = element.Hospital; delete element.Hospital;
+		if (element['N/A']) element.unknownState = element['N/A']; delete element['N/A'];
+		if (element.F) element.female = element.F; delete element.F;
+		if (element.M) element.male = element.M; delete element.M;
+		return element;
+	});
+
+
+const getInfo = (data, state, gender, place, municipalities) => {
+	const type = municipalities ? 'municipality' : 'department';
+	const result = [];
+	data.forEach((element) => {
+		if (!result[element[place]]) {
+			result[element[place]] = { [type]: element[place], cases: 0 };
+		}
+		result[element[place]].cases += 1;
+		result[element[place]][element[state]] = (result[element[place]][element[state]] || 0) + 1;
+		result[element[place]][element[gender]] = (result[element[place]][element[gender]] || 0) + 1;
+	});
+	return Object.values(result);
 };
-
-
-const filterData = (data, state, filter, pos) =>
-	data.filter((row) => row[state] === filter)
-		.reduce((acc, curr) => {
-			acc[curr[pos]] = (acc[curr[pos]] || 0) + 1;
-			return acc;
-		}, {});
 
 /**
  * Scrapes Colombian government javascript data and returns an object containing this data
@@ -37,7 +47,7 @@ const colombiaData = async () => {
 		return {
 			updated: Date.now(),
 			departments: transformData(colombiaResponse.data, false),
-			cities: transformData(colombiaResponse.data, true)
+			municipalities: transformData(colombiaResponse.data, true)
 		};
 	} catch (err) {
 		logger.err('Error: Requesting Colombia Gov Data failed!', err);
