@@ -346,18 +346,18 @@ describe('TESTING /v2/gov/new zealand', () => {
 			});
   });
 
-  describe('TESTING /v2/gov/colombia', () => {
+describe('TESTING /v2/gov/colombia', () => {
     it('/v2/gov/colombia correct fields set', (done) => {
-      chai.request(app)
-        .get('/v2/gov/colombia')
-        .end((err, res) => {
-          testBasicProperties(err, res, 200, 'object');
-          res.body.should.have.property('updated');
-          res.body.should.have.property('departments');
-          res.body.should.have.property('cities');
-          res.body.departments.length.should.be.at.least(32);
-          done();
-        });
-    });
-  });
+    	chai.request(app)
+			.get('/v2/gov/colombia')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('departments');
+				res.body.should.have.property('cities');
+				res.body.departments.length.should.be.at.least(32);
+				done();
+        	});
+    	});
+  	});
 });
