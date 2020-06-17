@@ -41,7 +41,7 @@ const ebolaData = async (keys, redis) => {
 		const provinces = html(`table`).children('tbody:first-of-type').children('tr').map(mapRows).get();
 		const data = {
 			updated: Date.now(),
-			sourceUpdated: html('div.ct__last-update').children('span:nth-of-type(2)').text().replace(/\n/g, ''),
+			sourceUpdated: html('div.ct__last-update').children('span:nth-of-type(2)').text().replace(/^\n +/g, ''),
 			source: 'European Centre for Disease Prevention and Control (© ECDC [2005-2019].)',
 			provinces
 		};
