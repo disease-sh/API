@@ -48,7 +48,7 @@ const ebolaData = async (keys, redis) => {
 		redis.set(keys.ebola_ecdc, JSON.stringify(data));
 		logger.info(`Updated ebola data: ${provinces.length} provinces`);
 	} catch (err) {
-		logger.err('Error: Requesting Canada Gov Data failed!', err);
+		logger.err('Error: Requesting Ebola ECDC Data failed!', err);
 	}
 };
 
