@@ -1,11 +1,11 @@
 const axios = require('axios');
 const logger = require('../../utils/logger');
 
-const transformData = (data, municipalities) => {
+const transformData = (data, cities) => {
 	const state = 13;
 	const gender = 15;
-	const pos = municipalities ? 11 : 12;
-	const info = getInfo(data, state, gender, pos, municipalities);
+	const pos = cities ? 11 : 12;
+	const info = getInfo(data, state, gender, pos, cities);
 	const result = renameKeys(info);
 	return result;
 };
@@ -24,8 +24,8 @@ const renameKeys = (info) =>
 	});
 
 
-const getInfo = (data, state, gender, place, municipalities) => {
-	const type = municipalities ? 'municipality' : 'department';
+const getInfo = (data, state, gender, place, cities) => {
+	const type = cities ? 'city' : 'department';
 	const result = [];
 	data.forEach((element) => {
 		if (!result[element[place]]) {
@@ -47,7 +47,7 @@ const colombiaData = async () => {
 		return {
 			updated: Date.now(),
 			departments: transformData(colombiaResponse.data, false),
-			municipalities: transformData(colombiaResponse.data, true)
+			cities: transformData(colombiaResponse.data, true)
 		};
 	} catch (err) {
 		logger.err('Error: Requesting Colombia Gov Data failed!', err);
