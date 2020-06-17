@@ -1,28 +1,15 @@
 const axios = require('axios');
 const logger = require('../../utils/logger');
+const { renameKeys } = require('../../utils/keyUtils');
 
 const transformData = (data, cities) => {
 	const state = 13;
 	const gender = 15;
 	const pos = cities ? 11 : 12;
 	const info = getInfo(data, state, gender, pos, cities);
-	const result = renameKeys(info);
+	const result = renameKeys(info, 'co');
 	return result;
 };
-
-const renameKeys = (info) =>
-	info.map((element) => {
-		if (element.Recuperado) element.recovered = element.Recuperado; delete element.Recuperado;
-		if (element.Fallecido) element.deceased = element.Fallecido; delete element.Fallecido;
-		if (element['Hospital UCI']) element.ICU = element['Hospital UCI']; delete element['Hospital UCI'];
-		if (element.Casa) element.homeIsolation = element.Casa; delete element.Casa;
-		if (element.Hospital) element.hospitalized = element.Hospital; delete element.Hospital;
-		if (element['N/A']) element.unknownState = element['N/A']; delete element['N/A'];
-		if (element.F) element.female = element.F; delete element.F;
-		if (element.M) element.male = element.M; delete element.M;
-		return element;
-	});
-
 
 const getInfo = (data, state, gender, place, cities) => {
 	const type = cities ? 'city' : 'department';
