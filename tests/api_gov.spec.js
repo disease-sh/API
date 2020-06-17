@@ -355,7 +355,7 @@ describe('TESTING /v2/gov/new zealand', () => {
           res.body.should.have.property('updated');
           res.body.should.have.property('departments');
           res.body.should.have.property('cities');
-          res.body.departments.length.should.equal(35);
+          res.body.departments.length.should.be.at.least(32);
           done();
         });
     });
