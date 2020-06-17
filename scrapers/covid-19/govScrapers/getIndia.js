@@ -2,7 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const logger = require('../../../utils/logger');
 
-const columns = ['number', 'state', 'cases', 'recovered', 'deaths'];
+const columns = ['number', 'state', 'active', 'recovered', 'deaths', 'total'];
 
 /**
  * Return object reflecting a row of data from India government site
@@ -28,7 +28,7 @@ const mapRows = (_, row) => {
 			}
 		}
 	});
-	state.active = state.cases - state.recovered - state.deaths;
+	state.active = state.total - state.recovered - state.deaths;
 	delete state.number;
 	return state;
 };

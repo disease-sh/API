@@ -5,7 +5,7 @@ const { testBasicProperties } = require('../../testingFunctions');
 
 chai.use(chaiHttp);
 
-const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand'].sort();
+const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia'].sort();
 
 describe('TESTING /v3/covid-19/gov general', () => {
 	it('/v3/covid-19/gov correct countries', (done) => {
@@ -267,7 +267,7 @@ describe('TESTING /v3/covid-19/gov/india', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('total');
-				res.body.total.should.have.property('cases');
+				res.body.total.should.have.property('total');
 				res.body.total.should.have.property('active');
 				res.body.total.should.have.property('recovered');
 				res.body.total.should.have.property('deaths');
@@ -283,7 +283,7 @@ describe('TESTING /v3/covid-19/gov/india', () => {
 				res.body.should.have.property('states');
 				res.body.states.forEach(state => {
 					state.should.have.property('state');
-					state.should.have.property('cases');
+					state.should.have.property('total');
 					state.should.have.property('active');
 					state.should.have.property('recovered');
 					state.should.have.property('deaths');
@@ -345,4 +345,19 @@ describe('TESTING /v3/covid-19/gov/new zealand', () => {
 				done();
 			});
 	});
+
+describe('TESTING /v2/gov/colombia', () => {
+    it('/v2/gov/colombia correct fields set', (done) => {
+    	chai.request(app)
+			.get('/v2/gov/colombia')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('departments');
+				res.body.should.have.property('cities');
+				res.body.departments.length.should.be.at.least(32);
+				done();
+        	});
+    	});
+  	});
 });
