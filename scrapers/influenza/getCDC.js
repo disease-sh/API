@@ -9,7 +9,7 @@ const ILINetURL = `https://www.cdc.gov/flu/weekly/weeklyarchives2019-2020/data/s
 const USPHLURL = `https://www.cdc.gov/flu/weekly/weeklyarchives2019-2020/data/whoAllregt_phl${weekNumber}.html`;
 const USCLURL = `https://www.cdc.gov/flu/weekly/weeklyarchives2019-2020/data/whoAllregt_cl${weekNumber}.html`;
 
-const ILINetColumns = ['week', 'age 0-4', 'age 5-24', 'age 25-49', 'age 50-64', 'age 64+', 'totalILI', 'totalPatients', 'percentUnweightedILI', 'percentWeighted ILI'];
+const ILINetColumns = ['week', 'age 0-4', 'age 5-24', 'age 25-49', 'age 50-64', 'age 64+', 'totalILI', 'totalPatients', 'percentUnweightedILI', 'percentWeightedILI'];
 const USPHLColumns = ['week', 'A(H3N2v)', 'A(H1N1)', 'A(H3)', 'A(unable to sub-type)', 'A(Subtyping not performed)', 'B', 'BVIC', 'totalTests'];
 const USCLColumns = ['week', 'totalA', 'totalB', 'percentPositiveA', 'percentPositiveB', 'totalTests', 'percentPositive'];
 
