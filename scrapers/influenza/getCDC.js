@@ -15,7 +15,6 @@ const USCLColumns = ['week', 'totalA', 'totalB', 'percentPositiveA', 'percentPos
 
 /**
  * Return object reflecting a row of data from a CDC table
- * @param 	{number} 	_ 		    Index getting passed when using .map()
  * @param 	{Object} 	row		    The row to extract data from
  * @param 	{Array} 	columns	    Respective columns for row being passed in
  * @returns {Object}				Influenza data for a week with entries for each column in @param columns
