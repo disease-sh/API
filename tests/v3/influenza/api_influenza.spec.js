@@ -25,7 +25,7 @@ describe('TESTING /v3/influenza/CDC', () => {
 				testBasicProperties(err, res, 200, 'object');
                 res.body.data.forEach((row) => {
                     row.should.have.property('week');
-                    row.should.be.a('string');
+                    row.week.should.be.a('string');
                     row.should.have.property('age 0-4');
                     row['age 0-4'].should.be.at.least(0);
                     row.should.have.property('age 5-24');
@@ -68,7 +68,7 @@ describe('TESTING /v3/influenza/CDC', () => {
 				testBasicProperties(err, res, 200, 'object');
                 res.body.data.forEach((row) => {
                     row.should.have.property('week');
-                    row.should.be.a('string');
+                    row.week.should.be.a('string');
                     row.should.have.property('A(H3N2v)');
                     row['A(H3N2v)'].should.be.at.least(0);
                     row.should.have.property('A(H1N1)');
@@ -109,7 +109,7 @@ describe('TESTING /v3/influenza/CDC', () => {
 				testBasicProperties(err, res, 200, 'object');
                 res.body.data.forEach((row) => {
                     row.should.have.property('week');
-                    row.should.be.a('string');
+                    row.week.should.be.a('string');
                     row.should.have.property('totalA');
                     row['totalA'].should.be.at.least(0);
                     row.should.have.property('totalB');
