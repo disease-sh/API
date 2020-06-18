@@ -20,7 +20,7 @@ const USCLColumns = ['week', 'totalA', 'totalB', 'percentPositiveA', 'percentPos
  * @param 	{Array} 	columns	    Respective columns for row being passed in
  * @returns {Object}				Influenza data for a week with entries for each column in @param columns
  */
-const mapRows = (_, row, columns) => {
+const mapRows = (row, columns) => {
 	const week = { };
 	cheerio(row).children('td').each((index, cell) => {
 		cell = cheerio.load(cell);
@@ -49,7 +49,7 @@ const mapRows = (_, row, columns) => {
 const scrapeTable = async (url, columns, key, redis) => {
 	try {
 		const html = cheerio.load((await axios.get(url)).data);
-		const tableData = html(`table`).children('tr').slice(1).map((_, row) => mapRows(_, row, columns)).get();
+		const tableData = html(`table`).children('tr').slice(1).map((row) => mapRows(row, columns)).get();
 		const data = {
 			updated: Date.now(),
 			source: 'www.cdc.gov/flu',
