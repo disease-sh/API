@@ -39,6 +39,10 @@
       {
         "name": "Ebola ECDC",
         "description": "(Ebola virus outbreak data reported by the European Centre for Disease Control, updated every 24 hours)"
+      },
+      {
+        "name": "Influenza CDC",
+        "description": "(Influenza data reported by the United States CDC, updated every 24 hours)"
       }
     ],
     "consumes": [
@@ -48,7 +52,7 @@
       "application/json"
     ],
     "paths": {
-      "/v2/all": {
+      "/v3/covid-19/all": {
         "get": {
           "tags": [
             "Covid-19: Worldometers"
@@ -92,7 +96,7 @@
           }
         }
       },
-      "/v2/states": {
+      "/v3/covid-19/states": {
         "get": {
           "tags": [
             "Covid-19: Worldometers"
@@ -137,7 +141,7 @@
           }
         }
       },
-      "/v2/states/{states}": {
+      "/v3/covid-19/states/{states}": {
         "get": {
           "tags": [
             "Covid-19: Worldometers"
@@ -175,7 +179,7 @@
           }
         }
       },
-      "/v2/continents": {
+      "/v3/covid-19/continents": {
         "get": {
           "tags": [
             "Covid-19: Worldometers"
@@ -237,7 +241,7 @@
           }
         }
       },
-      "/v2/continents/{query}": {
+      "/v3/covid-19/continents/{query}": {
         "get": {
           "tags": [
             "Covid-19: Worldometers"
@@ -298,7 +302,7 @@
           }
         }
       },
-      "/v2/countries": {
+      "/v3/covid-19/countries": {
         "get": {
           "tags": [
             "Covid-19: Worldometers"
@@ -349,7 +353,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 totals for all countries",          "responses": {
+          "summary": "Get Covid-19 totals for all countries",
             "responses": {
             "200": {
               "description": "Status OK",
@@ -360,7 +364,7 @@
           }
         }
       },
-      "/v2/countries/{query}": {
+      "/v3/covid-19/countries/{query}": {
         "get": {
           "tags": [
             "Covid-19: Worldometers"
@@ -422,7 +426,7 @@
           }
         }
       },
-      "/v2/countries/{country,country,...}": {
+      "/v3/covid-19/countries/{country,country,...}": {
         "get": {
           "tags": [
             "Covid-19: Worldometers"
@@ -473,7 +477,7 @@
           }
         }
       },
-      "/v2/jhucsse": {
+      "/v3/covid-19/jhucsse": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -489,7 +493,7 @@
           }
         }
       },
-      "/v2/jhucsse/counties": {
+      "/v3/covid-19/jhucsse/counties": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -505,7 +509,7 @@
           }
         }
       },
-      "/v2/jhucsse/counties/countyName": {
+      "/v3/covid-19/jhucsse/counties/countyName": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -530,7 +534,7 @@
           }
         }
       },
-      "/v2/historical": {
+      "/v3/covid-19/historical": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -556,7 +560,7 @@
           }
         }
       },
-      "/v2/historical/all": {
+      "/v3/covid-19/historical/all": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -579,7 +583,7 @@
           }
         }
       },
-      "/v2/historical/usacounties": {
+      "/v3/covid-19/historical/usacounties": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -593,7 +597,7 @@
           }
         }
       },
-      "/v2/historical/usacounties/{state}": {
+      "/v3/covid-19/historical/usacounties/{state}": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -603,7 +607,7 @@
               "name": "state",
               "in": "path",
               "required": true,
-              "description": "US state name, validated in the array returned from /v2/historical/usacounties",
+              "description": "US state name, validated in the array returned from /v3/covid-19/historical/usacounties",
               "type": "string"
             },
             {
@@ -626,7 +630,7 @@
           }
         }
       },
-      "/v2/historical/{query}": {
+      "/v3/covid-19/historical/{query}": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -659,7 +663,7 @@
           }
         }
       },
-      "/v2/historical/{country,country,...}": {
+      "/v3/covid-19/historical/{country,country,...}": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -689,7 +693,7 @@
           }
         }
       },
-      "/v2/historical/{query}/{province}": {
+      "/v3/covid-19/historical/{query}/{province}": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -706,7 +710,7 @@
               "name": "province",
               "in": "path",
               "required": true,
-              "description": "Province name, can be found in /v2/historical/{query} result",
+              "description": "Province name, can be found in /v3/covid-19/historical/{query} result",
               "type": "string"
             },
             {
@@ -726,7 +730,7 @@
           }
         }
       },
-      "/v2/historical/{query}/{province,province,...}": {
+      "/v3/covid-19/historical/{query}/{province,province,...}": {
         "get": {
           "tags": [
             "Covid-19 JHUCSSE"
@@ -763,7 +767,7 @@
           }
         }
       },
-      "/v2/nyt/states": {
+      "/v3/covid-19/nyt/states": {
         "get": {
           "tags": [
             "Covid-19 NYT"
@@ -788,7 +792,7 @@
           }
         }
       },
-      "/v2/nyt/counties": {
+      "/v3/covid-19/nyt/counties": {
         "get": {
           "tags": [
             "Covid-19 NYT"
@@ -813,7 +817,7 @@
           }
         }
       },
-      "/v2/nyt/usa": {
+      "/v3/covid-19/nyt/usa": {
         "get": {
           "tags": [
             "Covid-19 NYT"
@@ -829,7 +833,7 @@
           }
         }
       },
-      "/v2/apple/countries": {
+      "/v3/covid-19/apple/countries": {
         "get": {
           "tags": [
             "Covid-19 Apple"
@@ -843,7 +847,7 @@
           }
         }
       },
-      "/v2/apple/countries/{country}": {
+      "/v3/covid-19/apple/countries/{country}": {
         "get": {
           "tags": [
             "Covid-19 Apple"
@@ -853,7 +857,7 @@
               "name": "country",
               "in": "path",
               "required": true,
-              "description": "Any valid country name supported by the endpoint. Supported countries can be found in /v2/apple/countres",
+              "description": "Any valid country name supported by the endpoint. Supported countries can be found in /v3/covid-19/apple/countres",
               "type": "string"
             }
           ],
@@ -869,7 +873,7 @@
           }
         }
       },
-      "/v2/apple/countries/{country}/{subregions}": {
+      "/v3/covid-19/apple/countries/{country}/{subregions}": {
         "get": {
           "tags": [
             "Covid-19 Apple"
@@ -879,14 +883,14 @@
               "name": "country",
               "in": "path",
               "required": true,
-              "description": "Any valid country name supported by the endpoint. Supported countries can be found in /v2/apple/countres",
+              "description": "Any valid country name supported by the endpoint. Supported countries can be found in /v3/covid-19/apple/countres",
               "type": "string"
             },
             {
               "name": "subregions",
               "in": "path",
               "required": true,
-              "description": "Comma separated subregions supported by country for apple mobility data. Can find available subregions on /v2/apple/countries/{country} endpoint",
+              "description": "Comma separated subregions supported by country for apple mobility data. Can find available subregions on /v3/covid-19/apple/countries/{country} endpoint",
               "type": "string"
             }
           ],
@@ -902,7 +906,7 @@
           }
         }
       },
-      "/v2/gov/": {
+      "/v3/covid-19/gov/": {
         "get": {
           "tags": [
             "Covid-19 Government"
@@ -916,7 +920,7 @@
           }
         }
       },
-      "/v2/gov/{country}": {
+      "/v3/covid-19/gov/{country}": {
         "get": {
           "tags": [
             "Covid-19 Government"
@@ -926,7 +930,7 @@
               "name": "country",
               "in": "path",
               "required": true,
-              "description": "Any valid country name supported by the endpoint. Supported countries can be found in /v2/gov/",
+              "description": "Any valid country name supported by the endpoint. Supported countries can be found in /v3/covid-19/gov/",
               "type": "string"
             }
           ],
@@ -938,7 +942,7 @@
           }
         }
       },
-      "/v2/ebola": {
+      "/v3/ebola/ecdc": {
         "get": {
           "tags": [
             "Ebola ECDC"
@@ -964,6 +968,54 @@
               "description": "Status Ok",
               "schema": {
                 "$ref": "#/definitions/ebola"
+              }
+            }
+          }
+        }
+      },
+      "/v3/influenza/cdc/ILINet": {
+        "get": {
+          "tags": [
+            "Influenza CDC"
+          ],
+          "summary": "Get Influenza-like-illness data for the 2019 and 2020 outbreaks from the US Center for Disease Control",
+          "responses": {
+            "200": {
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/influenzaILINet"
+              }
+            }
+          }
+        }
+      },
+      "/v3/influenza/cdc/USCL": {
+        "get": {
+          "tags": [
+            "Influenza CDC"
+          ],
+          "summary": "Get Influenza report data for the 2019 and 2020 outbreaks from the US Center for Disease Control, reported by US clinical labs",
+          "responses": {
+            "200": {
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/influenzaUSCL"
+              }
+            }
+          }
+        }
+      },
+      "/v3/influenza/cdc/USPHL": {
+        "get": {
+          "tags": [
+            "Influenza CDC"
+          ],
+          "summary": "Get Influenza report data for the 2019 and 2020 outbreaks from the US Center for Disease Control, reported by US public health labs",
+          "responses": {
+            "200": {
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/influenzaUSPHL"
               }
             }
           }
@@ -1262,13 +1314,13 @@
             "type": "string"
           },
           "driving": {
-            "type": "float"
+            "type": "number"
           },
           "transit": {
-            "type": "float"
+            "type": "number"
           },
           "walking": {
-            "type": "float"
+            "type": "number"
           }
         }
       },
@@ -1320,6 +1372,138 @@
             "items": {
               "$ref": "#/definitions/ebolaProvince"
             }
+          }
+        }
+      },
+      "influenzaILINet": {
+        "properties": {
+          "updated": {
+            "type":  "number"
+          },
+          "source": {
+            "type": "string"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/definitions/ILINet"
+            }
+          }
+        }
+      },
+      "ILINet": {
+        "properties": {
+          "week": {
+            "type": "string"
+          },
+          "age 5-24": {
+            "type": "number"
+          },
+          "age 25-49": {
+            "type": "number"
+          },
+          "age 50-64": {
+            "type": "number"
+          },
+          "age 64+": {
+            "type": "number"
+          },
+          "totalILI": {
+            "type": "number"
+          },
+          "totalPatients": {
+            "type": "number"
+          },
+          "percentUnweightedILI": {
+            "type": "number"
+          },
+          "percentWeightedILI": {
+            "type": "number"
+          }
+        }
+      },
+      "influenzaUSCL": {
+        "properties": {
+          "updated": {
+            "type":  "number"
+          },
+          "source": {
+            "type": "string"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/definitions/USCL"
+            }
+          }
+        }
+      },
+      "USCL": {
+        "properties": {
+          "week": {
+            "type": "string"
+          },
+          "totalA": {
+            "type": "number"
+          },
+          "totalB": {
+            "type": "number"
+          },
+          "percentPositiveA": {
+            "type": "number"
+          },
+          "percentPositiveB": {
+            "type": "number"
+          },
+          "totalTests": {
+            "type": "number"
+          },
+          "percentPositive": {
+            "type": "number"
+          }
+        }
+      },
+      "influenzaUSPHL": {
+        "properties": {
+          "updated": {
+            "type":  "number"
+          },
+          "source": {
+            "type": "string"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/definitions/USPHL"
+            }
+          }
+        }
+      },
+      "USPHL": {
+        "properties": {
+          "week": {
+            "type": "string"
+          },
+          "A(H3N2v)": {
+            "type": "number"
+          },
+          "A(H1N1)": {
+            "type": "number"
+          },
+          "A(H3)": {
+            "type": "number"
+          },
+          "A(unable to sub-type)+": {
+            "type": "number"
+          },
+          "A(Subtyping not performed)": {
+            "type": "number"
+          },
+          "B": {
+            "type": "number"
+          },
+          "BVIC": {
+            "type": "number"
+          },
+          "totalTests": {
+            "type": "number"
           }
         }
       },
@@ -1376,5 +1560,5 @@
       "description": "Find out more about this API",
       "url": "https://github.com/NovelCovid/API"
     }
-  }}
+}
   

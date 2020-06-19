@@ -97,6 +97,7 @@ app.use(require('./routes/v3/covid-19/apiNYT'));
 app.use(require('./routes/v3/covid-19/apiApple'));
 app.use(require('./routes/v3/covid-19/apiGov'));
 app.use(require('./routes/v3/ebola/apiEbola'));
+app.use(require('./routes/v3/influenza/apiInfluenza'));
 
 app.listen(port, () => logger.info(`Your app is listening on port ${port}`));
 
