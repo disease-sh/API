@@ -1,5 +1,5 @@
 /*
-Local cache to avoid unnecessary JSON parsing during NYT data retrieval
+Local cache to avoid unnecessary JSON parsing during data retrieval
 Status of cache will update every time data is successfully scraped
 */
 const logger = require('./logger');

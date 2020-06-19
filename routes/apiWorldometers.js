@@ -83,7 +83,7 @@ router.get('/v2/states/:query', async (req, res) => {
 	if (stateData.length > 0) {
 		res.send(stateData.length === 1 ? stateData[0] : stateData);
 	} else {
-		res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
+		res.status(404).send({ message: 'State not found or doesn\'t have any cases' });
 	}
 });
 
