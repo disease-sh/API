@@ -5,7 +5,7 @@ const { testBasicProperties } = require('./testingFunctions');
 
 chai.use(chaiHttp);
 
-const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia'].sort();
+const countries = ['South Africa', 'Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia'].sort();
 
 describe('TESTING /v2/gov general', () => {
 	it('/v2/gov correct countries', (done) => {
@@ -345,8 +345,9 @@ describe('TESTING /v2/gov/new zealand', () => {
 				done();
 			});
   });
+});
 
-  describe('TESTING /v2/gov/colombia', () => {
+describe('TESTING /v2/gov/colombia', () => {
     it('/v2/gov/colombia correct fields set', (done) => {
       chai.request(app)
         .get('/v2/gov/colombia')
@@ -360,4 +361,36 @@ describe('TESTING /v2/gov/new zealand', () => {
         });
     });
   });
-});
+
+describe('TESTING /v2/gov/south africa', () => {
+    it('/v2/gov/south africa correct data', (done) => {
+      chai.request(app)
+        .get('/v2/gov/south africa')
+        .end((err, res) => {
+          testBasicProperties(err, res, 200, 'object');
+          res.body.should.have.property('updated');
+          res.body.should.have.property('national');
+		  res.body.should.have.property('provinces');
+		  
+		  res.body.national.timeline.length.should.be.at.least(107);
+		  res.body.national.timeline[90].date.should.equal('2020-06-02');
+		  res.body.national.timeline[90].cases.cumulative.should.equal(35812);
+		  res.body.national.timeline[90].cases.unallocated.should.equal(6);
+		  res.body.national.timeline[90].cases.new.should.equal(1455);
+		  res.body.national.timeline[90].tests.cumulative.should.equal(761534);
+		  res.body.national.timeline[90].recoveries.cumulative.should.equal(18313);
+		  res.body.national.timeline[90].deaths.cumulative.should.equal(755);
+		  res.body.national.timeline[90].deaths.new.should.equal(50);
+
+		  res.body.provinces.length.should.equal(9);
+		  res.body.provinces[0].name.should.equal('Eastern Cape');
+		  res.body.provinces[0].timeline.length.should.be.at.least(107);
+		  res.body.provinces[0].timeline[85].date.should.equal('2020-05-28');
+		  res.body.provinces[0].timeline[85].cases.should.equal(3306);
+		  
+          done();
+        });
+    });
+  });
+
+

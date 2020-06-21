@@ -8,6 +8,8 @@ const indiaData = require('./getIndia');
 const vietnamData = require('./getVietnam');
 const newZealandData = require('./getNewZealand');
 const colombiaData = require('./getColombia');
+const southAfricaData = require('./getSouthAfrica');
+
 const logger = require('../../utils/logger');
 
 /**
@@ -23,6 +25,7 @@ const govData = async (keys, redis) => {
 			data[country] = await fn();
 		};
 		await Promise.all([
+			{ country: 'South Africa', fn: southAfricaData },
 			{ country: 'Canada', fn: canadaData },
 			{ country: 'Italy', fn: italyData },
 			{ country: 'Germany', fn: germanyData },
