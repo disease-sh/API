@@ -2,14 +2,14 @@
 <br><br>
 
 ![DockerHub Downloads](https://img.shields.io/docker/pulls/novelcovid/novelcovid-api?style=for-the-badge)
-![GitHub contributors](https://img.shields.io/github/contributors-anon/novelcovid/api?style=for-the-badge)
-![ESLint](https://img.shields.io/github/workflow/status/NovelCOVID/API/Eslint?label=ESLint&style=for-the-badge)
-![Tests](https://img.shields.io/github/workflow/status/NovelCOVID/API/Unittest?label=Tests&style=for-the-badge)
-![GitHub top language](https://img.shields.io/github/languages/top/novelcovid/api?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/novelcovid/api?style=for-the-badge)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/novelcovid/api?style=for-the-badge)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/novelcovid/api?style=for-the-badge)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/novelcovid/api?style=for-the-badge)
+![GitHub contributors](https://img.shields.io/github/contributors-anon/disease-sh/api?style=for-the-badge)
+![ESLint](https://img.shields.io/github/workflow/status/disease-sh/API/Eslint?label=ESLint&style=for-the-badge)
+![Tests](https://img.shields.io/github/workflow/status/disease-sh/API/Unittest?label=Tests&style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/disease-sh/api?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/disease-sh/api?style=for-the-badge)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/disease-sh/api?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/disease-sh/api?style=for-the-badge)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/disease-sh/api?style=for-the-badge)
 
 # Welcome to the NovelCOVID API
 
