@@ -2,6 +2,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../server');
 const { testBasicProperties } = require('./testingFunctions');
+const { should } = require('chai');
 
 chai.use(chaiHttp);
 
@@ -371,22 +372,31 @@ describe('TESTING /v2/gov/south africa', () => {
           res.body.should.have.property('updated');
           res.body.should.have.property('national');
 		  res.body.should.have.property('provinces');
-		  
+
 		  res.body.national.timeline.length.should.be.at.least(107);
-		  res.body.national.timeline[90].date.should.equal('2020-06-02');
-		  res.body.national.timeline[90].cases.cumulative.should.equal(35812);
-		  res.body.national.timeline[90].cases.unallocated.should.equal(6);
-		  res.body.national.timeline[90].cases.new.should.equal(1455);
-		  res.body.national.timeline[90].tests.cumulative.should.equal(761534);
-		  res.body.national.timeline[90].recoveries.cumulative.should.equal(18313);
-		  res.body.national.timeline[90].deaths.cumulative.should.equal(755);
-		  res.body.national.timeline[90].deaths.new.should.equal(50);
+
+		  let dayNational = res.body.national.timeline.find(d => d.date === '2020-06-02');
+		  should().exist(dayNational);
+		  dayNational.date.should.equal('2020-06-02');
+		  dayNational.cases.cumulative.should.equal(35812);
+		  dayNational.cases.unallocated.should.equal(6);
+		  dayNational.cases.new.should.equal(1455);
+		  dayNational.tests.cumulative.should.equal(761534);
+		  dayNational.recoveries.cumulative.should.equal(18313);
+		  dayNational.deaths.cumulative.should.equal(755);
+		  dayNational.deaths.new.should.equal(50);
 
 		  res.body.provinces.length.should.equal(9);
-		  res.body.provinces[0].name.should.equal('Eastern Cape');
-		  res.body.provinces[0].timeline.length.should.be.at.least(107);
-		  res.body.provinces[0].timeline[85].date.should.equal('2020-05-28');
-		  res.body.provinces[0].timeline[85].cases.should.equal(3306);
+
+		  let province = res.body.provinces.find(p => p.name === 'Eastern Cape');
+		  should().exist(province);
+		  province.name.should.equal('Eastern Cape');
+		  province.timeline.length.should.be.at.least(107);
+
+		  let dayProvince = province.timeline.find(d => d.date === '2020-05-28');
+		  should().exist(dayProvince);
+		  dayProvince.date.should.equal('2020-05-28');
+		  dayProvince.cases.should.equal(3306);
 		  
           done();
         });
