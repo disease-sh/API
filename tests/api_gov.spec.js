@@ -375,7 +375,7 @@ describe('TESTING /v2/gov/south africa', () => {
 
 		  res.body.national.timeline.length.should.be.at.least(107);
 
-		  let dayNational = res.body.national.timeline.find(d => d.date === '2020-06-02');
+		  const dayNational = res.body.national.timeline.find(d => d.date === '2020-06-02');
 		  should().exist(dayNational);
 		  dayNational.date.should.equal('2020-06-02');
 		  dayNational.cases.cumulative.should.equal(35812);
@@ -388,12 +388,12 @@ describe('TESTING /v2/gov/south africa', () => {
 
 		  res.body.provinces.length.should.equal(9);
 
-		  let province = res.body.provinces.find(p => p.name === 'Eastern Cape');
+		  const province = res.body.provinces.find(p => p.name === 'Eastern Cape');
 		  should().exist(province);
 		  province.name.should.equal('Eastern Cape');
 		  province.timeline.length.should.be.at.least(107);
 
-		  let dayProvince = province.timeline.find(d => d.date === '2020-05-28');
+		  const dayProvince = province.timeline.find(d => d.date === '2020-05-28');
 		  should().exist(dayProvince);
 		  dayProvince.date.should.equal('2020-05-28');
 		  dayProvince.cases.should.equal(3306);
