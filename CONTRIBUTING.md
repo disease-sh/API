@@ -21,14 +21,14 @@ Please always create tests for your code additions so we can easily see if your 
 
 ## Submitting changes
 
-* If you're unable to find an open issue, [open a new one](https://github.com/NovelCOVID/API/issues/new). Be sure to include a **title, a clear description of your idea or issue** and give as much relevant information as possible.
-* Open  a new [GitHub Pull Request to API](https://github.com/NovelCOVID/API/pulls) with a clear list of what you've done (read more about [pull requests](http://help.github.com/pull-requests/)). Include the relevant issue number if applicable.
+* If you're unable to find an open issue, [open a new one](https://github.com/disease-sh/api/issues/new). Be sure to include a **title, a clear description of your idea or issue** and give as much relevant information as possible.
+* Open  a new [GitHub Pull Request to API](https://github.com/disease-sh/api/pulls) with a clear list of what you've done (read more about [pull requests](http://help.github.com/pull-requests/)). Include the relevant issue number if applicable.
 
 Unsure where to begin contributing? You can start by looking through these issues labels:
 
-* [Enhancement issues](https://github.com/NovelCOVID/API/labels/enhancement) 
-* [Bug issues](https://github.com/NovelCOVID/API/labels/bug) 
-* [Documentation issues](https://github.com/NovelCOVID/API/labels/documentation)
+* [Enhancement issues](https://github.com/disease-sh/api/labels/enhancement) 
+* [Bug issues](https://github.com/disease-sh/api/labels/bug) 
+* [Documentation issues](https://github.com/disease-sh/api/labels/documentation)
 
 To submit a project (Dashboards, Mobile Applications, Desktop Applications, Bots, Wrappers,... etc) using the NovelCOVID API, head over to our [awesome-novelcovid](https://github.com/NovelCOVID/awesome-novelcovid) list.      
 
@@ -40,4 +40,4 @@ See [Installation](./README.md#installation) section for further instructions.
 
 Thanks! :heart: :heart: :heart:
 
-[NovelCOVID API Team](https://github.com/NovelCOVID/API#contributors-)
+[NovelCOVID API Team](https://github.com/disease-sh/api#contributors-)

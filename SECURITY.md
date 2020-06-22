@@ -10,7 +10,7 @@
 ## Reporting a Vulnerability
 
 If you find any vulnerability in our code or the API we are running, 
-please contact us ASAP by creating an [Issue](https://github.com/NovelCOVID/API/issues/new) 
+please contact us ASAP by creating an [Issue](https://github.com/disease-sh/api/issues/new) 
 or by trying to contact us through [Discord](https://discord.gg/EvbMshU). 
 We do take this very seriously, so actions will be taken towards any person found exploiting these vulnerabilities.
 

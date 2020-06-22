@@ -4,7 +4,7 @@
   "description": "A simple Node API for getting coronavirus cases from scraped information.",
   "main": "server.js",
   "repository": {
-    "url": "https://github.com/NovelCOVID/API"
+    "url": "https://github.com/disease-sh/api"
   },
   "license": "MIT",
   "keywords": [
