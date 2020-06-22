@@ -6,7 +6,7 @@
     "description": "Covid19 Third Party API for Global Information",
     "license": {
       "name": "GNU V3",
-      "url": "https://github.com/NovelCOVID/API/blob/master/LICENSE"
+      "url": "https://github.com/disease-sh/api/blob/master/LICENSE"
     }
   },
   "schemes": [
@@ -1279,6 +1279,6 @@
   },
   "externalDocs": {
     "description": "Find out more about this API",
-    "url": "https://github.com/NovelCovid/API"
+    "url": "https://github.com/disease-sh/api"
   }
 }
