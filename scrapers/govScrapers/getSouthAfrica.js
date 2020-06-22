@@ -8,16 +8,16 @@ const logger = require('../../utils/logger');
 const southAfricaData = async () => {
 	try {
 		const html = cheerio.load((await axios.get('https://en.wikipedia.org/wiki/Template:COVID-19_pandemic_data/South_Africa_medical_cases')).data);
-		let data = {
+		const data = {
 			national: { timeline: [] },
 			provinces: ['Eastern Cape', 'Free state', 'Gauteng', 'KwaZulu-Natal', 'Limpopo', 'Mpumalanga', 'Northern Cape', 'North West', 'Western Cape']
-				.map(name => { return { name, timeline: [] }; })
+				.map(name => ({ name, timeline: [] }))
 		};
 
-		let tableRows = html("span:contains('COVID-19 confirmed cases in South Africa by province')").closest('table').find('tr');
+		const tableRows = html("span:contains('COVID-19 confirmed cases in South Africa by province')").closest('table').find('tr');
 		tableRows.slice(2, tableRows.length - 2).each((i, tr) => {
-			let tds = html(tr).children();
-			let date = `2020-${tds.eq(0).text()}`.replace(/\n/g, '');
+			const tds = html(tr).children();
+			const date = `2020-${tds.eq(0).text()}`.replace(/\n/g, '');
 			data.national.timeline.push({
 				date: date,
 				cases: { cumulative: getCellData(tds, 15), unallocated: getCellData(tds, 13), new: getCellData(tds, 14) },
@@ -26,8 +26,8 @@ const southAfricaData = async () => {
 				recoveries: { cumulative: getCellData(tds, 20) }
 			});
 
-			data.provinces.forEach((p, i) => {
-				p.timeline.push({ date: date, cases: getCellData(tds, i+4) });
+			data.provinces.forEach((prov, index) => {
+				prov.timeline.push({ date: date, cases: getCellData(tds, index + 4) });
 			});
 		});
 		data.updated = Date.now();
@@ -39,6 +39,6 @@ const southAfricaData = async () => {
 };
 
 function getCellData(tds, index) {
-	return parseInt(tds.eq(index).text().replace(/\n|\D/g, '')) || null
+	return parseInt(tds.eq(index).text().replace(/\n|\D/g, '')) || null;
 }
 module.exports = southAfricaData;
