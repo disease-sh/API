@@ -2,10 +2,11 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../../server');
 const { testBasicProperties } = require('../../testingFunctions');
+const { should } = require('chai');
 
 chai.use(chaiHttp);
 
-const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia'].sort();
+const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia', 'South Africa'].sort();
 
 describe('TESTING /v3/covid-19/gov general', () => {
 	it('/v3/covid-19/gov correct countries', (done) => {
@@ -360,4 +361,44 @@ describe('TESTING /v2/gov/colombia', () => {
         	});
     	});
   	});
+});
+
+describe('TESTING /v2/gov/south africa', () => {
+    it('/v2/gov/south africa correct data', (done) => {
+      chai.request(app)
+        .get('/v2/gov/south africa')
+        .end((err, res) => {
+          testBasicProperties(err, res, 200, 'object');
+          res.body.should.have.property('updated');
+          res.body.should.have.property('national');
+		  res.body.should.have.property('provinces');
+
+		  res.body.national.timeline.length.should.be.at.least(107);
+
+		  const dayNational = res.body.national.timeline.find(d => d.date === '2020-06-02');
+		  should().exist(dayNational);
+		  dayNational.date.should.equal('2020-06-02');
+		  dayNational.cases.cumulative.should.equal(35812);
+		  dayNational.cases.unallocated.should.equal(6);
+		  dayNational.cases.new.should.equal(1455);
+		  dayNational.tests.cumulative.should.equal(761534);
+		  dayNational.recoveries.cumulative.should.equal(18313);
+		  dayNational.deaths.cumulative.should.equal(755);
+		  dayNational.deaths.new.should.equal(50);
+
+		  res.body.provinces.length.should.equal(9);
+
+		  const province = res.body.provinces.find(p => p.name === 'Eastern Cape');
+		  should().exist(province);
+		  province.name.should.equal('Eastern Cape');
+		  province.timeline.length.should.be.at.least(107);
+
+		  const dayProvince = province.timeline.find(d => d.date === '2020-05-28');
+		  should().exist(dayProvince);
+		  dayProvince.date.should.equal('2020-05-28');
+		  dayProvince.cases.should.equal(3306);
+		  
+          done();
+        });
+    });
 });

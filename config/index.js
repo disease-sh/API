@@ -21,11 +21,11 @@ config.redis.port = process.env.REDIS_PORT || 6379;
 config.redis.password = process.env.REDIS_PASSWORD || '';
 
 // SCRAPER INTERVALS
-config.interval = process.env.INTERVAL || 6e5;
+config.worldometersInterval = process.env.INTERVAL || 6e5;
 // eslint-disable-next-line camelcase
-config.nyt_interval = process.env.NYT_INTERVAL || 864e5;
+config.nytInterval = process.env.NYT_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
-config.apple_interval = process.env.APPLE_INTERVAL || 864e5;
+config.appleInterval = process.env.APPLE_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
 config.gov_interval = process.env.GOV_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
@@ -35,7 +35,7 @@ config.CDC_interval = process.env.CDC_INTERVAL || 864e5;
 
 // SENTRY KEY (ONLY FOR PRODUCTION)
 // eslint-disable-next-line camelcase
-config.sentry_key = process.env.SENTRY_KEY;
+config.sentryKey = process.env.SENTRY_KEY;
 
 // MAILGUN API KEY (ONLY FOR PRODUCTION)
 config.mailgunApiKey = process.env.MAILGUN_API_KEY;
