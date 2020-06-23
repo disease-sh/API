@@ -4,7 +4,7 @@ on:
     branches: [master]
 jobs:
   publish:
-    if: github.repository == 'NovelCOVID/API'
+    if: github.repository == 'disease-sh/API'
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
@@ -27,7 +27,7 @@ jobs:
           repository: novelcovid/novelcovid-api
           tag_with_sha: true
   merge-branch:
-    if: github.repository == 'NovelCOVID/API'
+    if: github.repository == 'disease-sh/API'
     needs: publish
     runs-on: ubuntu-latest
     steps:
