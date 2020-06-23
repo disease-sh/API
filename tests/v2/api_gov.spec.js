@@ -2,7 +2,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../server');
 const { testBasicProperties } = require('../testingFunctions');
-const should = chai.should();
+const { should } = require('chai');
 
 chai.use(chaiHttp);
 
