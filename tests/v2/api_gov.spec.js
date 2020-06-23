@@ -1,13 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-<<<<<<< HEAD:tests/v2/api_gov.spec.js
 const app = require('../../server');
 const { testBasicProperties } = require('../testingFunctions');
-=======
-const app = require('../server');
-const { testBasicProperties } = require('./testingFunctions');
-const { should } = require('chai');
->>>>>>> c7b10654334efbbec20ce694ae25e5e60a0958ef:tests/api_gov.spec.js
 
 chai.use(chaiHttp);
 
@@ -355,21 +349,6 @@ describe('TESTING /v2/gov/new zealand', () => {
 
 describe('TESTING /v2/gov/colombia', () => {
     it('/v2/gov/colombia correct fields set', (done) => {
-<<<<<<< HEAD:tests/v2/api_gov.spec.js
-    	chai.request(app)
-			.get('/v2/gov/colombia')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object');
-				res.body.should.have.property('updated');
-				res.body.should.have.property('departments');
-				res.body.should.have.property('cities');
-				res.body.departments.length.should.be.at.least(32);
-				done();
-        	});
-    	});
-  	});
-});
-=======
       chai.request(app)
         .get('/v2/gov/colombia')
         .end((err, res) => {
@@ -421,7 +400,4 @@ describe('TESTING /v2/gov/south africa', () => {
           done();
         });
     });
-  });
-
-
->>>>>>> c7b10654334efbbec20ce694ae25e5e60a0958ef:tests/api_gov.spec.js
+});
