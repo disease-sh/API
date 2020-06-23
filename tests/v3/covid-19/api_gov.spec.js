@@ -2,10 +2,11 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../../server');
 const { testBasicProperties } = require('../../testingFunctions');
+const should = chai.should();
 
 chai.use(chaiHttp);
 
-const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia'].sort();
+const countries = ['Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia', 'South Africa'].sort();
 
 describe('TESTING /v3/covid-19/gov general', () => {
 	it('/v3/covid-19/gov correct countries', (done) => {
