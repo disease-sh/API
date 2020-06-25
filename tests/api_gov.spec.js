@@ -321,7 +321,7 @@ describe('TESTING /v2/gov/new zealand', () => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
 				res.body.should.have.property('provinces');
-				res.body.provinces.length.should.equal(21);
+				res.body.provinces.length.should.equal(22);
 				done();
 			});
 	});
