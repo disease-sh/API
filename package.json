@@ -23,7 +23,7 @@
     "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
     "lint:fix": "eslint ./**/*.js --fix --ignore-pattern node_modules/",
     "lint:win32": "eslint ./**/*.js --ignore-pattern node_modules/",
-    "test": "mocha ./tests --exit  --timeout 60000",
+    "test": "mocha ./tests --exit  --timeout 120000",
     "docker-start": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build",
     "docker-down": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml down --rmi all",
     "docker-start-dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build",
