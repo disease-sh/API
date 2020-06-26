@@ -33,7 +33,7 @@ const mapRows = (_, row) => {
 const newZealandData = async () => {
 	try {
 		const html = cheerio.load((await axios.get('https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-current-situation/covid-19-current-cases')).data);
-		const provinces = html('table:nth-of-type(2) > tbody > tr').map(mapRows).get();
+		const provinces = html('table:nth-of-type(4) > tbody > tr').map(mapRows).get();
 		return {
 			updated: Date.now(),
 			provinces
