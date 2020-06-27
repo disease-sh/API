@@ -345,7 +345,7 @@ describe('TESTING /v2/gov/new zealand', () => {
 				});
 				done();
 			});
-  });
+  	});
 });
 
 describe('TESTING /v2/gov/colombia', () => {
@@ -361,7 +361,7 @@ describe('TESTING /v2/gov/colombia', () => {
           done();
         });
     });
-  });
+});
 
 describe('TESTING /v2/gov/south africa', () => {
     it('/v2/gov/south africa correct data', (done) => {

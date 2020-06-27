@@ -313,22 +313,22 @@ describe('TESTING /v3/covid-19/gov/vietnam', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/new zealand', () => {
-	it('/v3/covid-19/gov/new zealand correct amount', (done) => {
+describe('TESTING /v2/gov/new zealand', () => {
+	it('/v2/gov/new zealand correct amount', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/gov/new zealand')
+			.get('/v2/gov/new zealand')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
 				res.body.should.have.property('provinces');
-				res.body.provinces.length.should.equal(21);
+				res.body.provinces.length.should.equal(22);
 				done();
 			});
 	});
 
-	it('/v3/covid-19/gov/new zealand correct fields set', (done) => {
+	it('/v2/gov/new zealand correct fields set', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/gov/new zealand')
+			.get('/v2/gov/new zealand')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.provinces.forEach(province => {
@@ -345,7 +345,8 @@ describe('TESTING /v3/covid-19/gov/new zealand', () => {
 				});
 				done();
 			});
-	});
+  	});
+});
 
 describe('TESTING /v2/gov/colombia', () => {
     it('/v2/gov/colombia correct fields set', (done) => {
@@ -360,7 +361,6 @@ describe('TESTING /v2/gov/colombia', () => {
 				done();
         	});
     	});
-  	});
 });
 
 describe('TESTING /v2/gov/south africa', () => {
