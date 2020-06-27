@@ -65,7 +65,7 @@ Disease.sh Documentation can be found [here](https://disease.sh/docs/)
 </a>
 </dir>
 
-- [Github](https://github.com/novelcovid/node-api)
+- [Github](https://github.com/disease-sh/node-api)
 - [NPM](https://npmjs.com/novelcovid)
 
 > For further support, you can join our discord server! More Tutorials can be found there too!
@@ -75,7 +75,7 @@ Disease.sh Documentation can be found [here](https://disease.sh/docs/)
 
 Did you build a project with our API? We now offer an "awesome-list" for you to add your projects into so people can find out about them!
 
-#### You can find it <a href="https://github.com/puf17640/awesome-novelcovid">here</a>.
+#### You can find it <a href="https://github.com/disease-sh/awesome-novelcovid">here</a>.
 
 # Sources:
 > https://www.worldometers.info/coronavirus/
