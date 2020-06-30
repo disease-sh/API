@@ -37,10 +37,6 @@
         "description": "(Covid-19 individual government reported data, updated every 24 hours)"
       },
       {
-        "name": "Ebola ECDC",
-        "description": "(Ebola virus outbreak data reported by the European Centre for Disease Control, updated every 24 hours)"
-      },
-      {
         "name": "Influenza CDC",
         "description": "(Influenza data reported by the United States CDC, updated every 24 hours)"
       }
@@ -942,37 +938,6 @@
           }
         }
       },
-      "/v3/ebola/ecdc": {
-        "get": {
-          "tags": [
-            "Ebola ECDC"
-          ],
-          "parameters": [
-            {
-              "name": "allowNull",
-              "in": "query",
-              "required": false,
-              "enum": [
-                "true",
-                "false",
-                "1",
-                "0"
-              ],
-              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
-              "type": "string"
-            }
-          ],
-          "summary": "Get Ebola virus data on the current outbreak from the European Center for Disease Control",
-          "responses": {
-            "200": {
-              "description": "Status Ok",
-              "schema": {
-                "$ref": "#/definitions/ebola"
-              }
-            }
-          }
-        }
-      },
       "/v3/influenza/cdc/ILINet": {
         "get": {
           "tags": [
@@ -1336,41 +1301,6 @@
           "data": {
             "items": {
               "$ref": "#/definitions/appleData"
-            }
-          }
-        }
-      },
-      "ebolaProvince": {
-        "properties": {
-          "province": {
-            "type": "string"
-          },
-          "cases": {
-            "type": "number"
-          },
-          "probableCases": {
-            "type": "number"
-          },
-          "deaths": {
-            "type": "number"
-          }
-        }
-      },
-      "ebola": {
-        "properties": {
-          "updated": {
-            "type": "string"
-          },
-          "sourceUpdated": {
-            "type": "string",
-            "format": "date"
-          },
-          "source": {
-            "type": "string"
-          },
-          "provinces": {
-            "items": {
-              "$ref": "#/definitions/ebolaProvince"
             }
           }
         }

@@ -15,7 +15,7 @@
 
 | Information | Discord | Donate |
 |:------------|:---------|:-------|
-| This API provides a big range of detailed information about multiple viruses. From COVID19 global data overviews to city/region specific mobility data, and data on the current outbreak of Ebola in the DRC. We also provide official government data for some countries, more to be added soon.<br><br>The core-team currently consists of 4 people from 4 different countries working hard to keep this up and running, but it's an open-source project, so if you want, come help us!| [![Discord server](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F2x%2Fdiscord-logo.png&f=1&nofb=1)](https://discord.gg/cEDxzfW) | [![BuyMeACoffee](https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-1.svg)](https://www.buymeacoffee.com/covidapi/shop) |
+| This API provides a big range of detailed information about multiple viruses. From COVID19 global data overviews to city/region specific mobility data, and data on the current outbreak of Influenza. We also provide official government data for some countries, more to be added soon.<br><br>The core-team currently consists of 4 people from 4 different countries working hard to keep this up and running, but it's an open-source project, so if you want, come help us!| [![Discord server](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F2x%2Fdiscord-logo.png&f=1&nofb=1)](https://discord.gg/cEDxzfW) | [![BuyMeACoffee](https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-1.svg)](https://www.buymeacoffee.com/covidapi/shop) |
 
 **Check out** our homepage and **sign up** for our newsletter [here](https://disease.sh/)
 

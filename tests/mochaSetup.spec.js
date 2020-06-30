@@ -1,4 +1,4 @@
-const { scraper: { executeScraper, executeScraperNYTData, excecuteScraperAppleData, excecuteScraperGov, excecuteScraperEbola, excecuteScraperInfluenza }, redis } = require('../routes/instances');
+const { scraper: { executeScraper, executeScraperNYTData, excecuteScraperAppleData, excecuteScraperGov, excecuteScraperInfluenza }, redis } = require('../routes/instances');
 const logger = require('../utils/logger');
 
 // eslint-disable-next-line
@@ -10,7 +10,6 @@ before(async () => {
 	await executeScraperNYTData();
 	await excecuteScraperAppleData();
 	await excecuteScraperGov();
-	await excecuteScraperEbola();
 	await excecuteScraperInfluenza();
 	logger.info('Scraping finished.');
 });
