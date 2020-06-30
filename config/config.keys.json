@@ -15,7 +15,6 @@
   "nyt_USA": "covidapi:nyt_usa",
   "apple_all": "covidapi:apple_all",
   "gov_countries": "covidapi:gov_countries",
-  "ebola_ecdc": "ebola:ecdc",
   "influenza_ILINET": "influenza:ILINET",
   "influenza_USPHL": "influenza:USPHL",
   "influenza_USCL": "influenza:USCL"

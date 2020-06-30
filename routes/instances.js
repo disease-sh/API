@@ -10,7 +10,6 @@ const historical = require('../scrapers/covid-19/historical');
 const nytData = require('../scrapers/covid-19/nytData');
 const appleData = require('../scrapers/covid-19/appleMobilityData');
 const govData = require('../scrapers/covid-19/govScrapers/getGovData');
-const getEbola = require('../scrapers/ebola/getEbola');
 const getCDCDInfluenzaData = require('../scrapers/influenza/getCDC');
 
 // KEYS
@@ -54,10 +53,6 @@ module.exports = {
 		excecuteScraperGov: async () => {
 			await govData(keys, redis);
 			logger.info('Finished Government scraping!');
-		},
-		excecuteScraperEbola: async () => {
-			await getEbola(keys, redis);
-			logger.info('Finished Ebola scraping!');
 		},
 		excecuteScraperInfluenza: async () => {
 			await getCDCDInfluenzaData(keys, redis);
