@@ -177,9 +177,9 @@
 		<div id="desc">
 			<i onclick="closeToast()" style="margin-right: 10px; cursor: pointer; color: white;"
 				class="fa fa-times-circle" aria-hidden="true"></i>
-			Check out our new domain
+			See how to use our V3 endpoints
 			<a style="color: #2196F3; background-color: #585c5e; padding: 4px; border-radius: 5px;"
-				href="https://disease.sh">disease.sh</a>
+				href="https://disease.sh/docs">here</a>
 		</div>
 	</div>
 
@@ -190,8 +190,6 @@
 	<script type="text/javascript">
 		// toast notification in bottom right corner
 		function launchToast() {
-			if (window.location.hostname === 'disease.sh')
-				return;
 			var toast = document.getElementById("toast")
 			toast.className = "show";
 			setTimeout(function () { toast.className = toast.className.replace("show", ""); }, 20000);
