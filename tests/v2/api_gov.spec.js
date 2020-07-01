@@ -6,7 +6,7 @@ const { should } = require('chai');
 
 chai.use(chaiHttp);
 
-const countries = ['South Africa', 'Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia'].sort();
+const countries = ['South Africa', 'Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia', 'UK'].sort();
 
 describe('TESTING /v2/gov general', () => {
 	it('/v2/gov correct countries', (done) => {
@@ -15,9 +15,7 @@ describe('TESTING /v2/gov general', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				res.body.length.should.be.at.least(1);
-				res.body.sort().forEach((country, index) => {
-					country.should.equal(countries[index]);
-				});
+				res.body.forEach(country => countries.should.include(country));
 				done();
 			});
 	});
