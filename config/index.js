@@ -27,7 +27,11 @@ config.nytInterval = process.env.NYT_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
 config.appleInterval = process.env.APPLE_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
-config.govInterval = process.env.GOV_INTERVAL || 864e5;
+config.gov_interval = process.env.GOV_INTERVAL || 864e5;
+// eslint-disable-next-line camelcase
+config.ebola_interval = process.env.EBOLA_INTERVAL || 864e5;
+// eslint-disable-next-line camelcase
+config.CDC_interval = process.env.CDC_INTERVAL || 864e5;
 
 // SENTRY KEY (ONLY FOR PRODUCTION)
 // eslint-disable-next-line camelcase

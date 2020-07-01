@@ -1226,7 +1226,6 @@
           }
         }
       }
-      
     },
     "continents": {
       "type": "array",

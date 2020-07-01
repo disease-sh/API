@@ -14,5 +14,8 @@
   "nyt_states": "covidapi:nyt_states",
   "nyt_USA": "covidapi:nyt_usa",
   "apple_all": "covidapi:apple_all",
-  "gov_countries": "covidapi:gov_countries"
+  "gov_countries": "covidapi:gov_countries",
+  "influenza_ILINET": "influenza:ILINET",
+  "influenza_USPHL": "influenza:USPHL",
+  "influenza_USCL": "influenza:USCL"
 }

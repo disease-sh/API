@@ -3,13 +3,14 @@ const Redis = require('ioredis');
 
 // LOCAL FUNCTIONS
 const logger = require('../utils/logger');
-const getWorldometerPage = require('../scrapers/getWorldometers');
-const getStates = require('../scrapers/getStates');
-const jhuLocations = require('../scrapers/jhuLocations');
-const historical = require('../scrapers/historical');
-const nytData = require('../scrapers/nytData');
-const appleData = require('../scrapers/appleMobilityData');
-const govData = require('../scrapers/govScrapers/getGovData');
+const getWorldometerPage = require('../scrapers/covid-19/getWorldometers');
+const getStates = require('../scrapers/covid-19/getStates');
+const jhuLocations = require('../scrapers/covid-19/jhuLocations');
+const historical = require('../scrapers/covid-19/historical');
+const nytData = require('../scrapers/covid-19/nytData');
+const appleData = require('../scrapers/covid-19/appleMobilityData');
+const govData = require('../scrapers/covid-19/govScrapers/getGovData');
+const getCDCDInfluenzaData = require('../scrapers/influenza/getCDC');
 
 // KEYS
 const { config, keys, port } = require('../config');
@@ -52,6 +53,10 @@ module.exports = {
 		excecuteScraperGov: async () => {
 			await govData(keys, redis);
 			logger.info('Finished Government scraping!');
+		},
+		excecuteScraperInfluenza: async () => {
+			await getCDCDInfluenzaData(keys, redis);
+			logger.info('Finished CDC Influenza scraping!');
 		}
 	}
 };
