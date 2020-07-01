@@ -83,6 +83,8 @@ describe('TESTING /v3/influenza/CDC', () => {
                     row['B'].should.be.at.least(0);
                     row.should.have.property('BVIC');
                     row['BVIC'].should.be.at.least(0);
+                    row.should.have.property('BYAM');
+                    row['BVIC'].should.be.at.least(0);
                     row.should.have.property('totalTests');
                     row['totalTests'].should.be.at.least(0);
                 });
