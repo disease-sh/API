@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, no-unused-expressions */
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../server');
