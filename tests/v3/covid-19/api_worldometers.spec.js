@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const should = chai.should();
@@ -13,7 +14,7 @@ describe('TESTING /v3/covid-19/continents', () => {
 			.get('/v3/covid-19/continents')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				for (let row of res.body) {
+				for (const row of res.body) {
 					row.should.be.a('object');
 					row.should.have.property('continent');
 					should.exist(row.continent);
@@ -92,7 +93,7 @@ describe('TESTING /v3/covid-19/continents', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
-				res.body.forEach(element => {
+				res.body.forEach((element) => {
 					maxCases.should.be.at.least(element.cases);
 					maxCases = element.cases;
 				});
@@ -142,7 +143,7 @@ describe('TESTING /v3/covid-19/all', () => {
 				done();
 			});
 	});
-	
+
 	it('/v3/covid-19/all?yesterday', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/all?yesterday=true')
@@ -238,7 +239,7 @@ describe('TESTING /v3/covid-19/all', () => {
 						res2.should.have.status(200);
 						res.body.cases.should.be.at.least(res2.body.cases);
 						done();
-					})
+					});
 			});
 	});
 
@@ -337,7 +338,7 @@ describe('TESTING /v3/covid-19/all', () => {
 						res2.should.have.status(200);
 						res.body.cases.should.be.at.least(res2.body.cases);
 						done();
-					})
+					});
 			});
 	});
 });
@@ -573,7 +574,7 @@ describe('TESTING /v3/covid-19/countries', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
-				res.body.forEach(element => {
+				res.body.forEach((element) => {
 					maxCases.should.be.at.least(element.cases);
 					maxCases = element.cases;
 				});
@@ -583,62 +584,62 @@ describe('TESTING /v3/covid-19/countries', () => {
 
 	it('/v3/covid-19/countries/netherlands?strict=false gives Caribbean Netherlands', (done) => {
 		chai.request(app)
-		.get('/v3/covid-19/countries/netherlands?strict=false')
-		.end((err, res) => {
-			testBasicProperties(err, res, 200, 'object');
-			res.body.should.have.property('country').eql('Caribbean Netherlands');
-			done();
-		});
+			.get('/v3/covid-19/countries/netherlands?strict=false')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('country').eql('Caribbean Netherlands');
+				done();
+			});
 	});
 
 	it('/v3/covid-19/countries/sudan?strict=false gives South Sudan', (done) => {
 		chai.request(app)
-		.get('/v3/covid-19/countries/sudan?strict=false')
-		.end((err, res) => {
-			testBasicProperties(err, res, 200, 'object');
-			res.body.should.have.property('country').eql('South Sudan');
-			done();
-		});
+			.get('/v3/covid-19/countries/sudan?strict=false')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('country').eql('South Sudan');
+				done();
+			});
 	});
 
 	it('/v3/covid-19/countries/guinea?strict=false gives Equatorial Guinea', (done) => {
 		chai.request(app)
-		.get('/v3/covid-19/countries/guinea?strict=false')
-		.end((err, res) => {
-			testBasicProperties(err, res, 200, 'object');
-			res.body.should.have.property('country').eql('Equatorial Guinea');
-			done();
-		});
+			.get('/v3/covid-19/countries/guinea?strict=false')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('country').eql('Equatorial Guinea');
+				done();
+			});
 	});
 
 	it('/v3/covid-19/countries/netherlands?yesterday&strict=false gives Caribbean Netherlands', (done) => {
 		chai.request(app)
-		.get('/v3/covid-19/countries/netherlands?yesterday=true&strict=false')
-		.end((err, res) => {
-			testBasicProperties(err, res, 200, 'object');
-			res.body.should.have.property('country').eql('Caribbean Netherlands');
-			done();
-		});
+			.get('/v3/covid-19/countries/netherlands?yesterday=true&strict=false')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('country').eql('Caribbean Netherlands');
+				done();
+			});
 	});
 
 	it('/v3/covid-19/countries/sudan?yesterday=true&strict=false gives South Sudan', (done) => {
 		chai.request(app)
-		.get('/v3/covid-19/countries/sudan?yesterday=true&strict=false')
-		.end((err, res) => {
-			testBasicProperties(err, res, 200, 'object');
-			res.body.should.have.property('country').eql('South Sudan');
-			done();
-		});
+			.get('/v3/covid-19/countries/sudan?yesterday=true&strict=false')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('country').eql('South Sudan');
+				done();
+			});
 	});
 
 	it('/v3/covid-19/countries/guinea?yesterday=true&strict=false gives Equatorial Guinea', (done) => {
 		chai.request(app)
-		.get('/v3/covid-19/countries/guinea?yesterday=true&strict=false')
-		.end((err, res) => {
-			testBasicProperties(err, res, 200, 'object');
-			res.body.should.have.property('country').eql('Equatorial Guinea');
-			done();
-		});
+			.get('/v3/covid-19/countries/guinea?yesterday=true&strict=false')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('country').eql('Equatorial Guinea');
+				done();
+			});
 	});
 
 	it('/v3/covid-19/countries?sort&yesterday=true works', (done) => {
@@ -647,7 +648,7 @@ describe('TESTING /v3/covid-19/countries', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
-				res.body.forEach(element => {
+				res.body.forEach((element) => {
 					maxCases.should.be.at.least(element.cases);
 					maxCases = element.cases;
 				});
@@ -656,7 +657,7 @@ describe('TESTING /v3/covid-19/countries', () => {
 	});
 
 	// Test that all countries map to their respective country
-	countryData.map((element) => {
+	countryData.forEach((element) => {
 		it(`/v3/covid-19/countries/${element.country} correct country name`, (done) => {
 			chai.request(app)
 				.get(`/v3/covid-19/countries/${element.country}`)
@@ -702,8 +703,7 @@ describe('TESTING /v3/covid-19/countries', () => {
 						should.exist(res.body.tests);
 						res.body.should.have.property('testsPerOneMillion');
 						should.exist(res.body.testsPerOneMillion);
-					}
-					else {
+					} else {
 						res.body.should.be.a('object');
 						res.body.should.have.property('message');
 					}
@@ -713,7 +713,7 @@ describe('TESTING /v3/covid-19/countries', () => {
 	});
 
 	// Test that all yesterday countries map to their respective country
-	countryData.map((element) => {
+	countryData.forEach((element) => {
 		it(`/v3/covid-19/countries/${element.country}?yesterday=true correct country name`, (done) => {
 			chai.request(app)
 				.get(`/v3/covid-19/countries/${element.country}?yesterday=true`)
@@ -759,8 +759,7 @@ describe('TESTING /v3/covid-19/countries', () => {
 						should.exist(res.body.tests);
 						res.body.should.have.property('testsPerOneMillion');
 						should.exist(res.body.testsPerOneMillion);
-					}
-					else {
+					} else {
 						res.body.should.be.a('object');
 						res.body.should.have.property('message');
 					}
@@ -770,7 +769,7 @@ describe('TESTING /v3/covid-19/countries', () => {
 	});
 
 	// Test that all twoDaysAgo countries map to their respective country
-	countryData.map((element) => {
+	countryData.forEach((element) => {
 		it(`/v3/covid-19/countries/${element.country}?twoDaysAgo=true correct country name`, (done) => {
 			chai.request(app)
 				.get(`/v3/covid-19/countries/${element.country}?twoDaysAgo=true`)
@@ -816,8 +815,7 @@ describe('TESTING /v3/covid-19/countries', () => {
 						should.exist(res.body.tests);
 						res.body.should.have.property('testsPerOneMillion');
 						should.exist(res.body.testsPerOneMillion);
-					}
-					else {
+					} else {
 						res.body.should.be.a('object');
 						res.body.should.have.property('message');
 					}
@@ -872,7 +870,7 @@ describe('TESTING /v3/covid-19/states', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
-				res.body.forEach(element => {
+				res.body.forEach((element) => {
 					maxCases.should.be.at.least(element.cases);
 					maxCases = element.cases;
 				});
@@ -886,12 +884,12 @@ describe('TESTING /v3/covid-19/states', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				let maxCases = res.body[0].cases;
-				res.body.forEach(element => {
+				res.body.forEach((element) => {
 					maxCases.should.be.at.least(element.cases);
 					maxCases = element.cases;
 				});
 				done();
-			}); 
+			});
 	});
 
 	it('/v3/covid-19/states?sort bad param', (done) => {
@@ -917,7 +915,7 @@ describe('TESTING /v3/covid-19/states', () => {
 			.get('/v3/covid-19/states/Illinois')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
-				res.body.state.should.equal("Illinois");
+				res.body.state.should.equal('Illinois');
 				res.body.should.have.property('cases');
 				res.body.should.have.property('todayCases');
 				res.body.should.have.property('deaths');
@@ -934,7 +932,7 @@ describe('TESTING /v3/covid-19/states', () => {
 			.get('/v3/covid-19/states/Illinois')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
-				res.body.state.should.equal("Illinois");
+				res.body.state.should.equal('Illinois');
 				res.body.should.have.property('cases');
 				res.body.should.have.property('todayCases');
 				res.body.should.have.property('deaths');
@@ -951,7 +949,7 @@ describe('TESTING /v3/covid-19/states', () => {
 			.get('/v3/covid-19/states/Illinois,New%20York')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				for (let row of res.body) {
+				for (const row of res.body) {
 					row.should.have.property('cases');
 					row.should.have.property('todayCases');
 					row.should.have.property('deaths');
@@ -969,7 +967,7 @@ describe('TESTING /v3/covid-19/states', () => {
 			.get('/v3/covid-19/states/Illinois,New%20York?yesterday=true')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				for (let row of res.body) {
+				for (const row of res.body) {
 					row.should.have.property('cases');
 					row.should.have.property('todayCases');
 					row.should.have.property('deaths');
