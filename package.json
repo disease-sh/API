@@ -12,9 +12,6 @@
     "coronavirus",
     "covid"
   ],
-  "eslintIgnore": [
-    "**/*.spec.*"
-  ],
   "scripts": {
     "start": "node server.js",
     "start:scraper": "node serverScraper.js",

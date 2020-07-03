@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../server');
@@ -6,7 +7,20 @@ const { should } = require('chai');
 
 chai.use(chaiHttp);
 
-const countries = ['South Africa', 'Austria', 'Canada', 'Italy', 'Germany', 'Switzerland', 'Nigeria', 'India', 'Vietnam', 'New Zealand', 'Colombia'].sort();
+const countries = [
+	'South Africa',
+	'Austria',
+	'Canada',
+	'Italy',
+	'Germany',
+	'Switzerland',
+	'Nigeria',
+	'India',
+	'Vietnam',
+	'New Zealand',
+	'Colombia',
+	'UK'
+].sort();
 
 describe('TESTING /v2/gov general', () => {
 	it('/v2/gov correct countries', (done) => {
@@ -15,9 +29,7 @@ describe('TESTING /v2/gov general', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				res.body.length.should.be.at.least(1);
-				res.body.sort().forEach((country, index) => {
-					country.should.equal(countries[index]);
-				});
+				res.body.forEach((country) => countries.should.include(country));
 				done();
 			});
 	});
@@ -71,8 +83,8 @@ describe('TESTING /v2/gov/italy', () => {
 				res.body.length.should.equal(21);
 				done();
 			});
-    	});
-    
+	});
+
 	it('/v2/gov/italy correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/italy')
@@ -190,12 +202,12 @@ describe('TESTING /v2/gov/austria', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('percentageBySex');
-				res.body.percentageBySex.should.have.property('cases')
-				res.body.percentageBySex.cases.should.have.property('male')
-				res.body.percentageBySex.cases.should.have.property('female')
-				res.body.percentageBySex.should.have.property('deaths')
-				res.body.percentageBySex.deaths.should.have.property('male')
-				res.body.percentageBySex.deaths.should.have.property('female')
+				res.body.percentageBySex.should.have.property('cases');
+				res.body.percentageBySex.cases.should.have.property('male');
+				res.body.percentageBySex.cases.should.have.property('female');
+				res.body.percentageBySex.should.have.property('deaths');
+				res.body.percentageBySex.deaths.should.have.property('male');
+				res.body.percentageBySex.deaths.should.have.property('female');
 				done();
 			});
 	});
@@ -206,11 +218,33 @@ describe('TESTING /v2/gov/austria', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('casesByAge');
-				['<5', '5-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '>84'].forEach(key => {
+				[
+					'<5',
+					'5-14',
+					'15-24',
+					'25-34',
+					'35-44',
+					'45-54',
+					'55-64',
+					'65-74',
+					'75-84',
+					'>84'
+				].forEach((key) => {
 					res.body.casesByAge.should.have.property(key);
 				});
 				res.body.should.have.property('deathsByAge');
-				['<5', '5-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '>84'].forEach(key => {
+				[
+					'<5',
+					'5-14',
+					'15-24',
+					'25-34',
+					'35-44',
+					'45-54',
+					'55-64',
+					'65-74',
+					'75-84',
+					'>84'
+				].forEach((key) => {
 					res.body.deathsByAge.should.have.property(key);
 				});
 				done();
@@ -282,7 +316,7 @@ describe('TESTING /v2/gov/india', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('states');
-				res.body.states.forEach(state => {
+				res.body.states.forEach((state) => {
 					state.should.have.property('state');
 					state.should.have.property('total');
 					state.should.have.property('active');
@@ -331,7 +365,7 @@ describe('TESTING /v2/gov/new zealand', () => {
 			.get('/v2/gov/new zealand')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
-				res.body.provinces.forEach(province => {
+				res.body.provinces.forEach((province) => {
 					province.should.have.property('province');
 					province.should.have.property('active');
 					province.active.should.be.at.least(0);
@@ -345,60 +379,59 @@ describe('TESTING /v2/gov/new zealand', () => {
 				});
 				done();
 			});
-  	});
+	});
 });
 
 describe('TESTING /v2/gov/colombia', () => {
-    it('/v2/gov/colombia correct fields set', (done) => {
-      chai.request(app)
-        .get('/v2/gov/colombia')
-        .end((err, res) => {
-          testBasicProperties(err, res, 200, 'object');
-          res.body.should.have.property('updated');
-          res.body.should.have.property('departments');
-          res.body.should.have.property('cities');
-          res.body.departments.length.should.be.at.least(32);
-          done();
-        });
-    });
+	it('/v2/gov/colombia correct fields set', (done) => {
+		chai.request(app)
+			.get('/v2/gov/colombia')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('departments');
+				res.body.should.have.property('cities');
+				res.body.departments.length.should.be.at.least(32);
+				done();
+			});
+	});
 });
 
 describe('TESTING /v2/gov/south africa', () => {
-    it('/v2/gov/south africa correct data', (done) => {
-      chai.request(app)
-        .get('/v2/gov/south africa')
-        .end((err, res) => {
-          testBasicProperties(err, res, 200, 'object');
-          res.body.should.have.property('updated');
-          res.body.should.have.property('national');
-		  res.body.should.have.property('provinces');
+	it('/v2/gov/south africa correct data', (done) => {
+		chai.request(app)
+			.get('/v2/gov/south africa')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('national');
+				res.body.should.have.property('provinces');
 
-		  res.body.national.timeline.length.should.be.at.least(107);
+				res.body.national.timeline.length.should.be.at.least(107);
 
-		  const dayNational = res.body.national.timeline.find(d => d.date === '2020-06-02');
-		  should().exist(dayNational);
-		  dayNational.date.should.equal('2020-06-02');
-		  dayNational.cases.cumulative.should.equal(35812);
-		  dayNational.cases.unallocated.should.equal(6);
-		  dayNational.cases.new.should.equal(1455);
-		  dayNational.tests.cumulative.should.equal(761534);
-		  dayNational.recoveries.cumulative.should.equal(18313);
-		  dayNational.deaths.cumulative.should.equal(755);
-		  dayNational.deaths.new.should.equal(50);
+				const dayNational = res.body.national.timeline.find((entry) => entry.date === '2020-06-02');
+				should().exist(dayNational);
+				dayNational.date.should.equal('2020-06-02');
+				dayNational.cases.cumulative.should.equal(35812);
+				dayNational.cases.unallocated.should.equal(6);
+				dayNational.cases.new.should.equal(1455);
+				dayNational.tests.cumulative.should.equal(761534);
+				dayNational.recoveries.cumulative.should.equal(18313);
+				dayNational.deaths.cumulative.should.equal(755);
+				dayNational.deaths.new.should.equal(50);
 
-		  res.body.provinces.length.should.equal(9);
+				res.body.provinces.length.should.equal(9);
 
-		  const province = res.body.provinces.find(p => p.name === 'Eastern Cape');
-		  should().exist(province);
-		  province.name.should.equal('Eastern Cape');
-		  province.timeline.length.should.be.at.least(107);
+				const province = res.body.provinces.find((entry) => entry.name === 'Eastern Cape');
+				should().exist(province);
+				province.name.should.equal('Eastern Cape');
+				province.timeline.length.should.be.at.least(107);
 
-		  const dayProvince = province.timeline.find(d => d.date === '2020-05-28');
-		  should().exist(dayProvince);
-		  dayProvince.date.should.equal('2020-05-28');
-		  dayProvince.cases.should.equal(3306);
-		  
-          done();
-        });
-    });
+				const dayProvince = province.timeline.find((entry) => entry.date === '2020-05-28');
+				should().exist(dayProvince);
+				dayProvince.date.should.equal('2020-05-28');
+				dayProvince.cases.should.equal(3306);
+				done();
+			});
+	});
 });
