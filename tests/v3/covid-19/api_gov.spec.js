@@ -473,7 +473,7 @@ describe('TESTING /v2/gov/UK', () => {
 describe('TESTING /v3/gov/Israel', () => {
 	it('/v3/gov/Israel correct fields set', (done) => {
 		chai.request(app)
-			.get('/v3/gov/Israel')
+			.get('/v3/covid-19/gov/Israel')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
