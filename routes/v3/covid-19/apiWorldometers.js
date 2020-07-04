@@ -11,7 +11,7 @@ const { redis, keys } = require('../../instances');
  */
 const getAllData = async (key) => {
 	const countries = JSON.parse(await redis.get(key));
-	const worldData = countries.find(country => country.country.toLowerCase() === 'world');
+	const worldData = countries.find(countryData => countryData.country.toLowerCase() === 'world');
 	worldData.affectedCountries = countries.length - 1;
 	// eslint-disable-next-line no-unused-vars
 	const { country, countryInfo, continent, ...cleanedWorldData } = worldData;
