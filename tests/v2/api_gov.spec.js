@@ -19,7 +19,8 @@ const countries = [
 	'Vietnam',
 	'New Zealand',
 	'Colombia',
-	'UK'
+	'UK',
+	'Israel'
 ].sort();
 
 describe('TESTING /v2/gov general', () => {
