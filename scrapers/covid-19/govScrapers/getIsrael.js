@@ -27,8 +27,8 @@ const israelData = async () => {
 			}
 		});
 		data.updated = response.data[0].data.lastUpdate;
-		for (const query of response.data.splice(1)) { 
-			data[query.id] = query.data; 
+		for (const query of response.data.splice(1)) {
+			data[query.id] = query.data;
 		}
 		return data;
 	} catch (err) {
