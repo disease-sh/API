@@ -19,7 +19,8 @@ const countries = [
 	'New Zealand',
 	'Colombia',
 	'South Africa',
-	'UK'
+	'UK',
+	'Israel'
 ];
 
 describe('TESTING /v3/covid-19/gov general', () => {
@@ -351,10 +352,10 @@ describe('TESTING /v3/covid-19/gov/vietnam', () => {
 	});
 });
 
-describe('TESTING /v2/gov/new zealand', () => {
-	it('/v2/gov/new zealand correct amount', (done) => {
+describe('TESTING /v3/covid-19/gov/new zealand', () => {
+	it('/v3/covid-19/gov/new zealand correct amount', (done) => {
 		chai.request(app)
-			.get('/v2/gov/new zealand')
+			.get('/v3/covid-19/gov/new zealand')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
@@ -364,9 +365,9 @@ describe('TESTING /v2/gov/new zealand', () => {
 			});
 	});
 
-	it('/v2/gov/new zealand correct fields set', (done) => {
+	it('/v3/covid-19/gov/new zealand correct fields set', (done) => {
 		chai.request(app)
-			.get('/v2/gov/new zealand')
+			.get('/v3/covid-19/gov/new zealand')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.provinces.forEach((province) => {
@@ -386,10 +387,10 @@ describe('TESTING /v2/gov/new zealand', () => {
 	});
 });
 
-describe('TESTING /v2/gov/colombia', () => {
-	it('/v2/gov/colombia correct fields set', (done) => {
+describe('TESTING /v3/covid-19/gov/colombia', () => {
+	it('/v3/covid-19/gov/colombia correct fields set', (done) => {
 		chai.request(app)
-			.get('/v2/gov/colombia')
+			.get('/v3/covid-19/gov/colombia')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
@@ -401,10 +402,10 @@ describe('TESTING /v2/gov/colombia', () => {
 	});
 });
 
-describe('TESTING /v2/gov/south africa', () => {
-	it('/v2/gov/south africa correct data', (done) => {
+describe('TESTING /v3/covid-19/gov/south africa', () => {
+	it('/v3/covid-19/gov/south africa correct data', (done) => {
 		chai.request(app)
-			.get('/v2/gov/south africa')
+			.get('/v3/covid-19/gov/south africa')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
@@ -446,10 +447,10 @@ describe('TESTING /v2/gov/south africa', () => {
 	});
 });
 
-describe('TESTING /v2/gov/UK', () => {
-	it('/v2/gov/UK correct fields set', (done) => {
+describe('TESTING /v3/covid-19/gov/UK', () => {
+	it('/v3/covid-19/gov/UK correct fields set', (done) => {
 		chai.request(app)
-			.get('/v2/gov/uk')
+			.get('/v3/covid-19/gov/uk')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				const latest = Object.entries(res.body)[0][1];
@@ -464,6 +465,117 @@ describe('TESTING /v2/gov/UK', () => {
 				latest.should.have.property('admissions');
 				latest.should.have.property('newDeaths');
 				latest.should.have.property('deaths');
+				done();
+			});
+	});
+});
+
+describe('TESTING /v3/covid-19/gov/Israel', () => {
+	it('/v3/covid-19/gov/Israel correct fields set', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/gov/israel')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('active');
+				res.body.active.should.be.a('array');
+				res.body.active.forEach((entry) => {
+					entry.should.have.property('date');
+					entry.should.have.property('amount');
+				});
+				res.body.should.have.property('updatedPatientStatus');
+				res.body.updatedPatientStatus.should.be.a('array').of.length(2);
+				res.body.updatedPatientStatus.forEach((entry) => {
+					entry.should.have.property('name');
+					entry.should.have.property('amount');
+				});
+				res.body.should.have.property('sickPerDateTwoDays');
+				res.body.sickPerDateTwoDays.should.be.a('array').of.length(2);
+				res.body.sickPerDateTwoDays.forEach((entry) => {
+					entry.should.have.property('date');
+					entry.should.have.property('amount');
+				});
+				res.body.should.have.property('sickPerLocation');
+				res.body.sickPerLocation.should.be.a('array').of.length(2);
+				res.body.sickPerLocation.forEach((entry) => {
+					entry.should.have.property('name');
+					entry.should.have.property('amount');
+				});
+				res.body.should.have.property('cases');
+				res.body.cases.should.be.a('array');
+				res.body.cases.forEach((entry) => {
+					entry.should.have.property('date');
+					entry.should.have.property('new_hospitalized');
+					entry.should.have.property('Counthospitalized');
+					entry.should.have.property('Counthospitalized_without_release');
+					entry.should.have.property('CountHardStatus');
+					entry.should.have.property('CountMediumStatus');
+					entry.should.have.property('CountEasyStatus');
+					entry.should.have.property('CountBreath');
+					entry.should.have.property('CountDeath');
+					entry.should.have.property('total_beds');
+					entry.should.have.property('StandardOccupancy');
+					entry.should.have.property('num_visits');
+					entry.should.have.property('patients_home');
+					entry.should.have.property('patients_hotel');
+				});
+				res.body.should.have.property('deaths');
+				res.body.deaths.should.be.a('array');
+				res.body.deaths.forEach((entry) => {
+					entry.should.have.property('date');
+					entry.should.have.property('amount');
+				});
+				res.body.should.have.property('recoveredDaily');
+				res.body.recoveredDaily.should.be.a('array');
+				res.body.recoveredDaily.forEach((entry) => {
+					entry.should.have.property('date');
+					entry.should.have.property('amount');
+				});
+				res.body.should.have.property('testResults');
+				res.body.testResults.should.be.a('array');
+				res.body.testResults.forEach((entry) => {
+					entry.should.have.property('date');
+					entry.should.have.property('amount');
+					entry.should.have.property('positiveAmount');
+				});
+				res.body.should.have.property('doublingRate');
+				res.body.doublingRate.should.be.a('array');
+				res.body.doublingRate.forEach((entry) => {
+					entry.should.have.property('date');
+					entry.should.have.property('confirmed_rate');
+				});
+				res.body.should.have.property('activeByAgeAndGender');
+				res.body.activeByAgeAndGender.should.be.a('array');
+				res.body.activeByAgeAndGender.forEach((entry) => {
+					entry.should.have.property('section');
+					entry.should.have.property('male');
+					entry.should.have.property('female');
+				});
+				res.body.should.have.property('isolatedDoctorsAndNurses');
+				res.body.isolatedDoctorsAndNurses.should.be.a('object');
+				res.body.isolatedDoctorsAndNurses.should.have.property('Verified_Doctors');
+				res.body.isolatedDoctorsAndNurses.should.have.property('Verified_Nurses');
+				res.body.isolatedDoctorsAndNurses.should.have.property('isolated_Doctors');
+				res.body.isolatedDoctorsAndNurses.should.have.property('isolated_Nurses');
+				res.body.isolatedDoctorsAndNurses.should.have.property('isolated_Other_Sector');
+				res.body.should.have.property('cityData');
+				res.body.cityData.should.be.a('array').of.length(150);
+				res.body.cityData.forEach((entry) => {
+					entry.should.have.property('city');
+					entry.should.have.property('sickCount');
+					entry.should.have.property('percentOfCityPopulation');
+					entry.should.have.property('diff');
+					entry.should.have.property('testsCount');
+					entry.should.have.property('status');
+				});
+				res.body.should.have.property('hospitalStatus');
+				res.body.hospitalStatus.should.be.a('array').of.length(36);
+				res.body.hospitalStatus.forEach((entry) => {
+					entry.should.have.property('name');
+					entry.should.have.property('coronaOccupancy');
+					entry.should.have.property('normalOccupancy');
+					entry.should.have.property('isolatedTeam');
+				});
 				done();
 			});
 	});
