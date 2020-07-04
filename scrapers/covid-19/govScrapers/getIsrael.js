@@ -9,7 +9,7 @@ const params = {
 		{ id: 6, queryName: 'deadPatientsPerDate', single: false, parameters: {} },
 		{ id: 7, queryName: 'recoveredPerDay', single: false, parameters: {} },
 		{ id: 8, queryName: 'testResultsPerDate', single: false, parameters: {} },
-		{ id: 12, queryName: 'infectedByAgeAndGenderPublic', single: false, parameters: { ageSections:[0, 10, 20, 30, 40, 50, 60, 70, 80, 90] } },
+		{ id: 12, queryName: 'infectedByAgeAndGenderPublic', single: false, parameters: { ageSections: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90] } },
 		{ id: 15, queryName: 'contagionDataPerCityPublic', single: false, parameters: {} }
 	]
 };
@@ -44,7 +44,7 @@ const parseData = (data) => {
 				const { section, male, female } = entry;
 				return { section: `ages ${section} - ${section + 10}`, male, female };
 			}),
-			cityData: data[7].data,
+			cityData: data[7].data.map((entry) => delete entry.status && entry),
 			timeline
 		}
 	};

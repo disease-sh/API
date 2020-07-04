@@ -19,7 +19,8 @@ const countries = [
 	'New Zealand',
 	'Colombia',
 	'South Africa',
-	'UK'
+	'UK',
+	'Israel'
 ];
 
 describe('TESTING /v3/covid-19/gov general', () => {
@@ -464,6 +465,41 @@ describe('TESTING /v2/gov/UK', () => {
 				latest.should.have.property('admissions');
 				latest.should.have.property('newDeaths');
 				latest.should.have.property('deaths');
+				done();
+			});
+	});
+});
+
+describe('TESTING /v3/gov/Israel', () => {
+	it('/v3/gov/Israel correct fields set', (done) => {
+		chai.request(app)
+			.get('/v3/gov/Israel')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('data');
+				res.body.data.should.have.property('sickLocated');
+				res.body.data.sickLocated.should.have.property('home');
+				res.body.data.sickLocated.should.have.property('hospital');
+				res.body.data.should.have.property('sickByAge');
+				res.body.data.sickByAge.length.should.equal(10);
+				res.body.data.should.have.property('cityData');
+				const firstCity = Object.entries(res.body.data.cityData)[0];
+				firstCity.should.have.property('city');
+				firstCity.should.have.property('sickCount');
+				firstCity.should.have.property('percentOfCityPopulation');
+				firstCity.should.have.property('diff');
+				firstCity.should.have.property('testsCount');
+				const latest = Object.entries(res.body.data.timeline)[0];
+				latest.should.have.property('date');
+				latest.should.have.property('newHospitalized');
+				latest.should.have.property('totalhospitalized');
+				latest.should.have.property('totalBeds');
+				latest.should.have.property('StandardOccupancy');
+				latest.should.have.property('newDeaths');
+				latest.should.have.property('newlyRecovered');
+				latest.should.have.property('newTestsTaken');
+				latest.should.have.property('newPositiveTests');
 				done();
 			});
 	});
