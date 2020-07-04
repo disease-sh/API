@@ -11,7 +11,6 @@ const logger = require('../../../utils/logger');
 const colombiaData = require('./getColombia');
 const southAfricaData = require('./getSouthAfrica');
 const ukData = require('./getUK');
-const israelData = require('./getIsrael');
 
 /**
  * Set government data in redis by calling individual country scrapers
@@ -37,8 +36,7 @@ const govData = async (keys, redis) => {
 			{ country: 'Vietnam', fn: vietnamData },
 			{ country: 'New Zealand', fn: newZealandData },
 			{ country: 'Colombia', fn: colombiaData },
-			{ country: 'UK', fn: ukData },
-			{ country: 'Israel', fn: israelData }
+			{ country: 'UK', fn: ukData }
 		].map(_resolveData));
 		redis.set(keys.gov_countries, JSON.stringify(data));
 		logger.info(`Updated gov data: ${Object.keys(data).length} government sources`);
