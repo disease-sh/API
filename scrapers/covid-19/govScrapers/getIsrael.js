@@ -1,7 +1,6 @@
 const axios = require('axios');
 const logger = require('../../../utils/logger');
 
-// 7: skip 20, 8: skip 30
 const params = {
 	requests: [
 		{ id: 0, queryName: 'lastUpdate', single: true, parameters: {} },
@@ -15,6 +14,11 @@ const params = {
 	]
 };
 
+/**
+ * Parses and cleans rows of data returned from Israeli government API
+ * @param 	{Array} 	data 	Set of data pulled from Israeli API with element for each individual query
+ * @returns {Object}			Cleaned and parsed data to be displayed in API
+ */
 const parseData = (data) => {
 	const dateRegex = /\d+-\d+-\d+/g;
 	const patientsPerDay = data[2].data;
@@ -36,7 +40,10 @@ const parseData = (data) => {
 		updated: new Date(data[0].data.lastUpdate).valueOf(),
 		data: {
 			sickLocated: { home: data[1].data[0].amount, hospital: data[1].data[1].amount },
-			// TODO age gender data here
+			sickByAge: data[6].data.map((entry) => {
+				const { section, male, female } = entry;
+				return { section: `ages ${section} - ${section + 10}`, male, female };
+			}),
 			cityData: data[7].data,
 			timeline
 		}
