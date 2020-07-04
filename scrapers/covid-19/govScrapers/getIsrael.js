@@ -1,30 +1,46 @@
 const axios = require('axios');
-const cheerio = require('cheerio');
 const logger = require('../../../utils/logger');
 
-const columns = ['province', 'cases', 'casePreviousDayChange', 'casesPerHundredThousand', 'deaths'];
+// 7: skip 20, 8: skip 30
+const params = {
+	requests: [
+		{ id: 0, queryName: 'lastUpdate', single: true, parameters: {} },
+		{ id: 4, queryName: 'sickPerLocation', single: false, parameters: {} },
+		{ id: 5, queryName: 'patientsPerDate', single: false, parameters: {} },
+		{ id: 6, queryName: 'deadPatientsPerDate', single: false, parameters: {} },
+		{ id: 7, queryName: 'recoveredPerDay', single: false, parameters: {} },
+		{ id: 8, queryName: 'testResultsPerDate', single: false, parameters: {} },
+		{ id: 12, queryName: 'infectedByAgeAndGenderPublic', single: false, parameters: { ageSections:[0, 10, 20, 30, 40, 50, 60, 70, 80, 90] } },
+		{ id: 15, queryName: 'contagionDataPerCityPublic', single: false, parameters: {} }
+	]
+};
 
-/**
- * Return object reflecting a row of data from German government site
- * @param 	{number} 	_ 		Index getting passed when using .map()
- * @param 	{Object} 	row		The row to extract data from
- * @returns {Object}				Data for German province with entries for each column in @constant columns
- */
-const mapRows = (_, row) => {
-	const province = { updated: Date.now() };
-	cheerio(row).children('td').each((index, cell) => {
-		cell = cheerio.load(cell);
-		switch (index) {
-			case 0: {
-				province[columns[index]] = cell.text() === 'Gesamt' ? 'Total' : cell.text();
-				break;
-			}
-			default: {
-				province[columns[index]] = parseInt(cell.text().replace(/\./g, '')) || null;
-			}
+const parseData = (data) => {
+	const dateRegex = /\d+-\d+-\d+/g;
+	const patientsPerDay = data[2].data;
+	const deadPatientsPerDay = data[3].data;
+	const recoveredPerDay = data[4].data.splice(20, data[4].data.length - 1);
+	const testsPerDay = data[5].data.splice(30, data[5].data.length - 1);
+	const timeline = patientsPerDay.map((elem, index) => ({
+		date: elem.date.match(dateRegex)[0],
+		newHospitalized: elem.new_hospitalized,
+		totalhospitalized: elem.Counthospitalized,
+		totalBeds: elem.total_beds,
+		StandardOccupancy: elem.StandardOccupancy,
+		newDeaths: deadPatientsPerDay[index].amount,
+		newlyRecovered: recoveredPerDay[index].amount,
+		newTestsTaken: testsPerDay[index].amount,
+		newPositiveTests: testsPerDay[index].positiveAmount
+	}));
+	return {
+		updated: new Date(data[0].data.lastUpdate).valueOf(),
+		data: {
+			sickLocated: { home: data[1].data[0].amount, hospital: data[1].data[1].amount },
+			// TODO age gender data here
+			cityData: data[7].data,
+			timeline
 		}
-	});
-	return province;
+	};
 };
 
 /**
@@ -32,10 +48,12 @@ const mapRows = (_, row) => {
  */
 const israelData = async () => {
 	try {
-		const html = cheerio.load((await axios.get('https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Fallzahlen.html')).data);
-		return html(`table`).children('tbody:first-of-type').children('tr').map(mapRows).get();
+		const data = await axios.post('https://datadashboardapi.health.gov.il/api/queries/_batch', params, {
+			headers: { 'Content-Type': 'application/json' }
+		});
+		return parseData(data.data);
 	} catch (err) {
-		logger.err('Error: Requesting Germany Gov Data failed!', err);
+		logger.err('Error: Requesting Israel Gov Data failed!', err);
 		return null;
 	}
 };
