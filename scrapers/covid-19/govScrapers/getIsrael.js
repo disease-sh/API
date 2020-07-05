@@ -29,8 +29,8 @@ const parseData = (data) => {
 	const timeline = patientsPerDay.map((elem, index) => ({
 		date: elem.date.match(dateRegex)[0],
 		newHospitalized: elem.new_hospitalized,
-		hospitalPatients:  elem.Counthospitalized,
-		homePationts:  elem.patients_home,
+		hospitalPatients: elem.Counthospitalized,
+		homePationts: elem.patients_home,
 		hotelPationts: elem.patients_hotel,
 		totalBeds: elem.total_beds,
 		StandardOccupancy: elem.StandardOccupancy,
