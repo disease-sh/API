@@ -352,10 +352,10 @@ describe('TESTING /v3/covid-19/gov/vietnam', () => {
 	});
 });
 
-describe('TESTING /v2/gov/new zealand', () => {
-	it('/v2/gov/new zealand correct amount', (done) => {
+describe('TESTING /v3/covid-19/gov/new zealand', () => {
+	it('/v3/covid-19/gov/new zealand correct amount', (done) => {
 		chai.request(app)
-			.get('/v2/gov/new zealand')
+			.get('/v3/covid-19/gov/new zealand')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
@@ -365,9 +365,9 @@ describe('TESTING /v2/gov/new zealand', () => {
 			});
 	});
 
-	it('/v2/gov/new zealand correct fields set', (done) => {
+	it('/v3/covid-19/gov/new zealand correct fields set', (done) => {
 		chai.request(app)
-			.get('/v2/gov/new zealand')
+			.get('/v3/covid-19/gov/new zealand')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.provinces.forEach((province) => {
@@ -387,10 +387,10 @@ describe('TESTING /v2/gov/new zealand', () => {
 	});
 });
 
-describe('TESTING /v2/gov/colombia', () => {
-	it('/v2/gov/colombia correct fields set', (done) => {
+describe('TESTING /v3/covid-19/gov/colombia', () => {
+	it('/v3/covid-19/gov/colombia correct fields set', (done) => {
 		chai.request(app)
-			.get('/v2/gov/colombia')
+			.get('/v3/covid-19/gov/colombia')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
@@ -402,10 +402,10 @@ describe('TESTING /v2/gov/colombia', () => {
 	});
 });
 
-describe('TESTING /v2/gov/south africa', () => {
-	it('/v2/gov/south africa correct data', (done) => {
+describe('TESTING /v3/covid-19/gov/south africa', () => {
+	it('/v3/covid-19/gov/south africa correct data', (done) => {
 		chai.request(app)
-			.get('/v2/gov/south africa')
+			.get('/v3/covid-19/gov/south africa')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
@@ -447,10 +447,10 @@ describe('TESTING /v2/gov/south africa', () => {
 	});
 });
 
-describe('TESTING /v2/gov/UK', () => {
-	it('/v2/gov/UK correct fields set', (done) => {
+describe('TESTING /v3/covid-19/gov/UK', () => {
+	it('/v3/covid-19/gov/UK correct fields set', (done) => {
 		chai.request(app)
-			.get('/v2/gov/uk')
+			.get('/v3/covid-19/gov/uk')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				const latest = Object.entries(res.body)[0][1];
