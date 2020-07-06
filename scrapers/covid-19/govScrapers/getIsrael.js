@@ -3,15 +3,15 @@ const logger = require('../../../utils/logger');
 
 const params = {
 	requests: [
-		{ id: 0, queryName: 'lastUpdate', single: true, parameters: {} },
-		{ id: 5, queryName: 'patientsPerDate', single: false, parameters: {} },
-		{ id: 6, queryName: 'deadPatientsPerDate', single: false, parameters: {} },
-		{ id: 7, queryName: 'recoveredPerDay', single: false, parameters: {} },
-		{ id: 8, queryName: 'testResultsPerDate', single: false, parameters: {} },
-		{ id: 12, queryName: 'infectedByAgeAndGenderPublic', single: false, parameters: { ageSections: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90] } },
-		{ id: 13, queryName: 'isolatedDoctorsAndNurses', single: false, parameters: {} },
-		{ id: 15, queryName: 'contagionDataPerCityPublic', single: false, parameters: {} },
-		{ id: 16, queryName: 'hospitalStatus', single: false, parameters: {} }
+		{ queryName: 'lastUpdate' },
+		{ queryName: 'patientsPerDate' },
+		{ queryName: 'deadPatientsPerDate' },
+		{ queryName: 'recoveredPerDay' },
+		{ queryName: 'testResultsPerDate' },
+		{ queryName: 'infectedByAgeAndGenderPublic', parameters: { ageSections: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90] } },
+		{ queryName: 'isolatedDoctorsAndNurses' },
+		{ queryName: 'contagionDataPerCityPublic'},
+		{ queryName: 'hospitalStatus' }
 	]
 };
 
@@ -58,7 +58,7 @@ const parseData = (data) => {
 				isolatedNurses: staffData.isolated_Nurses,
 				isolatedOtherSector: staffData.isolated_Other_Sector
 			},
-			cityData: data[7].data.map((entry) => delete entry.status && entry),
+			cityData: data[7].data,
 			hospitalData: data[8].data,
 			timeline
 		}
