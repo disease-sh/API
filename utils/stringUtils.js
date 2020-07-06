@@ -14,7 +14,7 @@ const fixApostrophe = (country) => {
 
 const getLastDays = (lastdays) => {
 	if (lastdays && lastdays === 'all') lastdays = Number.POSITIVE_INFINITY;
-	if (!lastdays || isNaN(lastdays)) lastdays = 30;
+	if (!lastdays || Number.isNaN(lastdays)) lastdays = 30;
 	return lastdays;
 };
 
