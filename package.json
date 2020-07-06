@@ -1,55 +1,55 @@
 {
-  "name": "novelcovid-api",
-  "version": "1.0.1",
-  "description": "A simple Node API for getting coronavirus cases from scraped information.",
-  "main": "server.js",
-  "repository": {
-    "url": "https://github.com/disease-sh/api"
-  },
-  "license": "MIT",
-  "keywords": [
-    "API",
-    "coronavirus",
-    "covid"
-  ],
-  "scripts": {
-    "start": "node server.js",
-    "start:scraper": "node serverScraper.js",
-    "start:devserver": "nodemon --watch routes --watch scrapers --watch utils ./server.js",
-    "start:dev": "concurrently --kill-others-on-fail --kill-others \"npm:start:devserver\" \"npm:start:scraper\"",
-    "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
-    "lint:fix": "eslint ./**/*.js --fix --ignore-pattern node_modules/",
-    "lint:win32": "eslint ./**/*.js --ignore-pattern node_modules/",
-    "test": "mocha ./tests --exit --recursive --timeout 60000",
-    "test-single": "mocha $1 --exit --timeout 60000",
-    "docker-start": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build",
-    "docker-down": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml down --rmi all",
-    "docker-start-dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build",
-    "docker-down-dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --rmi all",
-    "docker-test": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-exit --build"
-  },
-  "dependencies": {
-    "@sentry/node": "5.12.2",
-    "axios": "^0.19.2",
-    "cheerio": "^0.22.0",
-    "cookie-parser": "1.4.5",
-    "cors": "^2.8.5",
-    "csurf": "1.11.0",
-    "csvtojson": "^2.0.10",
-    "dotenv": "^8.2.0",
-    "ejs": "3.0.2",
-    "express": "^4.16.3",
-    "ioredis": "*",
-    "mailgun-js": "^0.22.0",
-    "swagger-ui-express": "^4.1.4"
-  },
-  "devDependencies": {
-    "@aero/eslint-config": "^1.0.1",
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "concurrently": "^5.2.0",
-    "eslint": "^6.8.0",
-    "mocha": "^7.1.1",
-    "nodemon": "^2.0.2"
-  }
+    "name": "novelcovid-api",
+    "version": "1.0.1",
+    "description": "A simple Node API for getting coronavirus cases from scraped information.",
+    "main": "server.js",
+    "repository": {
+        "url": "https://github.com/disease-sh/api"
+    },
+    "license": "MIT",
+    "keywords": [
+        "API",
+        "coronavirus",
+        "covid"
+    ],
+    "scripts": {
+        "start": "node server.js",
+        "start:scraper": "node serverScraper.js",
+        "start:devserver": "nodemon --watch routes --watch scrapers --watch utils ./server.js",
+        "start:dev": "concurrently --kill-others-on-fail --kill-others \"npm:start:devserver\" \"npm:start:scraper\"",
+        "lint": "eslint '**/*.js' --ignore-pattern node_modules/",
+        "lint:fix": "eslint ./**/*.js --fix --ignore-pattern node_modules/",
+        "lint:win32": "eslint ./**/*.js --ignore-pattern node_modules/",
+        "test": "mocha ./tests --exit --recursive --timeout 60000",
+        "test-single": "mocha $1 --exit --timeout 60000",
+        "docker-start": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build",
+        "docker-down": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml down --rmi all",
+        "docker-start-dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build",
+        "docker-down-dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml down --rmi all",
+        "docker-test": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-exit --build"
+    },
+    "dependencies": {
+        "@sentry/node": "5.12.2",
+        "axios": "^0.19.2",
+        "cheerio": "^0.22.0",
+        "cookie-parser": "1.4.5",
+        "cors": "^2.8.5",
+        "csurf": "1.11.0",
+        "csvtojson": "^2.0.10",
+        "dotenv": "^8.2.0",
+        "ejs": "3.0.2",
+        "express": "^4.16.3",
+        "ioredis": "*",
+        "mailgun-js": "^0.22.0",
+        "swagger-ui-express": "^4.1.4"
+    },
+    "devDependencies": {
+        "@aero/eslint-config": "^1.0.1",
+        "chai": "^4.2.0",
+        "chai-http": "^4.3.0",
+        "concurrently": "^5.2.0",
+        "eslint": "^6.8.0",
+        "mocha": "^7.1.1",
+        "nodemon": "^2.0.2"
+    }
 }
