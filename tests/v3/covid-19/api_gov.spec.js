@@ -501,7 +501,7 @@ describe('TESTING /v3/gov/Israel', () => {
 				const latest = res.body.data.timeline[0];
 				latest.should.have.property('date');
 				latest.should.have.property('newHospitalized');
-				latest.should.have.property('totalhospitalized');
+				latest.should.have.property('totalHospitalized');
 				latest.should.have.property('homePatients');
 				latest.should.have.property('hotelPatients');
 				latest.should.have.property('totalBeds');
