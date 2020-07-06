@@ -3,7 +3,7 @@
  * @param 	{string} 	word 	word to standardize
  * @returns 	{string} 		standardized value
  */
-const wordsStandardize = (word) => word ? word.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : 'null';
+const wordsStandardize = (word) => word ? word.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
 
 /**
  * Returns the correct boolean value for a parameter
