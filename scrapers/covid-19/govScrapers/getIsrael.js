@@ -26,21 +26,22 @@ const parseData = (data) => {
 	const deadPatientsPerDay = data[2].data;
 	const recoveredPerDay = data[3].data.splice(20, data[3].data.length - 1);
 	const testsPerDay = data[4].data.splice(30, data[4].data.length - 1);
+	const doctorData = data[6].data[0];
 	const timeline = patientsPerDay.map((elem, index) => ({
 		date: elem.date.match(dateRegex)[0],
 		newHospitalized: elem.new_hospitalized,
-		hospitalPatients: elem.Counthospitalized,
-		homePationts: elem.patients_home,
-		hotelPationts: elem.patients_hotel,
+		totalHospitalized: elem.Counthospitalized,
+		homePatients: elem.patients_home,
+		hotelPatients: elem.patients_hotel,
 		totalBeds: elem.total_beds,
-		StandardOccupancy: elem.StandardOccupancy,
+		standardOccupancy: elem.StandardOccupancy,
 		newDeaths: deadPatientsPerDay[index].amount,
 		newlyRecovered: recoveredPerDay[index].amount,
 		newTestsTaken: testsPerDay[index].amount,
 		newPositiveTests: testsPerDay[index].positiveAmount,
-		activeEasyStatus: elem.CountEasyStatus,
-		activeMediumStatus: elem.CountMediumStatus,
-		activeCriticalStatus: elem.CountHardStatus,
+		activeNoncritical: elem.CountEasyStatus,
+		activeModerate: elem.CountMediumStatus,
+		activeCritical: elem.CountHardStatus,
 		onVentilators: elem.CountBreath
 	}));
 	return {
@@ -50,15 +51,15 @@ const parseData = (data) => {
 				const { section, male, female } = entry;
 				return { section: `ages ${section} - ${section + 10}`, male, female };
 			}),
-			missingStaff: {
-				verifiedDoctors: data[6].data[0].Verified_Doctors,
-				verifiedNurses: data[6].data[0].Verified_Nurses,
-				isolatedDoctors: data[6].data[0].isolated_Doctors,
-				isolatedNurses: data[6].data[0].isolated_Nurses,
-				isolatedOtherSector: data[6].data[0].isolated_Other_Sector
+			doctorData: {
+				verifiedDoctors: doctorData.Verified_Doctors,
+				verifiedNurses: doctorData.Verified_Nurses,
+				isolatedDoctors: doctorData.isolated_Doctors,
+				isolatedNurses: doctorData.isolated_Nurses,
+				isolatedOtherSector: doctorData.isolated_Other_Sector
 			},
+			cityData: data[7].data.map((entry) => delete entry.status && entry),
 			hospitalData: data[8].data,
-			cityData: data[7].data,
 			timeline
 		}
 	};
