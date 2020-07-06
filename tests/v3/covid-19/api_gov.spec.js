@@ -495,9 +495,10 @@ describe('TESTING /v3/gov/Israel', () => {
 				const firstCity = res.body.data.cityData[0];
 				firstCity.should.have.property('city');
 				firstCity.should.have.property('sickCount');
-				firstCity.should.have.property('percentOfCityPopulation');
-				firstCity.should.have.property('diff');
-				firstCity.should.have.property('testsCount');
+				firstCity.should.have.property('actualSick');
+				firstCity.should.have.property('verifiedLast7Days');
+				firstCity.should.have.property('testLast7Days');
+				firstCity.should.have.property('status');
 				const latest = res.body.data.timeline[0];
 				latest.should.have.property('date');
 				latest.should.have.property('newHospitalized');
