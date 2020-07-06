@@ -10,7 +10,7 @@ const params = {
 		{ queryName: 'testResultsPerDate' },
 		{ queryName: 'infectedByAgeAndGenderPublic', parameters: { ageSections: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90] } },
 		{ queryName: 'isolatedDoctorsAndNurses' },
-		{ queryName: 'contagionDataPerCityPublic'},
+		{ queryName: 'contagionDataPerCityPublic' },
 		{ queryName: 'hospitalStatus' }
 	]
 };
