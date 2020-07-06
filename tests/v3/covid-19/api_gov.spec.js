@@ -480,12 +480,12 @@ describe('TESTING /v3/gov/Israel', () => {
 				res.body.should.have.property('data');
 				res.body.data.should.have.property('sickByAge');
 				res.body.data.sickByAge.length.should.equal(10);
-				res.body.data.should.have.property('doctorData');
-				res.body.data.doctorData.should.have.property('verifiedDoctors');
-				res.body.data.doctorData.should.have.property('verifiedNurses');
-				res.body.data.doctorData.should.have.property('isolatedDoctors');
-				res.body.data.doctorData.should.have.property('isolatedNurses');
-				res.body.data.doctorData.should.have.property('isolatedOtherSector');
+				res.body.data.should.have.property('healthPersonnel');
+				res.body.data.healthPersonnel.should.have.property('verifiedDoctors');
+				res.body.data.healthPersonnel.should.have.property('verifiedNurses');
+				res.body.data.healthPersonnel.should.have.property('isolatedDoctors');
+				res.body.data.healthPersonnel.should.have.property('isolatedNurses');
+				res.body.data.healthPersonnel.should.have.property('isolatedOtherSector');
 				res.body.data.should.have.property('hospitalData');
 				const firstHospital = res.body.data.hospitalData[0];
 				firstHospital.should.have.property('name');
