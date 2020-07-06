@@ -26,7 +26,7 @@ const parseData = (data) => {
 	const deadPatientsPerDay = data[2].data;
 	const recoveredPerDay = data[3].data.splice(20, data[3].data.length - 1);
 	const testsPerDay = data[4].data.splice(30, data[4].data.length - 1);
-	const doctorData = data[6].data[0];
+	const staffData = data[6].data[0];
 	const timeline = patientsPerDay.map((elem, index) => ({
 		date: elem.date.match(dateRegex)[0],
 		newHospitalized: elem.new_hospitalized,
@@ -51,12 +51,12 @@ const parseData = (data) => {
 				const { section, male, female } = entry;
 				return { section: `ages ${section} - ${section + 10}`, male, female };
 			}),
-			doctorData: {
-				verifiedDoctors: doctorData.Verified_Doctors,
-				verifiedNurses: doctorData.Verified_Nurses,
-				isolatedDoctors: doctorData.isolated_Doctors,
-				isolatedNurses: doctorData.isolated_Nurses,
-				isolatedOtherSector: doctorData.isolated_Other_Sector
+			healthPersonnel: {
+				verifiedDoctors: staffData.Verified_Doctors,
+				verifiedNurses: staffData.Verified_Nurses,
+				isolatedDoctors: staffData.isolated_Doctors,
+				isolatedNurses: staffData.isolated_Nurses,
+				isolatedOtherSector: staffData.isolated_Other_Sector
 			},
 			cityData: data[7].data.map((entry) => delete entry.status && entry),
 			hospitalData: data[8].data,
