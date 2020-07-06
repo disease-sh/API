@@ -505,7 +505,7 @@ describe('TESTING /v3/gov/Israel', () => {
 				latest.should.have.property('homePatients');
 				latest.should.have.property('hotelPatients');
 				latest.should.have.property('totalBeds');
-				latest.should.have.property('StandardOccupancy');
+				latest.should.have.property('standardOccupancy');
 				latest.should.have.property('newDeaths');
 				latest.should.have.property('newlyRecovered');
 				latest.should.have.property('newTestsTaken');
