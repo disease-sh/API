@@ -1,12 +1,22 @@
 const stringUtils = require('./stringUtils');
 const countryData = require('./countries');
 
-const transformNull = (object) => {
-	if (typeof object !== 'object') {
-		return object;
+
+const convertNullToZero = (continentOrCountry = null) => {
+
+	const COUNTRY_INFO = 'countryInfo';
+
+	if (typeof continentOrCountry !== "object" || !continentOrCountry) {
+
+		throw new TypeError(`${continentOrCountry}` + "should be a an object with non null value")
+
 	}
-	// eslint-disable-next-line no-return-assign
-	Object.entries(object).forEach((entry) => entry[0] !== 'countryInfo' && (object[entry[0]] = entry[1] === null ? 0 : transformNull(entry[1])));
+	if (Object.keys(continentOrCountry).length === 0) {
+		throw new Error(`${continentOrCountry}` + "should not be an empty object")
+	}
+
+	Object.entries(coc).forEach((entry) => entry[0] !== COUNTRY_INFO && (coc[entry[0]] = entry[1] === null ? 0 : convertNullToZero(entry[1])));
+
 	return object;
 };
 
