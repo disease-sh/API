@@ -3,7 +3,7 @@ const logger = require('../../../utils/logger');
 
 const params = {
 	requests: [
-		{ queryName: 'lastUpdate' },
+		{ queryName: 'lastUpdate', single: true },
 		{ queryName: 'patientsPerDate' },
 		{ queryName: 'deadPatientsPerDate' },
 		{ queryName: 'recoveredPerDay' },
