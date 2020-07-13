@@ -52,6 +52,12 @@ describe('TESTING /v3/covid-19/continents', () => {
 					should.exist(row.recoveredPerOneMillion);
 					row.should.have.property('countries');
 					row.countries.should.be.a('array');
+					row.should.have.property('countryInfo');
+					row.countryInfo.should.be.a('object');
+					row.countryInfo.should.have.property('lat');
+					should.exist(row.countryInfo.lat);
+					row.countryInfo.should.have.property('long');
+					should.exist(row.countryInfo.long);
 				}
 				done();
 			});

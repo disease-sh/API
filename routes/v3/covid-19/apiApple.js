@@ -1,6 +1,6 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const countryUtils = require('../../../utils/countryUtils');
+const nameUtils = require('../../../utils/nameUtils');
 const { splitQuery } = require('../../../utils/stringUtils');
 const { appleData } = require('../../../utils/cache');
 
@@ -8,7 +8,7 @@ router.get('/v3/covid-19/apple/countries/:country?', async (req, res) => {
 	const { country: countryName } = req.params;
 	const data = appleData();
 	if (countryName) {
-		const standardizedCountryName = countryUtils.getCountryData(countryName.trim()).country || countryName.trim();
+		const standardizedCountryName = nameUtils.getCountryData(countryName.trim()).country || countryName.trim();
 		if (data[standardizedCountryName] && data[standardizedCountryName].subregions) {
 			res.send({ country: standardizedCountryName, subregions: data[standardizedCountryName].subregions });
 		} else {
@@ -22,7 +22,7 @@ router.get('/v3/covid-19/apple/countries/:country?', async (req, res) => {
 router.get('/v3/covid-19/apple/countries/:country/:subregions', async (req, res) => {
 	const { country: countryName, subregions: querySubregions } = req.params;
 	if (countryName && querySubregions) {
-		const standardizedCountryName = countryUtils.getCountryData(countryName.trim()).country || countryName.trim();
+		const standardizedCountryName = nameUtils.getCountryData(countryName.trim()).country || countryName.trim();
 		const countryData = appleData()[standardizedCountryName];
 		const subregions = splitQuery(querySubregions).map((subregion) => subregion.trim());
 		const subregiondata = subregions.map((subregion) => {
