@@ -55,9 +55,7 @@ const getCountryData = (countryNameParam) => {
 	} : nullReturn;
 };
 
-const getContinentData = (continent) => {
-	return continentData[continent];
-};
+const getContinentData = (continent) => continentData[continent];
 
 /**
  * Match country name with iso codes or alternate names

@@ -58,7 +58,7 @@ router.get('/v3/covid-19/continents/:query', async (req, res) => {
 	const continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_continents : keys.continents));
 	const continent = nameUtils.getWorldometersData(continents, query, strict !== 'false', true);
 	if (continent) {
-		continent.continentInfo = nameUtils.getContinentData(continent.continent)
+		continent.continentInfo = nameUtils.getContinentData(continent.continent);
 		continent.countries = nameUtils.getCountriesFromContinent(continent.continent,
 			JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries)));
 		res.send(!wordToBoolean(allowNull) ? nameUtils.transformNull(continent) : continent);
