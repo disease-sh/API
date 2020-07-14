@@ -1,6 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const countryUtils = require('../../utils/countryUtils');
+const nameUtils = require('../../utils/nameUtils');
 const logger = require('../../utils/logger');
 
 const columns = ['index', 'country', 'cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'todayRecovered', 'active',
@@ -53,7 +53,7 @@ const mapRows = (_, row) => {
 				break;
 			}
 			case 1: {
-				const countryInfo = countryUtils.getCountryData(cell.text().replace(replaceRegex, ''));
+				const countryInfo = nameUtils.getCountryData(cell.text().replace(replaceRegex, ''));
 				entry[selector] = countryInfo.country || cell.text().replace(replaceRegex, '');
 				delete countryInfo.country;
 				entry.countryInfo = countryInfo;

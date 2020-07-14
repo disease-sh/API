@@ -1,5 +1,5 @@
 const axios = require('axios');
-const countryUtils = require('../../utils/countryUtils');
+const nameUtils = require('../../utils/nameUtils');
 const stringUtils = require('../../utils/stringUtils');
 const csvUtils = require('../../utils/csvUtils');
 const logger = require('../../utils/logger');
@@ -70,7 +70,7 @@ const historicalV2 = async (keys, redis) => {
 
 		// add country info to support iso2/3 queries
 		const parsedAtIndex = Object.values(parsedCases)[index];
-		const countryData = countryUtils.getCountryData(parsedAtIndex['Country/Region'].replace('*', ''));
+		const countryData = nameUtils.getCountryData(parsedAtIndex['Country/Region'].replace('*', ''));
 		newElement.country = countryData.country || parsedAtIndex['Country/Region'];
 		newElement.countryInfo = countryData;
 		newElement.province = parsedAtIndex['Province/State'] === '' ? null
@@ -114,7 +114,7 @@ const getHistoricalDataV2 = (data, lastdays = 30) => {
  */
 const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30) => {
 	lastdays = stringUtils.getLastDays(lastdays);
-	const countryInfo = countryUtils.getCountryData(query);
+	const countryInfo = nameUtils.getCountryData(query);
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : query);
 	// filter to either specific province, or provinces to sum country over
 	const countryData = data.filter(item => {

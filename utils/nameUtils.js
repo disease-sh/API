@@ -1,5 +1,6 @@
 const stringUtils = require('./stringUtils');
 const countryData = require('./countries');
+const continentData = require('./continents');
 
 /**
  * Transform null values to 0 (DEEPLY TRANSFORM)
@@ -53,6 +54,8 @@ const getCountryData = (countryNameParam) => {
 		flag: `https://disease.sh/assets/img/flags/${countryFound.iso2.toLowerCase()}.png`
 	} : nullReturn;
 };
+
+const getContinentData = (continent) => continentData[continent];
 
 /**
  * Match country name with iso codes or alternate names
@@ -109,5 +112,6 @@ module.exports = {
 	getWorldometersData,
 	isCountryException,
 	getCountriesFromContinent,
-	transformNull
+	transformNull,
+	getContinentData
 };
