@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 module.exports = {
 	Asia: { lat: 23.7027273, long: 62.3750637 },
 	'North America': { lat: 31.6768272, long: -146.4707474 },
