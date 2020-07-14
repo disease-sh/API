@@ -1,7 +1,7 @@
 const axios = require('axios');
 const csv = require('csvtojson');
 const logger = require('../../utils/logger');
-const countryUtils = require('../../utils/countryUtils');
+const nameUtils = require('../../utils/nameUtils');
 const { updateAppleCache } = require('../../utils/cache');
 
 const GITHUB_URL = 'https://raw.githubusercontent.com/ActiveConclusion/COVID19_mobility/master/apple_reports/apple_mobility_report.csv';
@@ -34,7 +34,7 @@ const appleData = async (keys, redis) => {
 				}
 			}
 			for (const country of Object.keys(formattedData)) {
-				const standardizedCountry = countryUtils.getCountryData(country).country || country;
+				const standardizedCountry = nameUtils.getCountryData(country).country || country;
 				standardizedData[standardizedCountry] = formattedData[country];
 			}
 			redis.set(keys.apple_all, JSON.stringify(standardizedData));
