@@ -11,5 +11,5 @@ before(async () => {
 	await excecuteScraperAppleData();
 	await excecuteScraperGov();
 	await excecuteScraperInfluenza();
-	logger.info('Scraping finished.');
+	logger.info('Scraping all data finished.');
 });
