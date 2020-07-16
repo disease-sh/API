@@ -40,7 +40,7 @@ module.exports = {
 				historical.historicalV2(keys, redis),
 				historical.getHistoricalUSADataV2(keys, redis)
 			]);
-			logger.info('Finished scraping!');
+			logger.info('Finished JHU and worldometers scraping!');
 		},
 		executeScraperNYTData: async () => {
 			await nytData(keys, redis);
