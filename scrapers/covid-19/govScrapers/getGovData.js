@@ -24,12 +24,12 @@ const govData = async (keys, redis) => {
 		const data = {};
 		const _resolveData = async (obj) => {
 			const { country, fn } = obj;
-			let countryData = await fn();
+			const countryData = await fn();
 			// If no data is returned, serve stale data instead of an error
-			if (countryData === null) {
-				const redisGovData = JSON.parse(await redis.get(keys.gov_countries));
-				countryData = redisGovData[country];
-			}
+			// if (countryData === null) {
+			// 	const redisGovData = JSON.parse(await redis.get(keys.gov_countries));
+			// 	countryData = redisGovData[country];
+			// }
 			data[country] = countryData;
 		};
 		await Promise.all([
