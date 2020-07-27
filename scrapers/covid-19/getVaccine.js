@@ -4,8 +4,8 @@ const logger = require('../../utils/logger');
 
 const cleanData = (data) => {
 	const htmlRegex = /<(?:.|\n)*?>/gm;
-	const separatorRefex = /;&nbsp;|;/;
-	const listify = (attribute) => attribute.split(separatorRefex).map((sponsor) => sponsor.replace(htmlRegex, '').trim());
+	const separatorRegex = /;&nbsp;|;/;
+	const listify = (attribute) => attribute.split(separatorRegex).map((sponsor) => sponsor.replace(htmlRegex, '').trim());
 	return data.map((trial) => ({
 		candidate: trial.Candidate,
 		sponsors: listify(trial.Sponsor),
@@ -21,7 +21,7 @@ const cleanData = (data) => {
  * @param 	{string} 	keys	 Redis keys
  * @param 	{Object} 	redis 	 Redis instance
  */
-const getVaccine = async (keys, redis) => {
+const getVaccineData = async (keys, redis) => {
 	try {
 		const { data } = await axios.get('https://www.raps.org/RAPS/media/news-images/data/20200723-vax-tracker-chart-craven.csv');
 		const parsedData = await csv().fromString(data);
@@ -34,4 +34,4 @@ const getVaccine = async (keys, redis) => {
 	}
 };
 
-module.exports = getVaccine;
+module.exports = getVaccineData;
