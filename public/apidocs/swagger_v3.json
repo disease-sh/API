@@ -37,6 +37,10 @@
         "description": "(Covid-19 individual government reported data, updated every 24 hours)"
       },
       {
+        "name": "Covid-19 Vaccine",
+        "description": "(Covid-19 vaccine trial data from raps.org, updated every 24 hours)"
+      },
+      {
         "name": "Influenza CDC",
         "description": "(Influenza data reported by the United States CDC, updated every 24 hours)"
       }
@@ -938,6 +942,22 @@
           }
         }
       },
+      "/v3/covid-19/vaccine": {
+        "get": {
+          "tags": [
+            "Covid-19 Vaccine"
+          ],
+          "summary": "Get vaccine trial data from RAPS (Regulatory Affairs Professional Society). Specifically published by Jeff Craven at https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker",
+          "responses": {
+            "200": {
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/vaccines"
+              }
+            }
+          }
+        }
+      },
       "/v3/influenza/cdc/ILINet": {
         "get": {
           "tags": [
@@ -1388,6 +1408,49 @@
           },
           "percentPositive": {
             "type": "number"
+          }
+        }
+      },
+      "vaccines": {
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/definitions/vaccine"
+            }
+          }
+        }
+      },
+      "vaccine": {
+        "properties": {
+          "candidate": {
+            "type": "string"
+          },
+          "sponsors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "details": {
+            "type": "string"
+          },
+          "trialPhase": {
+            "type": "string"
+          },
+          "institutions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "funding": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },

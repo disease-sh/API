@@ -25,7 +25,10 @@ const getVaccine = async (keys, redis) => {
 	try {
 		const { data } = await axios.get('https://www.raps.org/RAPS/media/news-images/data/20200723-vax-tracker-chart-craven.csv');
 		const parsedData = await csv().fromString(data);
-		redis.set(keys.vaccine, JSON.stringify(cleanData(parsedData)));
+		redis.set(keys.vaccine, JSON.stringify({
+			source: 'https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker',
+			data: cleanData(parsedData)
+		}));
 	} catch (err) {
 		logger.err('Error: Requesting vaccine data failed!', err);
 	}
