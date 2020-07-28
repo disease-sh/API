@@ -303,7 +303,7 @@ describe('TESTING /v3/covid-19/gov/nigeria', () => {
 describe('TESTING /v3/covid-19/gov/india', () => {
 	it('/v3/covid-19/gov/india correct total', (done) => {
 		chai.request(app)
-			.get('/v2/gov/india')
+			.get('/v3/covid-19/gov/india')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('total');
@@ -321,7 +321,7 @@ describe('TESTING /v3/covid-19/gov/india', () => {
 
 	it('/v3/covid-19/gov/india correct states', (done) => {
 		chai.request(app)
-			.get('/v2/gov/india')
+			.get('/v3/covid-19/gov/india')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('states');
