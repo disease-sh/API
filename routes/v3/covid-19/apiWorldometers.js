@@ -55,16 +55,18 @@ router.get('/v3/covid-19/continents', async (req, res) => {
 router.get('/v3/covid-19/continents/:query', async (req, res) => {
 	const { yesterday, twoDaysAgo, strict, allowNull } = req.query;
 	const { query } = req.params;
-	const continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_continents : keys.continents));
-	const continent = nameUtils.getWorldometersData(continents, query, strict !== 'false', true);
-	if (continent) {
-		continent.continentInfo = nameUtils.getContinentData(continent.continent);
-		continent.countries = nameUtils.getCountriesFromContinent(continent.continent,
-			JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries)));
-		res.send(!wordToBoolean(allowNull) ? nameUtils.transformNull(continent) : continent);
-	} else {
-		res.status(404).send({ message: 'Continent not found or doesn\'t have any cases' });
-	}
+	const countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries));
+	let continents = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_continents : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_continents : keys.continents));
+	continents = splitQuery(query)
+		.map(continent => nameUtils.getWorldometersData(continents, continent, strict !== 'false', true))
+		.filter(value => value)
+		.map(continent => ({
+			...continent,
+			continentInfo: nameUtils.getContinentData(continent.continent),
+			countries: nameUtils.getCountriesFromContinent(continent.continent, countries)
+		})).map(continent => !wordToBoolean(allowNull) ? nameUtils.transformNull(continent) : continent);
+	if (continents.length > 0) res.send(continents.length === 1 ? continents[0] : continents);
+	else res.status(404).send({ message: 'Continent not found or doesn\'t have any cases' });
 });
 
 router.get('/v3/covid-19/states', async (req, res) => {

@@ -303,10 +303,14 @@ describe('TESTING /v2/gov/india', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('total');
-				res.body.total.should.have.property('total');
 				res.body.total.should.have.property('active');
 				res.body.total.should.have.property('recovered');
 				res.body.total.should.have.property('deaths');
+				res.body.total.should.have.property('cases');
+				res.body.total.should.have.property('todayActive');
+				res.body.total.should.have.property('todayRecovered');
+				res.body.total.should.have.property('todayDeaths');
+				res.body.total.should.have.property('todayCases');
 				done();
 			});
 	});
@@ -319,10 +323,14 @@ describe('TESTING /v2/gov/india', () => {
 				res.body.should.have.property('states');
 				res.body.states.forEach((state) => {
 					state.should.have.property('state');
-					state.should.have.property('total');
 					state.should.have.property('active');
 					state.should.have.property('recovered');
 					state.should.have.property('deaths');
+					state.should.have.property('cases');
+					state.should.have.property('todayActive');
+					state.should.have.property('todayRecovered');
+					state.should.have.property('todayDeaths');
+					state.should.have.property('todayCases');
 				});
 				done();
 			});
