@@ -60,7 +60,7 @@ router.get('/v3/covid-19/continents/:query', async (req, res) => {
 	continents = splitQuery(query)
 		.map(continent => nameUtils.getWorldometersData(continents, continent, strict !== 'false', true))
 		.filter(value => value)
-		.map(continent => ({ 
+		.map(continent => ({
 			...continent,
 			continentInfo: nameUtils.getContinentData(continent.continent),
 			countries: nameUtils.getCountriesFromContinent(continent.continent, countries)
