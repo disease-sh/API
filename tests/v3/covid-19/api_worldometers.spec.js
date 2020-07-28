@@ -73,6 +73,18 @@ describe('TESTING /v3/covid-19/continents', () => {
 			});
 	});
 
+	it('/v3/covid-19/continents/ mutiple continents', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/continents/europe|asia')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.be.equal(2);
+				res.body[0].should.have.property('continent').eql('Europe');
+				res.body[1].should.have.property('continent').eql('Asia');
+				done();
+			});
+	});
+
 	it('/v3/covid-19/continents/ fuzzy search', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/continents/euro?strict=false')
