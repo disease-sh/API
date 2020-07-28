@@ -10,6 +10,7 @@
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/disease-sh/api?style=for-the-badge)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/disease-sh/api?style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/disease-sh/api?style=for-the-badge)
+![Visits](https://badges.pufler.dev/visits/disease-sh/api?style=for-the-badge)
 
 # Welcome to disease.sh - An open API for disease-related statistics
 
