@@ -307,14 +307,15 @@ describe('TESTING /v3/covid-19/gov/india', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('total');
-				res.body.total.should.have.property('active')
-				res.body.total.should.have.property('recovered')
-				res.body.total.should.have.property('deaths')
-				res.body.total.should.have.property('cases')
-				res.body.total.should.have.property('todayActive')
+				res.body.total.should.have.property('active');
+				res.body.total.should.have.property('recovered');
+				res.body.total.should.have.property('deaths');
+				res.body.total.should.have.property('cases');
+				res.body.total.should.have.property('todayActive');
 				res.body.total.should.have.property('todayRecovered');
 				res.body.total.should.have.property('todayDeaths');
 				res.body.total.should.have.property('todayCases');
+				done();
 			});
 	});
 
