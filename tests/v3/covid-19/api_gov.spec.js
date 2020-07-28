@@ -301,32 +301,39 @@ describe('TESTING /v3/covid-19/gov/nigeria', () => {
 });
 
 describe('TESTING /v3/covid-19/gov/india', () => {
-	it('/v3/covid-19/gov/india correct total', (done) => {
+	it('/v2/gov/india correct total', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/gov/india')
+			.get('/v2/gov/india')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('total');
-				res.body.total.should.have.property('total');
-				res.body.total.should.have.property('active');
-				res.body.total.should.have.property('recovered');
-				res.body.total.should.have.property('deaths');
-				done();
+				res.body.total.should.have.property('active')
+				res.body.total.should.have.property('recovered')
+				res.body.total.should.have.property('deaths')
+				res.body.total.should.have.property('cases')
+				res.body.total.should.have.property('todayActive')
+				res.body.total.should.have.property('todayRecovered');
+				res.body.total.should.have.property('todayDeaths');
+				res.body.total.should.have.property('todayCases');
 			});
 	});
 
-	it('/v3/covid-19/gov/india correct states', (done) => {
+	it('/v2/gov/india correct states', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/gov/india')
+			.get('/v2/gov/india')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('states');
 				res.body.states.forEach((state) => {
 					state.should.have.property('state');
-					state.should.have.property('total');
 					state.should.have.property('active');
 					state.should.have.property('recovered');
 					state.should.have.property('deaths');
+					state.should.have.property('cases');
+					state.should.have.property('todayActive');
+					state.should.have.property('todayRecovered');
+					state.should.have.property('todayDeaths');
+					state.should.have.property('todayCases');
 				});
 				done();
 			});
