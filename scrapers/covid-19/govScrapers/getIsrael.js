@@ -47,9 +47,9 @@ const parseData = (data) => {
 	return {
 		updated: new Date(data[0].data.lastUpdate).valueOf(),
 		data: {
-			sickByAge: data[5].data.map((entry) => {
+			sickByAge: data[5].data.map((entry, i) => {
 				const { section, male, female } = entry;
-				return { section: `ages ${section} - ${section + 10}`, male, female };
+				return { section: i === data[5].data.length - 1 ? `+${section}` : `${section} - ${section + 9}`, male, female };
 			}),
 			healthPersonnel: {
 				verifiedDoctors: staffData.Verified_Doctors,
