@@ -18,7 +18,7 @@ router.get('/v3/covid-19/vaccineStats', async (req, res) => {
 		responseData["phases"] = struct;
 		res.send(responseData);
 	} else {
-		res.status(404).send({ message: `Error fetching vaccine data` });
+		res.status(404).send({ message: `Error fetching vaccine stats` });
 	}
 });
 
