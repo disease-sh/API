@@ -41,7 +41,8 @@
     "express": "^4.16.3",
     "ioredis": "*",
     "mailgun-js": "^0.22.0",
-    "swagger-ui-express": "^4.1.4"
+    "swagger-ui-express": "^4.1.4",
+    "underscore": "^1.10.2"
   },
   "devDependencies": {
     "@aero/eslint-config": "^1.0.1",
