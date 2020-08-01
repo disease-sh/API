@@ -5,7 +5,6 @@ const _ = require('underscore');
 const { response } = require('express');
 
 router.get('/v3/covid-19/vaccineStats', async (req, res) => {
-	console.log("Fetching vaccine stats");
 	const data = JSON.parse(await redis.get(keys.vaccine));
 	if (data) {
 		const temp = _.countBy(data.data, "trialPhase");
