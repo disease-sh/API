@@ -23,7 +23,7 @@ const cleanData = (data) => {
  */
 const getVaccineData = async (keys, redis) => {
 	try {
-		const { data } = await axios.get('https://www.raps.org/RAPS/media/news-images/data/20200723-vax-tracker-chart-craven.csv');
+		const { data } = await axios.get('https://www.raps.org/RAPS/media/news-images/data/20200730-vax-tracker-chart-craven.csv');
 		const parsedData = await csv().fromString(data);
 		redis.set(keys.vaccine, JSON.stringify({
 			source: 'https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker',
