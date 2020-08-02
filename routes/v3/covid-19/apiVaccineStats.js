@@ -2,7 +2,6 @@
 const router = require('express').Router();
 const { redis, keys } = require('../../instances');
 const _ = require('underscore');
-const { response } = require('express');
 
 router.get('/v3/covid-19/vaccineStats', async (req, res) => {
 	const data = JSON.parse(await redis.get(keys.vaccine));
