@@ -2,6 +2,7 @@ const axios = require('axios');
 const csv = require('csvtojson');
 const cheerio = require('cheerio');
 const logger = require('../../utils/logger');
+const _ = require('underscore');
 
 const months = {
 	January: '01',
@@ -32,6 +33,14 @@ const cleanData = (data) => {
 	}));
 };
 
+const phaseData = (data) => {
+	const temp = _.countBy(data, 'Trial Phase');
+	return Object.keys(temp).map((key) => ({
+		phase: key,
+		candidates: temp[key].toString()
+	}));
+}
+
 /**
  * Fills redis with vaccine data
  * @param 	{string} 	keys	 Redis keys
@@ -51,6 +60,8 @@ const getVaccineData = async (keys, redis) => {
 		const parsedData = await csv().fromString(data);
 		redis.set(keys.vaccine, JSON.stringify({
 			source: 'https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker',
+			totalCandidates: _.size(parsedData).toString(),
+			phases: phaseData(parsedData),
 			data: cleanData(parsedData)
 		}));
 	} catch (err) {

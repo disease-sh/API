@@ -958,22 +958,6 @@
           }
         }
       },
-      "/v3/covid-19/vaccineStats": {
-        "get": {
-          "tags": [
-            "Covid-19 Vaccine"
-          ],
-          "summary": "Get vaccine stats phase vise from RAPS (Regulatory Affairs Professional Society). Specifically published by Jeff Craven at https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker",
-          "responses": {
-            "200": {
-              "description": "Status Ok",
-              "schema": {
-                "$ref": "#/definitions/vaccineStats"
-              }
-            }
-          }
-        }
-      },
       "/v3/influenza/cdc/ILINet": {
         "get": {
           "tags": [
@@ -1432,6 +1416,15 @@
           "source": {
             "type": "string"
           },
+          "totalCandidates": {
+            "type": "string"
+          },
+          "phases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/phases"
+            }
+          },
           "data": {
             "type": "array",
             "items": {
@@ -1467,19 +1460,6 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
-          }
-        }
-      },
-      "vaccineData": {
-        "properties": {
-          "totalCandidates": {
-            "type": "string"
-          },
-          "phases": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/phases"
             }
           }
         }
