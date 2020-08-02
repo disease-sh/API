@@ -1,7 +1,6 @@
 const axios = require('axios');
 const logger = require('../../../utils/logger');
 const csvUtils = require('../../../utils/csvUtils');
-const moment = require('moment');
 
 /**
  * Return array of provinces that match today's date (initial csv is historical)
@@ -9,8 +8,9 @@ const moment = require('moment');
  * @returns {Array}				Data for canadian province
  */
 const filterByDate = (csv) => {
-	const date = moment().format('DD-MM-YYYY');
-	return csv.filter(row => row.date === date);
+	const date = new Date();
+	date.setDate(date.getDate() - 1);
+	return csv.filter(row => row.date === `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`);
 };
 
 /**
