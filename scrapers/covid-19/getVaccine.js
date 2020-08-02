@@ -34,11 +34,12 @@ const cleanData = (data) => {
 
 const phaseData = (data) => {
 	const result = {};
-	data.map((trial) => {
-		if(!result[trial['Trial Phase']])
-			result[trial['Trial Phase']]=0
-		++result[trial['Trial Phase']];
-	});
+	for (var i = 0; i < data.length; i++) {
+		if (!result[data[i]['Trial Phase']]) {
+			result[data[i]['Trial Phase']] = 0;
+		}
+		++result[data[i]['Trial Phase']];
+	}
 	return Object.keys(result).map((key) => ({
 		phase: key,
 		candidates: result[key].toString()
