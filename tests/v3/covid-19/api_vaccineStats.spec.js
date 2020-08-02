@@ -21,11 +21,8 @@ describe('TESTING /v3/covid-19/vaccineStats', () => {
 			.get('/v3/covid-19/vaccineStats')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
-				res.body.should.have.property('source');
-				res.body.data.forEach(element => {
-					element.should.have.property('totalCandidates');
-					element.should.have.property('phases');
-				});
+				res.body.should.have.property('totalCandidates')
+				res.body.should.have.property('phases')
 				done();
 			});
 	});
