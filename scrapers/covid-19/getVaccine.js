@@ -39,7 +39,7 @@ const phaseData = (data) => {
 		phase: key,
 		candidates: temp[key].toString()
 	}));
-}
+};
 
 /**
  * Fills redis with vaccine data
