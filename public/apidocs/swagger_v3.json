@@ -1416,7 +1416,17 @@
           "source": {
             "type": "string"
           },
+          "totalCandidates": {
+            "type": "string"
+          },
+          "phases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/phases"
+            }
+          },
           "data": {
+            "type": "array",
             "items": {
               "$ref": "#/definitions/vaccine"
             }
@@ -1451,6 +1461,16 @@
             "items": {
               "type": "string"
             }
+          }
+        }
+      },
+      "phases": {
+        "properties": {
+          "phase": {
+            "type": "string"
+          },
+          "candidates": {
+            "type": "string"
           }
         }
       },
