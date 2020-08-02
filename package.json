@@ -41,7 +41,6 @@
     "express": "^4.16.3",
     "ioredis": "*",
     "mailgun-js": "^0.22.0",
-    "moment": "^2.27.0",
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
