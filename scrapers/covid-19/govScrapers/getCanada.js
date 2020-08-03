@@ -1,39 +1,31 @@
 const axios = require('axios');
-const cheerio = require('cheerio');
 const logger = require('../../../utils/logger');
-
-const columns = ['province', 'cases', 'deaths'];
+const csvUtils = require('../../../utils/csvUtils');
 
 /**
- * Return object reflecting a row of data from Canadian government site
- * @param 	{number} 	_ 		Index getting passed when using .map()
- * @param 	{Object} 	row		The row to extract data from
- * @returns {Object}				Data for canadian province with entries for each column in @constant columns
+ * Return array of provinces that match today's date (initial csv is historical)
+ * @param 	{Object} 	csv		The row to extract data from
+ * @returns {Array}				Data for canadian province
  */
-const mapRows = (_, row) => {
-	const province = { updated: Date.now() };
-	cheerio(row).children('td').each((index, cell) => {
-		cell = cheerio.load(cell);
-		switch (index) {
-			case 0: {
-				province[columns[index]] = cell.text() === 'Canada' ? 'Total' : cell.text();
-				break;
-			}
-			default: {
-				province[columns[index]] = parseInt(cell.text().replace(/,/g, '')) || null;
-			}
-		}
-	});
-	return province;
+const filterByDate = (csv) => {
+	const date = new Date();
+	date.setDate(date.getDate() - 1);
+	return csv.filter(row => row.date === `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`);
 };
 
 /**
- * Scrapes Canadian government site and fills array of data from table
+ * Requests and parses csv data that is used to populate the data table on the Canadian government site
  */
 const canadaData = async () => {
 	try {
-		const html = cheerio.load((await axios.get('https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html')).data);
-		return html(`table#dataTable`).children('tbody:first-of-type').children('tr').map(mapRows).get();
+		const canadaRes = (await axios.get('https://health-infobase.canada.ca/src/data/covidLive/covid19.csv')).data;
+		const parsedCanadaData = await csvUtils.parseCsvData(canadaRes);
+		return filterByDate(parsedCanadaData).map(province => ({
+			updated: Date.now(),
+			province: province.prname === 'Canada' ? 'Total' : province.prname,
+			cases: parseInt(province.numconf) || 0,
+			deaths: parseInt(province.numdeaths) || 0
+		}));
 	} catch (err) {
 		logger.err('Error: Requesting Canada Gov Data failed!', err);
 		return null;
