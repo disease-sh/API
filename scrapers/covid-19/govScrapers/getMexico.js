@@ -53,7 +53,7 @@ const filterByDate = (data) => {
 };
 
 /**
- * Return array of provinces that match today's date (initial csv is historical)
+ * Returns an object containing a number (recovered) and an array (data) containing national data
  * @param 	{String} 	res		The response body string to extract data from
  * @returns {Object}				National data for Mexico
  */
@@ -64,7 +64,7 @@ const getNational = (res) => {
 };
 
 /**
- * Return array of provinces that match today's date (initial csv is historical)
+ * Creates and returns an object containing data for each tracked Mexican state
  * @param 	{String} 	res		The response body string to extract data from
  * @returns {Object}				Individual state data for Mexico
  */
