@@ -2,6 +2,7 @@ const axios = require('axios');
 const logger = require('../../../utils/logger');
 const querystring = require('querystring');
 
+// a map of Mexican states with the corresponding IDs gob.mx uses server-side
 const stateIDs = [
 	{ state: 'aguascalientes', id: '01' },
 	{ state: 'baja california', id: '02' },
@@ -37,6 +38,7 @@ const stateIDs = [
 	{ state: 'zacatecas', id: '32' }
 ];
 
+// an object to initialize the FormData object that must be sent with the requests
 const formData = {
 	nationalCases: querystring.stringify({ cve: '000', nom: 'nacional', sPatType: 'Confirmados' }),
 	nationalDeaths: querystring.stringify({ cve: '000', nom: 'nacional', sPatType: 'Defunciones' }),
@@ -50,12 +52,22 @@ const filterByDate = (data) => {
 	return data.filter(item => item.date === `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
 };
 
+/**
+ * Return array of provinces that match today's date (initial csv is historical)
+ * @param 	{String} 	res		The response body string to extract data from
+ * @returns {Object}				National data for Mexico
+ */
 const getNational = (res) => {
 	const recovered = parseInt(res.substring(res.indexOf('gsRecDIV'), res.indexOf('gsRecDIV') + 35).split('(')[1].split(')')[0]);
 	const data = filterByDate(JSON.parse(res.substring(res.lastIndexOf('['), res.lastIndexOf(']') + 1)))[0];
 	return { recovered, data };
 };
 
+/**
+ * Return array of provinces that match today's date (initial csv is historical)
+ * @param 	{String} 	res		The response body string to extract data from
+ * @returns {Object}				Individual state data for Mexico
+ */
 const getState = (res) => {
 	const stateValues = {};
 	stateIDs.forEach(state => {
@@ -73,6 +85,7 @@ const mexicoData = async () => {
 		const stateCases = getState((await axios.post('https://coronavirus.gob.mx/datos/Overview/info/getInfo.php', formData.stateCases)).data);
 		const stateDeaths = getState((await axios.post('https://coronavirus.gob.mx/datos/Overview/info/getInfo.php', formData.stateDeaths)).data);
 
+		// merge the two State objects together for a cleaner response body
 		const states = stateIDs.map(state => ({ [state.state]: { cases: stateCases[state.state], deaths: stateDeaths[state.state] } }));
 
 		return {
