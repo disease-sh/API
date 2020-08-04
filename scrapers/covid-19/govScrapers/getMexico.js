@@ -86,11 +86,11 @@ const mexicoData = async () => {
 		const stateDeaths = getState((await axios.post('https://coronavirus.gob.mx/datos/Overview/info/getInfo.php', formData.stateDeaths)).data);
 
 		// merge the two State objects together for a cleaner response body
-		const states = stateIDs.map(state => ({ [state.state]: { cases: stateCases[state.state], deaths: stateDeaths[state.state] } }));
+		const stateData = stateIDs.map(state => ({ state: state.state, cases: stateCases[state.state], deaths: stateDeaths[state.state] }));
 
 		return {
 			updated: Date.now(),
-			national: {
+			nationalData: {
 				newCases: nationalCases.data.total,
 				newDeaths: nationalDeaths.data.total,
 				cases: nationalCases.data.acumulado,
@@ -98,7 +98,7 @@ const mexicoData = async () => {
 				recovered: nationalCases.recovered
 
 			},
-			states,
+			stateData,
 			source: 'https://coronavirus.gob.mx/datos/'
 		};
 	} catch (err) {
