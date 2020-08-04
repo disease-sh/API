@@ -54,7 +54,7 @@ const filterByDate = (data) => {
 
 /**
  * Returns an object containing a number (recovered) and an array (data) containing national data
- * @param 	{String} 	res		The response body string to extract data from
+ * @param 	{string} 	res		The response body string to extract data from
  * @returns {Object}				National data for Mexico
  */
 const getNational = (res) => {
@@ -65,7 +65,7 @@ const getNational = (res) => {
 
 /**
  * Creates and returns an object containing data for each tracked Mexican state
- * @param 	{String} 	res		The response body string to extract data from
+ * @param 	{string} 	res		The response body string to extract data from
  * @returns {Object}				Individual state data for Mexico
  */
 const getState = (res) => {
