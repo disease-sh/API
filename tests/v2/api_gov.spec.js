@@ -20,7 +20,8 @@ const countries = [
 	'New Zealand',
 	'Colombia',
 	'UK',
-	'Israel'
+	'Israel',
+	'Mexico'
 ].sort();
 
 describe('TESTING /v2/gov general', () => {
@@ -463,6 +464,38 @@ describe('TESTING /v2/gov/UK', () => {
 				latest.should.have.property('admissions');
 				latest.should.have.property('newDeaths');
 				latest.should.have.property('deaths');
+				done();
+			});
+	});
+});
+
+describe('TESTING /v3/covid-19/gov/mexico', () => {
+	it('/v3/covid-19/gov/mexico correct properties', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/gov/mexico')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('national');
+				res.body.should.have.property('states');
+				res.body.should.have.property('source');
+				res.body.national.should.have.property('newCases');
+				res.body.national.should.have.property('newDeaths');
+				res.body.national.should.have.property('cases');
+				res.body.national.should.have.property('deaths');
+				res.body.national.should.have.property('recovered');
+			});
+		done();
+	});
+});
+
+describe('TESTING /v3/covid-19/gov/mexico', () => {
+	it('/v3/covid-19/gov/mexico correct amount of states', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/gov/mexico')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.states.length.should.equal(32);
 				done();
 			});
 	});
