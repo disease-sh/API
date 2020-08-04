@@ -469,10 +469,10 @@ describe('TESTING /v2/gov/UK', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/mexico', () => {
-	it('/v3/covid-19/gov/mexico correct properties', (done) => {
+describe('TESTING /v2/gov/mexico', () => {
+	it('/v2/covid-19/gov/mexico correct properties', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/gov/mexico')
+			.get('/v2/gov/mexico')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
@@ -489,10 +489,10 @@ describe('TESTING /v3/covid-19/gov/mexico', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/mexico', () => {
-	it('/v3/covid-19/gov/mexico correct amount of states', (done) => {
+describe('TESTING /v2/gov/mexico', () => {
+	it('/v2/gov/mexico correct amount of states', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/gov/mexico')
+			.get('/v2/gov/mexico')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.states.length.should.equal(32);
