@@ -476,14 +476,14 @@ describe('TESTING /v2/gov/mexico', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
-				res.body.should.have.property('national');
-				res.body.should.have.property('states');
+				res.body.should.have.property('nationalData');
+				res.body.should.have.property('stateData');
 				res.body.should.have.property('source');
-				res.body.national.should.have.property('newCases');
-				res.body.national.should.have.property('newDeaths');
-				res.body.national.should.have.property('cases');
-				res.body.national.should.have.property('deaths');
-				res.body.national.should.have.property('recovered');
+				res.body.nationalData.should.have.property('newCases');
+				res.body.nationalData.should.have.property('newDeaths');
+				res.body.nationalData.should.have.property('cases');
+				res.body.nationalData.should.have.property('deaths');
+				res.body.nationalData.should.have.property('recovered');
 			});
 		done();
 	});
@@ -495,7 +495,7 @@ describe('TESTING /v2/gov/mexico', () => {
 			.get('/v2/gov/mexico')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
-				res.body.states.length.should.equal(32);
+				res.body.stateData.length.should.equal(32);
 				done();
 			});
 	});
