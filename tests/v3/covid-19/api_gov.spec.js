@@ -347,6 +347,7 @@ describe('TESTING /v3/covid-19/gov/vietnam', () => {
 			.get('/v3/covid-19/gov/vietnam')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.be.at.least(1);
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('city');
