@@ -28,7 +28,6 @@ const mapRows = (_, row) => {
 const vietnamData = async () => {
 	try {
 		const html = cheerio.load((await axios.default({ method: 'GET', url: 'http://ncov.moh.gov.vn/', httpsAgent: new (require('https').Agent)({ rejectUnauthorized: false }) })).data);
-		console.log(html('.table-responsive:first-of-type tbody:first-of-type').children('tr').get().length)
 		return html('.table-responsive:first-of-type tbody:first-of-type').children('tr').map(mapRows).get().filter(el => !el.city.startsWith('BN'));
 	} catch (err) {
 		logger.err('Error: Requesting Vietnam Gov Data failed!', err);
