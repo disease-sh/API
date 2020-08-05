@@ -158,11 +158,20 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Collin-St",
+      "name": "Collin-St",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/30121540?v=4",
+      "profile": "https://www.linkedin.com/in/collin-street/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "API",
-  "projectOwner": "NovelCOVID",
+  "projectOwner": "disease-sh",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true
