@@ -141,6 +141,7 @@ describe('TESTING /v3/covid-19/gov/germany', () => {
 					element.should.have.property('casePreviousDayChange');
 					element.should.have.property('casesPerHundredThousand');
 					element.casesPerHundredThousand.should.be.at.least(0);
+					element.should.have.property('sevenDayCasesPerHundredThousand');
 					element.should.have.property('deaths');
 					element.deaths.should.be.at.least(0);
 				});
@@ -347,6 +348,7 @@ describe('TESTING /v3/covid-19/gov/vietnam', () => {
 			.get('/v3/covid-19/gov/vietnam')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.be.at.least(1);
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('city');
