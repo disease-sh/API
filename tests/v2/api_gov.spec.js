@@ -141,6 +141,7 @@ describe('TESTING /v2/gov/germany', () => {
 					element.should.have.property('casePreviousDayChange');
 					element.should.have.property('casesPerHundredThousand');
 					element.casesPerHundredThousand.should.be.at.least(0);
+					element.should.have.property('sevenDayCasesPerHundredThousand');
 					element.should.have.property('deaths');
 					element.deaths.should.be.at.least(0);
 				});
