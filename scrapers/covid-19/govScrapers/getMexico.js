@@ -1,8 +1,6 @@
 const axios = require('axios');
 const logger = require('../../../utils/logger');
 const querystring = require('querystring');
-const { exception } = require('console');
-const { exit } = require('process');
 
 // a map of Mexican states with the corresponding IDs gob.mx uses server-side
 const stateIDs = [
@@ -162,7 +160,5 @@ const mexicoData = async () => {
 		return null;
 	}
 };
-
-mexicoData().then(res => console.log(res));
 
 module.exports = mexicoData;
