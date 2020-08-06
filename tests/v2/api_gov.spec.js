@@ -496,11 +496,11 @@ describe('TESTING /v2/gov/mexico', () => {
 				res.body.nationalData.todayDeaths.should.have.property('male');
 				res.body.nationalData.todayDeaths.should.have.property('female');
 				res.body.nationalData.todayDeaths.should.have.property('total');
-				res.body.stateData.should.have.property('state');
-				res.body.stateData.should.have.property('confirmed');
-				res.body.stateData.should.have.property('negative');
-				res.body.stateData.should.have.property('suspect');
-				res.body.stateData.should.have.property('deaths');
+				res.body.stateData[0].should.have.property('state');
+				res.body.stateData[0].should.have.property('confirmed');
+				res.body.stateData[0].should.have.property('negative');
+				res.body.stateData[0].should.have.property('suspect');
+				res.body.stateData[0].should.have.property('deaths');
 			});
 		done();
 	});
