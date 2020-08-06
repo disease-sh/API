@@ -478,14 +478,29 @@ describe('TESTING /v2/gov/mexico', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
+				res.body.should.have.property('sourceUpdated');
 				res.body.should.have.property('nationalData');
 				res.body.should.have.property('stateData');
 				res.body.should.have.property('source');
-				res.body.nationalData.should.have.property('newCases');
-				res.body.nationalData.should.have.property('newDeaths');
-				res.body.nationalData.should.have.property('cases');
-				res.body.nationalData.should.have.property('deaths');
+				res.body.nationalData.should.have.property('todayCases');
+				res.body.nationalData.should.have.property('todayDeaths');
+				res.body.nationalData.should.have.property('casesAccumulated');
+				res.body.nationalData.should.have.property('deathsAccumulated');
+				res.body.nationalData.should.have.property('activeCases');
+				res.body.nationalData.should.have.property('negativeCases');
+				res.body.nationalData.should.have.property('suspectCases');
 				res.body.nationalData.should.have.property('recovered');
+				res.body.nationalData.todayCases.should.have.property('male');
+				res.body.nationalData.todayCases.should.have.property('female');
+				res.body.nationalData.todayCases.should.have.property('total');
+				res.body.nationalData.todayDeaths.should.have.property('male');
+				res.body.nationalData.todayDeaths.should.have.property('female');
+				res.body.nationalData.todayDeaths.should.have.property('total');
+				res.body.stateData.should.have.property('state');
+				res.body.stateData.should.have.property('confirmed');
+				res.body.stateData.should.have.property('negative');
+				res.body.stateData.should.have.property('suspect');
+				res.body.stateData.should.have.property('deaths');
 			});
 		done();
 	});
@@ -497,6 +512,7 @@ describe('TESTING /v2/gov/mexico', () => {
 			.get('/v2/gov/mexico')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
+				res.body.nationalData.length.should.equal(8);
 				res.body.stateData.length.should.equal(32);
 				done();
 			});
