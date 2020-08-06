@@ -1,6 +1,8 @@
 const axios = require('axios');
 const logger = require('../../../utils/logger');
 const querystring = require('querystring');
+const { exception } = require('console');
+const { exit } = require('process');
 
 // a map of Mexican states with the corresponding IDs gob.mx uses server-side
 const stateIDs = [
@@ -60,11 +62,11 @@ const filterByDate = (data) => {
 	const filter = () => data.filter(item => item.date === `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
 	const filteredData = filter();
 
-	if (filteredData.length) {
-		return filteredData;
-	} else {
-		decrementDate();
-		return filter();
+	try {
+		return filteredData.length ? filteredData : decrementDate() && filter();
+	} catch (err) {
+		logger.err('Error filtering response by date', err);
+		return null;
 	}
 };
 
