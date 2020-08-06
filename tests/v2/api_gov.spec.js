@@ -512,7 +512,6 @@ describe('TESTING /v2/gov/mexico', () => {
 			.get('/v2/gov/mexico')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
-				res.body.nationalData.length.should.equal(8);
 				res.body.stateData.length.should.equal(32);
 				done();
 			});
