@@ -54,15 +54,17 @@ const formData = {
  * @param {Object} data	An object with a "date" property
  * @returns {Array}	Array filtered by date
  */
-// eslint-disable-next-line consistent-return
 const filterByDate = (data) => {
 	const date = new Date();
-	const filtered = () => data.filter(item => item.date === `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
 	const decrementDate = () => date.setDate(date.getDate() - 1);
-	try {
-		return filtered().length ? filtered() : decrementDate(date) && filtered();
-	} catch (err) {
-		logger.err(err);
+	const filter = () => data.filter(item => item.date === `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
+	const filteredData = filter();
+
+	if (filteredData.length) {
+		return filteredData;
+	} else {
+		decrementDate();
+		return filter();
 	}
 };
 
@@ -158,5 +160,7 @@ const mexicoData = async () => {
 		return null;
 	}
 };
+
+mexicoData().then(res => console.log(res));
 
 module.exports = mexicoData;
