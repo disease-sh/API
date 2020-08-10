@@ -3,15 +3,15 @@ const logger = require('../../../utils/logger');
 
 const params = {
 	requests: [
-		{ queryName: 'lastUpdate', single: true },
-		{ queryName: 'patientsPerDate' },
-		{ queryName: 'deadPatientsPerDate' },
-		{ queryName: 'recoveredPerDay' },
-		{ queryName: 'testResultsPerDate' },
-		{ queryName: 'infectedByAgeAndGenderPublic', parameters: { ageSections: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90] } },
-		{ queryName: 'isolatedDoctorsAndNurses' },
-		{ queryName: 'contagionDataPerCityPublic' },
-		{ queryName: 'hospitalStatus' }
+		{ id: 1, queryName: 'lastUpdate', single: true },
+		{ id: 5, queryName: 'patientsPerDate' },
+		{ id: 6, queryName: 'deadPatientsPerDate' },
+		{ id: 7, queryName: 'recoveredPerDay' },
+		{ id: 8, queryName: 'testResultsPerDate' },
+		{ id: 11, queryName: 'infectedByAgeAndGenderPublic', parameters: { ageSections: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90] } },
+		{ id: 12, queryName: 'isolatedDoctorsAndNurses' },
+		{ id: 14, queryName: 'contagionDataPerCityPublic' },
+		{ id: 15, queryName: 'hospitalStatus' }
 	]
 };
 
@@ -37,7 +37,7 @@ const parseData = (data) => {
 		standardOccupancy: elem.StandardOccupancy,
 		newDeaths: deadPatientsPerDay[index].amount,
 		newlyRecovered: recoveredPerDay[index].amount,
-		newTestsTaken: testsPerDay[index].amount,
+		newTestsTaken: testsPerDay[index].amountVirusDiagnosis,
 		newPositiveTests: testsPerDay[index].positiveAmount,
 		activeNoncritical: elem.CountEasyStatus,
 		activeModerate: elem.CountMediumStatus,
