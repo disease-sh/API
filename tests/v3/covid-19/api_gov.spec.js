@@ -538,7 +538,6 @@ describe('TESTING /v3/covid-19/gov/mexico', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('updated');
-				res.body.should.have.property('sourceUpdated');
 				res.body.should.have.property('nationalData');
 				res.body.should.have.property('stateData');
 				res.body.should.have.property('source');
@@ -550,9 +549,11 @@ describe('TESTING /v3/covid-19/gov/mexico', () => {
 				res.body.nationalData.should.have.property('negativeCases');
 				res.body.nationalData.should.have.property('suspectCases');
 				res.body.nationalData.should.have.property('recovered');
+				res.body.nationalData.todayCases.should.have.property('sourceUpdated');
 				res.body.nationalData.todayCases.should.have.property('male');
 				res.body.nationalData.todayCases.should.have.property('female');
 				res.body.nationalData.todayCases.should.have.property('total');
+				res.body.nationalData.todayDeaths.should.have.property('sourceUpdated');
 				res.body.nationalData.todayDeaths.should.have.property('male');
 				res.body.nationalData.todayDeaths.should.have.property('female');
 				res.body.nationalData.todayDeaths.should.have.property('total');
