@@ -106,9 +106,9 @@ const getState = (res) => {
 };
 
 /**
- * Gets national Active, Negative, Suspect, and Recovered counts
+ * Gets national Active, Negative, Suspect, and Recovered, Confirmed, Death counts
  * @param {string} res	The response body string to extract data from
- * @returns {Object}	{ active, negative, suspect, recovered }
+ * @returns {Object}	{ activeCases, negativeCases, suspectCases, recovered, casesAccumulated, deathsAccumulated }
  */
 const getNationalCaseData = (res) => ({
 	activeCases: getInnerHTML(res, 'gsActDIV'),
