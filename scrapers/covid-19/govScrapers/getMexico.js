@@ -40,17 +40,17 @@ const stateIDs = [
 
 // an object to initialize the FormData object that must be sent with the requests
 const formData = {
-	nationalCases: querystring.stringify({ cve: '000', nom: 'nacional', sPatType: 'Confirmados' }),
-	nationalDeaths: querystring.stringify({ cve: '000', nom: 'nacional', sPatType: 'Defunciones' }),
+	nationalCasesByGender: querystring.stringify({ cve: '000', nom: 'nacional', sPatType: 'Confirmados' }),
+	nationalDeathsByGender: querystring.stringify({ cve: '000', nom: 'nacional', sPatType: 'Defunciones' }),
 	stateCases: querystring.stringify({ cve: '', nom: '', sPatType: 'Confirmados' }),
 	stateDeaths: querystring.stringify({ cve: '', nom: '', sPatType: 'Defunciones' }),
 	stateSuspects: querystring.stringify({ cve: '', nom: '', sPatType: 'Sospechosos' }),
 	stateNegatives: querystring.stringify({ cve: '', nom: '', sPatType: 'Negativos' }),
-	nationalActNegSusRec: querystring.stringify({ cve: '000', nom: '', sPatType: '' })
+	nationalCaseData: querystring.stringify({ cve: '000', nom: '', sPatType: '' })
 };
 
 /**
- * Filter items by either today's date or yesterday's
+ * Filter items by the most recent date not older than 2 days
  * @param {Object} data	An object with a "date" property
  * @returns {Array}	Array filtered by date
  */
@@ -58,12 +58,19 @@ const filterByDate = (data) => {
 	const date = new Date();
 	const decrementDate = () => date.setDate(date.getDate() - 1);
 	const filter = () => data.filter(item => item.date === `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
-	const filteredData = filter();
+	let filteredData = filter();
 
 	try {
-		return filteredData.length ? filteredData : decrementDate() && filter();
+		let idx = 0;
+		while (!filteredData.length && idx < 2) {
+			idx++;
+			decrementDate();
+			filteredData = filter();
+		}
+		// return filteredData, or throw to force execution into the catch block
+		return filteredData.length ? filteredData : (() => { throw new Error('Unable to obtain data within date range'); })();
 	} catch (err) {
-		logger.err('Error filtering response by date', err);
+		logger.err('filterByDate has failed', err);
 		return null;
 	}
 };
@@ -81,7 +88,7 @@ const getInnerHTML = (res, identifier) => parseInt(res.substring(res.indexOf(ide
  * @param	{string} res	The response body string to extract data from
  * @returns {Object}	National data for Mexico
  */
-const getNational = (res) => filterByDate(JSON.parse(res.substring(res.lastIndexOf('['), res.lastIndexOf(']') + 1)))[0];
+const getNationalByGender = (res) => filterByDate(JSON.parse(res.substring(res.lastIndexOf('['), res.lastIndexOf(']') + 1)))[0];
 
 /**
  * Creates and returns an object containing data for each tracked Mexican state
@@ -103,24 +110,31 @@ const getState = (res) => {
  * @param {string} res	The response body string to extract data from
  * @returns {Object}	{ active, negative, suspect, recovered }
  */
-const getActNegSusRec = (res) => ({
-	active: getInnerHTML(res, 'gsActDIV'),
-	negative: getInnerHTML(res, 'gsNegDIV'),
-	suspect: getInnerHTML(res, 'gsSosDIV'),
-	recovered: getInnerHTML(res, 'gsRecDIV')
+const getNationalCaseData = (res) => ({
+	activeCases: getInnerHTML(res, 'gsActDIV'),
+	negativeCases: getInnerHTML(res, 'gsNegDIV'),
+	suspectCases: getInnerHTML(res, 'gsSosDIV'),
+	recovered: getInnerHTML(res, 'gsRecDIV'),
+	casesAccumulated: getInnerHTML(res, 'gsPosDIV'),
+	deathsAccumulated: getInnerHTML(res, 'gsDefDIV')
 });
 
 const mexicoData = async () => {
 	const SOURCE_URL = 'https://coronavirus.gob.mx/datos/Overview/info/getInfo.php';
 
 	try {
-		const nationalCases = getNational((await axios.post(SOURCE_URL, formData.nationalCases)).data);
-		const nationalDeaths = getNational((await axios.post(SOURCE_URL, formData.nationalDeaths)).data);
+		const nationalCasesByGender = getNationalByGender((await axios.post(SOURCE_URL, formData.nationalCasesByGender)).data);
+		const nationalDeathsByGender = getNationalByGender((await axios.post(SOURCE_URL, formData.nationalDeathsByGender)).data);
 		const stateCases = getState((await axios.post(SOURCE_URL, formData.stateCases)).data);
 		const stateDeaths = getState((await axios.post(SOURCE_URL, formData.stateDeaths)).data);
 		const stateSuspects = getState((await axios.post(SOURCE_URL, formData.stateSuspects)).data);
 		const stateNegatives = getState((await axios.post(SOURCE_URL, formData.stateNegatives)).data);
-		const { active, negative, suspect, recovered } = getActNegSusRec((await axios.post(SOURCE_URL, formData.nationalActNegSusRec)).data);
+		const { activeCases,
+			negativeCases,
+			suspectCases,
+			recovered,
+			casesAccumulated,
+			deathsAccumulated } = getNationalCaseData((await axios.post(SOURCE_URL, formData.nationalCaseData)).data);
 
 		// merge the State objects together for a cleaner response body
 		const stateData = stateIDs.map(state => ({
@@ -133,23 +147,24 @@ const mexicoData = async () => {
 
 		return {
 			updated: Date.now(),
-			sourceUpdated: nationalCases.date,
 			nationalData: {
 				todayCases: {
-					male: nationalCases.Masculino,
-					female: nationalCases.Femenino,
-					total: nationalCases.total
+					sourceUpdated: nationalCasesByGender.date,
+					male: nationalCasesByGender.Masculino,
+					female: nationalCasesByGender.Femenino,
+					total: nationalCasesByGender.total
 				},
 				todayDeaths: {
-					male: nationalDeaths.Masculino,
-					female: nationalDeaths.Femenino,
-					total: nationalDeaths.total
+					sourceUpdated: nationalDeathsByGender.date,
+					male: nationalDeathsByGender.Masculino,
+					female: nationalDeathsByGender.Femenino,
+					total: nationalDeathsByGender.total
 				},
-				casesAccumulated: nationalCases.acumulado,
-				deathsAccumulated: nationalDeaths.acumulado,
-				activeCases: active,
-				negativeCases: negative,
-				suspectCases: suspect,
+				casesAccumulated,
+				deathsAccumulated,
+				activeCases,
+				negativeCases,
+				suspectCases,
 				recovered
 			},
 			stateData,
