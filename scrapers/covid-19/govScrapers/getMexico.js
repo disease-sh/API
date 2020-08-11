@@ -40,8 +40,8 @@ const stateIDs = [
 
 // an object to initialize the FormData object that must be sent with the requests
 const formData = {
-	nationalCasesByGender: querystring.stringify({ cve: '000', nom: 'nacional', sPatType: 'Confirmados' }),
-	nationalDeathsByGender: querystring.stringify({ cve: '000', nom: 'nacional', sPatType: 'Defunciones' }),
+	nationalCasesToday: querystring.stringify({ cve: '000', nom: 'nacional', sPatType: 'Confirmados' }),
+	nationalDeathsToday: querystring.stringify({ cve: '000', nom: 'nacional', sPatType: 'Defunciones' }),
 	stateCases: querystring.stringify({ cve: '', nom: '', sPatType: 'Confirmados' }),
 	stateDeaths: querystring.stringify({ cve: '', nom: '', sPatType: 'Defunciones' }),
 	stateSuspects: querystring.stringify({ cve: '', nom: '', sPatType: 'Sospechosos' }),
@@ -88,7 +88,7 @@ const getInnerHTML = (res, identifier) => parseInt(res.substring(res.indexOf(ide
  * @param	{string} res	The response body string to extract data from
  * @returns {Object}	National data for Mexico
  */
-const getNationalByGender = (res) => filterByDate(JSON.parse(res.substring(res.lastIndexOf('['), res.lastIndexOf(']') + 1)))[0];
+const getNationalToday = (res) => filterByDate(JSON.parse(res.substring(res.lastIndexOf('['), res.lastIndexOf(']') + 1)))[0];
 
 /**
  * Creates and returns an object containing data for each tracked Mexican state
@@ -123,8 +123,8 @@ const mexicoData = async () => {
 	const SOURCE_URL = 'https://coronavirus.gob.mx/datos/Overview/info/getInfo.php';
 
 	try {
-		const nationalCasesByGender = getNationalByGender((await axios.post(SOURCE_URL, formData.nationalCasesByGender)).data);
-		const nationalDeathsByGender = getNationalByGender((await axios.post(SOURCE_URL, formData.nationalDeathsByGender)).data);
+		const nationalCasesToday = getNationalToday((await axios.post(SOURCE_URL, formData.nationalCasesToday)).data);
+		const nationalDeathsToday = getNationalToday((await axios.post(SOURCE_URL, formData.nationalDeathsToday)).data);
 		const stateCases = getState((await axios.post(SOURCE_URL, formData.stateCases)).data);
 		const stateDeaths = getState((await axios.post(SOURCE_URL, formData.stateDeaths)).data);
 		const stateSuspects = getState((await axios.post(SOURCE_URL, formData.stateSuspects)).data);
@@ -149,16 +149,16 @@ const mexicoData = async () => {
 			updated: Date.now(),
 			nationalData: {
 				todayCases: {
-					sourceUpdated: nationalCasesByGender.date,
-					male: nationalCasesByGender.Masculino,
-					female: nationalCasesByGender.Femenino,
-					total: nationalCasesByGender.total
+					sourceUpdated: nationalCasesToday.date,
+					male: nationalCasesToday.Masculino,
+					female: nationalCasesToday.Femenino,
+					total: nationalCasesToday.total
 				},
 				todayDeaths: {
-					sourceUpdated: nationalDeathsByGender.date,
-					male: nationalDeathsByGender.Masculino,
-					female: nationalDeathsByGender.Femenino,
-					total: nationalDeathsByGender.total
+					sourceUpdated: nationalDeathsToday.date,
+					male: nationalDeathsToday.Masculino,
+					female: nationalDeathsToday.Femenino,
+					total: nationalDeathsToday.total
 				},
 				casesAccumulated,
 				deathsAccumulated,
