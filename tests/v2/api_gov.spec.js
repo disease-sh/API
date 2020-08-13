@@ -471,6 +471,57 @@ describe('TESTING /v2/gov/UK', () => {
 	});
 });
 
+describe('TESTING /v2/gov/Israel', () => {
+	it('/v2/gov/Israel correct fields set', (done) => {
+		chai.request(app)
+			.get('/v2/gov/Israel')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('data');
+				res.body.data.should.have.property('sickByAge');
+				res.body.data.sickByAge.length.should.equal(10);
+				res.body.data.should.have.property('healthPersonnel');
+				res.body.data.healthPersonnel.should.have.property('verifiedDoctors');
+				res.body.data.healthPersonnel.should.have.property('verifiedNurses');
+				res.body.data.healthPersonnel.should.have.property('isolatedDoctors');
+				res.body.data.healthPersonnel.should.have.property('isolatedNurses');
+				res.body.data.healthPersonnel.should.have.property('isolatedOtherSector');
+				res.body.data.should.have.property('hospitalData');
+				const firstHospital = res.body.data.hospitalData[0];
+				firstHospital.should.have.property('name');
+				firstHospital.should.have.property('coronaOccupancy');
+				firstHospital.should.have.property('normalOccupancy');
+				firstHospital.should.have.property('isolatedTeam');
+				const firstCity = res.body.data.cityData[0];
+				firstCity.should.have.property('city');
+				firstCity.should.have.property('sickCount');
+				firstCity.should.have.property('actualSick');
+				firstCity.should.have.property('verifiedLast7Days');
+				firstCity.should.have.property('testLast7Days');
+				firstCity.should.have.property('status');
+				const latest = res.body.data.timeline[0];
+				latest.should.have.property('date');
+				latest.should.have.property('newHospitalized');
+				latest.should.have.property('totalHospitalized');
+				latest.should.have.property('homePatients');
+				latest.should.have.property('hotelPatients');
+				latest.should.have.property('totalBeds');
+				latest.should.have.property('standardOccupancy');
+				latest.should.have.property('newDeaths');
+				latest.should.have.property('newlyRecovered');
+				latest.should.have.property('newTotalTestsTaken');
+				latest.should.have.property('newVirusTestsTaken');
+				latest.should.have.property('newPositiveTests');
+				latest.should.have.property('activeNoncritical');
+				latest.should.have.property('activeModerate');
+				latest.should.have.property('activeCritical');
+				latest.should.have.property('onVentilators');
+				done();
+			});
+	});
+});
+
 describe('TESTING /v2/gov/mexico', () => {
 	it('/v2/gov/mexico correct properties', (done) => {
 		chai.request(app)
