@@ -464,8 +464,6 @@ describe('TESTING /v2/gov/UK', () => {
 				latest.should.have.property('usedVentilationBeds');
 				latest.should.have.property('newAdmissions');
 				latest.should.have.property('admissions');
-				latest.should.have.property('newDeaths');
-				latest.should.have.property('deaths');
 				done();
 			});
 	});
