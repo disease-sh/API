@@ -520,7 +520,8 @@ describe('TESTING /v3/gov/Israel', () => {
 				latest.should.have.property('standardOccupancy');
 				latest.should.have.property('newDeaths');
 				latest.should.have.property('newlyRecovered');
-				latest.should.have.property('newTestsTaken');
+				latest.should.have.property('newTotalTestsTaken');
+				latest.should.have.property('newVirusTestsTaken');
 				latest.should.have.property('newPositiveTests');
 				latest.should.have.property('activeNoncritical');
 				latest.should.have.property('activeModerate');
