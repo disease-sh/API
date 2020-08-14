@@ -17,31 +17,31 @@
     "basePath": "/",
     "tags": [
       {
-        "name": "Covid-19: Worldometers",
-        "description": "(Covid-19 data sourced from Worldometers, updated every 10 minutes)"
+        "name": "COVID-19: Worldometers",
+        "description": "(COVID-19 data sourced from Worldometers, updated every 10 minutes)"
       },
       {
-        "name": "Covid-19 JHUCSSE",
-        "description": "(Covid-19 data sourced from Johns Hopkins University, updated every 10 minutes)"
+        "name": "COVID-19: JHUCSSE",
+        "description": "(COVID-19 data sourced from Johns Hopkins University, updated every 10 minutes)"
       },
       {
-        "name": "Covid-19 NYT",
-        "description": "(Covid-19 data sourced from the New York Times, updated every 24 hours)"
+        "name": "COVID-19: NYT",
+        "description": "(COVID-19 data sourced from the New York Times, updated every 24 hours)"
       },
       {
-        "name": "Covid-19 Apple",
-        "description": "(Covid-19 related mobility trend data from Apple, updated every 24 hours)"
+        "name": "COVID-19: Apple",
+        "description": "(COVID-19 related mobility trend data from Apple, updated every 24 hours)"
       },
       {
-        "name": "Covid-19 Government",
-        "description": "(Covid-19 individual government reported data, updated every 24 hours)"
+        "name": "COVID-19: Government",
+        "description": "(COVID-19 individual government reported data, updated every 24 hours)"
       },
       {
-        "name": "Covid-19 Vaccine",
-        "description": "(Covid-19 vaccine trial data from raps.org, updated every 24 hours)"
+        "name": "COVID-19: Vaccine",
+        "description": "(COVID-19 vaccine trial data from raps.org, updated every 24 hours)"
       },
       {
-        "name": "Influenza CDC",
+        "name": "Influenza: CDC",
         "description": "(Influenza data reported by the United States CDC, updated every 24 hours)"
       }
     ],
@@ -55,7 +55,7 @@
       "/v3/covid-19/all": {
         "get": {
           "tags": [
-            "Covid-19: Worldometers"
+            "COVID-19: Worldometers"
           ],
           "parameters": [
             {
@@ -98,7 +98,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Global Covid-19 Totals for today and yesterday data",
+          "summary": "Get Global COVID-19 Totals for today and yesterday data",
           "responses": {
             "200": {
               "description": "Status OK",
@@ -112,7 +112,7 @@
       "/v3/covid-19/states": {
         "get": {
           "tags": [
-            "Covid-19: Worldometers"
+            "COVID-19: Worldometers"
           ],
           "parameters": [
             {
@@ -156,7 +156,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 Totals for all US States",
+          "summary": "Get COVID-19 Totals for all US States",
           "responses": {
             "200": {
               "description": "Status OK",
@@ -170,7 +170,7 @@
       "/v3/covid-19/states/{states}": {
         "get": {
           "tags": [
-            "Covid-19: Worldometers"
+            "COVID-19: Worldometers"
           ],
           "parameters": [
             {
@@ -207,7 +207,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 Totals for a specific US State(s)",
+          "summary": "Get COVID-19 Totals for a specific US State(s)",
           "responses": {
             "200": {
               "description": "Status OK",
@@ -221,7 +221,7 @@
       "/v3/covid-19/continents": {
         "get": {
           "tags": [
-            "Covid-19: Worldometers"
+            "COVID-19: Worldometers"
           ],
           "parameters": [
             {
@@ -282,7 +282,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 totals for all Continents",
+          "summary": "Get COVID-19 totals for all Continents",
           "responses": {
             "200": {
               "description": "Status OK",
@@ -296,7 +296,7 @@
       "/v3/covid-19/continents/{query}": {
         "get": {
           "tags": [
-            "Covid-19: Worldometers"
+            "COVID-19: Worldometers"
           ],
           "parameters": [
             {
@@ -357,7 +357,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 totals for a specific Continent",          "responses": {
+          "summary": "Get COVID-19 totals for a specific Continent",          "responses": {
             "200": {
               "description": "Status OK",
               "schema": {
@@ -370,7 +370,7 @@
       "/v3/covid-19/countries": {
         "get": {
           "tags": [
-            "Covid-19: Worldometers"
+            "COVID-19: Worldometers"
           ],
           "parameters": [
             {
@@ -431,7 +431,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 totals for all countries",
+          "summary": "Get COVID-19 totals for all countries",
             "responses": {
             "200": {
               "description": "Status OK",
@@ -445,7 +445,7 @@
       "/v3/covid-19/countries/{query}": {
         "get": {
           "tags": [
-            "Covid-19: Worldometers"
+            "COVID-19: Worldometers"
           ],
           "parameters": [
             {
@@ -506,7 +506,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 totals for a specific country",
+          "summary": "Get COVID-19 totals for a specific country",
           "responses": {
             "200": {
               "description": "Status OK",
@@ -520,7 +520,7 @@
       "/v3/covid-19/countries/{country,country,...}": {
         "get": {
           "tags": [
-            "Covid-19: Worldometers"
+            "COVID-19: Worldometers"
           ],
           "parameters": [
             {
@@ -570,7 +570,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 totals for a specific set of countries",
+          "summary": "Get COVID-19 totals for a specific set of countries",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -584,9 +584,9 @@
       "/v3/covid-19/jhucsse": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
-          "summary": "Get Covid-19 totals for all countries",
+          "summary": "Get COVID-19 totals for all countries",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -600,9 +600,9 @@
       "/v3/covid-19/jhucsse/counties": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
-          "summary": "Get Covid-19 totals for all US counties",
+          "summary": "Get COVID-19 totals for all US counties",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -616,7 +616,7 @@
       "/v3/covid-19/jhucsse/counties/countyName": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
           "parameters": [
             {
@@ -627,7 +627,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 totals for a specific county",
+          "summary": "Get COVID-19 totals for a specific county",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -641,7 +641,7 @@
       "/v3/covid-19/historical": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
           "parameters": [
             {
@@ -653,7 +653,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 time series data for all countries since the pandemic began",
+          "summary": "Get COVID-19 time series data for all countries since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -667,7 +667,7 @@
       "/v3/covid-19/historical/all": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
           "parameters": [
             {
@@ -679,7 +679,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get global summed Covid-19 time series data since the pandemic began",
+          "summary": "Get global summed COVID-19 time series data since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -690,7 +690,7 @@
       "/v3/covid-19/historical/usacounties": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
           "summary": "Get All Possible USA states to query /historical/usacounties/{state} endpoint with.",
           "description": "Returns a list of states and American provinces",
@@ -704,7 +704,7 @@
       "/v3/covid-19/historical/usacounties/{state}": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
           "parameters": [
             {
@@ -723,7 +723,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 time series data for all counties in a specified state since the pandemic began",
+          "summary": "Get COVID-19 time series data for all counties in a specified state since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -737,7 +737,7 @@
       "/v3/covid-19/historical/{query}": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
           "parameters": [
             {
@@ -756,7 +756,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 time series data for a specific country since the pandemic began",
+          "summary": "Get COVID-19 time series data for a specific country since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -770,7 +770,7 @@
       "/v3/covid-19/historical/{country,country,...}": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
           "parameters": [
             {
@@ -789,7 +789,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 time series data for a specific set of countries since the pandemic began",
+          "summary": "Get COVID-19 time series data for a specific set of countries since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -800,7 +800,7 @@
       "/v3/covid-19/historical/{query}/{province}": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
           "parameters": [
             {
@@ -826,7 +826,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 time series data for a specific province in a country since the pandemic began",
+          "summary": "Get COVID-19 time series data for a specific province in a country since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -837,7 +837,7 @@
       "/v3/covid-19/historical/{query}/{province,province,...}": {
         "get": {
           "tags": [
-            "Covid-19 JHUCSSE"
+            "COVID-19: JHUCSSE"
           ],
           "parameters": [
             {
@@ -863,7 +863,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 time series data for a set of provinces in a country since the pandemic began",
+          "summary": "Get COVID-19 time series data for a set of provinces in a country since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -874,7 +874,7 @@
       "/v3/covid-19/nyt/states": {
         "get": {
           "tags": [
-            "Covid-19 NYT"
+            "COVID-19: NYT"
           ],
           "parameters": [
             {
@@ -885,7 +885,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 time series data for a states or set of states, with an entry for each day since the pandemic began",
+          "summary": "Get COVID-19 time series data for a states or set of states, with an entry for each day since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -899,7 +899,7 @@
       "/v3/covid-19/nyt/counties": {
         "get": {
           "tags": [
-            "Covid-19 NYT"
+            "COVID-19: NYT"
           ],
           "parameters": [
             {
@@ -910,7 +910,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 time series data for a county or set of counties, with an entry for each day since the pandemic began",
+          "summary": "Get COVID-19 time series data for a county or set of counties, with an entry for each day since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -924,9 +924,9 @@
       "/v3/covid-19/nyt/usa": {
         "get": {
           "tags": [
-            "Covid-19 NYT"
+            "COVID-19: NYT"
           ],
-          "summary": "Get Covid-19 time series data for the entire USA, with an entry for each day since the pandemic began",
+          "summary": "Get COVID-19 time series data for the entire USA, with an entry for each day since the pandemic began",
           "responses": {
             "200": {
               "description": "Status Ok",
@@ -940,7 +940,7 @@
       "/v3/covid-19/apple/countries": {
         "get": {
           "tags": [
-            "Covid-19 Apple"
+            "COVID-19: Apple"
           ],
           "summary": "Get list of supported countries for Apple mobility data",
           "description": "Return a list of supported country names",
@@ -954,7 +954,7 @@
       "/v3/covid-19/apple/countries/{country}": {
         "get": {
           "tags": [
-            "Covid-19 Apple"
+            "COVID-19: Apple"
           ],
           "parameters": [
             {
@@ -980,7 +980,7 @@
       "/v3/covid-19/apple/countries/{country}/{subregions}": {
         "get": {
           "tags": [
-            "Covid-19 Apple"
+            "COVID-19: Apple"
           ],
           "parameters": [
             {
@@ -998,7 +998,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 Apple mobility data for subregions of a country",
+          "summary": "Get COVID-19: Apple mobility data for subregions of a country",
           "description": "Return a list of mobility data entries for multiple subregions or entries for one subregion on every day since January 13th. Each entry has driving, transit, and walking data with an associated number of how many percentages it is up or down since January 13th",
           "responses": {
             "200": {
@@ -1013,7 +1013,7 @@
       "/v3/covid-19/gov/": {
         "get": {
           "tags": [
-            "Covid-19 Government"
+            "COVID-19: Government"
           ],
           "summary": "Get list of supported countries for Government specific data",
           "description": "Return a list of supported country names",
@@ -1027,7 +1027,7 @@
       "/v3/covid-19/gov/{country}": {
         "get": {
           "tags": [
-            "Covid-19 Government"
+            "COVID-19: Government"
           ],
           "parameters": [
             {
@@ -1051,7 +1051,7 @@
               "type": "string"
             }
           ],
-          "summary": "Get Covid-19 government reported data for a specific country",
+          "summary": "Get COVID-19 government reported data for a specific country",
           "responses": {
             "200": {
               "description": "Status Ok"
@@ -1062,7 +1062,7 @@
       "/v3/covid-19/vaccine": {
         "get": {
           "tags": [
-            "Covid-19 Vaccine"
+            "COVID-19: Vaccine"
           ],
           "summary": "Get vaccine trial data from RAPS (Regulatory Affairs Professional Society). Specifically published by Jeff Craven at https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker",
           "responses": {
@@ -1078,7 +1078,7 @@
       "/v3/influenza/cdc/ILINet": {
         "get": {
           "tags": [
-            "Influenza CDC"
+            "Influenza: CDC"
           ],
           "summary": "Get Influenza-like-illness data for the 2019 and 2020 outbreaks from the US Center for Disease Control",
           "responses": {
@@ -1094,7 +1094,7 @@
       "/v3/influenza/cdc/USCL": {
         "get": {
           "tags": [
-            "Influenza CDC"
+            "Influenza: CDC"
           ],
           "summary": "Get Influenza report data for the 2019 and 2020 outbreaks from the US Center for Disease Control, reported by US clinical labs",
           "responses": {
@@ -1110,7 +1110,7 @@
       "/v3/influenza/cdc/USPHL": {
         "get": {
           "tags": [
-            "Influenza CDC"
+            "Influenza: CDC"
           ],
           "summary": "Get Influenza report data for the 2019 and 2020 outbreaks from the US Center for Disease Control, reported by US public health labs",
           "responses": {
