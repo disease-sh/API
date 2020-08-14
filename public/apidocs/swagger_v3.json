@@ -94,7 +94,7 @@
                 "1",
                 "0"
               ],
-              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "description": "By default, if a value is missing, it is returned as 0. This allows nulls to be returned",
               "type": "string"
             }
           ],
@@ -103,7 +103,7 @@
             "200": {
               "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/country"
+                "$ref": "#/definitions/covidAll"
               }
             }
           }
@@ -152,7 +152,7 @@
                 "1",
                 "0"
               ],
-              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "description": "By default, if a value is missing, it is returned as 0. This allows nulls to be returned",
               "type": "string"
             }
           ],
@@ -161,7 +161,7 @@
             "200": {
               "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/state"
+                "$ref": "#/definitions/covidStates"
               }
             }
           }
@@ -203,7 +203,7 @@
                 "1",
                 "0"
               ],
-              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "description": "By default, if a value is missing, it is returned as 0. This allows nulls to be returned",
               "type": "string"
             }
           ],
@@ -212,7 +212,7 @@
             "200": {
               "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/state"
+                "$ref": "#/definitions/covidState"
               }
             }
           }
@@ -278,7 +278,7 @@
                 "1",
                 "0"
               ],
-              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "description": "By default, if a value is missing, it is returned as 0. This allows nulls to be returned",
               "type": "string"
             }
           ],
@@ -287,7 +287,7 @@
             "200": {
               "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/continents"
+                "$ref": "#/definitions/covidContinents"
               }
             }
           }
@@ -353,15 +353,16 @@
                 "1",
                 "0"
               ],
-              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "description": "By default, if a value is missing, it is returned as 0. This allows nulls to be returned",
               "type": "string"
             }
           ],
-          "summary": "Get COVID-19 totals for a specific Continent",          "responses": {
+          "summary": "Get COVID-19 totals for a specific Continent",
+          "responses": {
             "200": {
               "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/continent"
+                "$ref": "#/definitions/covidContinent"
               }
             }
           }
@@ -427,7 +428,7 @@
                 "1",
                 "0"
               ],
-              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "description": "By default, if a value is missing, it is returned as 0. This allows nulls to be returned",
               "type": "string"
             }
           ],
@@ -436,7 +437,7 @@
             "200": {
               "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/countries"
+                "$ref": "#/definitions/covidCountries"
               }
             }
           }
@@ -502,7 +503,7 @@
                 "1",
                 "0"
               ],
-              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "description": "By default, if a value is missing, it is returned as 0. This allows nulls to be returned",
               "type": "string"
             }
           ],
@@ -511,7 +512,7 @@
             "200": {
               "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/country"
+                "$ref": "#/definitions/covidCountry"
               }
             }
           }
@@ -566,16 +567,16 @@
                 "1",
                 "0"
               ],
-              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "description": "By default, if a value is missing, it is returned as 0. This allows nulls to be returned",
               "type": "string"
             }
           ],
           "summary": "Get COVID-19 totals for a specific set of countries",
           "responses": {
             "200": {
-              "description": "Status Ok",
+              "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/country"
+                "$ref": "#/definitions/covidCountries"
               }
             }
           }
@@ -586,12 +587,12 @@
           "tags": [
             "COVID-19: JHUCSSE"
           ],
-          "summary": "Get COVID-19 totals for all countries",
+          "summary": "Get COVID-19 totals for all countries & their providences",
           "responses": {
             "200": {
-              "description": "Status Ok",
+              "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/county"
+                "$ref": "#/definitions/covidJHUCountries"
               }
             }
           }
@@ -605,9 +606,9 @@
           "summary": "Get COVID-19 totals for all US counties",
           "responses": {
             "200": {
-              "description": "Status Ok",
+              "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/counties"
+                "$ref": "#/definitions/covidJHUCounties"
               }
             }
           }
@@ -630,9 +631,9 @@
           "summary": "Get COVID-19 totals for a specific county",
           "responses": {
             "200": {
-              "description": "Status Ok",
+              "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/counties"
+                "$ref": "#/definitions/covidJHUCounty"
               }
             }
           }
@@ -653,12 +654,12 @@
               "type": "string"
             }
           ],
-          "summary": "Get COVID-19 time series data for all countries since the pandemic began",
+          "summary": "Get COVID-19 time series data for all countries & their provinces since the pandemic began",
           "responses": {
             "200": {
-              "description": "Status Ok",
+              "description": "Status OK",
               "schema": {
-                "$ref": "#/definitions/countryHistorical"
+                "$ref": "#/definitions/covidHistorical"
               }
             }
           }
@@ -682,53 +683,9 @@
           "summary": "Get global summed COVID-19 time series data since the pandemic began",
           "responses": {
             "200": {
-              "description": "Status Ok"
-            }
-          }
-        }
-      },
-      "/v3/covid-19/historical/usacounties": {
-        "get": {
-          "tags": [
-            "COVID-19: JHUCSSE"
-          ],
-          "summary": "Get All Possible USA states to query /historical/usacounties/{state} endpoint with.",
-          "description": "Returns a list of states and American provinces",
-          "responses": {
-            "200": {
-              "description": "Status Ok"
-            }
-          }
-        }
-      },
-      "/v3/covid-19/historical/usacounties/{state}": {
-        "get": {
-          "tags": [
-            "COVID-19: JHUCSSE"
-          ],
-          "parameters": [
-            {
-              "name": "state",
-              "in": "path",
-              "required": true,
-              "description": "US state name, validated in the array returned from /v3/covid-19/historical/usacounties",
-              "type": "string"
-            },
-            {
-              "name": "lastdays",
-              "in": "query",
-              "required": false,
-              "default": 30,
-              "description": "Number of days you want the returned data to go back. Default is 30 days. Use 'all' for full data set. Ex: 15, all, 24",
-              "type": "string"
-            }
-          ],
-          "summary": "Get COVID-19 time series data for all counties in a specified state since the pandemic began",
-          "responses": {
-            "200": {
               "description": "Status Ok",
               "schema": {
-                "$ref": "#/definitions/usaCounties"
+                "$ref": "#/definitions/covidHistoricalAll"
               }
             }
           }
@@ -761,7 +718,7 @@
             "200": {
               "description": "Status Ok",
               "schema": {
-                "$ref": "#/definitions/countriesHistorical"
+                "$ref": "#/definitions/covidHistoricalCountry"
               }
             }
           }
@@ -792,7 +749,10 @@
           "summary": "Get COVID-19 time series data for a specific set of countries since the pandemic began",
           "responses": {
             "200": {
-              "description": "Status Ok"
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/covidHistoricalCountries"
+              }
             }
           }
         }
@@ -829,7 +789,10 @@
           "summary": "Get COVID-19 time series data for a specific province in a country since the pandemic began",
           "responses": {
             "200": {
-              "description": "Status Ok"
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/covidHistoricalProvince"
+              }
             }
           }
         }
@@ -866,7 +829,60 @@
           "summary": "Get COVID-19 time series data for a set of provinces in a country since the pandemic began",
           "responses": {
             "200": {
-              "description": "Status Ok"
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/covidHistoricalProvinces"
+              }
+            }
+          }
+        }
+      },
+      "/v3/covid-19/historical/usacounties": {
+        "get": {
+          "tags": [
+            "COVID-19: JHUCSSE"
+          ],
+          "summary": "Get All Possible USA states to query /historical/usacounties/{state} endpoint with.",
+          "description": "Returns a list of states and American provinces",
+          "responses": {
+            "200": {
+              "description": "Status OK",
+              "schema": {
+                "$ref": "#/definitions/covidHistoricalUSCounties"
+              }
+            }
+          }
+        }
+      },
+      "/v3/covid-19/historical/usacounties/{state}": {
+        "get": {
+          "tags": [
+            "COVID-19: JHUCSSE"
+          ],
+          "parameters": [
+            {
+              "name": "state",
+              "in": "path",
+              "required": true,
+              "description": "US state name, validated in the array returned from /v3/covid-19/historical/usacounties",
+              "type": "string"
+            },
+            {
+              "name": "lastdays",
+              "in": "query",
+              "required": false,
+              "default": 30,
+              "description": "Number of days you want the returned data to go back. Default is 30 days. Use 'all' for full data set. Ex: 15, all, 24",
+              "type": "string"
+            }
+          ],
+          "summary": "Get COVID-19 time series data for all counties in a specified state since the pandemic began",
+          "responses": {
+            "200": {
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/covidHistoricalUSCounty"
+              }
             }
           }
         }
@@ -876,12 +892,28 @@
           "tags": [
             "COVID-19: NYT"
           ],
+          "summary": "Get COVID-19 time series data for all states, with an entry for each day since the pandemic began",
+          "responses": {
+            "200": {
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/covidNYTState"
+              }
+            }
+          }
+        }
+      },
+      "/v3/covid-19/nyt/states/{state}": {
+        "get": {
+          "tags": [
+            "COVID-19: NYT"
+          ],
           "parameters": [
             {
               "name": "state",
               "in": "path",
-              "required": false,
-              "description": "State name(s), separated by commas (i.e. 'Illinois, California'). Default is full data set",
+              "required": true,
+              "description": "State name(s), separated by commas (i.e. 'Illinois, California').",
               "type": "string"
             }
           ],
@@ -890,7 +922,7 @@
             "200": {
               "description": "Status Ok",
               "schema": {
-                "$ref": "#/definitions/nytStates"
+                "$ref": "#/definitions/covidNYTState"
               }
             }
           }
@@ -901,12 +933,28 @@
           "tags": [
             "COVID-19: NYT"
           ],
+          "summary": "Get COVID-19 time series data for all available US counties, with an entry for each day since the pandemic began",
+          "responses": {
+            "200": {
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/covidNYTCounty"
+              }
+            }
+          }
+        }
+      },
+      "/v3/covid-19/nyt/counties/{county}": {
+        "get": {
+          "tags": [
+            "COVID-19: NYT"
+          ],
           "parameters": [
             {
               "name": "county",
               "in": "path",
-              "required": false,
-              "description": "County name(s), separated by commas (i.e. 'Alameda, Humboldt'). Default is full data set",
+              "required": true,
+              "description": "County name(s), separated by commas (i.e. 'Alameda, Humboldt').",
               "type": "string"
             }
           ],
@@ -915,7 +963,7 @@
             "200": {
               "description": "Status Ok",
               "schema": {
-                "$ref": "#/definitions/nytCounties"
+                "$ref": "#/definitions/covidNYTCounty"
               }
             }
           }
@@ -931,7 +979,7 @@
             "200": {
               "description": "Status Ok",
               "schema": {
-                "$ref": "#/definitions/nytCounties"
+                "$ref": "#/definitions/covidNYTUSA"
               }
             }
           }
@@ -946,7 +994,10 @@
           "description": "Return a list of supported country names",
           "responses": {
             "200": {
-              "description": "Status Ok"
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/covidAppleCountries"
+              }
             }
           }
         }
@@ -971,7 +1022,7 @@
             "200": {
               "description": "Status Ok",
               "schema": {
-                "$ref": "#/definitions/appleCountry"
+                "$ref": "#/definitions/covidAppleSubregions"
               }
             }
           }
@@ -1004,7 +1055,7 @@
             "200": {
               "description": "Status Ok",
               "schema": {
-                "$ref": "#/definitions/appleSubregions"
+                "$ref": "#/definitions/covidAppleData"
               }
             }
           }
@@ -1019,7 +1070,10 @@
           "description": "Return a list of supported country names",
           "responses": {
             "200": {
-              "description": "Status Ok"
+              "description": "Status Ok",
+              "schema": {
+                "$ref": "#/definitions/covidGov"
+              }
             }
           }
         }
@@ -1047,7 +1101,7 @@
                 "1",
                 "0"
               ],
-              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "description": "By default, if a value is missing, it is returned as 0. This allows nulls to be returned",
               "type": "string"
             }
           ],
@@ -1125,96 +1179,8 @@
       }
     },
     "definitions": {
-        "state": {
-            "properties": {
-              "state": {
-                "type": "string"
-              },
-              "updated": {
-                "type": "number"
-              },
-              "cases": {
-                "type": "string"
-              },
-              "todayCases": {
-                "type": "string"
-              },
-              "deaths": {
-                "type": "string"
-              },
-              "todayDeaths": {
-                "type": "string"
-              },
-              "active": {
-                "type": "string"
-              },
-              "casesPerOneMillion": {
-                "type": "string"
-              },
-              "deathsPerOneMillion": {
-                "type": "string"
-              },
-              "tests": {
-                "type": "string"
-              },
-              "testsPerOneMillion": {
-                "type": "string"
-              }
-            }
-        },
-      "countryHistorical": {
+      "covidAll": {
         "properties": {
-          "country": {
-            "type": "string"
-          },
-          "province": {
-            "type": "string"
-          }
-        }
-      },
-      "countriesHistorical": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/countryHistorical"
-        }
-      },
-      "countryInfo": {
-        "required": [
-          "country",
-          "_id"
-        ],
-        "properties": {
-          "_id": {
-            "type": "number",
-            "uniqueItems": true
-          },
-          "iso2": {
-            "type": "string",
-            "uniqueItems": true
-          },
-          "iso3": {
-            "type": "string",
-            "uniqueItems": true
-          },
-          "country": {
-            "type": "string"
-          },
-          "lat": {
-            "type": "number"
-          },
-          "long": {
-            "type": "number"
-          },
-          "flag": {
-            "type": "string"
-          }
-        }
-      },
-      "continent":  {
-        "properties": {
-          "continent": {
-            "type": "string"
-          },
           "updated": {
             "type": "number"
           },
@@ -1227,41 +1193,10 @@
           "deaths": {
             "type": "number"
           },
-          "todayDeaths": {
-            "type": "number"
-          },
           "recovered": {
             "type": "number"
           },
-          "active": {
-            "type": "number"
-          },
-          "critical": {
-            "type": "number"
-          }
-        }
-      },
-      "country": {
-        "properties": {
-          "country": {
-            "type": "string"
-          },
-          "countryInfo": {
-            "$ref": "#/definitions/countryInfo"
-          },
-          "cases": {
-            "type": "number"
-          },
-          "todayCases": {
-            "type": "number"
-          },
-          "deaths": {
-            "type": "number"
-          },
-          "todayDeaths": {
-            "type": "number"
-          },
-          "recovered": {
+          "todayRecovered": {
             "type": "number"
           },
           "active": {
@@ -1276,12 +1211,306 @@
           "deathsPerOneMillion": {
             "type": "number"
           },
-          "updated": {
+          "tests": {
+            "type": "number"
+          },
+          "testsPerOneMillion": {
+            "type": "number"
+          },
+          "population": {
+            "type": "number"
+          },
+          "oneCasePerPeople": {
+            "type": "number"
+          },
+          "oneDeathPerPeople": {
+            "type": "number"
+          },
+          "oneTestPerPeople": {
+            "type": "number"
+          },
+          "activePerOneMillion": {
+            "type": "number"
+          },
+          "recoveredPerOneMillion": {
+            "type": "number"
+          },
+          "criticalPerOneMillion": {
+            "type": "number"
+          },
+          "affectedCountries": {
             "type": "number"
           }
         }
       },
-      "county": {
+      "covidState": {
+        "properties": {
+          "state": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "number"
+          },
+          "cases": {
+            "type": "number"
+          },
+          "todayCases": {
+            "type": "number"
+          },
+          "deaths": {
+            "type": "number"
+          },
+          "todayDeaths": {
+            "type": "number"
+          },
+          "active": {
+            "type": "number"
+          },
+          "casesPerOneMillion": {
+            "type": "number"
+          },
+          "deathsPerOneMillion": {
+            "type": "number"
+          },
+          "tests": {
+            "type": "number"
+          },
+          "testsPerOneMillion": {
+            "type": "number"
+          }
+        }
+      },
+      "covidStates": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/covidState"
+        }
+      },
+      "covidContinent":  {
+        "properties": {
+          "updated": {
+            "type": "number"
+          },
+          "cases": {
+            "type": "number"
+          },
+          "todayCases": {
+            "type": "number"
+          },
+          "deaths": {
+            "type": "number"
+          },
+          "todayDeaths": {
+            "type": "number"
+          },
+          "recovered": {
+            "type": "number"
+          },
+          "todayRecovered": {
+            "type": "number"
+          },
+          "active": {
+            "type": "number"
+          },
+          "critical": {
+            "type": "number"
+          },
+          "casesPerOneMillion": {
+            "type": "number"
+          },
+          "deathsPerOneMillion": {
+            "type": "number"
+          },
+          "tests": {
+            "type": "number"
+          },
+          "testsPerOneMillion": {
+            "type": "number"
+          },
+          "population": {
+            "type": "number"
+          },
+          "continent": {
+            "type": "string"
+          },
+          "activePerOneMillion": {
+            "type": "number"
+          },
+          "recoveredPerOneMillion": {
+            "type": "number"
+          },
+          "criticalPerOneMillion": {
+            "type": "number"
+          },
+          "continentInfo": {
+            "type": "object",
+            "properties": {
+              "lat": {
+                "type": "number"
+              },
+              "long": {
+                "type": "number"
+              }
+            }
+          },
+          "countries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "covidContinents": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/covidContinent"
+        }
+      },
+      "covidCountry": {
+        "properties": {
+          "updated": {
+            "type": "number"
+          },
+          "country": {
+            "type": "string"
+          },
+          "countryInfo": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "number",
+                "uniqueItems": true
+              },
+              "iso2": {
+                "type": "string",
+                "uniqueItems": true
+              },
+              "iso3": {
+                "type": "string",
+                "uniqueItems": true
+              },
+              "lat": {
+                "type": "number"
+              },
+              "long": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "string"
+              }
+            }
+          },
+          "cases": {
+            "type": "number"
+          },
+          "todayCases": {
+            "type": "number"
+          },
+          "deaths": {
+            "type": "number"
+          },
+          "todayDeaths": {
+            "type": "number"
+          },
+          "recovered": {
+            "type": "number"
+          },
+          "todayRecovered": {
+            "type": "number"
+          },
+          "active": {
+            "type": "number"
+          },
+          "critical": {
+            "type": "number"
+          },
+          "casesPerOneMillion": {
+            "type": "number"
+          },
+          "deathsPerOneMillion": {
+            "type": "number"
+          },
+          "tests": {
+            "type": "number"
+          },
+          "testsPerOneMillion": {
+            "type": "number"
+          },
+          "population": {
+            "type": "number"
+          },
+          "continent": {
+            "type": "number"
+          },
+          "oneCasePerPeople": {
+            "type": "number"
+          },
+          "oneDeathPerPeople": {
+            "type": "number"
+          },
+          "oneTestPerPeople": {
+            "type": "number"
+          },
+          "activePerOneMillion": {
+            "type": "number"
+          },
+          "recoveredPerOneMillion": {
+            "type": "number"
+          },
+          "criticalPerOneMillion": {
+            "type": "number"
+          }
+        }
+      },
+      "covidCountries": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/covidCountry"
+        }
+      },
+      "covidJHUCountries": {
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "stats": {
+            "type": "object",
+            "properties": {
+              "confirmed": {
+                "type": "number"
+              },
+              "deaths": {
+                "type": "number"
+              },
+              "recovered": {
+                "type": "number"
+              }
+            }
+          },
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              }
+            }
+          },
+          "province": {
+            "type": "string"
+          }
+        }
+      },
+      "covidJHUCounty": {
         "properties": {
           "country": {
             "type": "string"
@@ -1293,39 +1522,274 @@
             "type": "string"
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date"
+            "type": "string"
           },
           "stats": {
-            "confirmed": {
-              "type": "number"
-            },
-            "deaths": {
-              "type": "number"
-            },
-            "recovered": {
-              "type": "number"
+            "type": "object",
+            "properties": {
+              "confirmed": {
+                "type": "number"
+              },
+              "deaths": {
+                "type": "number"
+              },
+              "recovered": {
+                "type": "number"
+              }
             }
           },
           "coordinates": {
-            "latitude": {
-              "type": "string"
-            },
-            "longitude": {
-              "type": "string"
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              }
             }
           }
         }
       },
-      "usaCounty": {
+      "covidJHUCounties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/covidJHUCounty"
+        }
+      },
+      "covidHistorical": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "country": {
+              "type": "string"
+            },
+            "province": {
+              "type": "string"
+            },
+            "timeline": {
+              "type": "object",
+              "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
+              "properties": {
+                "cases": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "deaths": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "recovered": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "covidHistoricalAll": {
+        "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
         "properties": {
+          "cases": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "number"
+              }
+            }
+          },
+          "deaths": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "number"
+              }
+            }
+          },
+          "recovered": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "covidHistoricalCountry": {
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "province": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "timeline": {
+            "type": "object",
+            "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
+            "properties": {
+              "cases": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "number"
+                  }
+                }
+              },
+              "deaths": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "number"
+                  }
+                }
+              },
+              "recovered": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "covidHistoricalCountries": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/covidHistoricalCountry"
+        }
+      },
+      "covidHistoricalUSCounties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "covidHistoricalUSCounty": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "province": {
+              "type": "string"
+            },
+            "county": {
+              "type": "string"
+            },
+            "timeline": {
+              "type": "object",
+              "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
+              "properties": {
+                "cases": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "deaths": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "recovered": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "covidHistoricalProvince": {
+        "properties": {
+          "country": {
+            "type": "string"
+          },
           "province": {
             "type": "string"
           },
-          "county": {
-            "type": "string"
-          },
           "timeline": {
+            "type": "object",
+            "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
+            "properties": {
+              "cases": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "number"
+                  }
+                }
+              },
+              "deaths": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "number"
+                  }
+                }
+              },
+              "recovered": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "covidHistoricalProvinces": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/covidHistoricalProvince"
+        }
+      },
+      "covidNYTState": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date"
+            },
+            "state": {
+              "type": "string"
+            },
+            "fips": {
+              "type": "string"
+            },
             "cases": {
               "type": "number"
             },
@@ -1335,63 +1799,58 @@
           }
         }
       },
-      "nytState": {
-        "properties": {
-          "date": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "fips": {
-            "type": "string"
-          },
-          "cases": {
-            "type": "string"
-          },
-          "deaths": {
-            "type": "string"
-          }
-        }
-      },
-      "nytCounty": {
-        "properties": {
-          "date": {
-            "type": "string"
-          },
-          "county": {
-            "type": "county"
-          },
-          "state": {
-            "type": "string"
-          },
-          "fips": {
-            "type": "string"
-          },
-          "cases": {
-            "type": "string"
-          },
-          "deaths": {
-            "type": "string"
-          }
-        }
-      },
-      "nytTotal": {
-        "properties": {
-          "date": {
-            "type": "string"
-          },
-          "cases": {
-            "type": "string"
-          },
-          "deaths": {
-            "type": "string"
-          }
-        }
-      },
-      "appleCountry": {
-        "properties": {
+      "covidNYTCounty": {
+        "type": "array",
+        "items": {
           "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date"
+            },
+            "county": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "fips": {
+              "type": "string"
+            },
+            "cases": {
+              "type": "number"
+            },
+            "deaths": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "covidNYTUSA": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date"
+            },
+            "cases": {
+              "type": "number"
+            },
+            "deaths": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "covidAppleCountries": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "covidAppleSubregions": {
+        "properties": {
           "country": {
             "type": "string"
           },
@@ -1403,32 +1862,8 @@
           }
         }
       },
-      "appleData": {
+      "covidAppleData": {
         "properties": {
-          "type": "object",
-          "subregion_and_city": {
-            "type": "string"
-          },
-          "geo_type": {
-            "type": "string"
-          },
-          "date": {
-            "type": "string"
-          },
-          "driving": {
-            "type": "number"
-          },
-          "transit": {
-            "type": "number"
-          },
-          "walking": {
-            "type": "number"
-          }
-        }
-      },
-      "appleSubregion": {
-        "properties": {
-          "type": "object",
           "country": {
             "type": "string"
           },
@@ -1436,10 +1871,41 @@
             "type": "string"
           },
           "data": {
+            "type": "array",
             "items": {
-              "$ref": "#/definitions/appleData"
+              "type": "object",
+              "properties": {
+                "sub-region": {
+                  "type": "string"
+                },
+                "subregion_and_city": {
+                  "type": "string"
+                },
+                "geo_type": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "driving": {
+                  "type": "number"
+                },
+                "transit": {
+                  "type": "number"
+                },
+                "walking": {
+                  "type": "number"
+                }
+              }
             }
           }
+        }
+      },
+      "covidGov": {
+        "type": "array",
+        "items": {
+          "type": "string"
         }
       },
       "influenzaILINet": {
@@ -1635,54 +2101,6 @@
           "totalTests": {
             "type": "number"
           }
-        }
-      },
-      "continents": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/continent"
-        }
-      },
-      "countries": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/country"
-        }
-      },
-      "counties": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/county"
-        }
-      },
-      "usaCounties": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/usaCounty"
-        }
-      },
-      "nytStates": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/nytState"
-        }
-      },
-      "nytCounties": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/nytCounty"
-        }
-      },
-      "nytNationWide": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/nytTotal"
-        }
-      },
-      "appleSubregions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/appleSubregion"
         }
       }
     },
