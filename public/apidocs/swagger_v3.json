@@ -518,7 +518,7 @@
           }
         }
       },
-      "/v3/covid-19/countries/{country,country,...}": {
+      "/v3/covid-19/countries/{countries}": {
         "get": {
           "tags": [
             "COVID-19: Worldometers"
@@ -551,7 +551,7 @@
               "type": "string"
             },
             {
-              "name": "query",
+              "name": "countries",
               "in": "path",
               "required": true,
               "description": "Multiple country names, iso2, iso3, or country IDs separated by commas",
@@ -724,17 +724,17 @@
           }
         }
       },
-      "/v3/covid-19/historical/{country,country,...}": {
+      "/v3/covid-19/historical/{countries}": {
         "get": {
           "tags": [
             "COVID-19: JHUCSSE"
           ],
           "parameters": [
             {
-              "name": "query",
+              "name": "countries",
               "in": "path",
               "required": true,
-              "description": "A country name, iso2, iso3, or country ID code",
+              "description": "Multiple country names, iso2, iso3, or country IDs separated by commas",
               "type": "string"
             },
             {
@@ -797,7 +797,7 @@
           }
         }
       },
-      "/v3/covid-19/historical/{query}/{province,province,...}": {
+      "/v3/covid-19/historical/{query}/{provinces}": {
         "get": {
           "tags": [
             "COVID-19: JHUCSSE"
@@ -807,7 +807,7 @@
               "name": "query",
               "in": "path",
               "required": true,
-              "description": "Multiple country names, iso2, iso3, or country IDs separated by commas",
+              "description": "A country name, iso2, iso3, or country ID code",
               "type": "string"
             },
             {
@@ -815,7 +815,7 @@
               "in": "path",
               "required": true,
               "description": "Provinces spelled correctly separated by ',' or '|' delimiters, never both in the same query. ",
-              "type": ""
+              "type": "string"
             },
             {
               "name": "lastdays",
