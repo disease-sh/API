@@ -72,6 +72,19 @@
               "type": "string"
             },
             {
+              "name": "twoDaysAgo",
+              "in": "query",
+              "required": false,
+              "enum": [
+                "true",
+                "false",
+                "1",
+                "0"
+              ],
+              "description": "Queries data reported from two days before",
+              "type": "string"
+            },
+            {
               "name": "allowNull",
               "in": "query",
               "required": false,
@@ -128,6 +141,19 @@
               ],
               "description": "Queries data reported from the day before",
               "type": "string"
+            },
+            {
+              "name": "allowNull",
+              "in": "query",
+              "required": false,
+              "enum": [
+                "true",
+                "false",
+                "1",
+                "0"
+              ],
+              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "type": "string"
             }
           ],
           "summary": "Get Covid-19 Totals for all US States",
@@ -166,6 +192,19 @@
               ],
               "description": "Queries data reported from the day before",
               "type": "string"
+            },
+            {
+              "name": "allowNull",
+              "in": "query",
+              "required": false,
+              "enum": [
+                "true",
+                "false",
+                "1",
+                "0"
+              ],
+              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
+              "type": "string"
             }
           ],
           "summary": "Get Covid-19 Totals for a specific US State(s)",
@@ -196,6 +235,19 @@
                 "0"
               ],
               "description": "Queries data reported from the day before",
+              "type": "string"
+            },
+            {
+              "name": "twoDaysAgo",
+              "in": "query",
+              "required": false,
+              "enum": [
+                "true",
+                "false",
+                "1",
+                "0"
+              ],
+              "description": "Queries data reported from two days before",
               "type": "string"
             },
             {
@@ -261,6 +313,19 @@
               "type": "string"
             },
             {
+              "name": "twoDaysAgo",
+              "in": "query",
+              "required": false,
+              "enum": [
+                "true",
+                "false",
+                "1",
+                "0"
+              ],
+              "description": "Queries data reported from two days before",
+              "type": "string"
+            },
+            {
               "name": "strict",
               "in": "query",
               "required": false,
@@ -319,6 +384,19 @@
                 "0"
               ],
               "description": "Queries data reported from the day before",
+              "type": "string"
+            },
+            {
+              "name": "twoDaysAgo",
+              "in": "query",
+              "required": false,
+              "enum": [
+                "true",
+                "false",
+                "1",
+                "0"
+              ],
+              "description": "Queries data reported from two days before",
               "type": "string"
             },
             {
@@ -384,6 +462,19 @@
               "type": "string"
             },
             {
+              "name": "twoDaysAgo",
+              "in": "query",
+              "required": false,
+              "enum": [
+                "true",
+                "false",
+                "1",
+                "0"
+              ],
+              "description": "Queries data reported from two days before",
+              "type": "string"
+            },
+            {
               "name": "strict",
               "in": "query",
               "required": false,
@@ -443,6 +534,19 @@
                 "0"
               ],
               "description": "Queries data reported from the day before",
+              "type": "string"
+            },
+            {
+              "name": "twoDaysAgo",
+              "in": "query",
+              "required": false,
+              "enum": [
+                "true",
+                "false",
+                "1",
+                "0"
+              ],
+              "description": "Queries data reported from two days before",
               "type": "string"
             },
             {
@@ -931,6 +1035,19 @@
               "in": "path",
               "required": true,
               "description": "Any valid country name supported by the endpoint. Supported countries can be found in /v3/covid-19/gov/",
+              "type": "string"
+            },
+            {
+              "name": "allowNull",
+              "in": "query",
+              "required": false,
+              "enum": [
+                "true",
+                "false",
+                "1",
+                "0"
+              ],
+              "description": "By defualt, if a value is missing, it is returned as 0. This allows nulls to be returned",
               "type": "string"
             }
           ],
