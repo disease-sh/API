@@ -1,7 +1,5 @@
 // eslint-disable-next-line new-cap
 const router = require('express').Router();
-const { redis, keys, scraper } = require('../instances');
-const { splitQuery } = require('../../utils/stringUtils');
 
 router.get('/v2/historical', async (req, res) => {
 	res.redirect('/v3/covid-19/historical');
