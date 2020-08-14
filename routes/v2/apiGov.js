@@ -8,17 +8,8 @@ const { redis, keys } = require('../instances');
 router.get('/v2/gov/:country?', async (req, res) => {
 	const { allowNull } = req.query;
 	const { country: countryName } = req.params;
-	const data = JSON.parse(await redis.get(keys.gov_countries));
-	if (countryName) {
-		const standardizedCountryName = nameUtils.getCountryData(countryName.trim()).country || countryName.trim();
-		if (data[standardizedCountryName]) {
-			res.send(!wordToBoolean(allowNull) ? nameUtils.transformNull(data[standardizedCountryName]) : data[standardizedCountryName]);
-		} else {
-			res.status(404).send({ message: `Country '${standardizedCountryName}' not found or no data found for country` });
-		}
-	} else {
-		res.send(Object.keys(data));
-	}
+
+	res.redirect(`/v3/covid-19/gov/${countryName || ''}`);
 });
 
 module.exports = router;
