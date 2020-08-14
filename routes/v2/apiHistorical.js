@@ -10,9 +10,7 @@ router.get('/v2/historical/usacounties', async (req, res) => {
 });
 
 router.get('/v2/historical/usacounties/:state', async (req, res) => {
-	const { state } = req.params;
 	const { lastdays } = req.query;
-	
 	res.redirect(`/v3/covid-19/historical/usacounties/${lastdays || ''}`);
 });
 
@@ -25,7 +23,7 @@ router.get('/v2/historical/:query/:province?', async (req, res) => {
 	const { query, province } = req.params;
 	const { lastdays } = req.query;
 
-	res.redirect(`/v3/covid-19/historical/${query || ''}/${province || ''}?${lastdays || ''}`)
+	res.redirect(`/v3/covid-19/historical/${query || ''}/${province || ''}?${lastdays || ''}`);
 });
 
 module.exports = router;

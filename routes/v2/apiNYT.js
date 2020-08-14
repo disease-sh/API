@@ -1,3 +1,4 @@
+// eslint-disable-next-line new-cap
 const router = require('express').Router();
 
 router.get('/v2/nyt/states', async (req, res) => res.redirect('/v3/covid-19/nyt/states'));
@@ -11,7 +12,6 @@ router.get('/v2/nyt/counties', async (req, res) => res.redirect('/v3/covid-19/ny
 
 router.get('/v2/nyt/counties/:county', async (req, res) => {
 	const { county: queryCounty } = req.params;
-	
 	res.redirect(`/v3/covid-19/nyt/counties/${queryCounty || ''}`);
 });
 
