@@ -2,7 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const logger = require('../../../utils/logger');
 
-const columns = ['province', 'cases', 'casePreviousDayChange', 'casesPerHundredThousand', 'deaths'];
+const columns = ['province', 'cases', 'casePreviousDayChange', 'casesPerHundredThousand', 'sevenDayCasesPerHundredThousand', 'deaths'];
 
 /**
  * Return object reflecting a row of data from German government site
@@ -17,6 +17,10 @@ const mapRows = (_, row) => {
 		switch (index) {
 			case 0: {
 				province[columns[index]] = cell.text() === 'Gesamt' ? 'Total' : cell.text();
+				break;
+			}
+			case 4: {
+				province[columns[index]] = parseFloat(cell.text()) || null;
 				break;
 			}
 			default: {

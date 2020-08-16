@@ -20,7 +20,8 @@ const countries = [
 	'Colombia',
 	'South Africa',
 	'UK',
-	'Israel'
+	'Israel',
+	'Mexico'
 ];
 
 describe('TESTING /v3/covid-19/gov general', () => {
@@ -141,6 +142,7 @@ describe('TESTING /v3/covid-19/gov/germany', () => {
 					element.should.have.property('casePreviousDayChange');
 					element.should.have.property('casesPerHundredThousand');
 					element.casesPerHundredThousand.should.be.at.least(0);
+					element.should.have.property('sevenDayCasesPerHundredThousand');
 					element.should.have.property('deaths');
 					element.deaths.should.be.at.least(0);
 				});
@@ -347,6 +349,7 @@ describe('TESTING /v3/covid-19/gov/vietnam', () => {
 			.get('/v3/covid-19/gov/vietnam')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.be.at.least(1);
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('city');
@@ -471,8 +474,6 @@ describe('TESTING /v3/covid-19/gov/UK', () => {
 				latest.should.have.property('usedVentilationBeds');
 				latest.should.have.property('newAdmissions');
 				latest.should.have.property('admissions');
-				latest.should.have.property('newDeaths');
-				latest.should.have.property('deaths');
 				done();
 			});
 	});
@@ -517,12 +518,61 @@ describe('TESTING /v3/gov/Israel', () => {
 				latest.should.have.property('standardOccupancy');
 				latest.should.have.property('newDeaths');
 				latest.should.have.property('newlyRecovered');
-				latest.should.have.property('newTestsTaken');
+				latest.should.have.property('newTotalTestsTaken');
+				latest.should.have.property('newVirusTestsTaken');
 				latest.should.have.property('newPositiveTests');
 				latest.should.have.property('activeNoncritical');
 				latest.should.have.property('activeModerate');
 				latest.should.have.property('activeCritical');
 				latest.should.have.property('onVentilators');
+				done();
+			});
+	});
+});
+
+describe('TESTING /v3/covid-19/gov/mexico', () => {
+	it('/v3/covid-19/gov/mexico correct properties', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/gov/mexico')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('updated');
+				res.body.should.have.property('nationalData');
+				res.body.should.have.property('stateData');
+				res.body.should.have.property('source');
+				res.body.nationalData.should.have.property('todayCases');
+				res.body.nationalData.should.have.property('todayDeaths');
+				res.body.nationalData.should.have.property('casesAccumulated');
+				res.body.nationalData.should.have.property('deathsAccumulated');
+				res.body.nationalData.should.have.property('activeCases');
+				res.body.nationalData.should.have.property('negativeCases');
+				res.body.nationalData.should.have.property('suspectCases');
+				res.body.nationalData.should.have.property('recovered');
+				res.body.nationalData.todayCases.should.have.property('sourceUpdated');
+				res.body.nationalData.todayCases.should.have.property('male');
+				res.body.nationalData.todayCases.should.have.property('female');
+				res.body.nationalData.todayCases.should.have.property('total');
+				res.body.nationalData.todayDeaths.should.have.property('sourceUpdated');
+				res.body.nationalData.todayDeaths.should.have.property('male');
+				res.body.nationalData.todayDeaths.should.have.property('female');
+				res.body.nationalData.todayDeaths.should.have.property('total');
+				res.body.stateData[0].should.have.property('state');
+				res.body.stateData[0].should.have.property('confirmed');
+				res.body.stateData[0].should.have.property('negative');
+				res.body.stateData[0].should.have.property('suspect');
+				res.body.stateData[0].should.have.property('deaths');
+			});
+		done();
+	});
+});
+
+describe('TESTING /v3/covid-19/gov/mexico', () => {
+	it('/v3/covid-19/gov/mexico correct amount of states', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/gov/mexico')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.stateData.length.should.equal(32);
 				done();
 			});
 	});

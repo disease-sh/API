@@ -158,11 +158,29 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Collin-St",
+      "name": "Collin-St",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/30121540?v=4",
+      "profile": "https://www.linkedin.com/in/collin-street/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "MarvelDC",
+      "name": "MarvelDC",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/24299563?v=4",
+      "profile": "http://marveldc.me",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "API",
-  "projectOwner": "NovelCOVID",
+  "projectOwner": "disease-sh",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true
