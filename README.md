@@ -138,6 +138,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://lioncoding.com"><img src="https://avatars0.githubusercontent.com/u/26142591?v=4" width="100px;" alt=""/><br /><sub><b>Kodjo Laurent Egbakou</b></sub></a><br /><a href="https://github.com/disease-sh/API/commits?author=egbakou" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/jsebastianms1"><img src="https://avatars3.githubusercontent.com/u/22509688?v=4" width="100px;" alt=""/><br /><sub><b>Juan Sebastián Marulanda Sánchez</b></sub></a><br /><a href="https://github.com/disease-sh/API/commits?author=jsebastianms1" title="Code">💻</a></td>
     <td align="center"><a href="https://www.linkedin.com/in/collin-street/"><img src="https://avatars3.githubusercontent.com/u/30121540?v=4" width="100px;" alt=""/><br /><sub><b>Collin-St</b></sub></a><br /><a href="https://github.com/disease-sh/API/commits?author=Collin-St" title="Code">💻</a></td>
+    <td align="center"><a href="http://marveldc.me"><img src="https://avatars2.githubusercontent.com/u/24299563?v=4" width="100px;" alt=""/><br /><sub><b>MarvelDC</b></sub></a><br /><a href="https://github.com/disease-sh/API/commits?author=MarvelDC" title="Documentation">📖</a></td>
   </tr>
 </table>
 
