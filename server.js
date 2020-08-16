@@ -8,12 +8,8 @@ const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
 const { config, port, redis, scraper, keys } = require('./routes/instances');
-const { updateNYTCache, updateAppleCache } = require('./utils/cache');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
-
-updateNYTCache();
-updateAppleCache();
 
 app.use(require('cors')({ origin: '*' }));
 app.use(express.static(path.join(__dirname, '/public')));
