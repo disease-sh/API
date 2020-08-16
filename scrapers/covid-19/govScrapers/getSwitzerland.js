@@ -23,8 +23,6 @@ const switzerlandData = async () => {
 				deaths: parseInt(row.ncumul_deceased) || null,
 				source: row.source
 			};
-			delete transformed.date;
-			delete transformed.time;
 			return transformed;
 		});
 	} catch (err) {
