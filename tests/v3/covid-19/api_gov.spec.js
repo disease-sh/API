@@ -267,6 +267,7 @@ describe('TESTING /v3/covid-19/gov/switzerland', () => {
 				testBasicProperties(err, res, 200, 'array');
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
+					element.should.have.property('date');
 					element.should.have.property('canton');
 					element.should.have.property('cases');
 					element.should.have.property('deaths');
