@@ -167,6 +167,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "MarvelDC",
+      "name": "MarvelDC",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/24299563?v=4",
+      "profile": "http://marveldc.me",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
