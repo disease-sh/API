@@ -15,17 +15,18 @@ exports.currentStatus = {
 /**
  * Parses NYT Counties data
  * @param 	{string}	lastdays  	How many days to show always take lastest
+ * @returns {Array}				The filtered historical data.
  */
-exports.nytCounties = (lastDays = 30) => {
-	if(lastDays === 'all') {
+exports.nytCounties = (lastdays = 30) => {
+	if (lastdays === 'all') {
 		return this.currentStatus.nytCounties;
 	} else {
 		var priorDate = new Date();
-		priorDate.setDate(priorDate.getDate() - lastDays);
-		priorDate = priorDate.toISOString().slice(0,10);
+		priorDate.setDate(priorDate.getDate() - lastdays);
+		priorDate = priorDate.toISOString().slice(0, 10);
 		const priorData = [];
-		this.currentStatus.nytCounties.map((data) => {
-			if(data.date >= priorDate) {
+		this.currentStatus.nytCounties.forEach((data) => {
+			if (data.date >= priorDate) {
 				priorData.push(data);
 			}
 		});
