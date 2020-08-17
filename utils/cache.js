@@ -24,13 +24,7 @@ exports.nytCounties = (lastdays = 30) => {
 		var priorDate = new Date();
 		priorDate.setDate(priorDate.getDate() - lastdays);
 		priorDate = priorDate.toISOString().slice(0, 10);
-		const priorData = [];
-		this.currentStatus.nytCounties.forEach((data) => {
-			if (data.date >= priorDate) {
-				priorData.push(data);
-			}
-		});
-		return priorData;
+		return this.currentStatus.nytCounties.filter((data) => data.date >= priorDate);
 	}
 };
 exports.nytStates = () => this.currentStatus.nytStates;

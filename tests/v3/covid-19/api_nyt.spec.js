@@ -80,6 +80,16 @@ describe('TESTING /v3/covid-19/nyt/counties', () => {
 			});
 	});
 
+	it('/v3/covid-19/nyt/counties lastdays param', () => {
+		chai.request(app)
+			.get('/v3/covid-19/nyt/counties?lastdays=1')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				Object.keys(res.body).length.should.equal(1);
+				done();
+			});
+	});
+
 	it('/v3/covid-19/nyt/counties get correct county', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/nyt/counties/Alameda')
