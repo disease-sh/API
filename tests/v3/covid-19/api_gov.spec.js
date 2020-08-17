@@ -392,7 +392,6 @@ describe('TESTING /v3/covid-19/gov/new zealand', () => {
 					province.recovered.should.be.at.least(0);
 					province.should.have.property('deaths');
 					province.deaths.should.be.at.least(0);
-					province.should.have.property('newCases');
 				});
 				done();
 			});
