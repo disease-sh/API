@@ -85,7 +85,6 @@ describe('TESTING /v3/covid-19/nyt/counties', () => {
 			.get('/v3/covid-19/nyt/counties?lastdays=1')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				Object.keys(res.body).length.should.equal(1);
 				done();
 			});
 	});
