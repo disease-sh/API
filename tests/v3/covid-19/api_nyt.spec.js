@@ -80,7 +80,7 @@ describe('TESTING /v3/covid-19/nyt/counties', () => {
 			});
 	});
 
-	it('/v3/covid-19/nyt/counties lastdays param', () => {
+	it('/v3/covid-19/nyt/counties lastdays param', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/nyt/counties?lastdays=1')
 			.end((err, res) => {
