@@ -14,8 +14,8 @@ setInterval(executeScraperNYTData, config.nytInterval);
 // Update Apple data every  24 hours
 setInterval(excecuteScraperAppleData, config.appleInterval);
 // Update Government data every  24 hours
-setInterval(excecuteScraperGov, config.gov_interval);
+setInterval(excecuteScraperGov, config.govInterval);
 // Update vaccine data every  24 hours
-setInterval(excecuteScraperVaccine, config.vaccine_interval);
+setInterval(excecuteScraperVaccine, config.vaccineInterval);
 // Update CDC Influenza data every  24 hours
-setInterval(excecuteScraperInfluenza, config.CDC_interval);
+setInterval(excecuteScraperInfluenza, config.cdcInterval);
