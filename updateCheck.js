@@ -10,8 +10,10 @@ const endpoints = {
 		countries: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * 1.5,
 		continents: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * 1.5,
 		states: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * 1.5,
-		jhucsse: (data) => data[0].updated && now - new Date(data[0].updatedAt) > 1000*60*60*24*2,
-		'jhucsse/counties': (data) => data[0].updated && now - new Date(data[0].updatedAt) > 1000*60*60*24*2,
+		// 1.5 days
+		jhucsse: (data) => data[0].updated && now - new Date(data[0].updatedAt) > 1000 * 60 * 60 * 24 * 1.5,
+		// 1.5 days
+		'jhucsse/counties': (data) => data[0].updated && now - new Date(data[0].updatedAt) > 1000 * 60 * 60 * 24 * 1.5,
 		'gov/italy': (data) => data[0].updated && now - new Date(data[0].updated) > config.govInterval * 1.5,
 		'gov/south%20africa': (data) => data.updated && now - new Date(data.updated) > config.govInterval * 1.5,
 		'gov/switzerland': (data) => data[0].updated && now - new Date(data[0].updated) > config.govInterval * 1.5,
@@ -30,24 +32,22 @@ const endpoints = {
 };
 
 const sendWebhook = async (data) => {
-	try{
+	try {
 		await axios.post(process.env.UPDATE_WEBHOOK, data);
-	}catch(err){
-		console.log(err)
-	}finally{
-		return;
+	} catch (err) {
+		console.log(err);
 	}
 };
 
 const updateCheck = async () => {
 	for (const disease of Object.keys(endpoints)) {
 		for (const [endpoint, checker] of Object.entries(endpoints[disease])) {
-			logger.info(`checking ${endpoint}`)
+			logger.info(`checking ${endpoint}`);
 			try {
 				const res = await axios.get(`https://disease.sh/v3/${disease}/${endpoint}`);
 				// eslint-disable-next-line no-unused-expressions
-				if(checker(res.data)) {
-					logger.info('OUT OF DATE - sending Webhook message')
+				if (checker(res.data)) {
+					logger.info('OUT OF DATE - sending Webhook message');
 					await sendWebhook({
 						embeds: [
 							{
@@ -58,7 +58,7 @@ const updateCheck = async () => {
 					});
 				}
 			} catch (err) {
-				logger.info('ERROR - sending Webhook message')
+				logger.info('ERROR - sending Webhook message');
 				await sendWebhook({
 					embeds: [
 						{
