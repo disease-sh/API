@@ -6,41 +6,72 @@ const now = new Date();
 
 const endpoints = {
 	'covid-19': {
-		all: (data) => now - new Date(data.updated) > config.worldometersInterval,
-		countries: (data) => now - new Date(data[0].updated) > config.worldometersInterval,
-		continents: (data) => now - new Date(data[0].updated) > config.worldometersInterval,
-		states: (data) => now - new Date(data[0].updated) > config.worldometersInterval,
-		jhucsse: (data) => now - new Date(data[0].updatedAt) > config.worldometersInterval,
-		'jhucsse/counties': (data) => now - new Date(data[0].updatedAt) > config.worldometersInterval,
-		'gov/italy': (data) => now - new Date(data[0].updated) > config.govInterval,
-		'gov/south%20africa': (data) => now - new Date(data.updated) > config.govInterval,
-		'gov/switzerland': (data) => now - new Date(data[0].updated) > config.govInterval,
-		'gov/germany': (data) => now - new Date(data[0].updated) > config.govInterval,
-		'gov/nigeria': (data) => now - new Date(data[0].updated) > config.govInterval,
-		'gov/canada': (data) => now - new Date(data[0].updated) > config.govInterval,
-		'gov/india': (data) => now - new Date(data.updated) > config.govInterval,
-		'gov/israel': (data) => now - new Date(data.updated) > config.govInterval,
-		'gov/new%20zealand': (data) => now - new Date(data.updated) > config.govInterval,
-		'gov/austria': (data) => now - new Date(data.updated) > config.govInterval,
-		'gov/vietnam': (data) => now - new Date(data[0].updated) > config.govInterval,
-		'gov/mexico': (data) => now - new Date(data.updated) > config.govInterval,
-		'gov/colombia': (data) => now - new Date(data.updated) > config.govInterval
+		all: (data) => data.updated && now - new Date(data.updated) > config.worldometersInterval * 1.5,
+		countries: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * 1.5,
+		continents: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * 1.5,
+		states: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * 1.5,
+		jhucsse: (data) => data[0].updated && now - new Date(data[0].updatedAt) > 1000*60*60*24*2,
+		'jhucsse/counties': (data) => data[0].updated && now - new Date(data[0].updatedAt) > 1000*60*60*24*2,
+		'gov/italy': (data) => data[0].updated && now - new Date(data[0].updated) > config.govInterval * 1.5,
+		'gov/south%20africa': (data) => data.updated && now - new Date(data.updated) > config.govInterval * 1.5,
+		'gov/switzerland': (data) => data[0].updated && now - new Date(data[0].updated) > config.govInterval * 1.5,
+		'gov/germany': (data) => data[0].updated && now - new Date(data[0].updated) > config.govInterval * 1.5,
+		'gov/nigeria': (data) => data[0].updated && now - new Date(data[0].updated) > config.govInterval * 1.5,
+		'gov/canada': (data) => data[0].updated && now - new Date(data[0].updated) > config.govInterval * 1.5,
+		'gov/india': (data) => data.updated && now - new Date(data.updated) > config.govInterval * 1.5,
+		'gov/israel': (data) => data.updated && now - new Date(data.updated) > config.govInterval * 1.5,
+		'gov/new%20zealand': (data) => data.updated && now - new Date(data.updated) > config.govInterval * 1.5,
+		'gov/austria': (data) => data.updated && now - new Date(data.updated) > config.govInterval * 1.5,
+		'gov/vietnam': (data) => data[0].updated && now - new Date(data[0].updated) > config.govInterval * 1.5,
+		'gov/mexico': (data) => data.updated && now - new Date(data.updated) > config.govInterval * 1.5,
+		'gov/colombia': (data) => data.updated && now - new Date(data.updated) > config.govInterval * 1.5
 	},
 	influenza: []
 };
 
-const updateCheck = () => {
-	Object.keys(endpoints).forEach(disease => {
-		Object.entries(endpoints[disease]).forEach(async ([endpoint, checker]) => {
-			try {
-				const res = (await axios.get(`https://disease.sh/v3/${disease}/${endpoint}`)).data;
-				// eslint-disable-next-line no-unused-expressions
-				checker(res) && logger.info(`${disease}/${endpoint} - OUT OF DATE`);
-			} catch (err) {
-				logger.info(`${disease}/${endpoint} - ERR`);
-			}
-		});
-	});
+const sendWebhook = async (data) => {
+	try{
+		await axios.post(process.env.UPDATE_WEBHOOK, data);
+	}catch(err){
+		console.log(err)
+	}finally{
+		return;
+	}
 };
 
-updateCheck();
+const updateCheck = async () => {
+	for (const disease of Object.keys(endpoints)) {
+		for (const [endpoint, checker] of Object.entries(endpoints[disease])) {
+			logger.info(`checking ${endpoint}`)
+			try {
+				const res = await axios.get(`https://disease.sh/v3/${disease}/${endpoint}`);
+				// eslint-disable-next-line no-unused-expressions
+				if(checker(res.data)) {
+					logger.info('OUT OF DATE - sending Webhook message')
+					await sendWebhook({
+						embeds: [
+							{
+								title: `${disease}/${endpoint} - Out of Date`,
+								url: `https://disease.sh/v3/${disease}/${endpoint}`
+							}
+						]
+					});
+				}
+			} catch (err) {
+				logger.info('ERROR - sending Webhook message')
+				await sendWebhook({
+					embeds: [
+						{
+							title: `${disease}/${endpoint} - Error`,
+							url: `https://disease.sh/v3/${disease}/${endpoint}`,
+							description: err.message || 'No message'
+						}
+					]
+				});
+			}
+		}
+	}
+	process.exit();
+};
+
+module.exports = updateCheck;

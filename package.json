@@ -13,7 +13,6 @@
     "covid"
   ],
   "scripts": {
-    "updateCheck": "node updateCheck.js",
     "start": "node server.js",
     "start:scraper": "node serverScraper.js",
     "start:devserver": "nodemon --watch routes --watch scrapers --watch utils ./server.js",
