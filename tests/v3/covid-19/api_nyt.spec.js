@@ -71,20 +71,24 @@ describe('TESTING /v3/covid-19/nyt/states', () => {
 });
 
 describe('TESTING /v3/covid-19/nyt/counties', () => {
-	it('/v3/covid-19/nyt/counties', (done) => {
+	it('/v3/covid-19/nyt/counties default lastdays = 30', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/nyt/counties')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
+				Object.keys(res.body).length.should.greaterThan(90000);
+				Object.keys(res.body).length.should.lessThan(100000);
 				done();
 			});
 	});
 
-	it('/v3/covid-19/nyt/counties lastdays param', (done) => {
+	it('/v3/covid-19/nyt/counties lastdays = 1 param', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/nyt/counties?lastdays=1')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
+				Object.keys(res.body).length.should.greaterThan(3000);
+				Object.keys(res.body).length.should.lessThan(10000);
 				done();
 			});
 	});
