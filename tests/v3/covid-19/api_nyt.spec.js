@@ -71,7 +71,7 @@ describe('TESTING /v3/covid-19/nyt/states', () => {
 });
 
 describe('TESTING /v3/covid-19/nyt/counties', () => {
-	it('/v3/covid-19/nyt/counties default lastdays = 30', (done) => {
+	it('/v3/covid-19/nyt/counties default lastdays = 30 default', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/nyt/counties')
 			.end((err, res) => {
