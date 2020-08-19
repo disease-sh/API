@@ -1253,6 +1253,9 @@
           },
           "testsPerOneMillion": {
             "type": "number"
+          },
+          "population": {
+            "type": "number"
           }
         }
       },

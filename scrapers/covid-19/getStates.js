@@ -1,24 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const logger = require('../../utils/logger');
-/**
- * Get state name from html table cell
- * @param 	{Object} 	cell 	Table cell from states table
- * @returns {string} 			State name
- */
-const parseStateCell = (cell) => {
-	let state = cell.children[0].data
-		|| cell.children[0].children[0].data
-		// state name with link has another level
-		|| cell.children[0].children[0].children[0].data
-		|| cell.children[0].children[0].children[0].children[0].data
-		|| '';
-	state = state.trim();
-	if (state.length === 0) {
-		state = cell.children[0].next.children[0].data || '';
-	}
-	return state.trim() || '';
-};
 
 /**
  * Gets a data vlue, example cases, from an html table cell
@@ -40,24 +22,26 @@ const fillResult = (html, yesterday = false) => {
 	const statesTable = html(yesterday ? 'table#usa_table_countries_yesterday' : 'table#usa_table_countries_today');
 	const tableRows = statesTable
 		.children('tbody')
-		.children('tr:not(.total_row)').toArray();
+		.children('tr:not(.total_row)').get();
 	// NOTE: this will change when table format change in website
-	const stateColIndex = 0;
+	const stateColIndex = 1;
 	const dataColIndexes = {
-		cases: 1,
-		todayCases: 2,
-		deaths: 3,
-		todayDeaths: 4,
-		active: 5,
-		casesPerOneMillion: 6,
-		deathsPerOneMillion: 7,
-		tests: 8,
-		testsPerOneMillion: 9
+		cases: 2,
+		todayCases: 3,
+		deaths: 4,
+		todayDeaths: 5,
+		recovered: 6,
+		active: 7,
+		casesPerOneMillion: 8,
+		deathsPerOneMillion: 9,
+		tests: 10,
+		testsPerOneMillion: 11,
+		population: 12
 	};
 
 	return tableRows.map((row) => {
-		const cells = row.children.filter((cell) => cell.name === 'td');
-		const stateData = { state: parseStateCell(cells[stateColIndex]), updated: Date.now() };
+		const cells = row.children.filter(el => el.name === 'td');
+		const stateData = { state: cheerio(cells[stateColIndex]).text().replace(/\n/g, '').trim(), updated: Date.now() };
 		// eslint-disable-next-line no-return-assign
 		Object.keys(dataColIndexes).forEach((property) => stateData[property] = parseNumberCell(cells[dataColIndexes[property]]));
 		return stateData;

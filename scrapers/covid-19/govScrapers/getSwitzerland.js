@@ -10,7 +10,8 @@ const switzerlandData = async () => {
 		const data = await csv().fromString((await axios.get('https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv')).data);
 		return data.map(row => {
 			const transformed = {
-				updated: Date.parse(`${row.date} ${row.time}`.trim()),
+				date: Date.parse(`${row.date} ${row.time}`.trim()),
+				updated: Date.now(),
 				canton: row.abbreviation_canton_and_fl,
 				tests: parseInt(row.ncumul_tested) || null,
 				cases: parseInt(row.ncumul_conf) || null,
@@ -22,8 +23,6 @@ const switzerlandData = async () => {
 				deaths: parseInt(row.ncumul_deceased) || null,
 				source: row.source
 			};
-			delete transformed.date;
-			delete transformed.time;
 			return transformed;
 		});
 	} catch (err) {

@@ -12,9 +12,6 @@ const { updateNYTCache, updateAppleCache } = require('./utils/cache');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 
-updateNYTCache();
-updateAppleCache();
-
 app.use(require('cors')({ origin: '*' }));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(null, {
@@ -100,5 +97,8 @@ app.use(require('./routes/v3/covid-19/apiVaccine'));
 app.use(require('./routes/v3/influenza/apiInfluenza'));
 
 app.listen(port, () => logger.info(`Your app is listening on port ${port}`));
+
+updateNYTCache();
+updateAppleCache();
 
 module.exports = app;
