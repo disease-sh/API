@@ -12,7 +12,21 @@ exports.currentStatus = {
 };
 
 // Series of get calls to retrieve current state of cache
-exports.nytCounties = () => this.currentStatus.nytCounties;
+/**
+ * Parses NYT Counties data
+ * @param 	{string}	lastdays  	How many days to show always take lastest
+ * @returns {Array}				The filtered historical data.
+ */
+exports.nytCounties = (lastdays = 30) => {
+	if (lastdays === 'all') {
+		return this.currentStatus.nytCounties;
+	} else {
+		var priorDate = new Date();
+		priorDate.setDate(priorDate.getDate() - lastdays);
+		priorDate = priorDate.toISOString().slice(0, 10);
+		return this.currentStatus.nytCounties.filter((data) => data.date >= priorDate);
+	}
+};
 exports.nytStates = () => this.currentStatus.nytStates;
 exports.nytNationwide = () => this.currentStatus.nytNationwide;
 exports.appleData = () => this.currentStatus.appleData;
