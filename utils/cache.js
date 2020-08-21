@@ -11,6 +11,13 @@ exports.currentStatus = {
 	appleData: undefined
 };
 
+const calculatePriorDate = (lastDays) => {
+	var priorDate = new Date();
+	priorDate.setDate(priorDate.getDate() - lastDays);
+	// priorDate = priorDate.toISOString().slice(0, 10);
+	return priorDate.toISOString().slice(0, 10);
+};
+
 // Series of get calls to retrieve current state of cache
 /**
  * Parses NYT Counties data
@@ -21,13 +28,21 @@ exports.nytCounties = (lastdays = 30) => {
 	if (lastdays === 'all') {
 		return this.currentStatus.nytCounties;
 	} else {
-		var priorDate = new Date();
-		priorDate.setDate(priorDate.getDate() - lastdays);
-		priorDate = priorDate.toISOString().slice(0, 10);
-		return this.currentStatus.nytCounties.filter((data) => data.date >= priorDate);
+		const prior = calculatePriorDate(lastdays);
+		return this.currentStatus.nytCounties.filter((data) => data.date >= prior);
 	}
 };
-exports.nytStates = () => this.currentStatus.nytStates;
+
+exports.nytStates = (lastdays = 30) => {
+	if (lastdays === 'all') {
+		return this.currentStatus.nytStates;
+	} else {
+		const prior = calculatePriorDate(lastdays);
+		return this.currentStatus.nytStates.filter((data) => data.date >= prior);
+	}
+};
+
+// exports.nytStates = () => this.currentStatus.nytStates;
 exports.nytNationwide = () => this.currentStatus.nytNationwide;
 exports.appleData = () => this.currentStatus.appleData;
 
@@ -47,6 +62,9 @@ exports.updateNYTCache = async () => {
 			this.currentStatus.nytCounties = parsedCountyData.map(numericalStats);
 			this.currentStatus.nytStates = parsedStateData.map(numericalStats);
 			this.currentStatus.nytNationwide = parsedNationData.map(numericalStats);
+			// Adding this log to as to see the updated data in the interval
+			logger.info(`NYT county cache length: ${this.currentStatus.nytCounties.length}`);
+			logger.info(`NYT state cache length: ${this.currentStatus.nytStates.length}`);
 			logger.info('NYT local cache updated');
 		}
 	} catch (err) {
