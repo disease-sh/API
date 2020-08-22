@@ -905,6 +905,15 @@
         "tags": [
           "COVID-19: NYT"
         ],
+        "parameters": [
+          {
+            "name": "lastdays",
+            "in": "query",
+            "default": 30,
+            "description": "Number of days to return. Use 'all' for the full data set (e.g. 15, all, 24)",
+            "type": "string"
+          }
+        ],
         "summary": "Get COVID-19 time series data for all available US counties, with an entry for each day since the pandemic began",
         "responses": {
           "200": {
