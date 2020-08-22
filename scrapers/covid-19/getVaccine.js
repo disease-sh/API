@@ -2,7 +2,7 @@ const axios = require('axios');
 const csv = require('csvtojson');
 const cheerio = require('cheerio');
 const logger = require('../../utils/logger');
-const { months, phaseData } = require('./RAPS');
+const { months, phaseData } = require('../../utils/RAPS');
 
 const cleanData = (data) => {
 	const htmlRegex = /<(?:.|\n)*?>/gm;
