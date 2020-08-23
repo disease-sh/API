@@ -16,6 +16,7 @@
   "apple_all": "covidapi:apple_all",
   "gov_countries": "covidapi:gov_countries",
   "vaccine": "covidapi:vaccine",
+  "therapeutics": "covidapi:therapeutics",
   "influenza_ILINET": "influenza:ILINET",
   "influenza_USPHL": "influenza:USPHL",
   "influenza_USCL": "influenza:USCL"
