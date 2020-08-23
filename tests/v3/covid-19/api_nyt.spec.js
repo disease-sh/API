@@ -18,20 +18,22 @@ describe('TESTING /v3/covid-19/nyt/states', () => {
 
 	it('/v3/covid-19/nyt/states lastdays check test case', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/nyt/states?lastdays=1')
+			.get('/v3/covid-19/nyt/states?lastdays=2')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				Object.keys(res.body).length.should.equal(55);
+				Object.keys(res.body).length.should.greaterThan(50);
+				Object.keys(res.body).length.should.lessThan(120);
 				done();
 			});
 	});
 
 	it('/v3/covid-19/nyt/states lastdays check test case and correct state', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/nyt/states/Washington?lastdays=1')
+			.get('/v3/covid-19/nyt/states/Washington?lastdays=2')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				Object.keys(res.body).length.should.equal(1);
+				Object.keys(res.body).length.should.greaterThan(0);
+				Object.keys(res.body).length.should.lessThan(3);
 				done();
 			});
 	});
@@ -102,9 +104,9 @@ describe('TESTING /v3/covid-19/nyt/counties', () => {
 			});
 	});
 
-	it('/v3/covid-19/nyt/counties lastdays = 1 param', (done) => {
+	it('/v3/covid-19/nyt/counties lastdays = 2 param', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/nyt/counties?lastdays=1')
+			.get('/v3/covid-19/nyt/counties?lastdays=2')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				Object.keys(res.body).length.should.greaterThan(3000);
