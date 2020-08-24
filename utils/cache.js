@@ -14,7 +14,6 @@ exports.currentStatus = {
 const calculatePriorDate = (lastDays) => {
 	var priorDate = new Date();
 	priorDate.setDate(priorDate.getDate() - lastDays);
-	// priorDate = priorDate.toISOString().slice(0, 10);
 	return priorDate.toISOString().slice(0, 10);
 };
 
@@ -28,8 +27,8 @@ exports.nytCounties = (lastdays = 30) => {
 	if (lastdays === 'all') {
 		return this.currentStatus.nytCounties;
 	} else {
-		const prior = calculatePriorDate(lastdays);
-		return this.currentStatus.nytCounties.filter((data) => data.date >= prior);
+		const priorDate = calculatePriorDate(lastdays);
+		return this.currentStatus.nytCounties.filter((data) => data.date >= priorDate);
 	}
 };
 
@@ -37,12 +36,11 @@ exports.nytStates = (lastdays = 30) => {
 	if (lastdays === 'all') {
 		return this.currentStatus.nytStates;
 	} else {
-		const prior = calculatePriorDate(lastdays);
-		return this.currentStatus.nytStates.filter((data) => data.date >= prior);
+		const priorDate = calculatePriorDate(lastdays);
+		return this.currentStatus.nytStates.filter((data) => data.date >= priorDate);
 	}
 };
 
-// exports.nytStates = () => this.currentStatus.nytStates;
 exports.nytNationwide = () => this.currentStatus.nytNationwide;
 exports.appleData = () => this.currentStatus.appleData;
 
