@@ -19,7 +19,10 @@ router.get('/v3/covid-19/nyt/states/:state', async (req, res) => {
 	}
 });
 
-router.get('/v3/covid-19/nyt/counties', async (req, res) => res.send(nytCounties()));
+router.get('/v3/covid-19/nyt/counties', async (req, res) => {
+	const { lastdays } = req.query;
+	res.send(nytCounties(lastdays));
+});
 
 router.get('/v3/covid-19/nyt/counties/:county', async (req, res) => {
 	const { county: queryCounty } = req.params;

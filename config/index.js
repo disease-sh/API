@@ -1,7 +1,7 @@
 const keys = require('./config.keys.json');
 const logger = require('../utils/logger');
 const dotenv = require('dotenv').config();
-const config = { redis: { } };
+const config = { redis: {} };
 
 if (dotenv.error) {
 	if (!process.env.DOCKER) {
@@ -30,6 +30,8 @@ config.appleInterval = process.env.APPLE_INTERVAL || 864e5;
 config.govInterval = process.env.GOV_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
 config.vaccineInterval = process.env.VACCINE_INTERVAL || 864e5;
+// eslint-disable-next-line camelcase
+config.therapeuticsInterval = process.env.THERAPEUTICS_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
 config.ebolaInterval = process.env.EBOLA_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
