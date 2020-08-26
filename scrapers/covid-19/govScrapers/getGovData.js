@@ -9,7 +9,7 @@ const vietnamData = require('./getVietnam');
 const newZealandData = require('./getNewZealand');
 const colombiaData = require('./getColombia');
 const southAfricaData = require('./getSouthAfrica');
-const ukData = require('./getUK');
+// const ukData = require('./getUK');
 const israelData = require('./getIsrael');
 const mexicoData = require('./getMexico');
 

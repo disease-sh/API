@@ -19,7 +19,7 @@ const countries = [
 	'Vietnam',
 	'New Zealand',
 	'Colombia',
-	'UK',
+	// 'UK',
 	'Israel',
 	'Mexico'
 ].sort();
@@ -447,26 +447,26 @@ describe('TESTING /v2/gov/south africa', () => {
 	});
 });
 
-describe('TESTING /v2/gov/UK', () => {
-	it('/v2/gov/UK correct fields set', (done) => {
-		chai.request(app)
-			.get('/v2/gov/uk')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object');
-				const latest = Object.entries(res.body)[0][1];
-				latest.should.have.property('todayTests');
-				latest.should.have.property('tests');
-				latest.should.have.property('testCapacity');
-				latest.should.have.property('newCases');
-				latest.should.have.property('cases');
-				latest.should.have.property('hospitalized');
-				latest.should.have.property('usedVentilationBeds');
-				latest.should.have.property('newAdmissions');
-				latest.should.have.property('admissions');
-				done();
-			});
-	});
-});
+// describe('TESTING /v2/gov/UK', () => {
+// 	it('/v2/gov/UK correct fields set', (done) => {
+// 		chai.request(app)
+// 			.get('/v2/gov/uk')
+// 			.end((err, res) => {
+// 				testBasicProperties(err, res, 200, 'object');
+// 				const latest = Object.entries(res.body)[0][1];
+// 				latest.should.have.property('todayTests');
+// 				latest.should.have.property('tests');
+// 				latest.should.have.property('testCapacity');
+// 				latest.should.have.property('newCases');
+// 				latest.should.have.property('cases');
+// 				latest.should.have.property('hospitalized');
+// 				latest.should.have.property('usedVentilationBeds');
+// 				latest.should.have.property('newAdmissions');
+// 				latest.should.have.property('admissions');
+// 				done();
+// 			});
+// 	});
+// });
 
 describe('TESTING /v2/gov/Israel', () => {
 	it('/v2/gov/Israel correct fields set', (done) => {
