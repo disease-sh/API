@@ -25,12 +25,9 @@ const govData = async (keys, redis) => {
 		const data = {};
 		const _resolveData = async (obj) => {
 			const { country, fn } = obj;
+			console.log('beginning scraping:', country);
 			const countryData = await fn();
-			// If no data is returned, serve stale data instead of an error
-			// if (countryData === null) {
-			// 	const redisGovData = JSON.parse(await redis.get(keys.gov_countries));
-			// 	countryData = redisGovData[country];
-			// }
+			console.log('finished scraping:', country);
 			data[country] = countryData;
 		};
 		await Promise.all([
@@ -45,7 +42,7 @@ const govData = async (keys, redis) => {
 			{ country: 'Vietnam', fn: vietnamData },
 			{ country: 'New Zealand', fn: newZealandData },
 			{ country: 'Colombia', fn: colombiaData },
-			{ country: 'UK', fn: ukData },
+			// { country: 'UK', fn: ukData },
 			{ country: 'Israel', fn: israelData },
 			{ country: 'Mexico', fn: mexicoData }
 		].map(_resolveData));

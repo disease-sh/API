@@ -12,7 +12,7 @@ executeScraperTherapeutics();
 // Update Worldometer and Johns Hopkins data every 10 minutes
 setInterval(executeScraper, config.worldometersInterval);
 // Update NYT data every hour
-setInterval(executeScraperNYTData, config.nytInterval);
+setInterval(executeScraperNYTData, 60000);
 // Update Apple data every  24 hours
 setInterval(excecuteScraperAppleData, config.appleInterval);
 // Update Government data every  24 hours
