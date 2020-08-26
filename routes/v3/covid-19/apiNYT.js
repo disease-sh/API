@@ -32,7 +32,7 @@ router.get('/v3/covid-19/nyt/counties/:county', async (req, res) => {
 		const countyData = data.filter(({ county }) => countyArr.includes(county.toLowerCase()));
 		// eslint-disable-next-line no-unused-expressions
 		countyData.length > 0
-			? res.send({ updated: Date.now(), data: countyData })
+			? res.send(countyData)
 			: res.status(404).send({ message: 'County not found or no data found for county' });
 	} else {
 		res.send(data);

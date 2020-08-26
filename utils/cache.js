@@ -18,7 +18,6 @@ exports.currentStatus = {
  * @returns {Array}				The filtered historical data.
  */
 exports.nytCounties = (lastdays = 30) => {
-	console.log(lastdays);
 	if (lastdays === 'all') {
 		return this.currentStatus.nytCounties;
 	} else {
