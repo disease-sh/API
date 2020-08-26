@@ -2,7 +2,7 @@ const axios = require('axios');
 const csv = require('csvtojson');
 const logger = require('../../utils/logger');
 const nameUtils = require('../../utils/nameUtils');
-const { updateAppleCache } = require('../../utils/cache');
+// const { updateAppleCache } = require('../../utils/cache');
 
 const GITHUB_URL = 'https://raw.githubusercontent.com/ActiveConclusion/COVID19_mobility/master/apple_reports/apple_mobility_report.csv';
 
@@ -42,7 +42,7 @@ const appleData = async (keys, redis) => {
 
 		await _resolveData(GITHUB_URL);
 		logger.info('Apple Data successfully retrieved');
-		await updateAppleCache();
+		// await updateAppleCache();
 	} catch (err) {
 		logger.err('Error: Requesting Apple data failed!', err);
 	}

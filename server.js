@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
 const { config, port, redis, scraper, keys } = require('./routes/instances');
-const { updateNYTCache, updateAppleCache } = require('./utils/cache');
+// const { updateNYTCache, updateAppleCache } = require('./utils/cache');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 
@@ -99,7 +99,7 @@ app.use(require('./routes/v3/influenza/apiInfluenza'));
 
 app.listen(port, () => logger.info(`Your app is listening on port ${port}`));
 
-updateNYTCache();
-updateAppleCache();
+// updateNYTCache();
+// updateAppleCache();
 
 module.exports = app;

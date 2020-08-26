@@ -1,7 +1,7 @@
 const axios = require('axios');
 const csv = require('csvtojson');
 const logger = require('../../utils/logger');
-const { updateNYTCache } = require('../../utils/cache');
+// const { updateNYTCache } = require('../../utils/cache');
 
 const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master';
 const US_COUNTY_DATA_URL = `${GITHUB_BASE_URL}/us-counties.csv`;
@@ -27,8 +27,8 @@ const nytData = async (keys, redis) => {
 			US_STATE_DATA_URL,
 			US_NATION_WIDE_DATA_URL
 		].map(_resolveData));
-		logger.info('NYT Data successfully retrieved');
-		await updateNYTCache();
+		logger.info('NYT Data successfully retrieved and cache updated');
+		// await updateNYTCache();
 	} catch (err) {
 		logger.err('Error: Requesting NYT data failed!', err);
 	}
