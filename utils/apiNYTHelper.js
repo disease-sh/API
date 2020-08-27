@@ -42,7 +42,7 @@ const fetchNYTCache = async (key, redis) => {
 	return parsedData;
 };
 
-moudle.exports = {
+module.exports = {
 	nytCounties,
 	nytStates,
 	nytNationwide
