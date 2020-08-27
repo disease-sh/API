@@ -75,4 +75,4 @@ const checkOutOfDate = async () => {
 	}
 };
 
-module.exports = checkOutOfDate;
+checkOutOfDate();
