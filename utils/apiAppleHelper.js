@@ -4,9 +4,7 @@ Helper file for the Apple Endpoints
 
 const logger = require('./logger');
 
-const appleData = async (redis, keys) => await fetchAppleData(redis, keys);
-
-const fetchAppleData = async (redis, keys) => {
+const appleData = async (redis, keys) => {
 	var parsedAppleData = '';
 	try {
 		parsedAppleData = JSON.parse(await redis.get(keys.apple_all));
@@ -24,6 +22,4 @@ const fetchAppleData = async (redis, keys) => {
 	return parsedAppleData;
 };
 
-module.exports = {
-	appleData
-};
+module.exports = appleData;
