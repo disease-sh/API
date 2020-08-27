@@ -1,7 +1,3 @@
-/*
-Helper file for the NYT Endpoints
-*/
-
 const logger = require('./logger');
 
 const calculatePriorDate = (lastDays) => {
@@ -11,7 +7,7 @@ const calculatePriorDate = (lastDays) => {
 };
 
 // Series of get calls to retrieve current state of redis cache
-exports.nytCounties = async (lastdays = 30, key, redis) => {
+const nytCounties = async (lastdays = 30, key, redis) => {
 	const nytdata = await fetchNYTCache(key, redis);
 	if (lastdays === 'all') {
 		return nytdata;
@@ -21,7 +17,7 @@ exports.nytCounties = async (lastdays = 30, key, redis) => {
 	}
 };
 
-exports.nytStates = async (lastdays = 30, key, redis) => {
+const nytStates = async (lastdays = 30, key, redis) => {
 	const nytdata = await fetchNYTCache(key, redis);
 	if (lastdays === 'all') {
 		return nytdata;
@@ -31,7 +27,7 @@ exports.nytStates = async (lastdays = 30, key, redis) => {
 	}
 };
 
-exports.nytNationwide = async (key, redis) => await fetchNYTCache(key, redis);
+const nytNationwide = async (key, redis) => await fetchNYTCache(key, redis);
 
 const fetchNYTCache = async (key, redis) => {
 	var parsedData = '';
@@ -44,4 +40,10 @@ const fetchNYTCache = async (key, redis) => {
 		logger.err('NYT redis fetch failed', err);
 	}
 	return parsedData;
+};
+
+moudle.exports = {
+	nytCounties,
+	nytStates,
+	nytNationwide
 };
