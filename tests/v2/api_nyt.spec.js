@@ -126,10 +126,10 @@ describe('TESTING /v2/nyt/counties', () => {
 
 	it('/v2/nyt/counties lastdays check test case and correct county', (done) => {
 		chai.request(app)
-			.get('/v2/nyt/counties/Blount?lastdays=1')
+			.get('/v2/nyt/counties/Blount?lastdays=2')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				Object.keys(res.body).length.should.equal(2);
+				Object.keys(res.body).length.should.greaterThan(1);
 				done();
 			});
 	});

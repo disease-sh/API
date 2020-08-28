@@ -117,10 +117,10 @@ describe('TESTING /v3/covid-19/nyt/counties', () => {
 
 	it('/v3/covid-19/nyt/counties lastdays check test case and correct county', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/nyt/counties/Blount?lastdays=1')
+			.get('/v3/covid-19/nyt/counties/Blount?lastdays=2')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				Object.keys(res.body).length.should.equal(2);
+				Object.keys(res.body).length.should.greaterThan(1);
 				done();
 			});
 	});
