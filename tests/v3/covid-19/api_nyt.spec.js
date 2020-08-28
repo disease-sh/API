@@ -16,6 +16,28 @@ describe('TESTING /v3/covid-19/nyt/states', () => {
 			});
 	});
 
+	it('/v3/covid-19/nyt/states lastdays check test case', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/nyt/states?lastdays=2')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				Object.keys(res.body).length.should.greaterThan(50);
+				Object.keys(res.body).length.should.lessThan(120);
+				done();
+			});
+	});
+
+	it('/v3/covid-19/nyt/states lastdays check test case and correct state', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/nyt/states/Washington?lastdays=2')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				Object.keys(res.body).length.should.greaterThan(0);
+				Object.keys(res.body).length.should.lessThan(3);
+				done();
+			});
+	});
+
 	it('/v3/covid-19/nyt/states get correct state', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/nyt/states/California')
@@ -82,13 +104,23 @@ describe('TESTING /v3/covid-19/nyt/counties', () => {
 			});
 	});
 
-	it('/v3/covid-19/nyt/counties lastdays = 1 param', (done) => {
+	it('/v3/covid-19/nyt/counties lastdays = 2 param', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/nyt/counties?lastdays=1')
+			.get('/v3/covid-19/nyt/counties?lastdays=2')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				Object.keys(res.body).length.should.greaterThan(3000);
 				Object.keys(res.body).length.should.lessThan(10000);
+				done();
+			});
+	});
+
+	it('/v3/covid-19/nyt/counties lastdays check test case and correct county', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/nyt/counties/Blount?lastdays=2')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				Object.keys(res.body).length.should.greaterThan(1);
 				done();
 			});
 	});
