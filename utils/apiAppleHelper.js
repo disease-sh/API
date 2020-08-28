@@ -14,7 +14,6 @@ const appleData = async (redis, keys) => {
 		} else {
 			// eslint-disable-next-line no-return-assign
 			Object.keys(parsedAppleData).forEach((countryName) => parsedAppleData[countryName].data = parsedAppleData[countryName].data.map(numericalStats));
-			logger.info('Apple Data Fetched');
 		}
 	} catch (err) {
 		logger.err('Local Apple Data Fetch failed', err);

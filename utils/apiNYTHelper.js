@@ -35,7 +35,6 @@ const fetchNYTCache = async (key, redis) => {
 		parsedData = JSON.parse(await redis.get(key));
 		const numericalStats = (element) => ({ ...element, deaths: parseInt(element.deaths), cases: parseInt(element.cases), updated: Date.now() });
 		parsedData = parsedData.map(numericalStats);
-		logger.info('NYT Data Fetched');
 	} catch (err) {
 		logger.err('NYT redis fetch failed', err);
 	}
