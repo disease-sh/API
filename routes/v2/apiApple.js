@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const nameUtils = require('../../utils/nameUtils');
 const { splitQuery } = require('../../utils/stringUtils');
-const { appleData } = require('../../utils/apiAppleHelper');
+const appleData = require('../../utils/apiAppleHelper');
 const { redis, keys } = require('../../routes/instances');
 
 router.get('/v2/apple/countries/:country?', async (req, res) => {
