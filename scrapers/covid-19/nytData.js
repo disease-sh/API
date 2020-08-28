@@ -26,7 +26,7 @@ const nytData = async (keys, redis) => {
 			US_STATE_DATA_URL,
 			US_NATION_WIDE_DATA_URL
 		].map(_resolveData));
-		logger.info('NYT Data successfully retrieved and cache updated');
+		logger.info('NYT Data successfully retrieved');
 	} catch (err) {
 		logger.err('Error: Requesting NYT data failed!', err);
 	}
