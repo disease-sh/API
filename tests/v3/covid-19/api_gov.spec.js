@@ -458,26 +458,26 @@ describe('TESTING /v3/covid-19/gov/south africa', () => {
 	});
 });
 
-// describe('TESTING /v3/covid-19/gov/UK', () => {
-// 	it('/v3/covid-19/gov/UK correct fields set', (done) => {
-// 		chai.request(app)
-// 			.get('/v3/covid-19/gov/uk')
-// 			.end((err, res) => {
-// 				testBasicProperties(err, res, 200, 'object');
-// 				const latest = Object.entries(res.body)[0][1];
-// 				latest.should.have.property('todayTests');
-// 				latest.should.have.property('tests');
-// 				latest.should.have.property('testCapacity');
-// 				latest.should.have.property('newCases');
-// 				latest.should.have.property('cases');
-// 				latest.should.have.property('hospitalized');
-// 				latest.should.have.property('usedVentilationBeds');
-// 				latest.should.have.property('newAdmissions');
-// 				latest.should.have.property('admissions');
-// 				done();
-// 			});
-// 	});
-// });
+describe('TESTING /v3/covid-19/gov/UK', () => {
+	it('/v3/covid-19/gov/UK correct fields set', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/gov/uk')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				const latest = Object.entries(res.body)[0][1];
+				latest.should.have.property('todayTests');
+				latest.should.have.property('tests');
+				latest.should.have.property('testCapacity');
+				latest.should.have.property('newCases');
+				latest.should.have.property('cases');
+				latest.should.have.property('hospitalized');
+				latest.should.have.property('usedVentilationBeds');
+				latest.should.have.property('newAdmissions');
+				latest.should.have.property('admissions');
+				done();
+			});
+	});
+});
 
 describe('TESTING /v3/gov/Israel', () => {
 	it('/v3/gov/Israel correct fields set', (done) => {

@@ -9,7 +9,7 @@ const vietnamData = require('./getVietnam');
 const newZealandData = require('./getNewZealand');
 const colombiaData = require('./getColombia');
 const southAfricaData = require('./getSouthAfrica');
-// const ukData = require('./getUK');
+const ukData = require('./getUK');
 const israelData = require('./getIsrael');
 const mexicoData = require('./getMexico');
 
@@ -23,11 +23,13 @@ const logger = require('../../../utils/logger');
 const govData = async (keys, redis) => {
 	try {
 		const data = {};
+		const redisData = JSON.parse(await redis.get(keys.gov_countries));
 		const _resolveData = async (obj) => {
 			const { country, fn } = obj;
-			console.log('beginning scraping:', country);
-			const countryData = await fn();
-			console.log('finished scraping:', country);
+			let countryData = await fn();
+			if (countryData === null) {
+				countryData = redisData[country] ? redisData[country] : null;
+			}
 			data[country] = countryData;
 		};
 		await Promise.all([
@@ -42,7 +44,7 @@ const govData = async (keys, redis) => {
 			{ country: 'Vietnam', fn: vietnamData },
 			{ country: 'New Zealand', fn: newZealandData },
 			{ country: 'Colombia', fn: colombiaData },
-			// { country: 'UK', fn: ukData },
+			{ country: 'UK', fn: ukData },
 			{ country: 'Israel', fn: israelData },
 			{ country: 'Mexico', fn: mexicoData }
 		].map(_resolveData));
