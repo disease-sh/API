@@ -19,7 +19,7 @@ const countries = [
 	'Vietnam',
 	'New Zealand',
 	'Colombia',
-	// 'UK',
+	'UK',
 	'Israel',
 	'Mexico'
 ].sort();
