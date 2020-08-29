@@ -8,7 +8,7 @@ const calculatePriorDate = (lastDays) => {
 
 // Series of get calls to retrieve current state of redis cache
 const nytCounties = async (lastdays = 30, key, redis) => {
-	const nytdata = await fetchNYTCache(key, redis);
+	const nytdata = await fetchNYTCache(key, redis, lastdays);
 	if (lastdays === 'all') {
 		return nytdata;
 	} else {
@@ -29,10 +29,10 @@ const nytStates = async (lastdays = 30, key, redis) => {
 
 const nytNationwide = async (key, redis) => await fetchNYTCache(key, redis);
 
-const fetchNYTCache = async (key, redis) => {
+const fetchNYTCache = async (key, redis, lastdays) => {
 	var parsedData = '';
 	try {
-		parsedData = JSON.parse(await redis.get(key));
+		parsedData = key === 'covidapi:nyt_counties' ? JSON.parse(await redis.lindex('covidapi:nyt_counties', lastdays)) : JSON.parse(await redis.get(key));
 		const numericalStats = (element) => ({ ...element, deaths: parseInt(element.deaths), cases: parseInt(element.cases), updated: Date.now() });
 		parsedData = parsedData.map(numericalStats);
 	} catch (err) {
