@@ -27,23 +27,23 @@ const countyData = async (keys, redis, data) => {
 	const datesArr = [...dates];
 
 	// push the full data into the head of the redis list (index 0)
-	redis.lpush(keys.nyt_counties, JSON.stringify(data));
+	redis.hset(keys.nyt_counties, 'all', JSON.stringify(data));
 
 	// store the grouped data array
 	const groupedByDate = groupBy(data, 'date');
 
+	// generate a hash field for each index, where index = lastdays, and each item's data is cumulative
 	let idx = 1;
-	// generate 30 redis list items beginning at index 1, where index = lastdays, and each item's data is cumulative
 	while (idx <= 30) {
-		const buildArr = () => {
+		const buildArr = async () => {
 			const arr = [];
 			for (let i = 0; i <= idx; i++) {
 				arr.unshift(...groupedByDate[datesArr[i]]);
 			}
-			redis.rpush(keys.nyt_counties, JSON.stringify(arr));
+			redis.hset(keys.nyt_counties, idx, JSON.stringify(arr));
 			idx++;
 		};
-		buildArr();
+		await buildArr();
 	}
 	logger.info('NYT County Data Updated Successfully');
 };
