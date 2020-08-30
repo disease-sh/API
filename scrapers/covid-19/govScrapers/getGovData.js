@@ -23,14 +23,13 @@ const logger = require('../../../utils/logger');
 const govData = async (keys, redis) => {
 	try {
 		const data = {};
+		const redisData = JSON.parse(await redis.get(keys.gov_countries));
 		const _resolveData = async (obj) => {
 			const { country, fn } = obj;
-			const countryData = await fn();
-			// If no data is returned, serve stale data instead of an error
-			// if (countryData === null) {
-			// 	const redisGovData = JSON.parse(await redis.get(keys.gov_countries));
-			// 	countryData = redisGovData[country];
-			// }
+			let countryData = await fn();
+			if (countryData === null) {
+				countryData = redisData[country] ? redisData[country] : null;
+			}
 			data[country] = countryData;
 		};
 		await Promise.all([
