@@ -32,7 +32,7 @@ const nytNationwide = async (key, redis) => await fetchNYTCache(key, redis);
 const fetchNYTCache = async (key, redis, lastdays) => {
 	var parsedData = '';
 	try {
-		parsedData = key === 'covidapi:nyt_counties' ? JSON.parse(await redis.lindex('covidapi:nyt_counties', lastdays)) : JSON.parse(await redis.get(key));
+		parsedData = key === 'covidapi:nyt_counties' ? JSON.parse(await redis.hget(key, lastdays)) : JSON.parse(await redis.get(key));
 		const numericalStats = (element) => ({ ...element, deaths: parseInt(element.deaths), cases: parseInt(element.cases), updated: Date.now() });
 		parsedData = parsedData.map(numericalStats);
 	} catch (err) {
