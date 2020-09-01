@@ -47,7 +47,7 @@ router.get('/v3/covid-19/nyt/counties/:county', async (req, res) => {
 
 router.get('/v3/covid-19/nyt/usa', async (req, res) => {
 	const { lastdays } = req.query;
-	res.send(await nytNationwide(lastdays, keys.nyt_USA, redis))
+	res.send(await nytNationwide(lastdays, keys.nyt_USA, redis));
 });
 
 module.exports = router;

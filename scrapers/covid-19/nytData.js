@@ -30,9 +30,9 @@ const buildDatesArr = async (data) => {
 
 const buildCache = async (key, redis, data) => {
 	try {
-		let { datesArr, groupedByDate } = await buildDatesArr(data);
+		const { datesArr, groupedByDate } = await buildDatesArr(data);
 		// set the latest date available in a key for easy access
-		await redis.hset(key, 'latest', JSON.stringify(datesArr[0]))
+		await redis.hset(key, 'latest', JSON.stringify(datesArr[0]));
 		// push the full data into redis with field name 'data'
 		await redis.hset(key, 'data', JSON.stringify(data));
 
@@ -50,7 +50,7 @@ const buildCache = async (key, redis, data) => {
 			await inner();
 		}
 	} catch (err) {
-		logger.err(`Error building cache for key: ${key}`)
+		logger.err(`Error building cache for key: ${key}`);
 	}
 };
 
@@ -66,7 +66,7 @@ const nytData = async (keys, redis) => {
 			const { data } = await axios.get(url);
 			const parsedData = await csv().fromString(data);
 
-			await buildCache(key, redis, parsedData)
+			await buildCache(key, redis, parsedData);
 		};
 
 		await Promise.all([
