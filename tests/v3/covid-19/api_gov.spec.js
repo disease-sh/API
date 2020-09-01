@@ -344,7 +344,7 @@ describe('TESTING /v3/covid-19/gov/india', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/vietnam', () => {
+describe.skip('TESTING /v3/covid-19/gov/vietnam', () => {
 	it('/v3/covid-19/gov/vietnam correct fields set', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/vietnam')

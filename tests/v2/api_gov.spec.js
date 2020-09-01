@@ -339,7 +339,7 @@ describe('TESTING /v2/gov/india', () => {
 	});
 });
 
-describe('TESTING /v2/gov/vietnam', () => {
+describe.skip('TESTING /v2/gov/vietnam', () => {
 	it('/v2/gov/vietnam correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/vietnam')
