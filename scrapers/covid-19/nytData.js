@@ -29,24 +29,28 @@ const buildDatesArr = async (data) => {
 };
 
 const buildCache = async (key, redis, data) => {
-	let { datesArr, groupedByDate } = await buildDatesArr(data);
-	// set the latest date available in a key for easy access
-	await redis.hset(key, 'latest', JSON.stringify(datesArr[0]))
-	// push the full data into redis with field name 'data'
-	await redis.hset(key, 'data', JSON.stringify(data));
+	try {
+		let { datesArr, groupedByDate } = await buildDatesArr(data);
+		// set the latest date available in a key for easy access
+		await redis.hset(key, 'latest', JSON.stringify(datesArr[0]))
+		// push the full data into redis with field name 'data'
+		await redis.hset(key, 'data', JSON.stringify(data));
 
-	// generate a hash field for each index, where index = lastdays, and each field's data is cumulative
-	let idx = 1;
-	while (idx <= DAYS_TO_CACHE) {
-		const inner = async () => {
-			const cumulativeData = [];
-			for (let i = 0; i < idx; i++) {
-				cumulativeData.unshift(...groupedByDate[datesArr[i]]);
-			}
-			await redis.hset(key, idx, JSON.stringify(cumulativeData));
-			idx++;
-		};
-		await inner();
+		// generate a hash field for each index, where index = lastdays, and each field's data is cumulative
+		let idx = 1;
+		while (idx <= DAYS_TO_CACHE) {
+			const inner = async () => {
+				const cumulativeData = [];
+				for (let i = 0; i < idx; i++) {
+					cumulativeData.unshift(...groupedByDate[datesArr[i]]);
+				}
+				await redis.hset(key, idx, JSON.stringify(cumulativeData));
+				idx++;
+			};
+			await inner();
+		}
+	} catch (err) {
+		logger.err(`Error building cache for key: ${key}`)
 	}
 };
 
