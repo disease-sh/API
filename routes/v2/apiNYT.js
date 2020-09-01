@@ -45,6 +45,9 @@ router.get('/v2/nyt/counties/:county', async (req, res) => {
 	}
 });
 
-router.get('/v2/nyt/usa', async (req, res) => res.send(await nytNationwide(keys.nyt_USA, redis)));
+router.get('/v2/nyt/usa', async (req, res) => {
+	const { lastdays } = req.query;
+	res.send(await nytNationwide(lastdays, keys.nyt_USA, redis))
+});
 
 module.exports = router;
