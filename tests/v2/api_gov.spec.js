@@ -339,7 +339,7 @@ describe('TESTING /v2/gov/india', () => {
 	});
 });
 
-describe('TESTING /v2/gov/vietnam', () => {
+describe.skip('TESTING /v2/gov/vietnam', () => {
 	it('/v2/gov/vietnam correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/vietnam')
@@ -496,7 +496,6 @@ describe('TESTING /v2/gov/Israel', () => {
 				firstCity.should.have.property('actualSick');
 				firstCity.should.have.property('verifiedLast7Days');
 				firstCity.should.have.property('testLast7Days');
-				firstCity.should.have.property('status');
 				const latest = res.body.data.timeline[0];
 				latest.should.have.property('date');
 				latest.should.have.property('newHospitalized');
