@@ -10,31 +10,11 @@ const calculatePriorDate = async (key, lastDays, dateField) => {
 };
 
 // Series of get calls to retrieve current state of redis cache
-const nytCounties = async (lastdays = 30, key) => {
-	const nytdata = await fetchNYTCache(key, lastdays);
-	if (lastdays === 'all') {
-		return nytdata;
-	} else {
-		const priorDate = await calculatePriorDate(key, lastdays, 'latest');
-		return await redis.hexists(key, lastdays)
-			? nytdata
-			: nytdata.filter((data) => data.date >= priorDate);
-	}
-};
+const nytCounties = async (lastdays = 30, key) => await controller(lastdays, key);
+const nytStates = async (lastdays = 30, key) => await controller(lastdays, key);
+const nytNationwide = async (lastdays = 'data', key) => await controller(lastdays, key);
 
-const nytStates = async (lastdays = 30, key) => {
-	const nytdata = await fetchNYTCache(key, lastdays);
-	if (lastdays === 'all') {
-		return nytdata;
-	} else {
-		const priorDate = await calculatePriorDate(key, lastdays, 'latest');
-		return await redis.hexists(key, lastdays)
-			? nytdata
-			: nytdata.filter((data) => data.date >= priorDate);
-	}
-};
-
-const nytNationwide = async (lastdays = 'data', key) => {
+const controller = async (lastdays, key) => {
 	const nytdata = await fetchNYTCache(key, lastdays);
 	if (lastdays === 'all') {
 		return nytdata;
