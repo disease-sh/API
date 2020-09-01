@@ -344,7 +344,7 @@ describe('TESTING /v3/covid-19/gov/india', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/vietnam', () => {
+describe.skip('TESTING /v3/covid-19/gov/vietnam', () => {
 	it('/v3/covid-19/gov/vietnam correct fields set', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/vietnam')
@@ -507,7 +507,6 @@ describe('TESTING /v3/gov/Israel', () => {
 				firstCity.should.have.property('actualSick');
 				firstCity.should.have.property('verifiedLast7Days');
 				firstCity.should.have.property('testLast7Days');
-				firstCity.should.have.property('status');
 				const latest = res.body.data.timeline[0];
 				latest.should.have.property('date');
 				latest.should.have.property('newHospitalized');
