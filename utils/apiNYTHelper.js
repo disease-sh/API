@@ -13,7 +13,9 @@ const nytCounties = async (lastdays = 30, key, redis) => {
 		return nytdata;
 	} else {
 		const priorDate = calculatePriorDate(lastdays);
-		return nytdata.filter((data) => data.date >= priorDate);
+		return await redis.hexists(key, lastdays)
+			? nytdata
+			: nytdata.filter((data) => data.date >= priorDate)
 	}
 };
 
@@ -32,7 +34,13 @@ const nytNationwide = async (key, redis) => await fetchNYTCache(key, redis);
 const fetchNYTCache = async (key, redis, lastdays) => {
 	var parsedData = '';
 	try {
-		parsedData = key === 'covidapi:nyt_counties' ? JSON.parse(await redis.hget(key, lastdays)) : JSON.parse(await redis.get(key));
+		if (key === 'covidapi:nyt_counties') {
+			(await redis.hexists(key, lastdays))
+				? parsedData = JSON.parse(await redis.hget(key, lastdays))
+				: parsedData = JSON.parse(await redis.hget(key, 'all'));
+		} else {
+			parsedData = JSON.parse(await redis.get(key));
+		}
 		const numericalStats = (element) => ({ ...element, deaths: parseInt(element.deaths), cases: parseInt(element.cases), updated: Date.now() });
 		parsedData = parsedData.map(numericalStats);
 	} catch (err) {
