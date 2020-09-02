@@ -14,19 +14,12 @@ const groupBy = async (arr, property) => arr.reduce((memo, el) => {
 	return memo;
 }, {});
 
-const buildDatesArr = async (data) => {
-	// Set used to get only unique dates in the data array
-	const dates = new Set();
-	// store the length so it's only calculated once
-	const dataLength = data.length;
-	// populate Set with the data array in reverse order
-	for (let i = dataLength - 1; i >= 0; i--) { dates.add(data[i].date); }
-	// transform set back into an array for easier iteration
-	const datesArr = [...dates];
+const buildDatesArr = async (data) => ({
+	// populate a Set with the data array to get only unique dates, in reverse chronological order
+	datesArr: [...new Set(data.map((_, index, arr) => arr[arr.length - 1 - index].date))],
 	// store the grouped data array
-	const groupedByDate = await groupBy(data, 'date');
-	return { datesArr, groupedByDate };
-};
+	groupedByDate: await groupBy(data, 'date')
+});
 
 const buildCache = async (key, redis, data) => {
 	const { datesArr, groupedByDate } = await buildDatesArr(data);
@@ -56,8 +49,7 @@ const buildCache = async (key, redis, data) => {
  */
 const nytData = async (keys, redis) => {
 	try {
-		const _resolveData = async (obj) => {
-			const { url, key } = obj;
+		const _resolveData = async ({ url, key }) => {
 			const { data } = await axios.get(url);
 			const parsedData = await csv().fromString(data);
 
