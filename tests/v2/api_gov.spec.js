@@ -16,7 +16,6 @@ const countries = [
 	'Switzerland',
 	'Nigeria',
 	'India',
-	'Vietnam',
 	'New Zealand',
 	'Colombia',
 	'UK',
@@ -333,26 +332,6 @@ describe('TESTING /v2/gov/india', () => {
 					state.should.have.property('todayRecovered');
 					state.should.have.property('todayDeaths');
 					state.should.have.property('todayCases');
-				});
-				done();
-			});
-	});
-});
-
-describe.skip('TESTING /v2/gov/vietnam', () => {
-	it('/v2/gov/vietnam correct fields set', (done) => {
-		chai.request(app)
-			.get('/v2/gov/vietnam')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.be.at.least(1);
-				res.body.forEach((element) => {
-					element.should.have.property('updated');
-					element.should.have.property('city');
-					element.should.have.property('cases');
-					element.should.have.property('beingTreated');
-					element.should.have.property('recovered');
-					element.should.have.property('deaths');
 				});
 				done();
 			});
