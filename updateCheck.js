@@ -73,6 +73,7 @@ const checkOutOfDate = async () => {
 			}
 		}
 	}
+	process.exit();
 };
 
 checkOutOfDate();
