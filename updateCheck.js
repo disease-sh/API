@@ -4,14 +4,16 @@ const axios = require('axios'),
 
 const now = new Date(),
 	rangeExtension = 1.5,
+      	worldometersRange = 2,
 	jhuRange = 1000 * 60 * 60 * 24 * rangeExtension;
 
 const endpoints = {
 	'covid-19': {
-		all: (data) => data.updated && now - new Date(data.updated) > config.worldometersInterval * rangeExtension,
-		countries: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * rangeExtension,
-		continents: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * rangeExtension,
-		states: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * rangeExtension,
+		// 20 minutes
+		all: (data) => data.updated && now - new Date(data.updated) > config.worldometersInterval * worldometersRange,
+		countries: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * worldometersRange,
+		continents: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * worldometersRange,
+		states: (data) => data[0].updated && now - new Date(data[0].updated) > config.worldometersInterval * worldometersRange,
 		// 1.5 days
 		jhucsse: (data) => data[0].updated && now - new Date(data[0].updatedAt) > jhuRange,
 		// 1.5 days
