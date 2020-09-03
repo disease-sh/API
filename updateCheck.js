@@ -28,7 +28,6 @@ const endpoints = {
 		'gov/israel': (data) => data.updated && now - new Date(data.updated) > config.govInterval * rangeExtension,
 		'gov/new%20zealand': (data) => data.updated && now - new Date(data.updated) > config.govInterval * rangeExtension,
 		'gov/austria': (data) => data.updated && now - new Date(data.updated) > config.govInterval * rangeExtension,
-		'gov/vietnam': (data) => data[0].updated && now - new Date(data[0].updated) > config.govInterval * rangeExtension,
 		'gov/mexico': (data) => data.updated && now - new Date(data.updated) > config.govInterval * rangeExtension,
 		'gov/colombia': (data) => data.updated && now - new Date(data.updated) > config.govInterval * rangeExtension
 	},
