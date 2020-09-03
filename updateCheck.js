@@ -4,7 +4,7 @@ const axios = require('axios'),
 
 const now = new Date(),
 	rangeExtension = 1.5,
-      	worldometersRange = 2,
+	worldometersRange = 2,
 	jhuRange = 1000 * 60 * 60 * 24 * rangeExtension;
 
 const endpoints = {
