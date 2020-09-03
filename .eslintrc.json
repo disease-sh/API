@@ -5,5 +5,13 @@
 	"globals": {
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
+	},
+	"rules": {
+		"no-unused-expressions": [
+			1,
+			{
+				"allowTernary": true
+			}
+		]
 	}
 }
