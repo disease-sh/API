@@ -23,7 +23,7 @@ config.redis.password = process.env.REDIS_PASSWORD || '';
 // SCRAPER INTERVALS
 config.worldometersInterval = process.env.INTERVAL || 6e5;
 // eslint-disable-next-line camelcase
-config.nytInterval = process.env.NYT_INTERVAL || 864e5;
+config.nytInterval = process.env.NYT_INTERVAL || 2.16e+7;
 // eslint-disable-next-line camelcase
 config.appleInterval = process.env.APPLE_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase

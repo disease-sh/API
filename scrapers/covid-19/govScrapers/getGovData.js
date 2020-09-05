@@ -5,7 +5,6 @@ const austriaData = require('./getAustria');
 const switzerlandData = require('./getSwitzerland');
 const nigeriaData = require('./getNigeria');
 const indiaData = require('./getIndia');
-const vietnamData = require('./getVietnam');
 const newZealandData = require('./getNewZealand');
 const colombiaData = require('./getColombia');
 const southAfricaData = require('./getSouthAfrica');
@@ -41,7 +40,6 @@ const govData = async (keys, redis) => {
 			{ country: 'Switzerland', fn: switzerlandData },
 			{ country: 'Nigeria', fn: nigeriaData },
 			{ country: 'India', fn: indiaData },
-			{ country: 'Vietnam', fn: vietnamData },
 			{ country: 'New Zealand', fn: newZealandData },
 			{ country: 'Colombia', fn: colombiaData },
 			{ country: 'UK', fn: ukData },
