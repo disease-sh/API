@@ -30,7 +30,7 @@ const getVaccineData = async (keys, redis) => {
 		const date = html(`.small:first-of-type`).text().split(' ').slice(1, 4);
 		[day, month, year] = date;
 	} catch (err) {
-		logger.err('Error: Requesting vaccine data failed!456', err);
+		logger.err('Error: Requesting vaccine data failed!', err);
 	}
 	try {
 		const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${day}-vax-tracker-craven.csv`);
@@ -42,7 +42,7 @@ const getVaccineData = async (keys, redis) => {
 			data: cleanData(parsedData)
 		}));
 	} catch (err) {
-		logger.err('Error: Requesting vaccine data failed!123', err);
+		logger.err('Error: Requesting vaccine CSV data failed!', err);
 	}
 };
 

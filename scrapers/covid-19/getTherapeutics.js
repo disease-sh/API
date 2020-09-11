@@ -31,7 +31,7 @@ const getTherapeuticsData = async (keys, redis) => {
 		const date = html(`.small:first-of-type`).text().split(' ').slice(1, 4);
 		[day, month, year] = date;
 	} catch (err) {
-		logger.err('Error: Requesting therapeutics data failed!456', err);
+		logger.err('Error: Requesting therapeutics data failed!', err);
 	}
 	try {
 		const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${day}-tx-tracker-chart-Craven.csv`);
@@ -43,7 +43,7 @@ const getTherapeuticsData = async (keys, redis) => {
 			data: cleanData(parsedData)
 		}));
 	} catch (err) {
-		logger.err('Error: Requesting therapeutics data failed!123', err);
+		logger.err('Error: Requesting therapeutics CSV data failed!', err);
 	}
 };
 
