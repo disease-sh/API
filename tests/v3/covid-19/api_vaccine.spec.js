@@ -34,7 +34,6 @@ describe('TESTING /v3/covid-19/vaccine', () => {
 					element.should.have.property('details');
 					element.should.have.property('trialPhase');
 					element.should.have.property('institutions');
-					element.should.have.property('funding');
 				});
 				done();
 			});
