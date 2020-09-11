@@ -12,7 +12,7 @@ const cleanData = (data) => {
 		candidate: trial.Candidate,
 		mechanism: trial.Mechanism,
 		sponsors: listify(trial.Sponsor),
-		details: trial['Details'].replace(htmlRegex, ''),
+		details: trial.Details.replace(htmlRegex, ''),
 		trialPhase: trial['Trial Phase'],
 		institutions: listify(trial.Institution)
 	}));
