@@ -11,10 +11,10 @@ const cleanData = (data) => {
 	return data.map((trial) => ({
 		candidate: trial.Candidate,
 		sponsors: listify(trial.Sponsor),
-		details: trial['Study Design & Details'].replace(htmlRegex, ''),
+		details: trial.Details.replace(htmlRegex, ''),
 		trialPhase: trial['Trial Phase'],
 		institutions: listify(trial.Institution),
-		funding: listify(trial.Funding)
+		funding: listify(trial.Mechanism)
 	}));
 };
 
@@ -33,6 +33,7 @@ const getVaccineData = async (keys, redis) => {
 		logger.err('Error: Requesting vaccine data failed!', err);
 	}
 	try {
+		console.log(`https://www.raps.org/RAPS/media/ne    ws-images/data/${year}${months[month]}${day}-vax-tracker-Craven.csv`);
 		const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${day}-vax-tracker-Craven.csv`);
 		const parsedData = await csv().fromString(data);
 		redis.set(keys.vaccine, JSON.stringify({
