@@ -10,6 +10,7 @@ const cleanData = (data) => {
 	const listify = (attribute) => attribute.split(separatorRegex).map((sponsor) => sponsor.replace(htmlRegex, '').trim());
 	return data.map((trial) => ({
 		candidate: trial.Candidate,
+		mechanism: trial.Mechanism,
 		sponsors: listify(trial.Sponsor),
 		details: trial.Details.replace(htmlRegex, ''),
 		trialPhase: trial['Trial Phase'],
@@ -33,8 +34,7 @@ const getVaccineData = async (keys, redis) => {
 		logger.err('Error: Requesting vaccine data failed!', err);
 	}
 	try {
-		console.log(`https://www.raps.org/RAPS/media/ne    ws-images/data/${year}${months[month]}${day}-vax-tracker-Craven.csv`);
-		const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${day}-vax-tracker-Craven.csv`);
+		const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${day}-vax-tracker-craven.csv`);
 		const parsedData = await csv().fromString(data);
 		redis.set(keys.vaccine, JSON.stringify({
 			source: 'https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker',
@@ -43,7 +43,7 @@ const getVaccineData = async (keys, redis) => {
 			data: cleanData(parsedData)
 		}));
 	} catch (err) {
-		logger.err('Error: Requesting vaccine data failed!', err);
+		logger.err('Error: Requesting vaccine CSV data failed!', err);
 	}
 };
 
