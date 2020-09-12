@@ -10,7 +10,6 @@ const cleanData = (data) => {
 	const listify = (attribute) => attribute.split(separatorRegex).map((sponsor) => sponsor.replace(htmlRegex, '').trim());
 	return data.map((trial) => ({
 		candidate: trial.Candidate,
-		mechanism: trial.Mechanism,
 		sponsors: listify(trial.Sponsor),
 		details: trial.Details.replace(htmlRegex, ''),
 		trialPhase: trial['Trial Phase'],
