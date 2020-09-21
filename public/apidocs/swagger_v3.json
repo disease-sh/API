@@ -2043,6 +2043,9 @@
         "candidate": {
           "type": "string"
         },
+        "mechanism": {
+          "type": "string"
+        },
         "sponsors": {
           "type": "array",
           "items": {
@@ -2056,12 +2059,6 @@
           "type": "string"
         },
         "institutions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "mechanism": {
           "type": "array",
           "items": {
             "type": "string"
