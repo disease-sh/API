@@ -17,7 +17,6 @@ const countries = [
 	'Nigeria',
 	'India',
 	'New Zealand',
-	'Colombia',
 	'UK',
 	'Israel',
 	'Mexico'
@@ -29,7 +28,7 @@ describe('TESTING /v2/gov general', () => {
 			.get('/v2/gov')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.be.at.least(1);
+				res.body.length.should.be.equal(countries.length);
 				res.body.forEach((country) => countries.should.include(country));
 				done();
 			});
@@ -367,21 +366,6 @@ describe('TESTING /v2/gov/new zealand', () => {
 					province.should.have.property('deaths');
 					province.deaths.should.be.at.least(0);
 				});
-				done();
-			});
-	});
-});
-
-describe('TESTING /v2/gov/colombia', () => {
-	it('/v2/gov/colombia correct fields set', (done) => {
-		chai.request(app)
-			.get('/v2/gov/colombia')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object');
-				res.body.should.have.property('updated');
-				res.body.should.have.property('departments');
-				res.body.should.have.property('cities');
-				res.body.departments.length.should.be.at.least(32);
 				done();
 			});
 	});
