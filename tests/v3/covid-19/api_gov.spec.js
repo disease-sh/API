@@ -19,7 +19,8 @@ const countries = [
 	'South Africa',
 	'UK',
 	'Israel',
-	'Mexico'
+	'Mexico',
+	'Vietnam'
 ];
 
 describe('TESTING /v3/covid-19/gov general', () => {
@@ -538,4 +539,19 @@ describe('TESTING /v3/covid-19/gov/mexico', () => {
 				done();
 			});
 	});
+});
+
+describe('TESTING /v3/covid-19/gov/vietnam correct fields set', (done) => {
+	chai.request(app)
+		.get('/v3/covid-19/gov/vietnam')
+		.end((err, res) => {
+			testBasicProperties(err, res, 200, 'object');
+			res.body[0].should.have.property('updated');
+			res.body[0].should.have.property('city');
+			res.body[0].should.have.property('cases');
+			res.body[0].should.have.property('beingTreated');
+			res.body[0].should.have.property('recovered');
+			res.body[0].should.have.property('deaths');
+			done();
+		});
 });
