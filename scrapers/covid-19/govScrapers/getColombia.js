@@ -1,6 +1,7 @@
 const axios = require('axios');
 const logger = require('../../../utils/logger');
 
+// THIS SCRAPER IS DEPRECATED - CODE NOT USED ANYWHERE
 const transformData = (data, cities) => {
 	const state = 13;
 	const gender = 15;
