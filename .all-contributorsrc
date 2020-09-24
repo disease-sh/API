@@ -176,6 +176,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Zentreax",
+      "name": "Zentreaxᴰᵉᵛ",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/36458019?v=4",
+      "profile": "https://zentreax.dev/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
