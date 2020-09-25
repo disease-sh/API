@@ -541,9 +541,9 @@ describe('TESTING /v3/covid-19/gov/mexico', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/vietnam correct fields set', (done) => {
+describe('TESTING /v3/covid-19/gov/vietnam', (done) => {
 	chai.request(app)
-		.get('/v3/covid-19/gov/vietnam')
+		.get('/v3/covid-19/gov/vietnam correct fields set')
 		.end((err, res) => {
 			testBasicProperties(err, res, 200, 'object');
 			res.body[0].should.have.property('updated');

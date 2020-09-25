@@ -530,7 +530,7 @@ describe('TESTING /v2/gov/mexico', () => {
 });
 
 describe('TESTING /v2/gov/vietnam', () => {
-	it('/v2/gov/mexico correct fields set', (done) => {
+	it('/v2/gov/vietnam correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/vietnam')
 			.end((err, res) => {
