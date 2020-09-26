@@ -19,7 +19,8 @@ const countries = [
 	'New Zealand',
 	'UK',
 	'Israel',
-	'Mexico'
+	'Mexico',
+	'Vietnam'
 ].sort();
 
 describe('TESTING /v2/gov general', () => {
@@ -524,6 +525,23 @@ describe('TESTING /v2/gov/mexico', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.stateData.length.should.equal(32);
+				done();
+			});
+	});
+});
+
+describe('TESTING /v2/gov/vietnam', () => {
+	it('/v2/gov/vietnam correct fields set', (done) => {
+		chai.request(app)
+			.get('/v2/gov/vietnam')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				res.body[0].should.have.property('updated');
+				res.body[0].should.have.property('city');
+				res.body[0].should.have.property('cases');
+				res.body[0].should.have.property('beingTreated');
+				res.body[0].should.have.property('recovered');
+				res.body[0].should.have.property('deaths');
 				done();
 			});
 	});
