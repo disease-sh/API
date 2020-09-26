@@ -1,9 +1,9 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const logger = require('../../../utils/logger');
+const columns = ['_', '_', '_', 'location', 'status', '_'];
 
 const mapRows = (_, row) => {
-	const columns = ['_', '_', '_', 'location', 'status'];
 	const city = {};
 	cheerio(row).children('td').each((index, cell) => {
 		cell = cheerio.load(cell);
@@ -18,20 +18,27 @@ const mapRows = (_, row) => {
 };
 
 const processRow = (json) => {
-	const city = [];
-	const cityList = [...new Set(json.map(tmp => tmp.location))];
-	cityList.forEach(ct => {
-		const check = json.filter(el => el.location === ct);
-		city.push({
-			updated: Date.now(),
-			city: ct,
-			cases: check.length,
-			beingTreated: check.filter(el => el.status === 'Đang điều trị').length,
-			recovered: check.filter(el => el.status === 'Khỏi').length,
-			deaths: check.filter(el => el.status === 'Tử vong').length
-		});
-	});
-	return city;
+	const ref = {};
+	const cityList = json.reduce((arr, cityObject) => {
+		// eslint-disable-next-line
+		if (ref.hasOwnProperty(cityObject.location))
+			arr[ref[cityObject.location]].push(cityObject);
+		else {
+			ref[cityObject.location] = arr.length;
+			arr.push([cityObject]);
+		}
+		return arr;
+	}, []);
+	const cityData = cityList.map((arr) => ({
+		updated: Date.now(),
+		city: arr[0].location,
+		cases: arr.length,
+		beingTreated: arr.filter(el => el.status === 'Đang điều trị').length,
+		recovered: arr.filter(el => el.status === 'Khỏi').length,
+		deaths: arr.filter(el => el.status === 'Tử vong').length
+	}));
+
+	return cityData;
 };
 /**
  * Scrapes Vietnam government site and fills array of data from table
