@@ -546,7 +546,7 @@ describe('TESTING /v3/covid-19/gov/vietnam', () => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/vietnam')
 			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object');
+				testBasicProperties(err, res, 200, 'array');
 				res.body[0].should.have.property('updated');
 				res.body[0].should.have.property('city');
 				res.body[0].should.have.property('cases');
