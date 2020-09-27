@@ -2,6 +2,14 @@ name: Unittest
 on:
   push:
     branches: [master, v3-update]
+    paths-ignore:
+      - '.github/ISSUE_TEMPLATE/**'
+      - 'docker-publish.yml'
+      - 'README.md'
+      - 'SECURITY.md'
+      - 'TERMS.md'
+      - 'privacy.md'
+      - 'CONTRIBUTING.md'
   pull_request:
     branches:
       - '*'
