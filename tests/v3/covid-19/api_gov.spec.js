@@ -519,6 +519,7 @@ describe('TESTING /v3/covid-19/gov/mexico', () => {
 				res.body.nationalData.todayDeaths.should.have.property('female');
 				res.body.nationalData.todayDeaths.should.have.property('total');
 				res.body.stateData[0].should.have.property('state');
+				res.body.stateData[0].should.have.property('color');
 				res.body.stateData[0].should.have.property('confirmed');
 				res.body.stateData[0].should.have.property('negative');
 				res.body.stateData[0].should.have.property('suspect');
