@@ -50,32 +50,6 @@ const formData = {
 };
 
 /**
- * Filter items by the most recent date not older than 2 days
- * @param {Object} data	An object with a "date" property
- * @returns {Array}	Array filtered by date
- */
-const filterByDate = (data) => {
-	const date = new Date();
-	const decrementDate = () => date.setDate(date.getDate() - 1);
-	const filter = () => data.filter(item => item.date === `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
-	let filteredData = filter();
-
-	try {
-		let idx = 0;
-		while (!filteredData.length && idx < 2) {
-			idx++;
-			decrementDate();
-			filteredData = filter();
-		}
-		// return filteredData, or throw to force execution into the catch block
-		return filteredData.length ? filteredData : (() => { throw new Error('Unable to obtain data within date range'); })();
-	} catch (err) {
-		logger.err('filterByDate has failed', err);
-		return null;
-	}
-};
-
-/**
  * Gets the numerical value of an DOM node's innerHTML
  * @param {string} res A response body string
  * @param {string} 	identifier A unique class or ID whose innerHTML value to grab
@@ -88,7 +62,7 @@ const getInnerHTML = (res, identifier) => parseInt(res.substring(res.indexOf(ide
  * @param	{string} res	The response body string to extract data from
  * @returns {Object}	National data for Mexico
  */
-const getNationalToday = (res) => filterByDate(JSON.parse(res.substring(res.lastIndexOf('['), res.lastIndexOf(']') + 1)))[0];
+const getNationalToday = (res) => JSON.parse(res.substring(res.lastIndexOf('['), res.lastIndexOf(']') + 1)).pop();
 
 /**
  * Creates and returns an object containing data for each tracked Mexican state
@@ -119,8 +93,23 @@ const getNationalCaseData = (res) => ({
 	deathsAccumulated: getInnerHTML(res, 'gsDefDIV')
 });
 
+/**
+ * @param {string} res The response body string to extract data from
+ * @returns {Array} [{ state: color }, ...] Array of objects describing the traffic light for each state
+ */
+const getTrafficLight = (res) => {
+	const stateColors = {};
+	stateIDs.forEach(state => {
+		const target = `NColors['${state.id}']`;
+		const color = res.substring(res.indexOf(target), res.indexOf(target) + 25).split("'")[3];
+		stateColors[state.state] = color;
+	});
+	return stateColors;
+};
+
 const mexicoData = async () => {
 	const SOURCE_URL = 'https://coronavirus.gob.mx/datos/Overview/info/getInfo.php';
+	const TRAFFICLIGHT_URL = 'https://coronavirus.gob.mx/datos/#SemaFE';
 
 	try {
 		const nationalCasesToday = getNationalToday((await axios.post(SOURCE_URL, formData.nationalCasesToday)).data);
@@ -135,10 +124,12 @@ const mexicoData = async () => {
 			recovered,
 			casesAccumulated,
 			deathsAccumulated } = getNationalCaseData((await axios.post(SOURCE_URL, formData.nationalCaseData)).data);
+		const trafficLight = getTrafficLight((await axios.get(TRAFFICLIGHT_URL)).data);
 
 		// merge the State objects together for a cleaner response body
 		const stateData = stateIDs.map(state => ({
 			state: state.state,
+			color: trafficLight[state.state],
 			confirmed: stateCases[state.state],
 			negative: stateNegatives[state.state],
 			suspect: stateSuspects[state.state],
