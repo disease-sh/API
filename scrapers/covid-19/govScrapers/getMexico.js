@@ -50,32 +50,6 @@ const formData = {
 };
 
 /**
- * Filter items by the most recent date not older than 2 days
- * @param {Object} data	An object with a "date" property
- * @returns {Array}	Array filtered by date
- */
-const filterByDate = (data) => {
-	const date = new Date();
-	const decrementDate = () => date.setDate(date.getDate() - 1);
-	const filter = () => data.filter(item => item.date === `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
-	let filteredData = filter();
-
-	try {
-		let idx = 0;
-		while (!filteredData.length && idx < 2) {
-			idx++;
-			decrementDate();
-			filteredData = filter();
-		}
-		// return filteredData, or throw to force execution into the catch block
-		return filteredData.length ? filteredData : (() => { throw new Error('Unable to obtain data within date range'); })();
-	} catch (err) {
-		logger.err('filterByDate has failed', err);
-		return null;
-	}
-};
-
-/**
  * Gets the numerical value of an DOM node's innerHTML
  * @param {string} res A response body string
  * @param {string} 	identifier A unique class or ID whose innerHTML value to grab
@@ -88,7 +62,7 @@ const getInnerHTML = (res, identifier) => parseInt(res.substring(res.indexOf(ide
  * @param	{string} res	The response body string to extract data from
  * @returns {Object}	National data for Mexico
  */
-const getNationalToday = (res) => filterByDate(JSON.parse(res.substring(res.lastIndexOf('['), res.lastIndexOf(']') + 1)))[0];
+const getNationalToday = (res) => JSON.parse(res.substring(res.lastIndexOf('['), res.lastIndexOf(']') + 1)).pop();
 
 /**
  * Creates and returns an object containing data for each tracked Mexican state
