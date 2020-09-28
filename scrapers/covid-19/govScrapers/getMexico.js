@@ -119,8 +119,23 @@ const getNationalCaseData = (res) => ({
 	deathsAccumulated: getInnerHTML(res, 'gsDefDIV')
 });
 
+/**
+ * @param {string} res The response body string to extract data from
+ * @returns {Array} [{ state: color }, ...] Array of objects describing the traffic light for each state
+ */
+const getTrafficLight = (res) => {
+	const stateColors = {};
+	stateIDs.forEach(state => {
+		const target = `NColors['${state.id}']`;
+		const color = res.substring(res.indexOf(target), res.indexOf(target) + 25).split("'")[3];
+		stateColors[state.state] = color;
+	});
+	return stateColors;
+};
+
 const mexicoData = async () => {
 	const SOURCE_URL = 'https://coronavirus.gob.mx/datos/Overview/info/getInfo.php';
+	const TRAFFICLIGHT_URL = 'https://coronavirus.gob.mx/datos/#SemaFE';
 
 	try {
 		const nationalCasesToday = getNationalToday((await axios.post(SOURCE_URL, formData.nationalCasesToday)).data);
@@ -135,10 +150,12 @@ const mexicoData = async () => {
 			recovered,
 			casesAccumulated,
 			deathsAccumulated } = getNationalCaseData((await axios.post(SOURCE_URL, formData.nationalCaseData)).data);
+		const trafficLight = getTrafficLight((await axios.get(TRAFFICLIGHT_URL)).data);
 
 		// merge the State objects together for a cleaner response body
 		const stateData = stateIDs.map(state => ({
 			state: state.state,
+			color: trafficLight[state.state],
 			confirmed: stateCases[state.state],
 			negative: stateNegatives[state.state],
 			suspect: stateSuspects[state.state],
