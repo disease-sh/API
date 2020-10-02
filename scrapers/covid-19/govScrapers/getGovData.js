@@ -44,10 +44,6 @@ const govData = async (keys, redis) => {
 			{ country: 'Nigeria', fn: nigeriaData },
 			{ country: 'India', fn: indiaData },
 			{ country: 'New Zealand', fn: newZealandData },
-<<<<<<< HEAD
-			//{ country: 'Colombia', fn: colombiaData },
-=======
->>>>>>> cc24d5114171a94e3c9e63b03eba53e26fe168a9
 			{ country: 'UK', fn: ukData },
 			{ country: 'Israel', fn: israelData },
 			{ country: 'Mexico', fn: mexicoData },
