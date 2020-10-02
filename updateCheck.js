@@ -10,25 +10,25 @@ const now = new Date(),
 const endpoints = {
 	'covid-19': {
 		// 20 minutes
-		all: (data) => data.updated && now - new Date(data.updated) - config.worldometersInterval * worldometersRange,
-		countries: (data) => data[0].updated && now - new Date(data[0].updated) - config.worldometersInterval * worldometersRange,
-		continents: (data) => data[0].updated && now - new Date(data[0].updated) - config.worldometersInterval * worldometersRange,
-		states: (data) => data[0].updated && now - new Date(data[0].updated) - config.worldometersInterval * worldometersRange,
+		all: (data) => data.updated && now - new Date(data.updated) - (config.worldometersInterval * worldometersRange),
+		countries: (data) => data[0].updated && now - new Date(data[0].updated) - (config.worldometersInterval * worldometersRange),
+		continents: (data) => data[0].updated && now - new Date(data[0].updated) - (config.worldometersInterval * worldometersRange),
+		states: (data) => data[0].updated && now - new Date(data[0].updated) - (config.worldometersInterval * worldometersRange),
 		// 1.5 days
 		jhucsse: (data) => data[0].updated && now - new Date(data[0].updatedAt) - jhuRange,
 		// 1.5 days
 		'jhucsse/counties': (data) => data[0].updated && now - new Date(data[0].updatedAt) - jhuRange,
-		'gov/italy': (data) => data[0].updated && now - new Date(data[0].updated) - config.govInterval * rangeExtension,
-		'gov/south%20africa': (data) => data.updated && now - new Date(data.updated) - config.govInterval * rangeExtension,
-		'gov/switzerland': (data) => data[0].updated && now - new Date(data[0].updated) - config.govInterval * rangeExtension,
-		'gov/germany': (data) => data[0].updated && now - new Date(data[0].updated) - config.govInterval * rangeExtension,
-		'gov/nigeria': (data) => data[0].updated && now - new Date(data[0].updated) - config.govInterval * rangeExtension,
-		'gov/canada': (data) => data[0].updated && now - new Date(data[0].updated) - config.govInterval * rangeExtension,
-		'gov/india': (data) => data.updated && now - new Date(data.updated) - config.govInterval * rangeExtension,
-		'gov/israel': (data) => data.updated && now - new Date(data.updated) - config.govInterval * rangeExtension,
-		'gov/new%20zealand': (data) => data.updated && now - new Date(data.updated) - config.govInterval * rangeExtension,
-		'gov/austria': (data) => data.updated && now - new Date(data.updated) - config.govInterval * rangeExtension,
-		'gov/mexico': (data) => data.updated && now - new Date(data.updated) - config.govInterval * rangeExtension
+		'gov/italy': (data) => data[0].updated && now - new Date(data[0].updated) - (config.govInterval * rangeExtension),
+		'gov/south%20africa': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
+		'gov/switzerland': (data) => data[0].updated && now - new Date(data[0].updated) - (config.govInterval * rangeExtension),
+		'gov/germany': (data) => data[0].updated && now - new Date(data[0].updated) - (config.govInterval * rangeExtension),
+		'gov/nigeria': (data) => data[0].updated && now - new Date(data[0].updated) - (config.govInterval * rangeExtension),
+		'gov/canada': (data) => data[0].updated && now - new Date(data[0].updated) - (config.govInterval * rangeExtension),
+		'gov/india': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
+		'gov/israel': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
+		'gov/new%20zealand': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
+		'gov/austria': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
+		'gov/mexico': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension)
 	},
 	influenza: []
 };
