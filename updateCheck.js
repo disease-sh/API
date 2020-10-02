@@ -27,7 +27,7 @@ const endpoints = {
 		'gov/india': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
 		'gov/israel': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
 		'gov/new%20zealand': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
-		'gov/austria': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
+		'gov/austria': (data) => data.updated && (now - new Date(data.updated)) - (config.govInterval * rangeExtension),
 		'gov/mexico': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension)
 	},
 	influenza: []
@@ -55,7 +55,7 @@ const checkOutOfDate = async () => {
 						embeds: [
 							{
 								title: `${disease}/${endpoint} - Out of Date`,
-								description: `${delta / 1000 / 60 * 60} hours`,
+								description: `${(delta / 1000 / 60 / 60).toFixed(1)} hours`,
 								url: `https://disease.sh/v3/${disease}/${endpoint}`
 							}
 						]
