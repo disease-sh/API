@@ -26,8 +26,9 @@ const mapRows = (_, row) => {
 
 const koreaData = async () => {
 	try {
-		const html = cheerio.load(await axios.default({ method: 'GET', url: 'http://ncov.mohw.go.kr/en/bdBoardList.do?brdId=16&brdGubun=162&dataGubun=&ncvContSeq=&contSeq=&board_id=&gubun=' }).data);
-		return html('table').children('tbody:first-of-type').children('tr').map(mapRows).get();
+		const res = await axios.default({ method: 'GET', url: 'http://ncov.mohw.go.kr/en/bdBoardList.do?brdId=16&brdGubun=162&dataGubun=&ncvContSeq=&contSeq=&board_id=&gubun=' });
+		const html = cheerio.load(res.data);
+		return html('table').children('tbody:first-of-type').children('tr').map(mapRows).get().filter(el => el.city !== 'Total');
 	} catch (err) {
 		logger.err('Error: Requesting Korea Gov Data failed!', err);
 		return null;
