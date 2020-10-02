@@ -18,6 +18,7 @@ const countries = [
 	'India',
 	'New Zealand',
 	'UK',
+	'Korea',
 	'Israel',
 	'Mexico',
 	'Vietnam'
@@ -543,6 +544,27 @@ describe('TESTING /v2/gov/vietnam', () => {
 				res.body[0].should.have.property('beingTreated');
 				res.body[0].should.have.property('recovered');
 				res.body[0].should.have.property('deaths');
+				done();
+			});
+	});
+});
+
+describe('TESTING /v2/gov/korea', () => {
+	it('/v2/gov/korea correct fields set', (done) => {
+		chai.request(app)
+			.get('/v2/gov/korea')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				res.body[0].should.have.property('updated');
+				res.body[0].should.have.property('city');
+				res.body[0].should.have.property('todayCases');
+				res.body[0].should.have.property('importedCasesToday');
+				res.body[0].should.have.property('localCasesToday');
+				res.body[0].should.have.property('cases');
+				res.body[0].should.have.property('isolated');
+				res.body[0].should.have.property('recovered');
+				res.body[0].should.have.property('deaths');
+				res.body[0].should.have.property('incidence');
 				done();
 			});
 	});
