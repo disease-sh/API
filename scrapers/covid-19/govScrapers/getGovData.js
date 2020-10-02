@@ -41,7 +41,7 @@ const govData = async (keys, redis) => {
 			{ country: 'Nigeria', fn: nigeriaData },
 			{ country: 'India', fn: indiaData },
 			{ country: 'New Zealand', fn: newZealandData },
-			{ country: 'Colombia', fn: colombiaData },
+			//{ country: 'Colombia', fn: colombiaData },
 			{ country: 'UK', fn: ukData },
 			{ country: 'Israel', fn: israelData },
 			{ country: 'Mexico', fn: mexicoData }
