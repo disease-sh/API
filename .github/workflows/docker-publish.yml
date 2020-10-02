@@ -2,6 +2,14 @@ name: Docker Publish
 on:
   push:
     branches: [master]
+    paths-ignore:
+      - '.github/**'
+      - 'docker-publish.yml'
+      - 'README.md'
+      - 'SECURITY.md'
+      - 'TERMS.md'
+      - 'privacy.md'
+      - 'CONTRIBUTING.md'
 jobs:
   publish:
     if: github.repository == 'disease-sh/API'
