@@ -11,7 +11,7 @@ const ukData = require('./getUK');
 const israelData = require('./getIsrael');
 const mexicoData = require('./getMexico');
 const vietnamData = require('./getVietnam');
-const koreaData = require('./getKorea');
+const sKoreaData = require('./getSKorea');
 const nameUtils = require('../../../utils/nameUtils');
 
 const logger = require('../../../utils/logger');
@@ -48,7 +48,7 @@ const govData = async (keys, redis) => {
 			{ country: 'UK', fn: ukData },
 			{ country: 'Israel', fn: israelData },
 			{ country: 'Mexico', fn: mexicoData },
-			{ country: 'Korea', fn: koreaData },
+			{ country: 'South Korea', fn: sKoreaData },
 			{ country: 'Vietnam', fn: vietnamData }
 		].map(_resolveData));
 

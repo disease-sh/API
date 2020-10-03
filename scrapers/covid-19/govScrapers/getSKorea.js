@@ -24,7 +24,7 @@ const mapRows = (_, row) => {
 	return city;
 };
 
-const koreaData = async () => {
+const sKoreaData = async () => {
 	try {
 		const res = await axios.default({ method: 'GET', url: 'http://ncov.mohw.go.kr/en/bdBoardList.do?brdId=16&brdGubun=162&dataGubun=&ncvContSeq=&contSeq=&board_id=&gubun=' });
 		const html = cheerio.load(res.data);
@@ -35,4 +35,4 @@ const koreaData = async () => {
 	}
 };
 
-module.exports = koreaData;
+module.exports = sKoreaData;

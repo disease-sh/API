@@ -18,7 +18,7 @@ const countries = [
 	'India',
 	'New Zealand',
 	'UK',
-	'Korea',
+	'S. Korea',
 	'Israel',
 	'Mexico',
 	'Vietnam'
@@ -549,10 +549,10 @@ describe('TESTING /v2/gov/vietnam', () => {
 	});
 });
 
-describe('TESTING /v2/gov/korea', () => {
-	it('/v2/gov/korea correct fields set', (done) => {
+describe('TESTING /v2/gov/south korea', () => {
+	it('/v2/gov/south korea correct fields set', (done) => {
 		chai.request(app)
-			.get('/v2/gov/korea')
+			.get('/v2/gov/south korea')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				res.body[0].should.have.property('updated');
