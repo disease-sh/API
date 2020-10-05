@@ -30,7 +30,7 @@ const sKoreaData = async () => {
 		const html = cheerio.load(res.data);
 		return html('table').children('tbody:first-of-type').children('tr').map(mapRows).get().filter(el => el.city !== 'Total');
 	} catch (err) {
-		logger.err('Error: Requesting Korea Gov Data failed!', err);
+		logger.err('Error: Requesting South Korea Gov Data failed!', err);
 		return null;
 	}
 };
