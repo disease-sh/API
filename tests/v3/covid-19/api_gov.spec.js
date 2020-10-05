@@ -18,7 +18,7 @@ const countries = [
 	'New Zealand',
 	'South Africa',
 	'UK',
-	'S. Korea',
+	'South Korea',
 	'Israel',
 	'Mexico',
 	'Vietnam'
