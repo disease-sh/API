@@ -9,7 +9,6 @@ const newZealandData = require('./getNewZealand');
 const southAfricaData = require('./getSouthAfrica');
 const ukData = require('./getUK');
 const israelData = require('./getIsrael');
-const mexicoData = require('./getMexico');
 const vietnamData = require('./getVietnam');
 const sKoreaData = require('./getSKorea');
 const nameUtils = require('../../../utils/nameUtils');
@@ -25,10 +24,12 @@ const govData = async (keys, redis) => {
 	try {
 		const _resolveData = async (obj) => {
 			const { country, fn } = obj;
+			console.log('starting', country);
 			const countryData = await fn();
 
 			if (countryData) {
 				const standardizedCountryName = nameUtils.getCountryData(country.trim()).country;
+				console.log(standardizedCountryName, 'DONE');
 				await redis.hset(keys.gov_countries, standardizedCountryName, JSON.stringify(countryData));
 			} else {
 				logger.info(`${country} scraper has failed.`);
@@ -48,7 +49,6 @@ const govData = async (keys, redis) => {
 			{ country: 'UK', fn: ukData },
 			{ country: 'Israel', fn: israelData },
 			{ country: 'Mexico', fn: mexicoData },
-			{ country: 'South Korea', fn: sKoreaData },
 			{ country: 'Vietnam', fn: vietnamData }
 		].map(_resolveData));
 

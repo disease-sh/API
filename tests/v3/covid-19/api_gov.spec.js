@@ -20,7 +20,6 @@ const countries = [
 	'UK',
 	'South Korea',
 	'Israel',
-	'Mexico',
 	'Vietnam'
 ];
 
@@ -489,55 +488,6 @@ describe('TESTING /v3/gov/Israel', () => {
 				latest.should.have.property('activeModerate');
 				latest.should.have.property('activeCritical');
 				latest.should.have.property('onVentilators');
-				done();
-			});
-	});
-});
-
-describe('TESTING /v3/covid-19/gov/mexico', () => {
-	it('/v3/covid-19/gov/mexico correct properties', (done) => {
-		chai.request(app)
-			.get('/v3/covid-19/gov/mexico')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object');
-				res.body.should.have.property('updated');
-				res.body.should.have.property('nationalData');
-				res.body.should.have.property('stateData');
-				res.body.should.have.property('source');
-				res.body.nationalData.should.have.property('todayCases');
-				res.body.nationalData.should.have.property('todayDeaths');
-				res.body.nationalData.should.have.property('casesAccumulated');
-				res.body.nationalData.should.have.property('deathsAccumulated');
-				res.body.nationalData.should.have.property('activeCases');
-				res.body.nationalData.should.have.property('negativeCases');
-				res.body.nationalData.should.have.property('suspectCases');
-				res.body.nationalData.should.have.property('recovered');
-				res.body.nationalData.todayCases.should.have.property('sourceUpdated');
-				res.body.nationalData.todayCases.should.have.property('male');
-				res.body.nationalData.todayCases.should.have.property('female');
-				res.body.nationalData.todayCases.should.have.property('total');
-				res.body.nationalData.todayDeaths.should.have.property('sourceUpdated');
-				res.body.nationalData.todayDeaths.should.have.property('male');
-				res.body.nationalData.todayDeaths.should.have.property('female');
-				res.body.nationalData.todayDeaths.should.have.property('total');
-				res.body.stateData[0].should.have.property('state');
-				res.body.stateData[0].should.have.property('color');
-				res.body.stateData[0].should.have.property('confirmed');
-				res.body.stateData[0].should.have.property('negative');
-				res.body.stateData[0].should.have.property('suspect');
-				res.body.stateData[0].should.have.property('deaths');
-			});
-		done();
-	});
-});
-
-describe('TESTING /v3/covid-19/gov/mexico', () => {
-	it('/v3/covid-19/gov/mexico correct amount of states', (done) => {
-		chai.request(app)
-			.get('/v3/covid-19/gov/mexico')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object');
-				res.body.stateData.length.should.equal(32);
 				done();
 			});
 	});
