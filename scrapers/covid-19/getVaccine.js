@@ -29,7 +29,6 @@ const getVaccineData = async (keys, redis) => {
 		const html = cheerio.load((await axios.get('https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker')).data);
 		const date = html(`.small:first-of-type`).text().split(' ').slice(1, 4);
 		[day, month, year] = date;
-		console.log(date);
 	} catch (err) {
 		logger.err('Error: Requesting vaccine data failed!', err);
 	}
