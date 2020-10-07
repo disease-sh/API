@@ -1,7 +1,6 @@
 name: "Hacktoberfest Labeler"
 on:
-- pull_request_target
-#
+- pull_request
 jobs:
   triage:
     runs-on: ubuntu-latest
