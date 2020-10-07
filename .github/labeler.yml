@@ -1,4 +1,4 @@
 hacktoberfest-accepted
-    - '**'      # index.html | src/index.js
-    - '.*'      # .gitignore
-    - '.*/**'   # .github/workflows/label.yml
+    - '**'
+    - '.*'
+    - '.*/**'
