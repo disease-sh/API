@@ -1,4 +1,2 @@
 hacktoberfest-accepted
-    - '**'
-    - '.*'
-    - '.*/**'
+    - '.github/*'
