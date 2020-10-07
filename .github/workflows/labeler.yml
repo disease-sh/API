@@ -1,12 +1,10 @@
-name: "Pull Request Labeler"
+name: "Hacktoberfest Labeler"
 on:
-- pull_request
-
+- pull_request_target
 jobs:
   triage:
-    if: github.repository == 'disease-sh/API'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/labeler@main
       with:
-        repo-token: ${{secrets.GITHUB_TOKEN}}
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
