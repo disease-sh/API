@@ -18,7 +18,6 @@ const countries = [
 	'India',
 	'New Zealand',
 	'UK',
-	'S. Korea',
 	'Israel',
 	'Vietnam'
 ].sort();
@@ -499,7 +498,7 @@ describe('TESTING /v2/gov/vietnam', () => {
 	});
 });
 
-describe('TESTING /v2/gov/south korea', () => {
+describe.skip('TESTING /v2/gov/south korea', () => {
 	it('/v2/gov/south korea correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/south korea')
