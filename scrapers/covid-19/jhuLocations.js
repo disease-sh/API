@@ -40,19 +40,18 @@ const jhudataV2 = async (keys, redis) => {
 		const dateString = `${mm}-${dd}-${yyyy}`;
 		logger.info(`USING ${dateString}.csv CSSEGISandData`);
 		response = await axios.get(`${base}/${dateString}.csv`);
+		const parsed = await csv({
+			noheader: true,
+			output: 'csv'
+		}).fromString(response.data);
+
+		const result = parsed.splice(1).map(extractData);
+		redis.set(keys.jhu_v2, JSON.stringify(result));
+		logger.info(`Updated JHU CSSE: ${result.length} locations`);
 	} catch (err) {
 		logger.err('Error: Requesting JHULocations failed!', err);
 		return;
 	}
-
-	const parsed = await csv({
-		noheader: true,
-		output: 'csv'
-	}).fromString(response.data);
-
-	const result = parsed.splice(1).map(extractData);
-	redis.set(keys.jhu_v2, JSON.stringify(result));
-	logger.info(`Updated JHU CSSE: ${result.length} locations`);
 };
 
 /**

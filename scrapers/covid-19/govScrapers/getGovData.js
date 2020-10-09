@@ -5,13 +5,13 @@ const austriaData = require('./getAustria');
 const switzerlandData = require('./getSwitzerland');
 const nigeriaData = require('./getNigeria');
 const indiaData = require('./getIndia');
-const vietnamData = require('./getVietnam');
 const newZealandData = require('./getNewZealand');
-const colombiaData = require('./getColombia');
 const southAfricaData = require('./getSouthAfrica');
 const ukData = require('./getUK');
 const israelData = require('./getIsrael');
-const mexicoData = require('./getMexico');
+const vietnamData = require('./getVietnam');
+const southKoreaData = require('./getSouthKorea');
+const nameUtils = require('../../../utils/nameUtils');
 
 const logger = require('../../../utils/logger');
 
@@ -22,17 +22,18 @@ const logger = require('../../../utils/logger');
  */
 const govData = async (keys, redis) => {
 	try {
-		const data = {};
 		const _resolveData = async (obj) => {
 			const { country, fn } = obj;
 			const countryData = await fn();
-			// If no data is returned, serve stale data instead of an error
-			// if (countryData === null) {
-			// 	const redisGovData = JSON.parse(await redis.get(keys.gov_countries));
-			// 	countryData = redisGovData[country];
-			// }
-			data[country] = countryData;
+
+			if (countryData) {
+				const standardizedCountryName = nameUtils.getCountryData(country.trim()).country;
+				await redis.hset(keys.gov_countries, standardizedCountryName, JSON.stringify(countryData));
+			} else {
+				logger.info(`${country} scraper has failed.`);
+			}
 		};
+
 		await Promise.all([
 			{ country: 'South Africa', fn: southAfricaData },
 			{ country: 'Canada', fn: canadaData },
@@ -42,15 +43,14 @@ const govData = async (keys, redis) => {
 			{ country: 'Switzerland', fn: switzerlandData },
 			{ country: 'Nigeria', fn: nigeriaData },
 			{ country: 'India', fn: indiaData },
-			{ country: 'Vietnam', fn: vietnamData },
 			{ country: 'New Zealand', fn: newZealandData },
-			{ country: 'Colombia', fn: colombiaData },
 			{ country: 'UK', fn: ukData },
 			{ country: 'Israel', fn: israelData },
-			{ country: 'Mexico', fn: mexicoData }
+			{ country: 'South Korea', fn: southKoreaData },
+			{ country: 'Vietnam', fn: vietnamData }
 		].map(_resolveData));
-		redis.set(keys.gov_countries, JSON.stringify(data));
-		logger.info(`Updated gov data: ${Object.keys(data).length} government sources`);
+
+		logger.info(`Updated gov data: ${(await redis.hkeys(keys.gov_countries)).length} government sources`);
 	} catch (err) {
 		logger.err('Error: Requesting Gov data failed!', err);
 	}

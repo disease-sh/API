@@ -1,7 +1,7 @@
 const keys = require('./config.keys.json');
 const logger = require('../utils/logger');
 const dotenv = require('dotenv').config();
-const config = { redis: { } };
+const config = { redis: {} };
 
 if (dotenv.error) {
 	if (!process.env.DOCKER) {
@@ -23,17 +23,19 @@ config.redis.password = process.env.REDIS_PASSWORD || '';
 // SCRAPER INTERVALS
 config.worldometersInterval = process.env.INTERVAL || 6e5;
 // eslint-disable-next-line camelcase
-config.nytInterval = process.env.NYT_INTERVAL || 864e5;
+config.nytInterval = process.env.NYT_INTERVAL || 2.16e+7;
 // eslint-disable-next-line camelcase
 config.appleInterval = process.env.APPLE_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
-config.gov_interval = process.env.GOV_INTERVAL || 864e5;
+config.govInterval = process.env.GOV_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
-config.vaccine_interval = process.env.VACCINE_INTERVAL || 864e5;
+config.vaccineInterval = process.env.VACCINE_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
-config.ebola_interval = process.env.EBOLA_INTERVAL || 864e5;
+config.therapeuticsInterval = process.env.THERAPEUTICS_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
-config.CDC_interval = process.env.CDC_INTERVAL || 864e5;
+config.ebolaInterval = process.env.EBOLA_INTERVAL || 864e5;
+// eslint-disable-next-line camelcase
+config.cdcInterval = process.env.CDC_INTERVAL || 864e5;
 
 // SENTRY KEY (ONLY FOR PRODUCTION)
 // eslint-disable-next-line camelcase

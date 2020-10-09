@@ -608,3 +608,31 @@ footer p a {
 g[aria-labelledby="id-66-title"]{
   display:none;
 }
+
+@media (prefers-color-scheme: dark) {
+	.features {
+		background-color: #121212;
+	}
+	section h3.title {
+		color: #fff;
+	}
+	.covid19stats {
+		background-color: #2a2a2a;
+	}
+	html {
+		color: #D3D3D3;
+	}
+	.features .grid li h4 {
+		color: #fff;
+	}
+	.snippet {
+		background-color: #151515;
+	}
+	.code {
+		background-color: #2a2a2a;
+		color: #fff;
+	}
+	footer {
+		background-color: #3f3f3f;
+	}
+}

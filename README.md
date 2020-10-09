@@ -139,6 +139,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/jsebastianms1"><img src="https://avatars3.githubusercontent.com/u/22509688?v=4" width="100px;" alt=""/><br /><sub><b>Juan Sebastián Marulanda Sánchez</b></sub></a><br /><a href="https://github.com/disease-sh/API/commits?author=jsebastianms1" title="Code">💻</a></td>
     <td align="center"><a href="https://www.linkedin.com/in/collin-street/"><img src="https://avatars3.githubusercontent.com/u/30121540?v=4" width="100px;" alt=""/><br /><sub><b>Collin-St</b></sub></a><br /><a href="https://github.com/disease-sh/API/commits?author=Collin-St" title="Code">💻</a></td>
     <td align="center"><a href="http://marveldc.me"><img src="https://avatars2.githubusercontent.com/u/24299563?v=4" width="100px;" alt=""/><br /><sub><b>MarvelDC</b></sub></a><br /><a href="https://github.com/disease-sh/API/commits?author=MarvelDC" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://zentreax.dev/"><img src="https://avatars3.githubusercontent.com/u/36458019?v=4" width="100px;" alt=""/><br /><sub><b>Zentreaxᴰᵉᵛ</b></sub></a><br /><a href="https://github.com/disease-sh/API/commits?author=Zentreax" title="Code">💻</a></td>
   </tr>
 </table>
 

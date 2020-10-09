@@ -6,19 +6,19 @@ const { testBasicProperties } = require('../../testingFunctions');
 
 chai.use(chaiHttp);
 
-describe('TESTING /v3/covid-19/vaccine', () => {
-	it('/v3/covid-19/vaccine correct type', (done) => {
+describe('TESTING /v3/covid-19/therapeutics', () => {
+	it('/v3/covid-19/therapeutics correct type', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/vaccine')
+			.get('/v3/covid-19/therapeutics')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.data.length.should.be.at.least(1);
 				done();
 			});
 	});
-	it('/v3/covid-19/vaccine correct attributes', (done) => {
+	it('/v3/covid-19/therapeutics correct attributes', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/vaccine')
+			.get('/v3/covid-19/therapeutics')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('source');
@@ -29,12 +29,13 @@ describe('TESTING /v3/covid-19/vaccine', () => {
 					element.should.have.property('candidates');
 				});
 				res.body.data.forEach(element => {
-					element.should.have.property('candidate');
-					element.should.have.property('sponsors');
+					element.should.have.property('medicationClass');
+					element.should.have.property('tradeName');
 					element.should.have.property('details');
+					element.should.have.property('developerResearcher');
+					element.should.have.property('sponsors');
 					element.should.have.property('trialPhase');
-					element.should.have.property('institutions');
-					element.should.have.property('mechanism');
+					element.should.have.property('lastUpdate');
 				});
 				done();
 			});

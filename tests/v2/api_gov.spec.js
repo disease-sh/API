@@ -16,12 +16,11 @@ const countries = [
 	'Switzerland',
 	'Nigeria',
 	'India',
-	'Vietnam',
 	'New Zealand',
-	'Colombia',
 	'UK',
+	'S. Korea',
 	'Israel',
-	'Mexico'
+	'Vietnam'
 ].sort();
 
 describe('TESTING /v2/gov general', () => {
@@ -30,7 +29,7 @@ describe('TESTING /v2/gov general', () => {
 			.get('/v2/gov')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.be.at.least(1);
+				res.body.length.should.be.equal(countries.length);
 				res.body.forEach((country) => countries.should.include(country));
 				done();
 			});
@@ -339,26 +338,6 @@ describe('TESTING /v2/gov/india', () => {
 	});
 });
 
-describe('TESTING /v2/gov/vietnam', () => {
-	it('/v2/gov/vietnam correct fields set', (done) => {
-		chai.request(app)
-			.get('/v2/gov/vietnam')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.be.at.least(1);
-				res.body.forEach((element) => {
-					element.should.have.property('updated');
-					element.should.have.property('city');
-					element.should.have.property('cases');
-					element.should.have.property('beingTreated');
-					element.should.have.property('recovered');
-					element.should.have.property('deaths');
-				});
-				done();
-			});
-	});
-});
-
 describe('TESTING /v2/gov/new zealand', () => {
 	it('/v2/gov/new zealand correct amount', (done) => {
 		chai.request(app)
@@ -387,23 +366,7 @@ describe('TESTING /v2/gov/new zealand', () => {
 					province.recovered.should.be.at.least(0);
 					province.should.have.property('deaths');
 					province.deaths.should.be.at.least(0);
-					province.should.have.property('newCases');
 				});
-				done();
-			});
-	});
-});
-
-describe('TESTING /v2/gov/colombia', () => {
-	it('/v2/gov/colombia correct fields set', (done) => {
-		chai.request(app)
-			.get('/v2/gov/colombia')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object');
-				res.body.should.have.property('updated');
-				res.body.should.have.property('departments');
-				res.body.should.have.property('cities');
-				res.body.departments.length.should.be.at.least(32);
 				done();
 			});
 	});
@@ -497,7 +460,6 @@ describe('TESTING /v2/gov/Israel', () => {
 				firstCity.should.have.property('actualSick');
 				firstCity.should.have.property('verifiedLast7Days');
 				firstCity.should.have.property('testLast7Days');
-				firstCity.should.have.property('status');
 				const latest = res.body.data.timeline[0];
 				latest.should.have.property('date');
 				latest.should.have.property('newHospitalized');
@@ -520,49 +482,39 @@ describe('TESTING /v2/gov/Israel', () => {
 	});
 });
 
-describe('TESTING /v2/gov/mexico', () => {
-	it('/v2/gov/mexico correct properties', (done) => {
+describe('TESTING /v2/gov/vietnam', () => {
+	it('/v2/gov/vietnam correct fields set', (done) => {
 		chai.request(app)
-			.get('/v2/gov/mexico')
+			.get('/v2/gov/vietnam')
 			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object');
-				res.body.should.have.property('updated');
-				res.body.should.have.property('nationalData');
-				res.body.should.have.property('stateData');
-				res.body.should.have.property('source');
-				res.body.nationalData.should.have.property('todayCases');
-				res.body.nationalData.should.have.property('todayDeaths');
-				res.body.nationalData.should.have.property('casesAccumulated');
-				res.body.nationalData.should.have.property('deathsAccumulated');
-				res.body.nationalData.should.have.property('activeCases');
-				res.body.nationalData.should.have.property('negativeCases');
-				res.body.nationalData.should.have.property('suspectCases');
-				res.body.nationalData.should.have.property('recovered');
-				res.body.nationalData.todayCases.should.have.property('sourceUpdated');
-				res.body.nationalData.todayCases.should.have.property('male');
-				res.body.nationalData.todayCases.should.have.property('female');
-				res.body.nationalData.todayCases.should.have.property('total');
-				res.body.nationalData.todayDeaths.should.have.property('sourceUpdated');
-				res.body.nationalData.todayDeaths.should.have.property('male');
-				res.body.nationalData.todayDeaths.should.have.property('female');
-				res.body.nationalData.todayDeaths.should.have.property('total');
-				res.body.stateData[0].should.have.property('state');
-				res.body.stateData[0].should.have.property('confirmed');
-				res.body.stateData[0].should.have.property('negative');
-				res.body.stateData[0].should.have.property('suspect');
-				res.body.stateData[0].should.have.property('deaths');
+				testBasicProperties(err, res, 200, 'array');
+				res.body[0].should.have.property('updated');
+				res.body[0].should.have.property('city');
+				res.body[0].should.have.property('cases');
+				res.body[0].should.have.property('beingTreated');
+				res.body[0].should.have.property('recovered');
+				res.body[0].should.have.property('deaths');
+				done();
 			});
-		done();
 	});
 });
 
-describe('TESTING /v2/gov/mexico', () => {
-	it('/v2/gov/mexico correct amount of states', (done) => {
+describe('TESTING /v2/gov/south korea', () => {
+	it('/v2/gov/south korea correct fields set', (done) => {
 		chai.request(app)
-			.get('/v2/gov/mexico')
+			.get('/v2/gov/south korea')
 			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object');
-				res.body.stateData.length.should.equal(32);
+				testBasicProperties(err, res, 200, 'array');
+				res.body[0].should.have.property('updated');
+				res.body[0].should.have.property('city');
+				res.body[0].should.have.property('todayCases');
+				res.body[0].should.have.property('importedCasesToday');
+				res.body[0].should.have.property('localCasesToday');
+				res.body[0].should.have.property('cases');
+				res.body[0].should.have.property('isolated');
+				res.body[0].should.have.property('recovered');
+				res.body[0].should.have.property('deaths');
+				res.body[0].should.have.property('incidence');
 				done();
 			});
 	});
