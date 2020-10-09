@@ -28,8 +28,8 @@ describe('TESTING /v3/covid-19/gov general', () => {
 			.get('/v3/covid-19/gov')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.be.within(countries.length, countries.length + 1);
-				countries.forEach((country) => res.body.should.include(country));
+				res.body.length.should.be.equal(countries.length);
+				res.body.forEach((country) => countries.should.include(country));
 				done();
 			});
 	});
