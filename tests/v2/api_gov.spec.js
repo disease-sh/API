@@ -426,6 +426,10 @@ describe('TESTING /v2/gov/UK', () => {
 				latest.should.have.property('usedVentilationBeds');
 				latest.should.have.property('newAdmissions');
 				latest.should.have.property('admissions');
+				latest.should.have.property('todayDeaths');
+				latest.should.have.property('totalDeaths');
+				latest.should.have.property('ONSweeklyDeaths');
+				latest.should.have.property('ONStotalDeaths');
 				done();
 			});
 	});
