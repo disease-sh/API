@@ -24,7 +24,7 @@ const ukData = async () => {
 			newAdmissions: 'newAdmissions',
 			admissions: 'cumAdmissions',
 			// Deaths within 28 days of positive test by date reported, see: https://coronavirus.data.gov.uk/deaths
-			// Daily total 
+			// Daily total
 			todayDeaths: 'newDeaths28DaysByPublishDate',
 			// Cumulative total
 			totalDeaths: 'cumDeaths28DaysByPublishDate',
