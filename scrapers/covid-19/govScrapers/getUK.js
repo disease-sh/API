@@ -28,7 +28,6 @@ const ukData = async () => {
 			todayDeaths: 'newDeaths28DaysByPublishDate',
 			// Cumulative total
 			totalDeaths: 'cumDeaths28DaysByPublishDate',
-
 			// ONS data for deaths with COVID-19 on the death certificate by date registered
 			// Weekly total but a little irregular at times, see: https://coronavirus.data.gov.uk/deaths
 			ONSweeklyDeaths: 'newOnsDeathsByRegistrationDate',
