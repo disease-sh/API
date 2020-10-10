@@ -23,19 +23,17 @@ const ukData = async () => {
 			usedVentilationBeds: 'covidOccupiedMVBeds',
 			newAdmissions: 'newAdmissions',
 			admissions: 'cumAdmissions',
-			///////////////////////////////////////////////////////////////////////////////////////////////////////
 			// Deaths within 28 days of positive test by date reported, see: https://coronavirus.data.gov.uk/deaths
 			// Daily total 
 			todayDeaths: 'newDeaths28DaysByPublishDate',
 			// Cumulative total
 			totalDeaths: 'cumDeaths28DaysByPublishDate',
-			///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 			// ONS data for deaths with COVID-19 on the death certificate by date registered
 			// Weekly total but a little irregular at times, see: https://coronavirus.data.gov.uk/deaths
 			ONSweeklyDeaths: 'newOnsDeathsByRegistrationDate',
 			// Cumulative Weekly total
 			ONStotalDeaths: 'cumOnsDeathsByRegistrationDate'
-			///////////////////////////////////////////////////////////////////////////////////////////////////////
 		};
 
 		const URL = (await instance.get(`https://api.coronavirus.data.gov.uk/v1/data?filters=areaName=United%20Kingdom;areaType=overview&structure=${JSON.stringify(structure)}`)).data;
