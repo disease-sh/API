@@ -46,28 +46,25 @@ describe('TESTING /v2/gov general', () => {
 });
 
 describe('TESTING /v2/gov/canada', () => {
-	it('/v2/gov/canada correct amount of provinces', (done) => {
-		chai.request(app)
-			.get('/v2/gov/canada')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.equal(15);
-				done();
-			});
-	});
-
 	it('/v2/gov/canada correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/canada')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.at.greater.or.equal(1);
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('province');
+					element.should.have.property('date');
+					element.should.have.property('todayCases');
+					element.should.have.property('todayTests');
+					element.should.have.property('todayRecovered');
+					element.should.have.property('todayDeaths');
 					element.should.have.property('cases');
-					element.cases.should.be.at.least(0);
+					element.should.have.property('active');
+					element.should.have.property('tests');
+					element.should.have.property('recovered');
 					element.should.have.property('deaths');
-					element.deaths.should.be.at.least(0);
 				});
 				done();
 			});
