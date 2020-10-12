@@ -20,7 +20,7 @@ const filterByDate = (csv) => {
 const canadaData = async () => {
 	try {
 		const canadaRes = (await axios.get('https://health-infobase.canada.ca/src/data/covidLive/covid19.csv')).data;
-		const parsedCanadaData = csvUtils.parseCsvData(canadaRes);
+		const parsedCanadaData = await csvUtils.parseCsvData(canadaRes);
 		return parsedCanadaData.map(province => ({
 			updated: Date.now(),
 			province: province.prname === 'Canada' ? 'Total' : province.prname,
