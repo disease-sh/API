@@ -51,7 +51,7 @@ describe('TESTING /v3/covid-19/gov/canada', () => {
 			.get('/v3/covid-19/gov/canada')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.at.greater.or.equal(1);
+				res.body.length.should.be.above(1);
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('province');
