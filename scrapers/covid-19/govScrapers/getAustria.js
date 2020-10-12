@@ -49,13 +49,13 @@ const transformBySexOrAge = (toTransform) => {
  */
 const austriaData = async () => {
 	try {
-		const bundeslandFälle = (await axios.get('https://info.gesundheitsministerium.at/data/Bundesland.js')).data;
-		const bundeslandTodGenesen = (await axios.get('https://info.gesundheitsministerium.at/data/GenesenTodesFaelleBL.js')).data;
-		const bezirk = (await axios.get('https://info.gesundheitsministerium.at/data/austria_map.json')).data;
-		const geschlechterverteilungFälle = (await axios.get('https://info.gesundheitsministerium.at/data/Geschlechtsverteilung.js')).data;
-		const altersverteilungFälle = (await axios.get('https://info.gesundheitsministerium.at/data/Altersverteilung.js')).data;
-		const geschlechterverteilungTode = (await axios.get('https://info.gesundheitsministerium.at/data/VerstorbenGeschlechtsverteilung.js')).data;
-		const altersverteilungTode = (await axios.get('https://info.gesundheitsministerium.at/data/AltersverteilungTodesfaelle.js')).data;
+		const bundeslandFälle = (await axios.get('http://info.gesundheitsministerium.at/data/Bundesland.js')).data;
+		const bundeslandTodGenesen = (await axios.get('http://info.gesundheitsministerium.at/data/GenesenTodesFaelleBL.js')).data;
+		const bezirk = (await axios.get('http://info.gesundheitsministerium.at/data/austria_map.json')).data;
+		const geschlechterverteilungFälle = (await axios.get('http://info.gesundheitsministerium.at/data/Geschlechtsverteilung.js')).data;
+		const altersverteilungFälle = (await axios.get('http://info.gesundheitsministerium.at/data/Altersverteilung.js')).data;
+		const geschlechterverteilungTode = (await axios.get('http://info.gesundheitsministerium.at/data/VerstorbenGeschlechtsverteilung.js')).data;
+		const altersverteilungTode = (await axios.get('http://info.gesundheitsministerium.at/data/AltersverteilungTodesfaelle.js')).data;
 		return {
 			updated: Date.now(),
 			provinces: transformProvinces(bundeslandFälle, bundeslandTodGenesen),
