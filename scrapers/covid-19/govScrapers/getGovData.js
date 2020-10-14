@@ -23,12 +23,10 @@ const govData = async (keys, redis) => {
 	try {
 		const _resolveData = async (obj) => {
 			const { country, fn } = obj;
-			console.log('starting', country);
 			const countryData = await fn();
 
 			if (countryData) {
 				const standardizedCountryName = nameUtils.getCountryData(country.trim()).country;
-				console.log(standardizedCountryName, 'DONE');
 				await redis.hset(keys.gov_countries, standardizedCountryName, JSON.stringify(countryData));
 			} else {
 				logger.info(`${country} scraper has failed.`);
