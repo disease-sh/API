@@ -27,7 +27,8 @@ const endpoints = {
 		'gov/india': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
 		'gov/israel': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
 		'gov/new%20zealand': (data) => data.updated && now - new Date(data.updated) - (config.govInterval * rangeExtension),
-		'gov/austria': (data) => data.updated && (now - new Date(data.updated)) - (config.govInterval * rangeExtension)
+		'gov/austria': (data) => data.updated && (now - new Date(data.updated)) - (config.govInterval * rangeExtension),
+		'gov/south%20korea': (data) => data.updated && (now - new Date(data.updated)) - (config.govInterval * rangeExtension)
 	},
 	influenza: []
 };

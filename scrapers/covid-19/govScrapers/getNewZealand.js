@@ -2,7 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const logger = require('../../../utils/logger');
 
-const columns = ['province', 'active', 'recovered', 'deaths', 'cases'];
+const columns = ['province', 'active', 'recovered', 'deaths', 'cases', '_'];
 
 /**
  * Return object reflecting a row of data from New Zealand government site
@@ -19,6 +19,8 @@ const mapRows = (_, row) => {
 				province[columns[index]] = cell.text();
 				break;
 			}
+			case 5:
+				break;
 			default: {
 				province[columns[index]] = parseInt(cell.text().replace(/,/g, '')) || null;
 			}

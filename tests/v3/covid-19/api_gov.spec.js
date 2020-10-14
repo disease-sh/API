@@ -46,28 +46,25 @@ describe('TESTING /v3/covid-19/gov general', () => {
 });
 
 describe('TESTING /v3/covid-19/gov/canada', () => {
-	it('/v3/covid-19/gov/canada correct amount of provinces', (done) => {
-		chai.request(app)
-			.get('/v3/covid-19/gov/canada')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.equal(15);
-				done();
-			});
-	});
-
 	it('/v3/covid-19/gov/canada correct fields set', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/canada')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.be.above(1);
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('province');
+					element.should.have.property('date');
+					element.should.have.property('todayCases');
+					element.should.have.property('todayTests');
+					element.should.have.property('todayRecovered');
+					element.should.have.property('todayDeaths');
 					element.should.have.property('cases');
-					element.cases.should.be.at.least(0);
+					element.should.have.property('active');
+					element.should.have.property('tests');
+					element.should.have.property('recovered');
 					element.should.have.property('deaths');
-					element.deaths.should.be.at.least(0);
 				});
 				done();
 			});
@@ -437,6 +434,10 @@ describe('TESTING /v3/covid-19/gov/UK', () => {
 				latest.should.have.property('usedVentilationBeds');
 				latest.should.have.property('newAdmissions');
 				latest.should.have.property('admissions');
+				latest.should.have.property('todayDeaths');
+				latest.should.have.property('totalDeaths');
+				latest.should.have.property('ONSweeklyDeaths');
+				latest.should.have.property('ONStotalDeaths');
 				done();
 			});
 	});
@@ -504,6 +505,27 @@ describe('TESTING /v3/covid-19/gov/vietnam', () => {
 				res.body[0].should.have.property('beingTreated');
 				res.body[0].should.have.property('recovered');
 				res.body[0].should.have.property('deaths');
+				done();
+			});
+	});
+});
+
+describe.skip('TESTING /v3/covid-19/gov/south korea', () => {
+	it('/v3/covid-19/gov/south korea correct fields set', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/gov/south korea')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				res.body[0].should.have.property('updated');
+				res.body[0].should.have.property('city');
+				res.body[0].should.have.property('todayCases');
+				res.body[0].should.have.property('importedCasesToday');
+				res.body[0].should.have.property('localCasesToday');
+				res.body[0].should.have.property('cases');
+				res.body[0].should.have.property('isolated');
+				res.body[0].should.have.property('recovered');
+				res.body[0].should.have.property('deaths');
+				res.body[0].should.have.property('incidence');
 				done();
 			});
 	});
