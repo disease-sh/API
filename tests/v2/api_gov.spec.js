@@ -592,13 +592,13 @@ describe('TESTING /v2/covid-19/gov/Indonesia', () => {
 				res.body.should.have.property('data');
 				res.body.data.should.have.property('last_update');
 				res.body.data.should.have.property('kasus');
-				checkData(req.body.data.kasus);
+				checkData(res.body.data.kasus);
 				res.body.data.should.have.property('sembuh');
-				checkData(req.body.data.sembuh);
+				checkData(res.body.data.sembuh);
 				res.body.data.should.have.property('meninggal');
-				checkData(req.body.data.meninggal);
+				checkData(res.body.data.meninggal);
 				res.body.data.should.have.property('perawatan');
-				checkData(req.body.data.perawatan);
+				checkData(res.body.data.perawatan);
 				res.body.should.have.property('update');
 				res.body.update.should.have.property('data');
 				res.body.update.data.should.have.property('id');
