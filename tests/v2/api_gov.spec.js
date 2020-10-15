@@ -523,20 +523,20 @@ describe.skip('TESTING /v2/gov/south korea', () => {
 
 describe('TESTING /v2/covid-19/gov/Indonesia', () => {
 	it('/v2/covid-19/gov/Indonesia correct fields set', (done) => {
-		function checkListData(prop, isUsia){
+		function checkListData(prop, isUsia) {
 			prop.should.have.property('key');
 			prop.should.have.property('doc_count');
-			if (isUsia === true){
+			if (isUsia === true) {
 				prop.should.have.property('usia');
 				prop.usia.should.have.property('value');
 			}
 		}
-		function checkKasus(prop, isUsia){
+		function checkKasus(prop, isUsia) {
 			prop.should.have.property('current_data');
 			prop.should.have.property('missing_data');
-			prop.list_data.forEach(checkListData, isUsia);
+			prop.list_data.forEach(checkListData(prop, isUsia));
 		}
-		function checkData(prop){
+		function checkData(prop) {
 			prop.should.have.property('kondisi_penyerta');
 			checkKasus(prop.kondisi_penyerta, false);
 			prop.should.have.property('jenis_kelamin');
@@ -546,7 +546,7 @@ describe('TESTING /v2/covid-19/gov/Indonesia', () => {
 			prop.should.have.property('gejala');
 			checkKasus(prop.gejala, false);
 		}
-		function checkHarian(prop){
+		function checkHarian(prop) {
 			prop.should.have.property('key_as_string');
 			prop.should.have.property('key');
 			prop.should.have.property('doc_count');
@@ -567,7 +567,7 @@ describe('TESTING /v2/covid-19/gov/Indonesia', () => {
 			prop.should.have.property('jumlah_dirawat_kum');
 			prop.jumlah_dirawat_kum.should.have.property('value');
 		}
-		function checkProvListData(prop){
+		function checkProvListData(prop) {
 			checkListData(prop, false);
 			prop.should.have.property('jumlah_kasus');
 			prop.should.have.property('jumlah_meninggal');
