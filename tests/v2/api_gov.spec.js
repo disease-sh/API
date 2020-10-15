@@ -577,7 +577,7 @@ describe('TESTING /v2/gov/Indonesia', () => {
 			prop.kelompok_umur.forEach((a) => { checkListData(a, false); });
 			prop.should.have.property('lokasi');
 			prop.lokasi.should.have.property('lat');
-			prop.lokasi.should.have.property('long');
+			prop.lokasi.should.have.property('lon');
 			prop.should.have.property('penambahan');
 			prop.penambahan.should.have.property('positif');
 			prop.penambahan.should.have.property('sembuh');
