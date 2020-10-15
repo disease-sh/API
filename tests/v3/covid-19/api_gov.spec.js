@@ -543,8 +543,6 @@ describe('TESTING /v3/covid-19/gov/Indonesia', () => {
 			}
 		}
 		function checkKasus(prop, isUsia) {
-			prop.should.have.property('current_data');
-			prop.should.have.property('missing_data');
 			prop.list_data.forEach((a) => { checkListData(a, isUsia); });
 		}
 		function checkData(prop) {
