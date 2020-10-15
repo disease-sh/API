@@ -631,7 +631,12 @@ describe('TESTING /v3/covid-19/gov/Indonesia', () => {
 				res.body.update.update.total.should.have.property('jumlah_sembuh');
 				res.body.update.update.total.should.have.property('jumlah_dirawat');
 				res.body.should.have.property('prov');
-				res.body.prov.forEach(checkProvListData);
+				res.body.prov.should.have.property('last_date');
+				res.body.prov.should.have.property('current_data');
+				res.body.prov.should.have.property('missing_data');
+				res.body.prov.should.have.property('tanpa_provinsi');
+				res.body.prov.should.have.property('list_data');
+				res.body.prov.list_data.forEach(checkProvListData);
 				done();
 			});
 	});
