@@ -521,8 +521,8 @@ describe.skip('TESTING /v2/gov/south korea', () => {
 	});
 });
 
-describe('TESTING /v2/covid-19/gov/Indonesia', () => {
-	it('/v2/covid-19/gov/Indonesia correct fields set', (done) => {
+describe('TESTING /v2/gov/Indonesia', () => {
+	it('/v2/gov/Indonesia correct fields set', (done) => {
 		function checkListData(prop, isUsia) {
 			prop.should.have.property('key');
 			prop.should.have.property('doc_count');
@@ -534,7 +534,7 @@ describe('TESTING /v2/covid-19/gov/Indonesia', () => {
 		function checkKasus(prop, isUsia) {
 			prop.should.have.property('current_data');
 			prop.should.have.property('missing_data');
-			prop.list_data.forEach(checkListData(prop, isUsia));
+			prop.list_data.forEach((a) => { checkListData(a, isUsia); });
 		}
 		function checkData(prop) {
 			prop.should.have.property('kondisi_penyerta');
@@ -574,9 +574,9 @@ describe('TESTING /v2/covid-19/gov/Indonesia', () => {
 			prop.should.have.property('jumlah_sembuh');
 			prop.should.have.property('jumlah_dirawat');
 			prop.should.have.property('jenis_kelamin');
-			prop.jenis_kelamin.forEach(checkListData(prop, false));
+			prop.jenis_kelamin.forEach((a) => { checkListData(a, false); });
 			prop.should.have.property('kelompok_umur');
-			prop.kelompok_umur.forEach(checkListData(prop, true));
+			prop.kelompok_umur.forEach((a) => { checkListData(a, false); });
 			prop.should.have.property('lokasi');
 			prop.lokasi.should.have.property('lat');
 			prop.lokasi.should.have.property('long');
@@ -586,7 +586,7 @@ describe('TESTING /v2/covid-19/gov/Indonesia', () => {
 			prop.penambahan.should.have.property('meninggal');
 		}
 		chai.request(app)
-			.get('/v3/covid-19/gov/Indonesia')
+			.get('/v2/gov/Indonesia')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('data');
