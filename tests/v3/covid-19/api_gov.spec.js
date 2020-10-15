@@ -624,7 +624,7 @@ describe('TESTING /v3/covid-19/gov/Indonesia', () => {
 				res.body.update.update.penambahan.should.have.property('tanggal');
 				res.body.update.update.penambahan.should.have.property('created');
 				res.body.update.update.should.have.property('harian');
-				res.body.update.update.update.harian.forEach(checkHarian);
+				res.body.update.update.harian.forEach(checkHarian);
 				res.body.update.update.should.have.property('total');
 				res.body.update.update.total.should.have.property('jumlah_positif');
 				res.body.update.update.total.should.have.property('jumlah_meninggal');
