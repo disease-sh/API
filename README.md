@@ -104,6 +104,8 @@ Did you build a project with our API? We now offer an "awesome-list" for you to 
 
 > https://coronavirus.data.gov.uk
 
+> https://covid19.go.id
+
 # Contributing
 - [How to Contribute](./CONTRIBUTING.md)
 
