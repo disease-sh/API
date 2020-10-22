@@ -12,7 +12,6 @@ const countries = [
 	'Austria',
 	'Canada',
 	'Italy',
-	'Germany',
 	'Switzerland',
 	'Nigeria',
 	'India',
@@ -114,7 +113,7 @@ describe('TESTING /v2/gov/italy', () => {
 	});
 });
 
-describe('TESTING /v2/gov/germany', () => {
+describe.skip('TESTING /v2/gov/germany', () => {
 	it('/v2/gov/germany correct amount of provinces', (done) => {
 		chai.request(app)
 			.get('/v2/gov/germany')
