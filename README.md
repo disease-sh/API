@@ -42,7 +42,7 @@ Disease.sh Documentation can be found [here](https://disease.sh/docs/)
 3. in the new `.env` file, change `REDIS_HOST` to localhost
 4. Change the env variables to fit your environment (leave them blank for default values)
 6. In one window run `redis-server`
-7. Run `npm install` to install the packages
+7. Run `npm ci` to install the packages
 8. In another window run `npm run start:dev`
 9. Open your browser and navigate to `localhost:{PORT}` (PORT being the port specified in your `.env` file)
 10. You should now see the APIs landing page
