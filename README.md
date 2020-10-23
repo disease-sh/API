@@ -110,7 +110,7 @@ Did you build a project with our API? We now offer an "awesome-list" for you to 
 - [How to Contribute](./CONTRIBUTING.md)
 
 # Contributors ✨
-
+## Special Thanks to [emoji key] ##
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
