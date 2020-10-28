@@ -12,6 +12,9 @@
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/disease-sh/api?style=for-the-badge)
 ![Visits](https://badges.pufler.dev/visits/disease-sh/api?style=for-the-badge)
 
+
+# The coronavirus COVID-19 is affecting 215 countries and territories around the world and 2 international conveyances. The day is reset after midnight GMT+0. The list of countries and territories and their continental regional classification is based on the United Nations Geoscheme. Sources are provided under "Latest Updates". Learn more about Worldometer's COVID-19 data.
+
 # Welcome to disease.sh - An open API for disease-related statistics
 
 | Information | Discord | Donate |
