@@ -213,7 +213,7 @@ module.exports = [
 	{ country: 'South Sudan', iso2: 'SS', iso3: 'SSD', id: 728, lat: 6.8769, long: 31.3069 },
 	{ country: 'Spain', iso2: 'ES', iso3: 'ESP', id: 724, lat: 40, long: -4, possibleNames: ['España'] },
 	{ country: 'Sri Lanka', iso2: 'LK', iso3: 'LKA', id: 144, lat: 7, long: 81 },
-	{ country: 'Sudan', iso2: 'SD', iso3: 'SDN', id: 736, lat: 15, long: 30 },
+	{ country: 'Sudan', iso2: 'SD', iso3: 'SDN', id: 729, lat: 15, long: 30 },
 	{ country: 'Suriname', iso2: 'SR', iso3: 'SUR', id: 740, lat: 4, long: -56 },
 	{ country: 'Svalbard and Jan Mayen', iso2: 'SJ', iso3: 'SJM', id: 744, lat: 78, long: 20 },
 	{ country: 'Swaziland', iso2: 'SZ', iso3: 'SWZ', id: 748, lat: -26.5, long: 31.5, possibleNames: ['Esuatini', 'Eswatini'] },
