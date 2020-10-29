@@ -22,13 +22,23 @@ const ukData = async () => {
 			hospitalized: 'hospitalCases',
 			usedVentilationBeds: 'covidOccupiedMVBeds',
 			newAdmissions: 'newAdmissions',
-			admissions: 'cumAdmissions'
+			admissions: 'cumAdmissions',
+			// Deaths within 28 days of positive test by date reported, see: https://coronavirus.data.gov.uk/deaths
+			// Daily total
+			todayDeaths: 'newDeaths28DaysByPublishDate',
+			// Cumulative total
+			totalDeaths: 'cumDeaths28DaysByPublishDate',
+			// ONS data for deaths with COVID-19 on the death certificate by date registered
+			// Weekly total but a little irregular at times, see: https://coronavirus.data.gov.uk/deaths
+			ONSweeklyDeaths: 'newOnsDeathsByRegistrationDate',
+			// Cumulative Weekly total
+			ONStotalDeaths: 'cumOnsDeathsByRegistrationDate'
 		};
 
 		const URL = (await instance.get(`https://api.coronavirus.data.gov.uk/v1/data?filters=areaName=United%20Kingdom;areaType=overview&structure=${JSON.stringify(structure)}`)).data;
-		const URL_STG = (await instance.get(`https://api.coronavirus-staging.data.gov.uk/v1/data?filters=areaName=United%20Kingdom;areaType=overview&structure=${JSON.stringify(structure)}`)).data;
+		// const URL_STG = (await instance.get(`https://api.coronavirus-staging.data.gov.uk/v1/data?filters=areaName=United%20Kingdom;areaType=overview&structure=${JSON.stringify(structure)}`)).data;
 
-		return Promise.race([URL, URL_STG]).then(res => {
+		return Promise.race([URL]).then(res => {
 			for (const row of res.data.slice(0, res.length - 60)) {
 				data[row.date] = row;
 				delete data[row.date].date;

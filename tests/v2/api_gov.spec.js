@@ -12,13 +12,12 @@ const countries = [
 	'Austria',
 	'Canada',
 	'Italy',
-	'Germany',
 	'Switzerland',
 	'Nigeria',
 	'India',
+	'Indonesia',
 	'New Zealand',
 	'UK',
-	'S. Korea',
 	'Israel',
 	'Vietnam'
 ].sort();
@@ -47,28 +46,25 @@ describe('TESTING /v2/gov general', () => {
 });
 
 describe('TESTING /v2/gov/canada', () => {
-	it('/v2/gov/canada correct amount of provinces', (done) => {
-		chai.request(app)
-			.get('/v2/gov/canada')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.equal(15);
-				done();
-			});
-	});
-
 	it('/v2/gov/canada correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/canada')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.be.above(1);
 				res.body.forEach((element) => {
 					element.should.have.property('updated');
 					element.should.have.property('province');
+					element.should.have.property('date');
+					element.should.have.property('todayCases');
+					element.should.have.property('todayTests');
+					element.should.have.property('todayRecovered');
+					element.should.have.property('todayDeaths');
 					element.should.have.property('cases');
-					element.cases.should.be.at.least(0);
+					element.should.have.property('active');
+					element.should.have.property('tests');
+					element.should.have.property('recovered');
 					element.should.have.property('deaths');
-					element.deaths.should.be.at.least(0);
 				});
 				done();
 			});
@@ -117,7 +113,7 @@ describe('TESTING /v2/gov/italy', () => {
 	});
 });
 
-describe('TESTING /v2/gov/germany', () => {
+describe.skip('TESTING /v2/gov/germany', () => {
 	it('/v2/gov/germany correct amount of provinces', (done) => {
 		chai.request(app)
 			.get('/v2/gov/germany')
@@ -427,6 +423,10 @@ describe('TESTING /v2/gov/UK', () => {
 				latest.should.have.property('usedVentilationBeds');
 				latest.should.have.property('newAdmissions');
 				latest.should.have.property('admissions');
+				latest.should.have.property('todayDeaths');
+				latest.should.have.property('totalDeaths');
+				latest.should.have.property('ONSweeklyDeaths');
+				latest.should.have.property('ONStotalDeaths');
 				done();
 			});
 	});
@@ -499,7 +499,7 @@ describe('TESTING /v2/gov/vietnam', () => {
 	});
 });
 
-describe('TESTING /v2/gov/south korea', () => {
+describe.skip('TESTING /v2/gov/south korea', () => {
 	it('/v2/gov/south korea correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/south korea')
@@ -515,6 +515,116 @@ describe('TESTING /v2/gov/south korea', () => {
 				res.body[0].should.have.property('recovered');
 				res.body[0].should.have.property('deaths');
 				res.body[0].should.have.property('incidence');
+				done();
+			});
+	});
+});
+
+describe('TESTING /v2/gov/Indonesia', () => {
+	it('/v2/gov/Indonesia correct fields set', (done) => {
+		function checkListData(prop, isUsia) {
+			prop.should.have.property('key');
+			prop.should.have.property('doc_count');
+			if (isUsia === true) {
+				prop.should.have.property('usia');
+				prop.usia.should.have.property('value');
+			}
+		}
+		function checkKasus(prop, isUsia) {
+			prop.list_data.forEach((a) => { checkListData(a, isUsia); });
+		}
+		function checkData(prop) {
+			prop.should.have.property('kondisi_penyerta');
+			checkKasus(prop.kondisi_penyerta, false);
+			prop.should.have.property('jenis_kelamin');
+			checkKasus(prop.jenis_kelamin, false);
+			prop.should.have.property('kelompok_umur');
+			checkKasus(prop.kelompok_umur, true);
+			prop.should.have.property('gejala');
+			checkKasus(prop.gejala, false);
+		}
+		function checkHarian(prop) {
+			prop.should.have.property('key_as_string');
+			prop.should.have.property('key');
+			prop.should.have.property('doc_count');
+			prop.should.have.property('jumlah_positif');
+			prop.jumlah_positif.should.have.property('value');
+			prop.should.have.property('jumlah_meninggal');
+			prop.jumlah_meninggal.should.have.property('value');
+			prop.should.have.property('jumlah_sembuh');
+			prop.jumlah_sembuh.should.have.property('value');
+			prop.should.have.property('jumlah_dirawat');
+			prop.jumlah_dirawat.should.have.property('value');
+			prop.should.have.property('jumlah_positif_kum');
+			prop.jumlah_positif_kum.should.have.property('value');
+			prop.should.have.property('jumlah_meninggal_kum');
+			prop.jumlah_meninggal_kum.should.have.property('value');
+			prop.should.have.property('jumlah_sembuh_kum');
+			prop.jumlah_sembuh_kum.should.have.property('value');
+			prop.should.have.property('jumlah_dirawat_kum');
+			prop.jumlah_dirawat_kum.should.have.property('value');
+		}
+		function checkProvListData(prop) {
+			checkListData(prop, false);
+			prop.should.have.property('jumlah_kasus');
+			prop.should.have.property('jumlah_meninggal');
+			prop.should.have.property('jumlah_sembuh');
+			prop.should.have.property('jumlah_dirawat');
+			prop.should.have.property('jenis_kelamin');
+			prop.jenis_kelamin.forEach((a) => { checkListData(a, false); });
+			prop.should.have.property('kelompok_umur');
+			prop.kelompok_umur.forEach((a) => { checkListData(a, false); });
+			prop.should.have.property('lokasi');
+			prop.lokasi.should.have.property('lat');
+			prop.lokasi.should.have.property('lon');
+			prop.should.have.property('penambahan');
+			prop.penambahan.should.have.property('positif');
+			prop.penambahan.should.have.property('sembuh');
+			prop.penambahan.should.have.property('meninggal');
+		}
+		chai.request(app)
+			.get('/v2/gov/Indonesia')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.should.have.property('data');
+				res.body.data.should.have.property('last_update');
+				res.body.data.should.have.property('kasus');
+				checkData(res.body.data.kasus);
+				res.body.data.should.have.property('sembuh');
+				checkData(res.body.data.sembuh);
+				res.body.data.should.have.property('meninggal');
+				checkData(res.body.data.meninggal);
+				res.body.data.should.have.property('perawatan');
+				checkData(res.body.data.perawatan);
+				res.body.should.have.property('update');
+				res.body.update.should.have.property('data');
+				res.body.update.data.should.have.property('id');
+				res.body.update.data.should.have.property('jumlah_odp');
+				res.body.update.data.should.have.property('jumlah_pdp');
+				res.body.update.data.should.have.property('total_spesimen');
+				res.body.update.data.should.have.property('total_spesimen_negatif');
+				res.body.update.should.have.property('update');
+				res.body.update.update.should.have.property('penambahan');
+				res.body.update.update.penambahan.should.have.property('jumlah_positif');
+				res.body.update.update.penambahan.should.have.property('jumlah_meninggal');
+				res.body.update.update.penambahan.should.have.property('jumlah_sembuh');
+				res.body.update.update.penambahan.should.have.property('jumlah_dirawat');
+				res.body.update.update.penambahan.should.have.property('tanggal');
+				res.body.update.update.penambahan.should.have.property('created');
+				res.body.update.update.should.have.property('harian');
+				res.body.update.update.harian.forEach(checkHarian);
+				res.body.update.update.should.have.property('total');
+				res.body.update.update.total.should.have.property('jumlah_positif');
+				res.body.update.update.total.should.have.property('jumlah_meninggal');
+				res.body.update.update.total.should.have.property('jumlah_sembuh');
+				res.body.update.update.total.should.have.property('jumlah_dirawat');
+				res.body.should.have.property('prov');
+				res.body.prov.should.have.property('last_date');
+				res.body.prov.should.have.property('current_data');
+				res.body.prov.should.have.property('missing_data');
+				res.body.prov.should.have.property('tanpa_provinsi');
+				res.body.prov.should.have.property('list_data');
+				res.body.prov.list_data.forEach(checkProvListData);
 				done();
 			});
 	});

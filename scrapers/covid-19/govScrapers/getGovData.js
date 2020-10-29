@@ -1,6 +1,5 @@
 const canadaData = require('./getCanada');
 const italyData = require('./getItaly');
-const germanyData = require('./getGermany');
 const austriaData = require('./getAustria');
 const switzerlandData = require('./getSwitzerland');
 const nigeriaData = require('./getNigeria');
@@ -10,7 +9,7 @@ const southAfricaData = require('./getSouthAfrica');
 const ukData = require('./getUK');
 const israelData = require('./getIsrael');
 const vietnamData = require('./getVietnam');
-const southKoreaData = require('./getSouthKorea');
+const indonesiaData = require('./getIndonesia');
 const nameUtils = require('../../../utils/nameUtils');
 
 const logger = require('../../../utils/logger');
@@ -38,15 +37,14 @@ const govData = async (keys, redis) => {
 			{ country: 'South Africa', fn: southAfricaData },
 			{ country: 'Canada', fn: canadaData },
 			{ country: 'Italy', fn: italyData },
-			{ country: 'Germany', fn: germanyData },
 			{ country: 'Austria', fn: austriaData },
 			{ country: 'Switzerland', fn: switzerlandData },
 			{ country: 'Nigeria', fn: nigeriaData },
 			{ country: 'India', fn: indiaData },
 			{ country: 'New Zealand', fn: newZealandData },
 			{ country: 'UK', fn: ukData },
+			{ country: 'Indonesia', fn: indonesiaData },
 			{ country: 'Israel', fn: israelData },
-			{ country: 'South Korea', fn: southKoreaData },
 			{ country: 'Vietnam', fn: vietnamData }
 		].map(_resolveData));
 

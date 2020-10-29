@@ -7,6 +7,7 @@ const csvUtils = require('../../../utils/csvUtils');
  * @param 	{Object} 	csv		The row to extract data from
  * @returns {Array}				Data for canadian province
  */
+// eslint-disable-next-line no-unused-vars
 const filterByDate = (csv) => {
 	const date = new Date();
 	date.setDate(date.getDate() - 1);
@@ -20,11 +21,19 @@ const canadaData = async () => {
 	try {
 		const canadaRes = (await axios.get('https://health-infobase.canada.ca/src/data/covidLive/covid19.csv')).data;
 		const parsedCanadaData = await csvUtils.parseCsvData(canadaRes);
-		return filterByDate(parsedCanadaData).map(province => ({
+		return parsedCanadaData.map(province => ({
 			updated: Date.now(),
 			province: province.prname === 'Canada' ? 'Total' : province.prname,
-			cases: parseInt(province.numconf) || 0,
-			deaths: parseInt(province.numdeaths) || 0
+			date: province.date,
+			todayCases: parseInt(province.numtoday) || null,
+			todayTests: parseInt(province.numtestedtoday) || null,
+			todayRecovered: parseInt(province.numrecoveredtoday) || null,
+			todayDeaths: parseInt(province.numdeathstoday) || null,
+			cases: parseInt(province.numconf) || null,
+			active: parseInt(province.numactive) || null,
+			tests: parseInt(province.numtested) || null,
+			recovered: parseInt(province.numrecover) || null,
+			deaths: parseInt(province.numdeaths) || null
 		}));
 	} catch (err) {
 		logger.err('Error: Requesting Canada Gov Data failed!', err);
