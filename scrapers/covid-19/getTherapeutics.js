@@ -33,18 +33,24 @@ const getTherapeuticsData = async (keys, redis) => {
 	} catch (err) {
 		logger.err('Error: Requesting therapeutics data failed!', err);
 	}
-	try {
-		const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${day}-tx-tracker-Craven.csv`);
-		const parsedData = await csv().fromString(data);
-		redis.set(keys.therapeutics, JSON.stringify({
-			source: 'https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-therapeutics-tracker',
-			totalCandidates: parsedData.length.toString(),
-			phases: phaseData(parsedData),
-			data: cleanData(parsedData)
-		}));
-	} catch (err) {
-		logger.err('Error: Requesting therapeutics CSV data failed!', err);
-	}
+	let dataExists = false;
+	let counter = 0;
+	do {
+		try {
+			const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${day - counter}-tx-tracker-Craven.csv`);
+			const parsedData = await csv().fromString(data);
+			redis.set(keys.therapeutics, JSON.stringify({
+				source: 'https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-therapeutics-tracker',
+				totalCandidates: parsedData.length.toString(),
+				phases: phaseData(parsedData),
+				data: cleanData(parsedData)
+			}));
+			dataExists = true;
+		} catch (err) {
+			logger.err('Error: Requesting therapeutics CSV data failed!', err);
+		}
+		counter++;
+	} while (dataExists === false && counter < 3);
 };
 
 module.exports = getTherapeuticsData;
