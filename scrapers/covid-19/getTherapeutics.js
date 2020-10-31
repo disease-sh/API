@@ -34,7 +34,7 @@ const getTherapeuticsData = async (keys, redis) => {
 		logger.err('Error: Requesting therapeutics data failed!', err);
 	}
 	try {
-		const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${day}-tx-tracker-chart-Craven.csv`);
+		const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${day}-tx-tracker-Craven.csv`);
 		const parsedData = await csv().fromString(data);
 		redis.set(keys.therapeutics, JSON.stringify({
 			source: 'https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-therapeutics-tracker',
