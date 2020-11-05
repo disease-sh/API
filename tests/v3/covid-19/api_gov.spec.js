@@ -339,7 +339,7 @@ describe('TESTING /v3/covid-19/gov/india', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/new zealand', () => {
+describe.skip('TESTING /v3/covid-19/gov/new zealand', () => {
 	it('/v3/covid-19/gov/new zealand correct amount', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/new zealand')
