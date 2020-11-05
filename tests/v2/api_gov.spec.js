@@ -334,7 +334,7 @@ describe('TESTING /v2/gov/india', () => {
 	});
 });
 
-describe('TESTING /v2/gov/new zealand', () => {
+describe.skip('TESTING /v2/gov/new zealand', () => {
 	it('/v2/gov/new zealand correct amount', (done) => {
 		chai.request(app)
 			.get('/v2/gov/new zealand')
