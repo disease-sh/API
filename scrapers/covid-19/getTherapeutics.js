@@ -37,7 +37,7 @@ const getTherapeuticsData = async (keys, redis) => {
 	let counter = 0;
 	do {
 		try {
-			const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${day - counter}-tx-tracker-Craven.csv`);
+			const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${months[month]}${(day - counter).toString().padStart(2, '0')}-tx-tracker-Craven.csv`);
 			const parsedData = await csv().fromString(data);
 			redis.set(keys.therapeutics, JSON.stringify({
 				source: 'https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-therapeutics-tracker',
