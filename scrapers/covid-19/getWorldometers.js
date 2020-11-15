@@ -59,6 +59,12 @@ const mapRows = (_, row) => {
 				entry.countryInfo = countryInfo;
 				break;
 			}
+			/*
+				Index 15 refers to the following cell:
+				`<td style="display:none" data-continent="all"></td>`
+
+				Cheerio loads all columns of the table including those not selected inside the `Column` select element.
+			*/
 			case 15: {
 				entry[selector] = cell.text();
 				break;
