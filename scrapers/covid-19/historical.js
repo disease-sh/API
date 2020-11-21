@@ -77,6 +77,29 @@ const historicalV2 = async (keys, redis) => {
 			: parsedAtIndex['Province/State'].toLowerCase();
 		return newElement;
 	});
+	/* This is an edge case to handle recovered data for Canada.
+	   Since JHU dataset doesn't have recovered data for Canada
+	   disaggregated by Province/Region, the aggregate data is
+	   lost when recovered data is formatted in formatRecoveredData
+	   function. This  will create a non-existent Province/Region
+	   called recovered-aggregate with cases and deaths set to 0
+	   and recovered is set to aggregate recovered data. This data
+	   is pulled only if historical data for Canada is requested.
+	*/
+	for (let i = 0; i < result.length; i++) {
+		if (result[i].country.toLocaleLowerCase() === 'canada') {
+			const data = { country: result[i].country, countryInfo: { ...result[i].countryInfo }, province: 'recovered-aggregate', timeline: { cases: {}, deaths: {}, recovered: {} } };
+			const recoveredCanada = parsedRecovered.find(country => country['Country/Region'] === 'Canada' && country['Province/State'] === '');
+			if (!recoveredCanada) break;
+			Object.keys(data.timeline.recovered).forEach(date => {
+				data.timeline.recovered[date] = parseInt(recoveredCanada[date]);
+				data.timeline.deaths[date] = 0;
+				data.timeline.cases[date] = 0;
+			});
+			result.splice(i, 0, data);
+			break;
+		}
+	}
 
 	redis.set(keys.historical_v2, JSON.stringify(result));
 	logger.info(`Updated JHU CSSE Historical: ${result.length} locations`);
@@ -90,6 +113,13 @@ const historicalV2 = async (keys, redis) => {
  */
 const getHistoricalDataV2 = (data, lastdays = 30) => {
 	lastdays = stringUtils.getLastDays(lastdays);
+	// Removing data inserted for edge case of Canada
+	for (let i = 0; i < data.length; i++) {
+		if (data[i].country.toLowerCase() === 'canada' && data[i].province.toLowerCase() === 'recovered-aggregate') {
+			data.splice(i, 1);
+			break;
+		}
+	}
 	return data.map(country => {
 		delete country.countryInfo;
 		const cases = {}, deaths = {}, recovered = {};
@@ -116,6 +146,30 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
 	lastdays = stringUtils.getLastDays(lastdays);
 	const countryInfo = nameUtils.getCountryData(query);
 	const standardizedCountryName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : query);
+	/*
+	  If data required is for a Province/Region of
+	  Canada or data required is for a country other
+	  than Canada, remove the edge case data inserted and
+	  and keep it if general historial data for Canada
+	  is required.
+	*/
+	if (standardizedCountryName.toLowerCase() === 'canada') {
+		if (province !== null) {
+			for (let i = 0; i < data.length; i++) {
+				if (data[i].country.toLowerCase() === 'canada' && data[i].province.toLowerCase() === 'recovered-aggregate') {
+					data.splice(i, 1);
+					break;
+				}
+			}
+		}
+	} else {
+		for (let i = 0; i < data.length; i++) {
+			if (data[i].country.toLowerCase() === 'canada' && data[i].province.toLowerCase() === 'recovered-aggregate') {
+				data.splice(i, 1);
+				break;
+			}
+		}
+	}
 	// filter to either specific province, or provinces to sum country over
 	const countryData = data.filter(item => {
 		const deepMatch = () => stringUtils.wordsStandardize(item.country) === standardizedCountryName
@@ -147,6 +201,20 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
 			});
 		});
 	});
+	/*
+	This is to remove imaginary Region/Province inserted
+	as edge case if data for Canada is requested without a
+	province. It prevents returning the imaginary Region/Province
+	among the list of Regions/Provinces.
+	*/
+	if (standardizedCountryName.toLowerCase() === 'canada' && province === null) {
+		for (let i = 0; i < provinces.length; i++) {
+			if (provinces[i] === 'recovered-aggregate') {
+				provinces.splice(i, 1);
+				break;
+			}
+		}
+	}
 	return {
 		country: countryData[0].country || standardizedCountryName,
 		province: province ? countryData[0].province || province : provinces,
