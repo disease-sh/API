@@ -22,7 +22,7 @@ const countries = [
 	'Vietnam'
 ];
 
-describe('TESTING /v3/covid-19/gov general', () => {
+describe.skip('TESTING /v3/covid-19/gov general', () => {
 	it('/v3/covid-19/gov correct countries', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov')
@@ -45,7 +45,7 @@ describe('TESTING /v3/covid-19/gov general', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/canada', () => {
+describe.skip('TESTING /v3/covid-19/gov/canada', () => {
 	it('/v3/covid-19/gov/canada correct fields set', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/canada')
@@ -71,7 +71,7 @@ describe('TESTING /v3/covid-19/gov/canada', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/italy', () => {
+describe.skip('TESTING /v3/covid-19/gov/italy', () => {
 	it('/v3/covid-19/gov/italy correct amount of provinces', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/italy')
@@ -146,7 +146,7 @@ describe.skip('TESTING /v3/covid-19/gov/germany', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/austria', () => {
+describe.skip('TESTING /v3/covid-19/gov/austria', () => {
 	it('/v3/covid-19/gov/austria correct properties', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/austria')
@@ -254,7 +254,7 @@ describe('TESTING /v3/covid-19/gov/austria', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/switzerland', () => {
+describe.skip('TESTING /v3/covid-19/gov/switzerland', () => {
 	it('/v3/covid-19/gov/switzerland correct fields set', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/switzerland')
@@ -278,7 +278,7 @@ describe('TESTING /v3/covid-19/gov/switzerland', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/nigeria', () => {
+describe.skip('TESTING /v3/covid-19/gov/nigeria', () => {
 	it('/v3/covid-19/gov/nigeria correct length and properties', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/nigeria')
@@ -298,7 +298,7 @@ describe('TESTING /v3/covid-19/gov/nigeria', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/india', () => {
+describe.skip('TESTING /v3/covid-19/gov/india', () => {
 	it('/v3/covid-19/gov/india correct total', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/india')
@@ -373,7 +373,7 @@ describe.skip('TESTING /v3/covid-19/gov/new zealand', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/south africa', () => {
+describe.skip('TESTING /v3/covid-19/gov/south africa', () => {
 	it('/v3/covid-19/gov/south africa correct data', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/south africa')
@@ -418,7 +418,7 @@ describe('TESTING /v3/covid-19/gov/south africa', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/UK', () => {
+describe.skip('TESTING /v3/covid-19/gov/UK', () => {
 	it('/v3/covid-19/gov/UK correct fields set', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/uk')
@@ -443,7 +443,7 @@ describe('TESTING /v3/covid-19/gov/UK', () => {
 	});
 });
 
-describe('TESTING /v3/gov/Israel', () => {
+describe.skip('TESTING /v3/gov/Israel', () => {
 	it('/v3/gov/Israel correct fields set', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/Israel')
@@ -493,7 +493,7 @@ describe('TESTING /v3/gov/Israel', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/vietnam', () => {
+describe.skip('TESTING /v3/covid-19/gov/vietnam', () => {
 	it('/v3/covid-19/gov/vietnam correct fields set', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/gov/vietnam')
@@ -531,7 +531,7 @@ describe.skip('TESTING /v3/covid-19/gov/south korea', () => {
 	});
 });
 
-describe('TESTING /v3/covid-19/gov/Indonesia', () => {
+describe.skip('TESTING /v3/covid-19/gov/Indonesia', () => {
 	it('/v3/covid-19/gov/Indonesia correct fields set', (done) => {
 		function checkListData(prop, isUsia) {
 			prop.should.have.property('key');
