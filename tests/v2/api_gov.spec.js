@@ -22,7 +22,7 @@ const countries = [
 	'Vietnam'
 ].sort();
 
-describe('TESTING /v2/gov general', () => {
+describe.skip('TESTING /v2/gov general', () => {
 	it('/v2/gov correct countries', (done) => {
 		chai.request(app)
 			.get('/v2/gov')
@@ -45,7 +45,7 @@ describe('TESTING /v2/gov general', () => {
 	});
 });
 
-describe('TESTING /v2/gov/canada', () => {
+describe.skip('TESTING /v2/gov/canada', () => {
 	it('/v2/gov/canada correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/canada')
@@ -71,7 +71,7 @@ describe('TESTING /v2/gov/canada', () => {
 	});
 });
 
-describe('TESTING /v2/gov/italy', () => {
+describe.skip('TESTING /v2/gov/italy', () => {
 	it('/v2/gov/italy correct amount of provinces', (done) => {
 		chai.request(app)
 			.get('/v2/gov/italy')
@@ -146,7 +146,7 @@ describe.skip('TESTING /v2/gov/germany', () => {
 	});
 });
 
-describe('TESTING /v2/gov/austria', () => {
+describe.skip('TESTING /v2/gov/austria', () => {
 	it('/v2/gov/austria correct properties', (done) => {
 		chai.request(app)
 			.get('/v2/gov/austria')
@@ -250,7 +250,7 @@ describe('TESTING /v2/gov/austria', () => {
 	});
 });
 
-describe('TESTING /v2/gov/switzerland', () => {
+describe.skip('TESTING /v2/gov/switzerland', () => {
 	it('/v2/gov/switzerland correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/switzerland')
@@ -273,7 +273,7 @@ describe('TESTING /v2/gov/switzerland', () => {
 	});
 });
 
-describe('TESTING /v2/gov/nigeria', () => {
+describe.skip('TESTING /v2/gov/nigeria', () => {
 	it('/v2/gov/nigeria correct length and properties', (done) => {
 		chai.request(app)
 			.get('/v2/gov/nigeria')
@@ -293,7 +293,7 @@ describe('TESTING /v2/gov/nigeria', () => {
 	});
 });
 
-describe('TESTING /v2/gov/india', () => {
+describe.skip('TESTING /v2/gov/india', () => {
 	it('/v2/gov/india correct total', (done) => {
 		chai.request(app)
 			.get('/v2/gov/india')
@@ -368,7 +368,7 @@ describe.skip('TESTING /v2/gov/new zealand', () => {
 	});
 });
 
-describe('TESTING /v2/gov/south africa', () => {
+describe.skip('TESTING /v2/gov/south africa', () => {
 	it('/v2/gov/south africa correct data', (done) => {
 		chai.request(app)
 			.get('/v2/gov/south africa')
@@ -407,7 +407,7 @@ describe('TESTING /v2/gov/south africa', () => {
 	});
 });
 
-describe('TESTING /v2/gov/UK', () => {
+describe.skip('TESTING /v2/gov/UK', () => {
 	it('/v2/gov/UK correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/uk')
@@ -432,7 +432,7 @@ describe('TESTING /v2/gov/UK', () => {
 	});
 });
 
-describe('TESTING /v2/gov/Israel', () => {
+describe.skip('TESTING /v2/gov/Israel', () => {
 	it('/v2/gov/Israel correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/Israel')
@@ -482,7 +482,7 @@ describe('TESTING /v2/gov/Israel', () => {
 	});
 });
 
-describe('TESTING /v2/gov/vietnam', () => {
+describe.skip('TESTING /v2/gov/vietnam', () => {
 	it('/v2/gov/vietnam correct fields set', (done) => {
 		chai.request(app)
 			.get('/v2/gov/vietnam')
@@ -520,7 +520,7 @@ describe.skip('TESTING /v2/gov/south korea', () => {
 	});
 });
 
-describe('TESTING /v2/gov/Indonesia', () => {
+describe.skip('TESTING /v2/gov/Indonesia', () => {
 	it('/v2/gov/Indonesia correct fields set', (done) => {
 		function checkListData(prop, isUsia) {
 			prop.should.have.property('key');
