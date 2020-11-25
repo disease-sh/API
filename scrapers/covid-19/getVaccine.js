@@ -2,9 +2,7 @@ const axios = require('axios');
 const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const tough = require('tough-cookie');
 const csv = require('csvtojson');
-const cheerio = require('cheerio');
 const logger = require('../../utils/logger');
-const { months, phaseData } = require('../../utils/RAPS');
 
 axiosCookieJarSupport(axios);
 
