@@ -6,7 +6,7 @@ const { testBasicProperties } = require('../../testingFunctions');
 
 chai.use(chaiHttp);
 
-describe('TESTING /v3/covid-19/vaccine', () => {
+describe.skip('TESTING /v3/covid-19/vaccine', () => {
 	it('/v3/covid-19/vaccine correct type', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/vaccine')
