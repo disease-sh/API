@@ -32,6 +32,7 @@
   "dependencies": {
     "@sentry/node": "5.12.2",
     "axios": "^0.19.2",
+    "axios-cookiejar-support": "^1.0.1",
     "cheerio": "^0.22.0",
     "cookie-parser": "1.4.5",
     "cors": "^2.8.5",
@@ -42,7 +43,8 @@
     "express": "^4.16.3",
     "ioredis": "*",
     "mailgun-js": "^0.22.0",
-    "swagger-ui-express": "^4.1.4"
+    "swagger-ui-express": "^4.1.4",
+    "tough-cookie": "^4.0.0"
   },
   "devDependencies": {
     "@aero/eslint-config": "^1.0.1",
