@@ -53,6 +53,14 @@ const historicalV2 = async (keys, redis) => {
 	const formatedRecovered = formatRecoveredData(parsedCases, parsedRecovered);
 	// dates key for timeline
 	const timelineKey = Object.keys(parsedCases[0]).splice(timelineIndex);
+
+	// For handling edge case for Canada's recovered aggregate data
+	const recoveredAggregateCanada = parsedRecovered.find(country => country['Country/Region'] === 'Canada' && country['Province/State'] === '');
+	const recoveredAggregateCanadaTimeline = Object.values(recoveredAggregateCanada).splice(timelineIndex);
+	const newElementCanada = {
+		country: '', countryInfo: {}, province: 'recovered-aggregate', timeline: { cases: {}, deaths: {}, recovered: {} }
+	};
+
 	// format csv data to response
 	const result = parsedCases.map((_, index) => {
 		const newElement = {
@@ -66,6 +74,20 @@ const historicalV2 = async (keys, redis) => {
 			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
 			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
 			newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
+
+			/*
+			This sets cases and deaths of the timeline field to 0 and populates
+			recovered field with aggregate recovered data for Canada. This ensures
+			conformity with other real provinces of Canada. This is a fake province
+			which is holding aggregate recovered data for Canada. This has to be done
+			here because the original data values are strings which need to be parsed
+			to integers.
+			*/
+			if (index === 0) {
+				newElementCanada.timeline.cases[timelineKey[i]] = 0;
+				newElementCanada.timeline.deaths[timelineKey[i]] = 0;
+				newElementCanada.timeline.recovered[timelineKey[i]] = parseInt(recoveredAggregateCanadaTimeline[i]);
+			}
 		}
 
 		// add country info to support iso2/3 queries
@@ -75,28 +97,30 @@ const historicalV2 = async (keys, redis) => {
 		newElement.countryInfo = countryData;
 		newElement.province = parsedAtIndex['Province/State'] === '' ? null
 			: parsedAtIndex['Province/State'].toLowerCase();
+
+		// Add values for country and countryInfo field for Canada edge case
+		if (newElementCanada.country === '' && newElement.country.toLocaleLowerCase() === 'canada') {
+			newElementCanada.country = newElement.country;
+			newElementCanada.countryInfo = newElement.countryInfo;
+		}
 		return newElement;
 	});
 	/* This is an edge case to handle recovered data for Canada.
 	   Since JHU dataset doesn't have recovered data for Canada
 	   disaggregated by Province/Region, the aggregate data is
 	   lost when recovered data is formatted in formatRecoveredData
-	   function. This  will create a non-existent Province/Region
-	   called recovered-aggregate with cases and deaths set to 0
-	   and recovered is set to aggregate recovered data. This data
-	   is pulled only if historical data for Canada is requested.
+	   function. A non-existent Province/Region called recovered-aggregate
+	   was created in the callback to parsedCases.map above with
+	   cases and deaths set to 0 and recovered  set to aggregate recovered data.
+	   This data is pulled only if historical data for Canada is requested.
+	   Below, we are making a copy of the newElementCanada object and
+	   inserting the fake province before the first real province of the final
+	   dataset
 	*/
+	const newElementCanadaCopy = JSON.parse(JSON.stringify(newElementCanada));
 	for (let i = 0; i < result.length; i++) {
 		if (result[i].country.toLocaleLowerCase() === 'canada') {
-			const data = { country: result[i].country, countryInfo: { ...result[i].countryInfo }, province: 'recovered-aggregate', timeline: { cases: {}, deaths: {}, recovered: {} } };
-			const recoveredCanada = parsedRecovered.find(country => country['Country/Region'] === 'Canada' && country['Province/State'] === '');
-			if (!recoveredCanada) break;
-			Object.keys(result[i].timeline.recovered).forEach(date => {
-				data.timeline.recovered[date] = parseInt(recoveredCanada[date]);
-				data.timeline.deaths[date] = 0;
-				data.timeline.cases[date] = 0;
-			});
-			result.splice(i, 0, data);
+			result.splice(i, 0, newElementCanadaCopy);
 			break;
 		}
 	}
