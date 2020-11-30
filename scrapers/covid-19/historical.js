@@ -162,14 +162,8 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
 				}
 			}
 		}
-	} else {
-		for (let i = 0; i < data.length; i++) {
-			if (data[i].country.toLowerCase() === 'canada' && data[i].province.toLowerCase() === 'recovered-aggregate') {
-				data.splice(i, 1);
-				break;
-			}
-		}
 	}
+
 	// filter to either specific province, or provinces to sum country over
 	const countryData = data.filter(item => {
 		const deepMatch = () => stringUtils.wordsStandardize(item.country) === standardizedCountryName
