@@ -91,7 +91,7 @@ const historicalV2 = async (keys, redis) => {
 			const data = { country: result[i].country, countryInfo: { ...result[i].countryInfo }, province: 'recovered-aggregate', timeline: { cases: {}, deaths: {}, recovered: {} } };
 			const recoveredCanada = parsedRecovered.find(country => country['Country/Region'] === 'Canada' && country['Province/State'] === '');
 			if (!recoveredCanada) break;
-			Object.keys(data.timeline.recovered).forEach(date => {
+			Object.keys(result[i].timeline.recovered).forEach(date => {
 				data.timeline.recovered[date] = parseInt(recoveredCanada[date]);
 				data.timeline.deaths[date] = 0;
 				data.timeline.cases[date] = 0;
