@@ -29,15 +29,16 @@ const cleanData = (data) => {
 const getVaccineData = async (keys, redis) => {
 	const dateObj = new Date();
 	const month = dateObj.getUTCMonth() + 1;
-	const day = dateObj.getUTCDate();
+	// const day = dateObj.getUTCDate();
 	const year = dateObj.getUTCFullYear();
 
 	let dataExists = false;
 	let counter = 0;
 	do {
 		try {
+			const dateString = `${year}${month - 1}${counter.toString().padStart(2, '0')}`;
 			const cookieJar = new tough.CookieJar();
-			const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${month}${(day - counter).toString().padStart(2, '0')}-vax-tracker-Craven.csv`, {
+			const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${dateString}-vax-tracker-Craven.csv`, {
 				jar: cookieJar,
 				withCredentials: true,
 				headers: {

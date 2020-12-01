@@ -30,14 +30,14 @@ const cleanData = (data) => {
 const getTherapeuticsData = async (keys, redis) => {
 	const dateObj = new Date();
 	const month = dateObj.getUTCMonth() + 1;
-	const day = dateObj.getUTCDate();
+	// const day = dateObj.getUTCDate();
 	const year = dateObj.getUTCFullYear();
 
 	let dataExists = false;
 	let counter = 0;
 	do {
 		try {
-			const dateString = `${year}${month - 1}${(counter).toString().padStart(2, '0')}`;
+			const dateString = `${year}${month - 1}${counter.toString().padStart(2, '0')}`;
 			console.log(`https://www.raps.org/RAPS/media/news-images/data/${dateString}-tx-tracker-Craven.csv`);
 			const cookieJar = new tough.CookieJar();
 			const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${dateString}-tx-tracker-Craven.csv`, {
