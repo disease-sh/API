@@ -30,16 +30,15 @@ const cleanData = (data) => {
 const getTherapeuticsData = async (keys, redis) => {
 	const dateObj = new Date();
 	const month = dateObj.getUTCMonth() + 1;
-	const day = dateObj.getUTCDate();
 	const year = dateObj.getUTCFullYear();
 
 	let dataExists = false;
 	let counter = 0;
 	do {
 		try {
-			console.log(`https://www.raps.org/RAPS/media/news-images/data/${year}${month}${(day - counter).toString().padStart(2, '0')}-tx-tracker-Craven.csv`);
+			const dateString = `${year}${month - 1}${counter.toString().padStart(2, '0')}`;
 			const cookieJar = new tough.CookieJar();
-			const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${year}${month}${(day - counter).toString().padStart(2, '0')}-tx-tracker-Craven.csv`, {
+			const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${dateString}-tx-tracker-Craven.csv`, {
 				jar: cookieJar,
 				withCredentials: true,
 				headers: {
@@ -60,7 +59,7 @@ const getTherapeuticsData = async (keys, redis) => {
 			logger.err('Error: Requesting therapeutics CSV data failed!', err);
 		}
 		counter++;
-	} while (dataExists === false && counter < 30);
+	} while (dataExists === false && counter < 31);
 };
 
 module.exports = getTherapeuticsData;
