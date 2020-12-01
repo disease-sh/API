@@ -29,7 +29,6 @@ const cleanData = (data) => {
 const getVaccineData = async (keys, redis) => {
 	const dateObj = new Date();
 	const month = dateObj.getUTCMonth() + 1;
-	// const day = dateObj.getUTCDate();
 	const year = dateObj.getUTCFullYear();
 
 	let dataExists = false;
