@@ -54,12 +54,24 @@ const historicalV2 = async (keys, redis) => {
 	// dates key for timeline
 	const timelineKey = Object.keys(parsedCases[0]).splice(timelineIndex);
 
-	// For handling edge case for Canada's recovered aggregate data
+	/*
+	This sets cases and deaths of the timeline field to 0 and populates
+	recovered field with aggregate recovered data for Canada. This ensures
+	conformity with other real provinces of Canada. This is a fake province
+	which is holding aggregate recovered data for Canada. The original data
+	values are strings which need to be parsed to integers.
+	*/
 	const recoveredAggregateCanada = parsedRecovered.find(country => country['Country/Region'] === 'Canada' && country['Province/State'] === '');
 	const recoveredAggregateCanadaTimeline = Object.values(recoveredAggregateCanada).splice(timelineIndex);
+	const firstCountryCases = Object.values(parsedCases[0]).splice(timelineIndex);
 	const newElementCanada = {
 		country: '', countryInfo: {}, province: 'recovered-aggregate', timeline: { cases: {}, deaths: {}, recovered: {} }
 	};
+	for (let i = 0; i < firstCountryCases.length; i++) {
+		newElementCanada.timeline.cases[timelineKey[i]] = 0;
+		newElementCanada.timeline.deaths[timelineKey[i]] = 0;
+		newElementCanada.timeline.recovered[timelineKey[i]] = parseInt(recoveredAggregateCanadaTimeline[i]);
+	}
 
 	// format csv data to response
 	const result = parsedCases.map((_, index) => {
@@ -74,20 +86,6 @@ const historicalV2 = async (keys, redis) => {
 			newElement.timeline.cases[timelineKey[i]] = parseInt(cases[i]);
 			newElement.timeline.deaths[timelineKey[i]] = parseInt(deaths[i]);
 			newElement.timeline.recovered[timelineKey[i]] = parseInt(recovered[i] || 0);
-
-			/*
-			This sets cases and deaths of the timeline field to 0 and populates
-			recovered field with aggregate recovered data for Canada. This ensures
-			conformity with other real provinces of Canada. This is a fake province
-			which is holding aggregate recovered data for Canada. This has to be done
-			here because the original data values are strings which need to be parsed
-			to integers.
-			*/
-			if (index === 0) {
-				newElementCanada.timeline.cases[timelineKey[i]] = 0;
-				newElementCanada.timeline.deaths[timelineKey[i]] = 0;
-				newElementCanada.timeline.recovered[timelineKey[i]] = parseInt(recoveredAggregateCanadaTimeline[i]);
-			}
 		}
 
 		// add country info to support iso2/3 queries
@@ -110,12 +108,9 @@ const historicalV2 = async (keys, redis) => {
 	   disaggregated by Province/Region, the aggregate data is
 	   lost when recovered data is formatted in formatRecoveredData
 	   function. A non-existent Province/Region called recovered-aggregate
-	   was created in the callback to parsedCases.map above with
-	   cases and deaths set to 0 and recovered  set to aggregate recovered data.
-	   This data is pulled only if historical data for Canada is requested.
-	   Below, we are making a copy of the newElementCanada object and
-	   inserting the fake province before the first real province of the final
-	   dataset
+	   was created before parsedCases.map above. Here we are making a copy
+	   of the newElementCanada object and inserting the fake province before
+	   the first real province of the final dataset
 	*/
 	const newElementCanadaCopy = JSON.parse(JSON.stringify(newElementCanada));
 	for (let i = 0; i < result.length; i++) {
@@ -130,6 +125,21 @@ const historicalV2 = async (keys, redis) => {
 };
 
 /**
+ *  This function removes fake province inserted to handle recovered aggregate data for Canada
+ * @param {array} data Full historical data returned from /historical or /historical/canada endpoints
+ * @returns {array}    Full historical data after removing fake Canada province
+ */
+
+function removeRecoveredAggregateCanada(data) {
+	for (let i = 0; i < data.length; i++) {
+		if (data[i].country.toLowerCase() === 'canada' && data[i].province.toLowerCase() === 'recovered-aggregate') {
+			data.splice(i, 1);
+			break;
+		}
+	}
+	return data;
+}
+/**
  * Parses data from historical endpoint and returns data for each country & province
  * @param 	{array}		data		Full historical data returned from /historical endpoint
  * @param 	{string}	lastdays  	How many days to show always take lastest
@@ -138,12 +148,7 @@ const historicalV2 = async (keys, redis) => {
 const getHistoricalDataV2 = (data, lastdays = 30) => {
 	lastdays = stringUtils.getLastDays(lastdays);
 	// Removing data inserted for edge case of Canada
-	for (let i = 0; i < data.length; i++) {
-		if (data[i].country.toLowerCase() === 'canada' && data[i].province.toLowerCase() === 'recovered-aggregate') {
-			data.splice(i, 1);
-			break;
-		}
-	}
+	data = removeRecoveredAggregateCanada(data);
 	return data.map(country => {
 		delete country.countryInfo;
 		const cases = {}, deaths = {}, recovered = {};
@@ -179,12 +184,7 @@ const getHistoricalCountryDataV2 = (data, query, province = null, lastdays = 30)
 	*/
 	if (standardizedCountryName.toLowerCase() === 'canada') {
 		if (province !== null) {
-			for (let i = 0; i < data.length; i++) {
-				if (data[i].country.toLowerCase() === 'canada' && data[i].province.toLowerCase() === 'recovered-aggregate') {
-					data.splice(i, 1);
-					break;
-				}
-			}
+			data = removeRecoveredAggregateCanada(data);
 		}
 	}
 
