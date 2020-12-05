@@ -148,6 +148,38 @@ describe('TESTING /v3/covid-19/historical', () => {
 			});
 	});
 
+	// Testing fake province added specifically for handling recovered aggregate for Canada
+	it('/v3/covid-19/historical', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/historical')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.equal(271);
+				done();
+			});
+	});
+
+	it('/v3/covid-19/historical/:country/:province', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/historical/canada')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.province.length.should.equal(16);
+				Object.values(res.body.timeline.recovered)[29].should.not.equal(0);
+				done();
+			});
+	});
+
+	it('/v3/covid-19/historical/:country/:province fake province for Canada', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/historical/canada/recovered-aggregate')
+			.end((err, res) => {
+				testBasicProperties(err, res, 404, 'object');
+				res.body.should.have.property('message');
+				done();
+			});
+	});
+
 	// Test that all countries map to their respective country
 	countryData.forEach((element) => {
 		it(`/v3/covid-19/historical/${element.country} correct country name`, (done) => {
