@@ -35,7 +35,7 @@ const getVaccineData = async (keys, redis) => {
 	let counter = 0;
 	do {
 		try {
-			const dateString = `${year}${month - 1}${counter.toString().padStart(2, '0')}`;
+			const dateString = `${year}${month}${counter.toString().padStart(2, '0')}`;
 			const cookieJar = new tough.CookieJar();
 			const { data } = await axios.get(`https://www.raps.org/RAPS/media/news-images/data/${dateString}-vax-tracker-Craven.csv`, {
 				jar: cookieJar,
