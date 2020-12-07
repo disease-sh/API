@@ -149,15 +149,6 @@ describe('TESTING /v3/covid-19/historical', () => {
 	});
 
 	// Testing fake province added specifically for handling recovered aggregate for Canada
-	it('/v3/covid-19/historical', (done) => {
-		chai.request(app)
-			.get('/v3/covid-19/historical')
-			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.equal(271);
-				done();
-			});
-	});
 
 	it('/v3/covid-19/historical/:country/:province', (done) => {
 		chai.request(app)
@@ -174,7 +165,7 @@ describe('TESTING /v3/covid-19/historical', () => {
 		chai.request(app)
 			.get('/v3/covid-19/historical/canada/recovered-aggregate')
 			.end((err, res) => {
-				testBasicProperties(err, res, 404, 'object');
+				testBasicProperties(err, res, 200, 'object');
 				res.body.should.have.property('message');
 				done();
 			});
