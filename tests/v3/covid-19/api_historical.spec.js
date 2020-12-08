@@ -109,15 +109,15 @@ describe('TESTING /v3/covid-19/historical', () => {
 		chai.request(app)
 			.get('/v3/covid-19/historical/usa/sdgdf,gsfd')
 			.end((err, res) => {
-				testBasicProperties(err, res, 404, 'array');
-				res.body[0].should.have.property('message');
+				testBasicProperties(err, res, 404, 'object');
+				res.body.should.have.property('message');
 				done();
 			});
 	});
 
 	it('/v3/covid-19/historical/ correct province name list', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/historical/156/bejing,hebei')
+			.get('/v3/covid-19/historical/156/beijing,hebei')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				done();
