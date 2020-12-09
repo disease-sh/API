@@ -65,14 +65,14 @@ router.get('/v3/covid-19/historical/:query/:province?', async (req, res) => {
 			)
 		);
 	} else {
-		countryData = scraper.historical.getHistoricalCountryDataV2(
+		countryData = countries.map(() => scraper.historical.getHistoricalCountryDataV2(
 			data,
 			query,
 			province,
 			lastdays
-		);
+		));
 	}
-	if (countryData && countryData[0] !== null) {
+	if (countryData && countryData.some(extractedData => extractedData !== null)) {
 		res.send(countryData.length === 1 ? countryData[0] : countryData);
 	} else {
 		res.status(404).send({ message: 'Country not found or doesn\'t have any historical data' });
