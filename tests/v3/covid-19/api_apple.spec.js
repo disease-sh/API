@@ -24,7 +24,7 @@ describe('TESTING /v3/covid-19/apple/countries/country', () => {
 			.get('/v3/covid-19/apple/countries')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				res.body.forEach((countryName) => {
+				res.body.slice(0, 10).forEach((countryName) => {
 					chai.request(app)
 						.get(`/v3/covid-19/apple/countries/${countryName}`)
 						.end((err2, res2) => {
@@ -50,12 +50,12 @@ describe('TESTING /v3/covid-19/apple/countries/country', () => {
 });
 
 describe('TESTING /v3/covid-19/apple/countries/country/subregions', () => {
-	it('/v3/covid-19/apple/countries/country/all correct for all valid', (done) => {
+	it('/v3/covid-19/apple/countries/country/all correct for some valid', (done) => {
 		chai.request(app)
 			.get('/v3/covid-19/apple/countries')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				res.body.forEach((countryName) => {
+				res.body.slice(0, 10).forEach((countryName) => {
 					chai.request(app)
 						.get(`/v3/covid-19/apple/countries/${countryName}/all`)
 						.end((err2, res2) => {
