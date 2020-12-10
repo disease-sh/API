@@ -29,7 +29,7 @@ const parseData = (data) => {
 	const labelAgeGroup = (el) => el.data.map((entry, i) => {
 		const { section, male, female } = entry;
 		return { section: i === el.data.length - 1 ? `+${section}` : `${section} - ${section + 9}`, male, female };
-	})
+	});
 	const translateColor = (color) => {
 		switch (true) {
 			case /אדום/.test(color): return 'red';
@@ -38,7 +38,7 @@ const parseData = (data) => {
 			case /ירוק/.test(color): return 'green';
 			default: return color;
 		}
-	}
+	};
 	const dateRegex = /\d+-\d+-\d+/g;
 	const patientsPerDay = data[1].data;
 	const deadPatientsPerDay = data[2].data;
