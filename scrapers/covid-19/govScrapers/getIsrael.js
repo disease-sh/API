@@ -81,7 +81,7 @@ const parseData = (data) => {
 			},
 			cityData: data[6].data,
 			hospitalData: data[7].data,
-			threeStagePlan: {
+			trafficLightMap: {
 				cityData: data[12].data.map((city) => ({
 					name: city.name,
 					score: city.score,
