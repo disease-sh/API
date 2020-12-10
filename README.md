@@ -106,6 +106,8 @@ Did you build a project with our API? We now offer an "awesome-list" for you to 
 
 > https://covid19.go.id
 
+> https://datadashboard.health.gov.il/COVID-19/general
+
 # Contributing
 - [How to Contribute](./CONTRIBUTING.md)
 
