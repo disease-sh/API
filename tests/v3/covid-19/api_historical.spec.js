@@ -109,15 +109,15 @@ describe('TESTING /v3/covid-19/historical', () => {
 		chai.request(app)
 			.get('/v3/covid-19/historical/usa/sdgdf,gsfd')
 			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'array');
-				res.body[0].should.have.property('message');
+				testBasicProperties(err, res, 404, 'object');
+				res.body.should.have.property('message');
 				done();
 			});
 	});
 
 	it('/v3/covid-19/historical/ correct province name list', (done) => {
 		chai.request(app)
-			.get('/v3/covid-19/historical/156/bejing,hubei')
+			.get('/v3/covid-19/historical/156/beijing,hebei')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				done();
@@ -144,6 +144,29 @@ describe('TESTING /v3/covid-19/historical', () => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.country.should.equal('UK');
 				res.body.province.should.equal('mainland');
+				done();
+			});
+	});
+
+	// Testing fake province added specifically for handling recovered aggregate for Canada
+
+	it('/v3/covid-19/historical/:country/:province', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/historical/canada')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				res.body.province.length.should.equal(16);
+				Object.values(res.body.timeline.recovered)[29].should.not.equal(0);
+				done();
+			});
+	});
+
+	it('/v3/covid-19/historical/:country/:province fake province for Canada', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/historical/canada/recovered-aggregate')
+			.end((err, res) => {
+				testBasicProperties(err, res, 404, 'object');
+				res.body.should.have.property('message');
 				done();
 			});
 	});
