@@ -1,4 +1,4 @@
-const { scraper: { executeScraper, executeScraperNYTData, excecuteScraperAppleData, excecuteScraperGov, excecuteScraperInfluenza, excecuteScraperVaccine, executeScraperTherapeutics },
+const { scraper: { executeScraper, executeScraperNYTData, excecuteScraperAppleData, excecuteScraperGov, excecuteScraperInfluenza, executeScraperTherapeutics },
 	redis } = require('../routes/instances');
 const logger = require('../utils/logger');
 
