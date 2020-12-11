@@ -12,7 +12,7 @@ const mapArgToScraper = {
 	nyt: executeScraperNYTData,
 	apple: excecuteScraperAppleData,
 	gov: excecuteScraperGov,
-	influenza: excecuteScraperInfluenza,
+	influenza: excecuteScraperInfluenza
 };
 
 // eslint-disable-next-line
