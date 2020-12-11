@@ -13,7 +13,6 @@ const mapArgToScraper = {
 	apple: excecuteScraperAppleData,
 	gov: excecuteScraperGov,
 	influenza: excecuteScraperInfluenza,
-	vaccine: excecuteScraperVaccine,
 	therapeutics: executeScraperTherapeutics
 };
 
@@ -29,7 +28,6 @@ before(async () => {
 		await excecuteScraperAppleData();
 		await excecuteScraperGov();
 		await excecuteScraperInfluenza();
-		await excecuteScraperVaccine();
 		await executeScraperTherapeutics();
 		logger.info('Scraping all data finished.');
 	}
