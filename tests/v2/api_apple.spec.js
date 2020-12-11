@@ -24,7 +24,7 @@ describe('TESTING /v2/apple/countries/country', () => {
 			.get('/v2/apple/countries')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				res.body.forEach((countryName) => {
+				res.body.slice(0, 10).forEach((countryName) => {
 					chai.request(app)
 						.get(`/v2/apple/countries/${countryName}`)
 						.end((err2, res2) => {
@@ -55,7 +55,7 @@ describe('TESTING /v2/apple/countries/country/subregions', () => {
 			.get('/v2/apple/countries')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				res.body.forEach((countryName) => {
+				res.body.slice(0, 10).forEach((countryName) => {
 					chai.request(app)
 						.get(`/v2/apple/countries/${countryName}/all`)
 						.end((err2, res2) => {
