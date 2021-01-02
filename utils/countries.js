@@ -220,7 +220,7 @@ module.exports = [
 	{ country: 'Sweden', iso2: 'SE', iso3: 'SWE', id: 752, lat: 62, long: 15 },
 	{ country: 'Switzerland', iso2: 'CH', iso3: 'CHE', id: 756, lat: 47, long: 8 },
 	{ country: 'Syrian Arab Republic', iso2: 'SY', iso3: 'SYR', id: 760, lat: 35, long: 38, possibleNames: ['Syria'] },
-	{ country: 'Taiwan', iso2: 'TW', iso3: 'TWN', id: 158, lat: 23.5, long: 121, possibleNames: ['Taiwan, Province of China'] },
+	{ country: 'Taiwan', iso2: 'TW', iso3: 'TWN', id: 158, lat: 23.5, long: 121 },
 	{ country: 'Tajikistan', iso2: 'TJ', iso3: 'TJK', id: 762, lat: 39, long: 71 },
 	{ country: 'Tanzania', iso2: 'TZ', iso3: 'TZA', id: 834, lat: -6, long: 35, possibleNames: ['Tanzania, United Republic of'] },
 	{ country: 'Thailand', iso2: 'TH', iso3: 'THA', id: 764, lat: 15, long: 100 },
