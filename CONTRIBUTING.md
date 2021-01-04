@@ -1,5 +1,5 @@
 # Contributing to the NovelCOVID  API
-
+i
 Thanks for taking your time to consider contributing to the project!
 In this file, you are going to find helpful tips on how to contribute your ideas!
 
