@@ -70,7 +70,6 @@ module.exports = [
 	{ country: 'Eritrea', iso2: 'ER', iso3: 'ERI', id: 232, lat: 15, long: 39 },
 	{ country: 'Estonia', iso2: 'EE', iso3: 'EST', id: 233, lat: 59, long: 26 },
 	{ country: 'Ethiopia', iso2: 'ET', iso3: 'ETH', id: 231, lat: 8, long: 38 },
-	{ country: 'Ethiopia', iso2: 'ET', iso3: 'ETH', id: 231, lat: 8, long: 38 },
 	{ country: 'Falkland Islands (Malvinas)', iso2: 'FK', iso3: 'FLK', id: 238, lat: -51.75, long: -59, possibleNames: ['Falkland Islands', 'Malvinas'] },
 	{ country: 'Faroe Islands', iso2: 'FO', iso3: 'FRO', id: 234, lat: 62, long: -7, possibleNames: ['Faeroe Islands'] },
 	{ country: 'Fiji', iso2: 'FJ', iso3: 'FJI', id: 242, lat: -18, long: 175 },
