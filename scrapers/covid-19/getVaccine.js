@@ -26,77 +26,86 @@ const cleanData = (data) => {
 };
 
 const groupVaccineDataByCountry = (vaccineData) => {
-	const vaccineDataObject = {},
-		worldVaccineData = {},
-		otherJurisdictions = {};
+	const groupedByCountryVaccineDataObject = {},
+		worldVaccineDataObject = {},
+		otherJurisdictionsVaccineDataObject = {};
 	vaccineData.forEach((timelineData) => {
-		// For jurisidctions like Wales, Scotland e.t.c which don't have iso3 code
-		if (timelineData.iso_code === '') {
-			if (otherJurisdictions[timelineData.iso_code] === undefined) {
-				otherJurisdictions[timelineData.iso_code] = [timelineData];
+		switch (timelineData.iso_code) {
+			// For jurisidctions like Wales, Scotland, Northern Ireland and England which don't have iso3 code
+			case '':
+				if (
+					otherJurisdictionsVaccineDataObject[timelineData.iso_code] === undefined
+				) {
+					otherJurisdictionsVaccineDataObject[timelineData.iso_code] = [
+						timelineData
+					];
+					return;
+				}
+				otherJurisdictionsVaccineDataObject[timelineData.iso_code].push(
+					timelineData
+				);
 				return;
-			}
-			otherJurisdictions[timelineData.iso_code].push(timelineData);
-			return;
-		}
-
-		// For world aggregate
-
-		if (timelineData.iso_code === 'OWID_WRL') {
-			if (worldVaccineData[timelineData.iso_code] === undefined) {
-				worldVaccineData[timelineData.iso_code] = [timelineData];
+				// For world aggregate
+			case 'OWID_WRL':
+				if (worldVaccineDataObject[timelineData.iso_code] === undefined) {
+					worldVaccineDataObject[timelineData.iso_code] = [timelineData];
+					return;
+				}
+				worldVaccineDataObject[timelineData.iso_code].push(timelineData);
 				return;
-			}
-			worldVaccineData[timelineData.iso_code].push(timelineData);
-			return;
+				// Countries with iso3 code
+			default:
+				if (
+					groupedByCountryVaccineDataObject[timelineData.iso_code] === undefined
+				) {
+					groupedByCountryVaccineDataObject[timelineData.iso_code] = [
+						timelineData
+					];
+					return;
+				}
+				groupedByCountryVaccineDataObject[timelineData.iso_code].push(
+					timelineData
+				);
 		}
-
-		// Countries with iso3 code
-
-		if (vaccineDataObject[timelineData.iso_code] === undefined) {
-			vaccineDataObject[timelineData.iso_code] = [timelineData];
-			return;
-		}
-		vaccineDataObject[timelineData.iso_code].push(timelineData);
 	});
-	return { vaccineDataObject, worldVaccineData, otherJurisdictions };
+	return {
+		groupedByCountryVaccineDataObject,
+		worldVaccineDataObject,
+		otherJurisdictionsVaccineDataObject
+	};
 };
 
-const generateCountrySpecificVaccineData = (timelineData) => {
+const generateSpecificCountryVaccineData = (timelineData) => {
 	const timeline = {};
-	// All countries have missing value for daily_vaccinations field on the first day. This could be intentional omission
-	// or they are participants in medical trial. Needs to be cross checked.
-	/* eslint-disable */
-  const { total_vaccinations, daily_vaccinations } = timelineData[0];
-  if (daily_vaccinations === "") {
-    timelineData[0].daily_vaccinations = total_vaccinations;
-  }
-  timelineData.forEach((timelineObject) => {
-    const {
-      total_vaccinations,
-      daily_vaccinations,
-      total_vaccinations_per_hundred,
-      daily_vaccinations_per_million,
-    } = timelineObject;
-    if (daily_vaccinations === "" || total_vaccinations === "") return;
-    timeline[timelineObject.date] = {
-      total_vaccinations: parseInt(total_vaccinations),
-      daily_vaccinations: parseInt(daily_vaccinations),
-      total_vaccinations_per_hundred:
-        total_vaccinations_per_hundred === ""
-          ? 0
-          : parseInt(total_vaccinations_per_hundred),
-      daily_vaccinations_per_million:
-        daily_vaccinations_per_million === ""
-          ? 0
-          : parseInt(daily_vaccinations_per_million),
-    };
-  });
-  return { country: "", countryInfo: null, timeline };
+	/*
+	 All countries have missing value for daily_vaccinations field on the first day.
+	 This could be intentional omission because it is expected the total and daily
+	 vaccinations to be the same on first day. Needs to be cross checked.
+	 */
+	if (timelineData[0].daily_vaccinations === '') {
+		/* eslint-disable */
+		timelineData[0].daily_vaccinations = timelineData[0].total_vaccinations;
+		/* eslint-enable */
+	}
+	timelineData.forEach((timelineObject) => {
+		const {
+			total_vaccinations: total,
+			daily_vaccinations: daily,
+			total_vaccinations_per_hundred: totalPerHundred,
+			daily_vaccinations_per_million: dailyPerMillion
+		} = timelineObject;
+		timeline[timelineObject.date] = {
+			total: total === '' ? 0 : parseInt(total),
+			daily: daily === '' ? 0 : parseInt(daily),
+			totalPerHundred: totalPerHundred === '' ? 0 : parseInt(totalPerHundred),
+			dailyPerMillion: dailyPerMillion === '' ? 0 : parseInt(dailyPerMillion)
+		};
+	});
+	return { country: '', countryInfo: null, timeline };
 };
-/* eslint-enable */
+
 /**
- * Fills redis with vaccinination coverage data
+ * Fills redis with vaccination coverage data
  * @param 	{string} 	keys	 Redis keys
  * @param 	{Object} 	redis 	 Redis instance
  */
@@ -106,29 +115,39 @@ async function getVaccineCoverageData(keys, redis) {
 		const data = await axios.get(
 			'https://covid.ourworldindata.org/data/vaccinations/vaccinations.csv'
 		);
-		const parsedData = await csv({
+		const parsedVaccineData = await csv({
 			noheader: false,
 			output: 'json'
 		}).fromString(data.data);
 
-		const vaccineCoverageData = [];
-		const { vaccineDataObject } = groupVaccineDataByCountry(parsedData);
+		const countriesVaccineCoverageData = [];
+		const {
+			groupedByCountryVaccineDataObject,
+			worldVaccineDataObject
+		} = groupVaccineDataByCountry(parsedVaccineData);
 
-		Object.keys(vaccineDataObject).forEach((iso3CountryCode) => {
-			const countryMetaData = countries.find(
-				(metaData) => metaData.iso3 === iso3CountryCode
-			);
-			const countryVaccineData = generateCountrySpecificVaccineData(
-				vaccineDataObject[iso3CountryCode]
-			);
+		Object.keys(groupedByCountryVaccineDataObject).forEach(
+			(iso3CountryCode) => {
+				const countryMetaData = countries.find(
+					(metaData) => metaData.iso3 === iso3CountryCode
+				);
+				const specifiCountryVaccineData = generateSpecificCountryVaccineData(
+					groupedByCountryVaccineDataObject[iso3CountryCode]
+				);
 
-			if (countryMetaData) {
-				countryVaccineData.country = countryMetaData.country;
-				countryVaccineData.countryInfo = countryMetaData;
-				vaccineCoverageData.push(countryVaccineData);
+				if (countryMetaData) {
+					specifiCountryVaccineData.country = countryMetaData.country;
+					specifiCountryVaccineData.countryInfo = countryMetaData;
+					countriesVaccineCoverageData.push(specifiCountryVaccineData);
+				}
 			}
-		});
-		redis.set(keys.vaccine_coverage, JSON.stringify(vaccineCoverageData));
+		);
+		// iso3 country code used for the world in the dataset is OWID_WRL
+		const { timeline: worldVaccineCoverageData } = generateSpecificCountryVaccineData(worldVaccineDataObject.OWID_WRL);
+		redis.set(
+			keys.vaccine_coverage,
+			JSON.stringify({ countries: countriesVaccineCoverageData, world: worldVaccineCoverageData })
+		);
 	} catch (error) {
 		logger.err('Error: Requesting vaccine coverage data failed!', error);
 	}
