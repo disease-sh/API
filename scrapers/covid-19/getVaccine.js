@@ -33,19 +33,13 @@ const groupVaccineDataByCountry = (vaccineData) => {
 		switch (timelineData.iso_code) {
 			// For jurisidctions like Wales, Scotland, Northern Ireland and England which don't have iso3 code
 			case '':
-				if (
-					otherJurisdictionsVaccineDataObject[timelineData.iso_code] === undefined
-				) {
-					otherJurisdictionsVaccineDataObject[timelineData.iso_code] = [
-						timelineData
-					];
+				if (otherJurisdictionsVaccineDataObject[timelineData.iso_code] === undefined) {
+					otherJurisdictionsVaccineDataObject[timelineData.iso_code] = [timelineData];
 					return;
 				}
-				otherJurisdictionsVaccineDataObject[timelineData.iso_code].push(
-					timelineData
-				);
+				otherJurisdictionsVaccineDataObject[timelineData.iso_code].push(timelineData);
 				return;
-				// For world aggregate
+				// For world aggregate. World iso3 code is OWID_WRL in data source
 			case 'OWID_WRL':
 				if (worldVaccineDataObject[timelineData.iso_code] === undefined) {
 					worldVaccineDataObject[timelineData.iso_code] = [timelineData];
@@ -55,17 +49,11 @@ const groupVaccineDataByCountry = (vaccineData) => {
 				return;
 				// Countries with iso3 code
 			default:
-				if (
-					groupedByCountryVaccineDataObject[timelineData.iso_code] === undefined
-				) {
-					groupedByCountryVaccineDataObject[timelineData.iso_code] = [
-						timelineData
-					];
+				if (groupedByCountryVaccineDataObject[timelineData.iso_code] === undefined) {
+					groupedByCountryVaccineDataObject[timelineData.iso_code] = [timelineData];
 					return;
 				}
-				groupedByCountryVaccineDataObject[timelineData.iso_code].push(
-					timelineData
-				);
+				groupedByCountryVaccineDataObject[timelineData.iso_code].push(timelineData);
 		}
 	});
 	return {
@@ -75,27 +63,87 @@ const groupVaccineDataByCountry = (vaccineData) => {
 	};
 };
 
-const generateSpecificCountryVaccineData = (timelineData) => {
+/**
+ * Formats vaccine coverage date from "YYYY:MM:DD" format to be consistent with other date formats returned by the API
+ * @param {string} vaccineCoverageDate
+ * @returns {string}
+ */
+
+const formatVaccineCoverageDate = (vaccineCoverageDate) => {
+	const { 0: year, 1: month, 2: day } = vaccineCoverageDate.split('-');
+	return `${parseInt(month)}/${parseInt(day)}/${year.slice(-2)}`;
+};
+
+/**
+ * Generates timeline data in the form {"date": {daily: 0, total: 0, totalPerHundred: 0, dailyPerMillion: 0}} from Dec 1, 2020 till the day before vaccination started
+ * @param {string} dateVaccinationStarted
+ * @returns {object}
+ */
+
+function getTimeline(dateVaccinationStarted) {
 	const timeline = {};
+	const dayZero = new Date(2020, 11, 1);
+	const { 0: vaccinationStartYear, 1: vaccinationStartMonth, 2: vaccinationStartDate } = dateVaccinationStarted.split('-');
+	const vaccinationStartDateObject = new Date(parseInt(vaccinationStartYear), parseInt(vaccinationStartMonth) - 1, parseInt(vaccinationStartDate));
+	while (dayZero.getTime() < vaccinationStartDateObject.getTime()) {
+		const date = dayZero.getDate(),
+			month = dayZero.getMonth() + 1,
+			year = `${dayZero.getFullYear()}`;
+		timeline[`${month}/${date}/${year.slice(-2)}`] = {
+			total: 0,
+			daily: 0,
+			totalPerHundred: 0,
+			dailyPerMillion: 0
+		};
+		dayZero.setDate(dayZero.getDate() + 1);
+	}
+	return timeline;
+}
+
+
+const generateSpecificCountryVaccineData = (timelineData) => {
 	/*
 	 All countries have missing value for daily_vaccinations field on the first day.
 	 This could be intentional omission because it is expected the total and daily
-	 vaccinations to be the same on first day. Needs to be cross checked.
+	 vaccinations to be the same on first day. Needs to be cross checked though.
 	 */
 	if (timelineData[0].daily_vaccinations === '') {
 		/* eslint-disable */
 		timelineData[0].daily_vaccinations = timelineData[0].total_vaccinations;
 		/* eslint-enable */
 	}
+	const firstVaccinationDate = timelineData[0].date;
+	/*
+	All country-specific vaccine coverage data starts from Dec 1, 2020 irrespective of
+	when the said country rolled out mass vaccination programme. Dec 1, 2020 is considered the
+	baseline date because no country has any record of vaccination before that in the data
+	source. The earliest vaccination programmes started mid to late Dec 2020. The data source
+	doesn't include data for clinical trial vaccine doses administered.
+	*/
+	const timeline = getTimeline(firstVaccinationDate);
+	let totalFromDailyVaccinationsTracker = 0;
 	timelineData.forEach((timelineObject) => {
 		const {
 			total_vaccinations: total,
 			daily_vaccinations: daily,
 			total_vaccinations_per_hundred: totalPerHundred,
-			daily_vaccinations_per_million: dailyPerMillion
+			daily_vaccinations_per_million: dailyPerMillion,
+			date
 		} = timelineObject;
-		timeline[timelineObject.date] = {
-			total: total === '' ? 0 : parseInt(total),
+		/*
+		This tracks aggregate daily doses of vaccine administered from first day. Take note
+		some countries don't report daily vaccines administered. The data source therefore
+		computes doses for the missing dates as explained in the issue in the link below. This
+		tracker helps fill the missing data points in the total using the already estimated daily
+		doses.https://github.com/owid/covid-19-data/issues/256
+		*/
+		if (total === '') {
+			totalFromDailyVaccinationsTracker += daily === '' ? 0 : parseInt(daily);
+		} else {
+			totalFromDailyVaccinationsTracker = parseInt(total);
+		}
+		timeline[formatVaccineCoverageDate(date)] = {
+			total: total === '' ? totalFromDailyVaccinationsTracker : parseInt(total),
 			daily: daily === '' ? 0 : parseInt(daily),
 			totalPerHundred: totalPerHundred === '' ? 0 : parseInt(totalPerHundred),
 			dailyPerMillion: dailyPerMillion === '' ? 0 : parseInt(dailyPerMillion)
@@ -126,21 +174,20 @@ async function getVaccineCoverageData(keys, redis) {
 			worldVaccineDataObject
 		} = groupVaccineDataByCountry(parsedVaccineData);
 
-		Object.keys(groupedByCountryVaccineDataObject).forEach(
-			(iso3CountryCode) => {
-				const countryMetaData = countries.find(
-					(metaData) => metaData.iso3 === iso3CountryCode
-				);
-				const specifiCountryVaccineData = generateSpecificCountryVaccineData(
-					groupedByCountryVaccineDataObject[iso3CountryCode]
-				);
+		Object.keys(groupedByCountryVaccineDataObject).forEach((iso3CountryCode) => {
+			const countryMetaData = countries.find(
+				(metaData) => metaData.iso3 === iso3CountryCode
+			);
+			const specifiCountryVaccineData = generateSpecificCountryVaccineData(
+				groupedByCountryVaccineDataObject[iso3CountryCode]
+			);
 
-				if (countryMetaData) {
-					specifiCountryVaccineData.country = countryMetaData.country;
-					specifiCountryVaccineData.countryInfo = countryMetaData;
-					countriesVaccineCoverageData.push(specifiCountryVaccineData);
-				}
+			if (countryMetaData) {
+				specifiCountryVaccineData.country = countryMetaData.country;
+				specifiCountryVaccineData.countryInfo = countryMetaData;
+				countriesVaccineCoverageData.push(specifiCountryVaccineData);
 			}
+		}
 		);
 		// iso3 country code used for the world in the dataset is OWID_WRL
 		const { timeline: worldVaccineCoverageData } = generateSpecificCountryVaccineData(worldVaccineDataObject.OWID_WRL);
