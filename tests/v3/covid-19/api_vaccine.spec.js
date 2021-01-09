@@ -4,7 +4,7 @@ const chaiHttp = require('chai-http');
 const app = require('../../../server');
 const { testBasicProperties } = require('../../testingFunctions');
 const countryData = require('../../../utils/countries');
-
+const should = chai.should();
 chai.use(chaiHttp);
 
 describe.skip('TESTING /v3/covid-19/vaccine', () => {
@@ -47,10 +47,8 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 		chai.request(app)
 			.get('/v3/covid-19/vaccine/coverage')
 			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'array');
-				res.body.should.have.property('timeline');
-				res.body.timeline.should.have.property('total');
-				Object.keys(res.body.timeline).length.should.not.equal(0);
+				testBasicProperties(err, res, 200, 'object');
+				Object.keys(res.body).length.should.not.equal(0);
 				done();
 			});
 	});
@@ -61,6 +59,21 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
 				res.body.length.should.not.equal(0);
+				res.body[0].should.have.property('country');
+				res.body[0].should.have.property('timeline');
+				done();
+			});
+	});
+
+	it('/v3/covid-19/vaccine/coverage/countries/non_existent_country incorrect country name', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/vaccine/coverage/countries/non_existent_country')
+			.end((err, res) => {
+				should.not.exist(err);
+				should.exist(res);
+				testBasicProperties(err, res, 404, 'object');
+				res.body.should.be.a('object');
+				res.body.should.have.property('message');
 				done();
 			});
 	});
@@ -75,6 +88,9 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 					should.exist(res);
 					if (res.status === 200) {
 						res.body.should.be.a('object');
+						res.body.should.have.property('country');
+						res.body.should.have.property('timeline');
+						Object.keys(res.body.timeline).length.should.not.equal(0);
 						res.body.country.should.equal(countryObject.country);
 					} else {
 						res.body.should.be.a('object');
@@ -95,6 +111,9 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 					should.exist(res);
 					if (res.status === 200) {
 						res.body.should.be.a('object');
+						res.body.should.have.property('country');
+						res.body.should.have.property('timeline');
+						Object.keys(res.body.timeline).length.should.not.equal(0);
 						res.body.country.should.equal(countryObject.country);
 					} else {
 						res.body.should.be.a('object');
@@ -115,6 +134,9 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 					should.exist(res);
 					if (res.status === 200) {
 						res.body.should.be.a('object');
+						res.body.should.have.property('country');
+						res.body.should.have.property('timeline');
+						Object.keys(res.body.timeline).length.should.not.equal(0);
 						res.body.country.should.equal(countryObject.country);
 					} else {
 						res.body.should.be.a('object');
