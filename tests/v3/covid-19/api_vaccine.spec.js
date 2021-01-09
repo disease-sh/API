@@ -6,7 +6,7 @@ const { testBasicProperties } = require('../../testingFunctions');
 const countryData = require('../../../utils/countries');
 const should = chai.should();
 chai.use(chaiHttp);
-
+/*
 describe.skip('TESTING /v3/covid-19/vaccine', () => {
 	it('/v3/covid-19/vaccine correct type', (done) => {
 		chai.request(app)
@@ -41,7 +41,7 @@ describe.skip('TESTING /v3/covid-19/vaccine', () => {
 			});
 	});
 });
-
+*/
 describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 	it('/v3/covid-19/vaccine/coverage should return world vaccine coverage data', (done) => {
 		chai.request(app)
