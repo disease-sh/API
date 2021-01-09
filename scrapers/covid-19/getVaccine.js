@@ -80,22 +80,19 @@ const formatVaccineCoverageDate = (vaccineCoverageDate) => {
  * @returns {object}
  */
 
-function getTimeline(dateVaccinationStarted) {
-	const timeline = {};
-	const dayZero = new Date(2020, 11, 1);
-	const { 0: vaccinationStartYear, 1: vaccinationStartMonth, 2: vaccinationStartDate } = dateVaccinationStarted.split('-');
-	const vaccinationStartDateObject = new Date(parseInt(vaccinationStartYear), parseInt(vaccinationStartMonth) - 1, parseInt(vaccinationStartDate));
-	while (dayZero.getTime() < vaccinationStartDateObject.getTime()) {
-		const date = dayZero.getDate(),
-			month = dayZero.getMonth() + 1,
-			year = `${dayZero.getFullYear()}`;
+function getTimeline(startDate, endDate, value, timelineObject) {
+	const timeline = { ...timelineObject };
+	while (startDate.getTime() < endDate.getTime()) {
+		const date = startDate.getDate(),
+			month = startDate.getMonth() + 1,
+			year = `${startDate.getFullYear()}`;
 		timeline[`${month}/${date}/${year.slice(-2)}`] = {
-			total: 0,
+			total: value,
 			daily: 0,
 			totalPerHundred: 0,
 			dailyPerMillion: 0
 		};
-		dayZero.setDate(dayZero.getDate() + 1);
+		startDate.setDate(startDate.getDate() + 1);
 	}
 	return timeline;
 }
@@ -112,15 +109,20 @@ const generateSpecificCountryVaccineData = (timelineData) => {
 		timelineData[0].daily_vaccinations = timelineData[0].total_vaccinations;
 		/* eslint-enable */
 	}
+
 	const firstVaccinationDate = timelineData[0].date;
+	const { 0: vaccinationStartYear, 1: vaccinationStartMonth, 2: vaccinationStartDate } = firstVaccinationDate.split('-');
+	const vaccinationStartDateObject = new Date(parseInt(vaccinationStartYear), parseInt(vaccinationStartMonth) - 1, parseInt(vaccinationStartDate));
+	const dayZero = new Date(2020, 11, 1);
+
 	/*
 	All country-specific vaccine coverage data starts from Dec 1, 2020 irrespective of
 	when the said country rolled out mass vaccination programme. Dec 1, 2020 is considered the
-	baseline date because no country has any record of vaccination before that in the data
+	baseline date because no country has any record of vaccination before December in the data
 	source. The earliest vaccination programmes started mid to late Dec 2020. The data source
 	doesn't include data for clinical trial vaccine doses administered.
 	*/
-	const timeline = getTimeline(firstVaccinationDate);
+	const timeline = getTimeline(dayZero, vaccinationStartDateObject, 0, {});
 	let totalFromDailyVaccinationsTracker = 0;
 	timelineData.forEach((timelineObject) => {
 		const {
@@ -149,7 +151,21 @@ const generateSpecificCountryVaccineData = (timelineData) => {
 			dailyPerMillion: dailyPerMillion === '' ? 0 : parseInt(dailyPerMillion)
 		};
 	});
-	return { country: '', countryInfo: null, timeline };
+	const lastVaccinationDataReportedOn = timelineData[timelineData.length - 1].date;
+	const { 0: year, 1: month, 2: date } = lastVaccinationDataReportedOn.split('-');
+	const lastVaccinationDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(date));
+	const today = new Date();
+	const isLastUpdatedToday = today.getDate() === lastVaccinationDate.getDate()
+	&& today.getMonth() === lastVaccinationDate.getMonth()
+	&& today.getFullYear() === lastVaccinationDate.getFullYear();
+	if (isLastUpdatedToday === true) {
+		return { country: '', countryInfo: null, timeline };
+	}
+	today.setDate(today.getDate() + 1);
+	lastVaccinationDate.setDate(lastVaccinationDate.getDate() + 1);
+	const { total: latestTotalVaccination } = timeline[Object.keys(timeline).slice(-1)[0]];
+	const updatedTimeline = getTimeline(lastVaccinationDate, today, latestTotalVaccination, timeline);
+	return { country: '', countryInfo: null, timeline: updatedTimeline };
 };
 
 /**
@@ -175,13 +191,8 @@ async function getVaccineCoverageData(keys, redis) {
 		} = groupVaccineDataByCountry(parsedVaccineData);
 
 		Object.keys(groupedByCountryVaccineDataObject).forEach((iso3CountryCode) => {
-			const countryMetaData = countries.find(
-				(metaData) => metaData.iso3 === iso3CountryCode
-			);
-			const specifiCountryVaccineData = generateSpecificCountryVaccineData(
-				groupedByCountryVaccineDataObject[iso3CountryCode]
-			);
-
+			const countryMetaData = countries.find((metaData) => metaData.iso3 === iso3CountryCode);
+			const specifiCountryVaccineData = generateSpecificCountryVaccineData(groupedByCountryVaccineDataObject[iso3CountryCode]);
 			if (countryMetaData) {
 				specifiCountryVaccineData.country = countryMetaData.country;
 				specifiCountryVaccineData.countryInfo = countryMetaData;
