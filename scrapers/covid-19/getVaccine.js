@@ -11,10 +11,7 @@ axiosCookieJarSupport(axios);
 const cleanData = (data) => {
 	const htmlRegex = /<(?:.|\n)*?>/gm;
 	const separatorRegex = /;&nbsp;|;/;
-	const listify = (attribute) =>
-		attribute
-			.split(separatorRegex)
-			.map((sponsor) => sponsor.replace(htmlRegex, '').trim());
+	const listify = (attribute) => attribute.split(separatorRegex).map((sponsor) => sponsor.replace(htmlRegex, '').trim());
 	return data.map((trial) => ({
 		candidate: trial.Candidate,
 		mechanism: trial.Mechanism,
@@ -29,32 +26,19 @@ const groupVaccineDataByCountry = (vaccineData) => {
 	const groupedByCountryVaccineDataObject = {},
 		worldVaccineDataObject = {},
 		otherJurisdictionsVaccineDataObject = {};
-	vaccineData.forEach((timelineData) => {
-		switch (timelineData.iso_code) {
-			// For jurisidctions like Wales, Scotland, Northern Ireland and England which don't have iso3 code
-			case '':
-				if (otherJurisdictionsVaccineDataObject[timelineData.iso_code] === undefined) {
-					otherJurisdictionsVaccineDataObject[timelineData.iso_code] = [timelineData];
-					return;
-				}
-				otherJurisdictionsVaccineDataObject[timelineData.iso_code].push(timelineData);
-				return;
-				// For world aggregate. World iso3 code is OWID_WRL in data source
-			case 'OWID_WRL':
-				if (worldVaccineDataObject[timelineData.iso_code] === undefined) {
-					worldVaccineDataObject[timelineData.iso_code] = [timelineData];
-					return;
-				}
-				worldVaccineDataObject[timelineData.iso_code].push(timelineData);
-				return;
-				// Countries with iso3 code
-			default:
-				if (groupedByCountryVaccineDataObject[timelineData.iso_code] === undefined) {
-					groupedByCountryVaccineDataObject[timelineData.iso_code] = [timelineData];
-					return;
-				}
-				groupedByCountryVaccineDataObject[timelineData.iso_code].push(timelineData);
+
+	const getTimelineDataFromIsoCode = (isoCode) => {
+		switch (isoCode) {
+			case '': return otherJurisdictionsVaccineDataObject;
+			case 'OWID_WRL': return worldVaccineDataObject;
+			default: return groupedByCountryVaccineDataObject;
 		}
+	};
+
+	vaccineData.forEach((timelineData) => {
+		const dataObject = getTimelineDataFromIsoCode(timelineData.iso_code);
+		if (dataObject[timelineData.iso_code] === undefined) dataObject[timelineData.iso_code] = [timelineData];
+		else dataObject[timelineData.iso_code].push(timelineData);
 	});
 	return {
 		groupedByCountryVaccineDataObject,
@@ -154,7 +138,8 @@ const generateSpecificCountryVaccineData = (timelineData) => {
 	const lastVaccinationDataReportedOn = timelineData[timelineData.length - 1].date;
 	const { 0: year, 1: month, 2: date } = lastVaccinationDataReportedOn.split('-');
 	const lastVaccinationDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(date));
-	const today = new Date();
+	let today = new Date();
+	today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 	const isLastUpdatedToday = today.getDate() === lastVaccinationDate.getDate()
 	&& today.getMonth() === lastVaccinationDate.getMonth()
 	&& today.getFullYear() === lastVaccinationDate.getFullYear();
