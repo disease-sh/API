@@ -6,7 +6,7 @@ const { testBasicProperties } = require('../../testingFunctions');
 const countryData = require('../../../utils/countries');
 const should = chai.should();
 chai.use(chaiHttp);
-/*
+
 describe.skip('TESTING /v3/covid-19/vaccine', () => {
 	it('/v3/covid-19/vaccine correct type', (done) => {
 		chai.request(app)
@@ -41,7 +41,7 @@ describe.skip('TESTING /v3/covid-19/vaccine', () => {
 			});
 	});
 });
-*/
+
 describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 	it('/v3/covid-19/vaccine/coverage should return world vaccine coverage data', (done) => {
 		chai.request(app)
@@ -49,9 +49,29 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				Object.keys(res.body).length.should.not.equal(0);
+				Object.keys(res.body).length.should.equal(30);
 				done();
 			});
 	});
+	it('/v3/covid-19/vaccine/coverage should return correct number of specified dates', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/vaccine/coverage?lastdays=10')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				Object.keys(res.body).length.should.equal(10);
+				done();
+			});
+	});
+	it('/v3/covid-19/vaccine/coverage should return correct number of specified dates', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/vaccine/coverage?lastdays=justForTesting')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				Object.keys(res.body).length.should.equal(30);
+				done();
+			});
+	});
+
 
 	it('/v3/covid-19/vaccine/coverage/countries should return countries vaccine coverage data', (done) => {
 		chai.request(app)
@@ -61,6 +81,31 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 				res.body.length.should.not.equal(0);
 				res.body[0].should.have.property('country');
 				res.body[0].should.have.property('timeline');
+				Object.keys(res.body[0].timeline).length.should.equal(30);
+				done();
+			});
+	});
+	it('/v3/covid-19/vaccine/coverage/countries should return requested number of days', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/vaccine/coverage/countries?lastdays=1')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.not.equal(0);
+				res.body[0].should.have.property('country');
+				res.body[0].should.have.property('timeline');
+				Object.keys(res.body[0].timeline).length.should.equal(1);
+				done();
+			});
+	});
+	it('/v3/covid-19/vaccine/coverage/countries should return requested number of days', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/vaccine/coverage/countries?lastdays=all')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.not.equal(0);
+				res.body[0].should.have.property('country');
+				res.body[0].should.have.property('timeline');
+				Object.keys(res.body[0].timeline).length.should.not.equal(0);
 				done();
 			});
 	});
@@ -90,7 +135,7 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 						res.body.should.be.a('object');
 						res.body.should.have.property('country');
 						res.body.should.have.property('timeline');
-						Object.keys(res.body.timeline).length.should.not.equal(0);
+						Object.keys(res.body.timeline).length.should.equal(30);
 						res.body.country.should.equal(countryObject.country);
 					} else {
 						res.body.should.be.a('object');
@@ -113,7 +158,7 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 						res.body.should.be.a('object');
 						res.body.should.have.property('country');
 						res.body.should.have.property('timeline');
-						Object.keys(res.body.timeline).length.should.not.equal(0);
+						Object.keys(res.body.timeline).length.should.equal(30);
 						res.body.country.should.equal(countryObject.country);
 					} else {
 						res.body.should.be.a('object');
@@ -136,7 +181,7 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 						res.body.should.be.a('object');
 						res.body.should.have.property('country');
 						res.body.should.have.property('timeline');
-						Object.keys(res.body.timeline).length.should.not.equal(0);
+						Object.keys(res.body.timeline).length.should.equal(30);
 						res.body.country.should.equal(countryObject.country);
 					} else {
 						res.body.should.be.a('object');
