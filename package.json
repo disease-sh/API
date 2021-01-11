@@ -21,7 +21,7 @@
     "lint": "eslint '**/*.js'",
     "lint:fix": "eslint ./**/*.js --fix",
     "lint:win32": "eslint ./**/*.js",
-    "test": "mocha ./tests --exit --recursive --timeout 80000",
+    "test": "mocha ./tests/v3 --exit --recursive --timeout 80000",
     "test-single": "mocha $1 --exit --timeout 70000",
     "docker-start": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build",
     "docker-down": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml down --rmi all",

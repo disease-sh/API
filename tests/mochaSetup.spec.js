@@ -28,6 +28,7 @@ before(async () => {
 		await excecuteScraperAppleData();
 		await excecuteScraperGov();
 		await excecuteScraperInfluenza();
+		await excecuteScraperVaccineCoverage();
 		logger.info('Scraping all data finished.');
 	}
 });
