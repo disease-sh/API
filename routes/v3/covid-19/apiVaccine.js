@@ -67,9 +67,7 @@ router.get('/v3/covid-19/vaccine/coverage/countries/:country', async (req, res) 
 			});
 			res.send(obj);
 		} else {
-			res
-				.status(404)
-				.send({ message: 'No vaccine data for requested country or country does not exist' });
+			res.status(404).send({ message: 'No vaccine data for requested country or country does not exist' });
 		}
 	} else {
 		res.status(404).send({ message: 'Error fetching vaccine coverage data' });

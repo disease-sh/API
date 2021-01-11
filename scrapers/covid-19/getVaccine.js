@@ -139,6 +139,7 @@ const generateSpecificCountryVaccineData = (timelineData) => {
 	const { 0: year, 1: month, 2: date } = lastVaccinationDataReportedOn.split('-');
 	const lastVaccinationDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(date));
 	let today = new Date();
+	// Today must be today's date at midnight
 	today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 	const isLastUpdatedToday = today.getDate() === lastVaccinationDate.getDate()
 	&& today.getMonth() === lastVaccinationDate.getMonth()
@@ -146,6 +147,7 @@ const generateSpecificCountryVaccineData = (timelineData) => {
 	if (isLastUpdatedToday === true) {
 		return { country: '', countryInfo: null, timeline };
 	}
+	// If data was last updated day/days before today, the remaining days without update must all have the last total
 	today.setDate(today.getDate() + 1);
 	lastVaccinationDate.setDate(lastVaccinationDate.getDate() + 1);
 	const { total: latestTotalVaccination } = timeline[Object.keys(timeline).slice(-1)[0]];
