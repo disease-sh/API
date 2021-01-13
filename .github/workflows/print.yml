@@ -5,14 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - uses: actions/checkout@v2
+      
       - id: files
         uses: jitterbit/get-changed-files@v1
 
       - run: touch text.txt
       
       - run: for changed_file in ${{ steps.files.outputs.all }}; do echo "${changed_file}" >> text.txt; done
-
-      - uses: actions/checkout@v2
 
       - uses: pCYSl5EDgo/cat@master
         id: hello
