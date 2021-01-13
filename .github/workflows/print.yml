@@ -6,20 +6,9 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-
       - id: files
         uses: jitterbit/get-changed-files@v1
-
       - run: touch text.txt
-      
       - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n -e ${changed_file} >> text.txt; done
-
       - run: cat text.txt
-      
-      - uses: pCYSl5EDgo/cat@master
-        with:
-          path: text.txt
-
-      # - run: echo $(ls)
-      #   env:
-      #     TEXT: ${{ steps.hello.outputs.text }}
+      - run: echo $(ls)
