@@ -6,15 +6,8 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      - id: file_changes
-        uses: trilom/file-changes-action@v1.2.3
-      - name: test
-        run: |
-              cat $HOME/files.json
-              cat $HOME/files_modified.json
-              cat $HOME/files_added.json
-              cat $HOME/files_removed.json
-              echo '${{ steps.file_changes.outputs.files}}'
+      - id: files
+        uses: jitterbit/get-changed-files@v1
       - run: touch text.txt
       - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n ${changed_file} >> text.txt; done
       - run: cat text.txt
