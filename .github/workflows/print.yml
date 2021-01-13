@@ -1,0 +1,19 @@
+name: Example
+
+on: push
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - run: echo -n -e "HELLO\n !\n World!" > text.txt
+
+    - uses: pCYSl5EDgo/cat@master
+      id: hello
+      with:
+        path: text.txt
+
+    - run: echo $TEXT
+      env:
+        TEXT: ${{ steps.hello.outputs.text }}
