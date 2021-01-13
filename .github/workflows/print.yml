@@ -14,6 +14,8 @@ jobs:
       
       - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n -e ${changed_file} >> text.txt; done
 
+      - run: cat text.txt
+      
       - uses: pCYSl5EDgo/cat@master
         with:
           path: text.txt
