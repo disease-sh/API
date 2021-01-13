@@ -11,5 +11,5 @@ jobs:
       - run: touch touched_files.txt
       - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n ${changed_file} >> touched_files.txt; done
       - run: cat touched_files.txt
-      - run: node argv.js ${{ steps.files.outputs.all }}
       - run: echo $(ls)
+      - run: node argv.js ${{ steps.files.outputs.all }}
