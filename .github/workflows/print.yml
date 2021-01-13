@@ -1,5 +1,9 @@
-name: Example
-on: push
+name: Unittest PR
+on: 
+  push
+  # pull_request:
+  #   branches:
+  #     - '*'
 jobs:
   echo:
     runs-on: ubuntu-latest
@@ -14,3 +18,4 @@ jobs:
       # run node script mapping changed files to tests
       - run: node argv.js ${{ steps.files.outputs.all }} >> test_to_run.txt
       - run: cat test_to_run.txt
+      # supply this file as input to a testing script

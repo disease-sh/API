@@ -1,4 +1,13 @@
+const fileNameToTestMap = {
+	'print.yml': 'correctTest.js'
+};
+
+const tests = new Set();
+
 process.argv.splice(2).forEach(fl => {
-	console.log(fl);
-	console.log('fuark');
+	var fileName = fl.replace(/^.*[\\/]/, '');
+	var test = fileNameToTestMap[fileName];
+	if (test !== null) tests.add(test);
 });
+
+tests.forEach(test => console.log(test));
