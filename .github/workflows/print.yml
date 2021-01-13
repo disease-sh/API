@@ -8,7 +8,8 @@ jobs:
       - uses: actions/checkout@v2
       - id: files
         uses: jitterbit/get-changed-files@v1
-      - run: touch text.txt
-      - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n ${changed_file} >> text.txt; done
-      - run: cat text.txt
+      - run: touch touched_files.txt
+      - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n ${changed_file} >> touched_files.txt; done
+      - run: cat touched_files.txt
+      - run: node argv.js ${{ steps.files.outputs.all }}
       - run: echo $(ls)
