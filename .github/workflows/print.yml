@@ -9,7 +9,7 @@ jobs:
       - id: files
         uses: jitterbit/get-changed-files@v1
       - run: |
-        echo "All:"
+              echo "All:"
         
       - run: touch text.txt
       - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n ${changed_file} >> text.txt; done
