@@ -8,7 +8,7 @@ jobs:
     
     steps:
     - name: Git checkout
-    uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
     - run: echo -n -e "HELLO\n !\n World!" > text.txt
 
