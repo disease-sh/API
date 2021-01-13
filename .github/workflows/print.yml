@@ -12,10 +12,9 @@ jobs:
 
       - run: touch text.txt
       
-      - run: for changed_file in ${{ steps.files.outputs.all }}; do echo ${changed_file} >> text.txt; done
+      - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n -e ${changed_file} >> text.txt; done
 
       - uses: pCYSl5EDgo/cat@master
-        id: hello
         with:
           path: text.txt
 
