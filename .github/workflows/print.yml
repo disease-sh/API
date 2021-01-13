@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: jitterbit/get-changed-files@v1
-        id: files
+      - id: files
+        uses: jitterbit/get-changed-files@v1
       
       - run: |
         for changed_file in ${{ steps.files.outputs.all }}; do
