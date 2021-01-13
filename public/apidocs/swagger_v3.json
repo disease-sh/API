@@ -1147,7 +1147,7 @@
             "type": "string"
           }
         ],
-        "summary": "Gets total global COVID-19 vaccine doses administered. Sourced from https://covid.ourworldindata.org/",
+        "summary": "Get total global COVID-19 vaccine doses administered. Sourced from https://covid.ourworldindata.org/",
         "responses": {
           "200": {
             "description": "Status Ok",
@@ -1173,7 +1173,7 @@
             "type": "string"
           }
         ],
-        "summary": "Gets COVID-19 vaccine doses administered for all countries that have reported rolling out vaccination. Sourced  from https://covid.ourworldindata.org/",
+        "summary": "Get COVID-19 vaccine doses administered for all countries that have reported rolling out vaccination. Sourced  from https://covid.ourworldindata.org/",
         "responses": {
           "200": {
             "description": "Status Ok",
@@ -1206,7 +1206,7 @@
             "type": "string"
           }
         ],
-        "summary": "Gets COVID-19 vaccine doses administered for a country that has reported vaccination rollout. Sourced from https://covid.ourworldindata.org/",
+        "summary": "Get COVID-19 vaccine doses administered for a country that has reported vaccination rollout. Sourced from https://covid.ourworldindata.org/",
         "responses": {
           "200": {
             "description": "Status Ok",

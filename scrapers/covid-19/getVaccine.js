@@ -60,7 +60,10 @@ const formatVaccineCoverageDate = (vaccineCoverageDate) => {
 
 /**
  * Generates timeline data in the form {"date": {daily: 0, total: 0, totalPerHundred: 0, dailyPerMillion: 0}} from Dec 1, 2020 till the day before vaccination started
- * @param {string} dateVaccinationStarted
+ * @param {object}   startDate Date from which we start populating timelineObject with value
+ * @param {object}   endDate Date upto which we populate timelineObject with value (excludes endDate)
+ * @param {number}   value Value for populating total field
+ * @param {object}   timelineObject Timeline object
  * @returns {object}
  */
 
@@ -81,6 +84,22 @@ function getTimeline(startDate, endDate, value, timelineObject) {
 	return timeline;
 }
 
+/**
+ * Checks if vaccine coverage data was last updated today
+ * @param {object} dateForLatestUpdate Date when vaccine data was last updated at 00:00:00 hours
+ * @param {object} dateToday           Date today at 00:00:00 hours
+ * @returns {boolean}
+ */
+
+const isVaccineCoverageDataLastUpdatedToday = (dateForLatestUpdate, dateToday) => dateToday.getDate() === dateForLatestUpdate.getDate()
+	&& dateToday.getMonth() === dateForLatestUpdate.getMonth()
+	&& dateToday.getFullYear() === dateForLatestUpdate.getFullYear();
+
+/**
+ * Formats raw timeline data
+ * @param {array} timelineData An array of raw timeline data
+ * @returns {object}
+ */
 
 const generateSpecificCountryVaccineData = (timelineData) => {
 	/*
@@ -135,18 +154,17 @@ const generateSpecificCountryVaccineData = (timelineData) => {
 			dailyPerMillion: dailyPerMillion === '' ? 0 : parseInt(dailyPerMillion)
 		};
 	});
+
 	const lastVaccinationDataReportedOn = timelineData[timelineData.length - 1].date;
 	const { 0: year, 1: month, 2: date } = lastVaccinationDataReportedOn.split('-');
 	const lastVaccinationDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(date));
-	let today = new Date();
 	// Today must be today's date at midnight
-	today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-	const isLastUpdatedToday = today.getDate() === lastVaccinationDate.getDate()
-	&& today.getMonth() === lastVaccinationDate.getMonth()
-	&& today.getFullYear() === lastVaccinationDate.getFullYear();
-	if (isLastUpdatedToday === true) {
+	const today = new Date(new Date().setHours(0, 0, 0, 0));
+
+	if (isVaccineCoverageDataLastUpdatedToday(lastVaccinationDate, today) === true) {
 		return { country: '', countryInfo: null, timeline };
 	}
+
 	// If data was last updated day/days before today, the remaining days without update must all have the last total
 	today.setDate(today.getDate() + 1);
 	lastVaccinationDate.setDate(lastVaccinationDate.getDate() + 1);
