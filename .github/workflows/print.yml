@@ -6,21 +6,15 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      - id: files
-        uses: jitterbit/get-changed-files@v1
-      - run: |
-              echo "All:"
-              echo "${{ steps.files.outputs.all }}"
-              echo "Added:"
-              echo ${{ steps.files.outputs.added }}
-              echo "Removed:"
-              echo ${{ steps.files.outputs.removed }}
-              echo "Renamed:"
-              echo ${{ steps.files.outputs.renamed }}
-              echo "Modified:"
-              echo ${{ steps.files.outputs.modified }}
-              echo "Added+Modified:"
-              echo ${{ steps.files.outputs.added_modified }}
+      - id: file_changes
+        uses: trilom/file-changes-action@v1.2.3
+      - name: test
+        run: |
+              cat $HOME/files.json
+              cat $HOME/files_modified.json
+              cat $HOME/files_added.json
+              cat $HOME/files_removed.json
+              echo '${{ steps.file_changes.outputs.files}}'
       - run: touch text.txt
       - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n ${changed_file} >> text.txt; done
       - run: cat text.txt
