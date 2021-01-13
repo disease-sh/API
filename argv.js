@@ -1,5 +1,6 @@
 const fileNameToTestMap = {
-	'print.yml': 'correctTest.js'
+	'print.yml': 'correctTest.js',
+	'argv.js': 'anotherCorrectTest.js'
 };
 
 const tests = new Set();
