@@ -7,7 +7,7 @@ const tests = new Set();
 process.argv.splice(2).forEach(fl => {
 	var fileName = fl.replace(/^.*[\\/]/, '');
 	var test = fileNameToTestMap[fileName];
-	if (test !== null) tests.add(test);
+	if (test) tests.add(test);
 });
 
 tests.forEach(test => console.log(test));
