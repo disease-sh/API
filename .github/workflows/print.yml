@@ -8,6 +8,9 @@ jobs:
       - uses: actions/checkout@v2
       - id: files
         uses: jitterbit/get-changed-files@v1
+      - uses: lots0logs/gh-action-get-changed-files@2.1.4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
       - run: touch text.txt
       - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n ${changed_file} >> text.txt; done
       - run: cat text.txt
