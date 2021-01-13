@@ -10,7 +10,7 @@ jobs:
 
       - run: touch text.txt
       
-      - run: for changed_file in ${{ steps.files.outputs.all }}; do echo "${changed_file}"" >> text.txt; done
+      - run: for changed_file in ${{ steps.files.outputs.all }}; do echo "${changed_file}" >> text.txt; done
 
       - uses: actions/checkout@v2
 
