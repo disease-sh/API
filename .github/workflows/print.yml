@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Git checkout
+    uses: actions/checkout@v2
+
     - run: echo -n -e "HELLO\n !\n World!" > text.txt
 
     - uses: pCYSl5EDgo/cat@master
@@ -14,6 +17,6 @@ jobs:
       with:
         path: text.txt
 
-    - run: echo $TEXT
+    - run: echo $(ls)
       env:
         TEXT: ${{ steps.hello.outputs.text }}
