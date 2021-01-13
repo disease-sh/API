@@ -1,7 +1,7 @@
 name: Example
 on: push
 jobs:
-	testjob:
+	echo:
 		runs-on: ubuntu-latest
 		
 		steps:
