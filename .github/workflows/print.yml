@@ -1,17 +1,27 @@
 name: Example
 on: push
 jobs:
-  echo:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - run: echo -n -e "HELLO\n !\n World!" > text.txt
+	testjob:
+		runs-on: ubuntu-latest
+		
+		steps:
+      - uses: jitterbit/get-changed-files@v1
+        id: files
+      
+      - run: |
+        for changed_file in ${{ steps.files.outputs.all }}; do
+        echo "Do something with this ${changed_file}."
+        done
 
-    - uses: pCYSl5EDgo/cat@master
-      id: hello
-      with:
-        path: text.txt
+      - uses: actions/checkout@v2
 
-    - run: echo $TEXT
-      env:
-        TEXT: ${{ steps.hello.outputs.text }}
+      - run: echo -n -e "HELLO\n !\n World!" > text.txt
+
+      - uses: pCYSl5EDgo/cat@master
+        id: hello
+        with:
+          path: text.txt
+
+      - run: echo $(ls)
+        env:
+          TEXT: ${{ steps.hello.outputs.text }}
