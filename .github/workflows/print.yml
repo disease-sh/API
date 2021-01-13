@@ -6,10 +6,11 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
+      # get changed files
       - id: files
         uses: jitterbit/get-changed-files@v1
-      - run: touch touched_files.txt
-      - run: for changed_file in ${{ steps.files.outputs.all }}; do echo -n ${changed_file} >> touched_files.txt; done
-      - run: cat touched_files.txt
-      - run: echo $(ls)
-      - run: node argv.js ${{ steps.files.outputs.all }}
+      # create file to hold tests to run
+      - run: touch test_to_run.txt
+      # run node script mapping changed files to tests
+      - run: node argv.js ${{ steps.files.outputs.all }} >> test_to_run.txt
+      - run: cat test_to_run.txt

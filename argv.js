@@ -1,1 +1,4 @@
-console.log(process.argv.splice(2));
+process.argv.splice(2).forEach(fl => {
+	console.log(fl);
+	console.log('fuark');
+});
