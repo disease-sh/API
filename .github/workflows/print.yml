@@ -1,10 +1,10 @@
 name: Example
 on: push
 jobs:
-	echo:
-		runs-on: ubuntu-latest
-		
-		steps:
+  echo:
+    runs-on: ubuntu-latest
+    
+    steps:
       - uses: jitterbit/get-changed-files@v1
         id: files
       
