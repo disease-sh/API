@@ -78,3 +78,4 @@ process.argv.splice(2).forEach(fl => {
 });
 
 tests.forEach(test => process.stdout.write(`${test} `));
+process.stdout.write('\n');
