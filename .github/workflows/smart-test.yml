@@ -12,7 +12,7 @@ on:
       - 'privacy.md'
       - 'CONTRIBUTING.md'
 jobs:
-  echo:
+  smart-unittest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
