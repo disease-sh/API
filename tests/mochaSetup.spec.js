@@ -4,7 +4,7 @@ const logger = require('../utils/logger');
 
 const testFileArgs = process.argv.splice(5);
 const argValues = new Set(testFileArgs.map(fl => fl.substring(fl.indexOf('_') + 1, fl.indexOf('.'))));
-
+console.log(testFileArgs, argValues);
 const mapArgToScraper = {
 	worldometers: executeScraper,
 	jhucsse: executeScraper,

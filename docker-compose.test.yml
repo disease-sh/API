@@ -7,7 +7,7 @@ services:
       - redis-data-test:/data
 
   app:
-    command: ["npm", "test-single", "$$(cat test_to_run.txt)"]
+    command: /bin/sh -c "./runtests.sh"
     build: .
     environment:
       - TEST_MODE=true

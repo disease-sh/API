@@ -7,3 +7,5 @@ COPY ./package.json ./package-lock.json ./
 RUN npm ci
 
 COPY . .
+COPY runtests.sh /runtests.sh
+RUN chmod +x /runtests.sh
