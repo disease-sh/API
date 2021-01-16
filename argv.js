@@ -1,7 +1,6 @@
 const v2Tests = [
 	'tests/v2/api_apple.spec.js',
 	'tests/v2/api_deprecated.spec.js',
-	'tests/v2/api_gov.spec.js',
 	'tests/v2/api_historical.spec.js',
 	'tests/v2/api_jhucsse.spec.js',
 	'tests/v2/api_nyt.spec.js',
@@ -11,7 +10,6 @@ const v2Tests = [
 const v3CovidTests = [
 	'tests/v3/covid-19/api_apple.spec.js',
 	'tests/v3/covid-19/api_deprecated.spec.js',
-	'tests/v3/covid-19/api_gov.spec.js',
 	'tests/v3/covid-19/api_historical.spec.js',
 	'tests/v3/covid-19/api_jhucsse.spec.js',
 	'tests/v3/covid-19/api_nyt.spec.js',
