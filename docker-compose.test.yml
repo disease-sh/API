@@ -7,7 +7,7 @@ services:
       - redis-data-test:/data
 
   app:
-    command: ["npm", "test"]
+    command: ["npm", "test-single", "$(cat test_to_run.txt)"]
     build: .
     environment:
       - TEST_MODE=true
