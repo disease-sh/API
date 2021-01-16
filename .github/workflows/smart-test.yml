@@ -1,13 +1,19 @@
-name: Unittest PR
+name: Smart Unittest
 on: 
-  push
-  # pull_request:
-  #   branches:
-  #     - '*'
+  pull_request:
+    branches:
+      - '*'
+    paths-ignore:
+      - '.github/ISSUE_TEMPLATE/**'
+      - 'docker-publish.yml'
+      - 'README.md'
+      - 'SECURITY.md'
+      - 'TERMS.md'
+      - 'privacy.md'
+      - 'CONTRIBUTING.md'
 jobs:
   echo:
     runs-on: ubuntu-latest
-    
     steps:
       - uses: actions/checkout@v2
       # get changed files
