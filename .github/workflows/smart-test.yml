@@ -1,0 +1,35 @@
+name: Smart Unittest
+on: 
+  pull_request:
+    branches:
+      - '*'
+    paths-ignore:
+      - '.github/ISSUE_TEMPLATE/**'
+      - 'docker-publish.yml'
+      - 'README.md'
+      - 'SECURITY.md'
+      - 'TERMS.md'
+      - 'privacy.md'
+      - 'CONTRIBUTING.md'
+jobs:
+  smart-unittest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: zcong1993/setup-timezone@master
+        with:
+          timezone: America/Denver
+      # get changed files
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+      # create file to hold tests to run
+      - run: touch test_to_run.txt
+      # run node script mapping changed files to tests
+      - run: node associateTests.js ${{ steps.files.outputs.all }} >> test_to_run.txt
+      # supply this file as input to a testing script
+      - run: npm run docker-test
+        env:
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          REDIS_PASSWORD: ""
+          SERVER_PORT: 3000
