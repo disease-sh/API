@@ -2,7 +2,6 @@ const v2Tests = [
 	'tests/v2/api_apple.spec.js',
 	'tests/v2/api_deprecated.spec.js',
 	'tests/v2/api_historical.spec.js',
-	'tests/v2/api_jhucsse.spec.js',
 	'tests/v2/api_nyt.spec.js',
 	'tests/v2/api_worldometers.spec.js'
 ];
