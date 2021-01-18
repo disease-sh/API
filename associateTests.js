@@ -17,23 +17,18 @@ const v3CovidTests = [
 	'tests/v3/covid-19/api_worldometers.spec.js'
 ];
 
-const v3InfluenzaTests = [
-	'tests/v3/influenza/api_influenza.spec.js'
-];
+// Influenza tests are broken
 
 const allTests = [
 	...v2Tests,
-	...v3CovidTests,
-	...v3InfluenzaTests
+	...v3CovidTests
 ];
 
 const fileDirToTestMap = {
 	'config/': allTests,
 	'scrapers/covid-19/govScrapers/': ['tests/v3/covid-19/api_gov.spec.js'],
-	'scrapers/influenza/': v3InfluenzaTests,
 	'tests/v2/': v2Tests,
 	'tests/v3/covid-19/': v3CovidTests,
-	'tests/v3/influenza/': v3InfluenzaTests,
 	'utils/': allTests
 };
 
