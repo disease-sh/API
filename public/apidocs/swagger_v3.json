@@ -1132,6 +1132,91 @@
         }
       }
     },
+    "/v3/covid-19/vaccine/coverage": {
+      "get": {
+        "tags": [
+          "COVID-19: Vaccine"
+        ],
+        "parameters": [
+          {
+            "name": "lastdays",
+            "in": "query",
+            "default": 30,
+            "description":
+              "Number of days to return. Use 'all' for the full data set (e.g. 15, all, 24)",
+            "type": "string"
+          }
+        ],
+        "summary": "Get total global COVID-19 vaccine doses administered. Sourced from https://covid.ourworldindata.org/",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/vaccineCoverage"
+            }
+          }
+        }
+      }
+    },
+    "/v3/covid-19/vaccine/coverage/countries": {
+      "get": {
+        "tags": [
+          "COVID-19: Vaccine"
+        ],
+        "parameters": [
+          {
+            "name": "lastdays",
+            "in": "query",
+            "default": 30,
+            "description":
+              "Number of days to return. Use 'all' for the full data set (e.g. 15, all, 24)",
+            "type": "string"
+          }
+        ],
+        "summary": "Get COVID-19 vaccine doses administered for all countries that have reported rolling out vaccination. Sourced  from https://covid.ourworldindata.org/",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/vaccineCountriesCoverage"
+            }
+          }
+        }
+      }
+    },
+    "/v3/covid-19/vaccine/coverage/countries/{country}": {
+      "get": {
+        "tags": [
+          "COVID-19: Vaccine"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "in": "path",
+            "required": true,
+            "description": "A valid country name, iso2, iso3",
+            "type": "string"
+          },
+          {
+            "name": "lastdays",
+            "in": "query",
+            "default": 30,
+            "description":
+              "Number of days to return. Use 'all' for the full data set (e.g. 15, all, 24)",
+            "type": "string"
+          }
+        ],
+        "summary": "Get COVID-19 vaccine doses administered for a country that has reported vaccination rollout. Sourced from https://covid.ourworldindata.org/",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "schema": {
+              "$ref": "#/definitions/vaccineCountryCoverage"
+            }
+          }
+        }
+      }
+    },
     "/v3/covid-19/therapeutics": {
       "get": {
         "tags": [
@@ -2075,6 +2160,49 @@
           "type": "string"
         }
       }
+    },
+    "vaccineCoverage":{
+       "type":"object",
+       "properties":{
+         "date":{
+           "type":"number"
+         }
+       }
+    },
+    "vaccineCountriesCoverage":{
+       "type":"array",
+       "items":{
+         "type":"object",
+         "properties":{
+           "country":{
+             "type":"string"
+           },
+           "timeline":{
+             "type":"object",
+             "properties":{
+               "date":{
+                 "type":"number"
+               }
+             }
+           }
+         }
+       }
+    },
+    "vaccineCountryCoverage":{
+       "type":"object",
+       "properties":{
+         "country":{
+           "type":"string"
+         },
+         "timeline":{
+           "type":"object",
+           "properties":{
+             "date":{
+               "type":"number"
+             }
+           }
+         }
+       }
     },
     "therapeutics": {
       "properties": {
