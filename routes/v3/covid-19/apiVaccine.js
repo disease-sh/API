@@ -61,13 +61,14 @@ router.get('/v3/covid-19/vaccine/coverage/countries/:country', async (req, res) 
 			const { timeline } = countryVaccineData;
 			const { lastdays } = req.query;
 			const numericLastDays = getLastDays(lastdays);
-            const obj = { country: countryVaccineData.country, data: [] };
-            Object.keys(timeline).slice(numericLastDays * -1).forEach((date) => {
-                entry = {
-                    date, ...timeline[date]
-                }
-                obj.data.push(entry);
-            });
+			const obj = { country: countryVaccineData.country, data: [] };
+
+			Object.keys(timeline).slice(numericLastDays * -1).forEach((date) => {
+				const entry = {
+					date, ...timeline[date]
+				};
+				obj.data.push(entry);
+			});
 			res.send(obj);
 		} else {
 			res.status(404).send({ message: 'No vaccine data for requested country or country does not exist' });
