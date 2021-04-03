@@ -9,7 +9,20 @@ services:
       - redis-net
     volumes:
       - redis-data-test:/data
-
+  scraper:
+    build: .
+    image: covidapi-scraper
+    container_name: covid-api-scraper
+    command: ["npm", "run", "start:scraper"]
+    restart: always
+    environment: 
+      - DOCKER=true
+    env_file:
+      - .env
+    networks:
+      - redis-net
+    depends_on:
+      - redis
   app:
     image: novelcovid/novelcovid-api:latest
     command: /bin/sh -c "./runtests.sh"
