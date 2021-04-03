@@ -17,8 +17,9 @@ services:
     restart: always
     environment: 
       - DOCKER=true
-    env_file:
-      - .env
+    environment:
+      - TEST_MODE=true
+      - DOCKER=true
     networks:
       - redis-net
     depends_on:
