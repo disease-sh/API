@@ -1,4 +1,4 @@
-const { scraper: { executeScraper, executeScraperNYTData, excecuteScraperAppleData, excecuteScraperGov, excecuteScraperInfluenza },
+const { scraper: { executeScraper, executeScraperNYTData, excecuteScraperAppleData, excecuteScraperGov, excecuteScraperInfluenza, excecuteScraperVaccineCoverage },
 	redis } = require('../routes/instances');
 const logger = require('../utils/logger');
 
@@ -11,7 +11,8 @@ const mapArgToScraper = {
 	nyt: executeScraperNYTData,
 	apple: excecuteScraperAppleData,
 	gov: excecuteScraperGov,
-	influenza: excecuteScraperInfluenza
+	influenza: excecuteScraperInfluenza,
+	vaccine: excecuteScraperVaccineCoverage
 };
 
 // eslint-disable-next-line
@@ -28,6 +29,7 @@ before(async () => {
 		await excecuteScraperAppleData();
 		await excecuteScraperGov();
 		await excecuteScraperInfluenza();
+		await excecuteScraperVaccineCoverage();
 		logger.info('Scraping all data finished.');
 	}
 });
