@@ -5,19 +5,6 @@ services:
     container_name: covid-api-redis-test
     volumes:
       - redis-data-test:/data
-  scraper:
-    build: .
-    image: covidapi-scraper
-    container_name: covid-api-scraper
-    command: ["npm", "run", "start:scraper"]
-    restart: always
-    environment:
-      - TEST_MODE=true
-      - DOCKER=true
-    networks:
-      - redis-net
-    depends_on:
-      - redis
   app:
     command: ["npm", "test"]
     build: .
