@@ -12,8 +12,6 @@ services:
 
   app:
     image: novelcovid/novelcovid-api:latest
-    environment: 
-      - DOCKER=true
     networks:
       - redis-net
     depends_on:
