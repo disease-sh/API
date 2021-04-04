@@ -2,31 +2,16 @@ version: "3.7"
 
 services:
   redis:
-    image: redis:5.0.8-buster
-    hostname: redis
     container_name: covid-api-redis-test
-    networks:
-      - redis-net
     volumes:
       - redis-data-test:/data
-
   app:
-    image: novelcovid/novelcovid-api:latest
-    command: /bin/sh -c "./runtests.sh"
-    networks:
-      - redis-net
-    depends_on:
-      - redis
-    build: 
-      context: .
-      dockerfile: Dockerfile-Test
+    command: ["npm", "test"]
+    build: .
     environment:
       - TEST_MODE=true
       - DOCKER=true
     container_name: covid-api-app-test
-
-networks:
-  redis-net:
 
 volumes:
   redis-data-test:
