@@ -1,5 +1,5 @@
-const { scraper: { executeScraper, executeScraperNYTData, excecuteScraperAppleData, excecuteScraperGov, excecuteScraperVaccine, excecuteScraperVaccineCoverage, executeScraperTherapeutics,
-	excecuteScraperInfluenza },
+const { scraper: { executeScraper, executeScraperNYTData, excecuteScraperAppleData, excecuteScraperGov, excecuteScraperVaccine, excecuteScraperVaccineCoverage, excecuteScraperVaccineStateCoverage,
+	executeScraperTherapeutics, excecuteScraperInfluenza },
 config } = require('./routes/instances');
 
 executeScraper();
@@ -9,6 +9,7 @@ excecuteScraperGov();
 excecuteScraperInfluenza();
 excecuteScraperVaccine();
 excecuteScraperVaccineCoverage();
+excecuteScraperVaccineStateCoverage();
 executeScraperTherapeutics();
 
 // Update Worldometer and Johns Hopkins data every 10 minutes
@@ -23,6 +24,8 @@ setInterval(excecuteScraperGov, config.govInterval);
 setInterval(excecuteScraperVaccine, config.vaccineInterval);
 // Update vaccine data every  24 hours
 setInterval(excecuteScraperVaccineCoverage, config.vaccineCoverageInterval);
+// Update vaccine data every  24 hours
+setInterval(excecuteScraperVaccineStateCoverage, config.vaccineStateCoverageInterval);
 // Update therapeutics data every 24 hours
 setInterval(executeScraperTherapeutics, config.therapeuticsInterval);
 // Update CDC Influenza data every  24 hours

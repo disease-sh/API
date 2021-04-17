@@ -10,7 +10,7 @@ const historical = require('../scrapers/covid-19/historical');
 const nytData = require('../scrapers/covid-19/nytData');
 const appleData = require('../scrapers/covid-19/appleMobilityData');
 const govData = require('../scrapers/covid-19/govScrapers/getGovData');
-const { getVaccineData, getVaccineCoverageData } = require('../scrapers/covid-19/getVaccine');
+const { getVaccineData, getVaccineCoverageData, getVaccineStateCoverageData } = require('../scrapers/covid-19/getVaccine');
 const getTherapeuticsData = require('../scrapers/covid-19/getTherapeutics');
 const getCDCDInfluenzaData = require('../scrapers/influenza/getCDC');
 
@@ -63,6 +63,10 @@ module.exports = {
 		excecuteScraperVaccineCoverage: async () => {
 			await getVaccineCoverageData(keys, redis);
 			logger.info('Finished Vaccine Coverage scraping!');
+		},
+		excecuteScraperVaccineStateCoverage: async () => {
+			await getVaccineStateCoverageData(keys, redis);
+			logger.info('Finished Vaccine State Coverage scraping!');
 		},
 		executeScraperTherapeutics: async () => {
 			await getTherapeuticsData(keys, redis);

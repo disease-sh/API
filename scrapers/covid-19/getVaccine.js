@@ -47,6 +47,16 @@ const groupVaccineDataByCountry = (vaccineData) => {
 	};
 };
 
+const groupVaccineDataByState = (vaccineData) => {
+	const groupedByStateVaccineDataObject = {};
+
+	vaccineData.forEach((timelineData) => {
+		if (groupedByStateVaccineDataObject[timelineData.location] === undefined) groupedByStateVaccineDataObject[timelineData.location] = [timelineData];
+		else groupedByStateVaccineDataObject[timelineData.location].push(timelineData);
+	});
+	return groupedByStateVaccineDataObject;
+};
+
 /**
  * Formats vaccine coverage date from "YYYY:MM:DD" format to be consistent with other date formats returned by the API
  * @param {string} vaccineCoverageDate
@@ -174,6 +184,65 @@ const generateSpecificCountryVaccineData = (timelineData) => {
 };
 
 /**
+ * Formats raw timeline data
+ * @param {array} timelineData An array of raw timeline data
+ * @returns {object}
+ */
+
+const generateSpecificStateVaccineData = (timelineData) => {
+	if (timelineData[0].daily_vaccinations === '') {
+		/* eslint-disable */
+		timelineData[0].daily_vaccinations = timelineData[0].total_vaccinations;
+		/* eslint-enable */
+	}
+
+	const firstVaccinationDate = timelineData[0].date;
+	const { 0: vaccinationStartYear, 1: vaccinationStartMonth, 2: vaccinationStartDate } = firstVaccinationDate.split('-');
+	const vaccinationStartDateObject = new Date(parseInt(vaccinationStartYear), parseInt(vaccinationStartMonth) - 1, parseInt(vaccinationStartDate));
+	const dayZero = new Date(2020, 11, 1);
+
+	const timeline = getTimeline(dayZero, vaccinationStartDateObject, 0, {});
+	let totalFromDailyVaccinationsTracker = 0;
+	timelineData.forEach((timelineObject) => {
+		const {
+			total_vaccinations: total,
+			daily_vaccinations: daily,
+			total_vaccinations_per_hundred: totalPerHundred,
+			daily_vaccinations_per_million: dailyPerMillion,
+			date
+		} = timelineObject;
+		if (total === '') {
+			totalFromDailyVaccinationsTracker += daily === '' ? 0 : parseInt(daily);
+		} else {
+			totalFromDailyVaccinationsTracker = parseInt(total);
+		}
+		timeline[formatVaccineCoverageDate(date)] = {
+			total: total === '' ? totalFromDailyVaccinationsTracker : parseInt(total),
+			daily: daily === '' ? 0 : parseInt(daily),
+			totalPerHundred: totalPerHundred === '' ? 0 : parseInt(totalPerHundred),
+			dailyPerMillion: dailyPerMillion === '' ? 0 : parseInt(dailyPerMillion)
+		};
+	});
+
+	const lastVaccinationDataReportedOn = timelineData[timelineData.length - 1].date;
+	const { 0: year, 1: month, 2: date } = lastVaccinationDataReportedOn.split('-');
+	const lastVaccinationDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(date));
+	// Today must be today's date at midnight
+	const today = new Date(new Date().setHours(0, 0, 0, 0));
+
+	if (isVaccineCoverageDataLastUpdatedToday(lastVaccinationDate, today) === true) {
+		return { state: '', timeline };
+	}
+
+	// If data was last updated day/days before today, the remaining days without update must all have the last total
+	today.setDate(today.getDate() + 1);
+	lastVaccinationDate.setDate(lastVaccinationDate.getDate() + 1);
+	const { total: latestTotalVaccination } = timeline[Object.keys(timeline).slice(-1)[0]];
+	const updatedTimeline = getTimeline(lastVaccinationDate, today, latestTotalVaccination, timeline);
+	return { state: '', timeline: updatedTimeline };
+};
+
+/**
  * Fills redis with vaccination coverage data
  * @param 	{string} 	keys	 Redis keys
  * @param 	{Object} 	redis 	 Redis instance
@@ -266,4 +335,35 @@ const getVaccineData = async (keys, redis) => {
 	} while (dataExists === false && counter < 30);
 };
 
-module.exports = { getVaccineData, getVaccineCoverageData };
+/**
+ * Fills redis with vaccination state coverage data
+ * @param 	{string} 	keys	 Redis keys
+ * @param 	{Object} 	redis 	 Redis instance
+ */
+async function getVaccineStateCoverageData(keys, redis) {
+	try {
+		const data = await axios.get(
+			'https://covid.ourworldindata.org/data/vaccinations/us_state_vaccinations.csv'
+		);
+		const parsedVaccineData = await csv({
+			noheader: false,
+			output: 'json'
+		}).fromString(data.data);
+
+		const statesVaccineCoverageData = [];
+		const groupedByStateVaccineDataObject = groupVaccineDataByState(parsedVaccineData);
+		Object.keys(groupedByStateVaccineDataObject).forEach((stateCode) => {
+			const specifiStateVaccineData = generateSpecificStateVaccineData(groupedByStateVaccineDataObject[stateCode]);
+			specifiStateVaccineData.state = stateCode;
+			statesVaccineCoverageData.push(specifiStateVaccineData);
+		});
+		redis.set(
+			keys.vaccine_state_coverage,
+			JSON.stringify({ states: statesVaccineCoverageData })
+		);
+	} catch (error) {
+		logger.err('Error: Requesting state vaccine coverage data failed!', error);
+	}
+}
+
+module.exports = { getVaccineData, getVaccineCoverageData, getVaccineStateCoverageData };
