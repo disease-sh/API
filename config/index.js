@@ -33,8 +33,6 @@ config.vaccineInterval = process.env.VACCINE_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
 config.vaccineCoverageInterval = process.env.VACCINE_COVERAGE_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
-config.vaccineStateCoverageInterval = process.env.VACCINE_STATE_COVERAGE_INTERVAL || 864e5;
-// eslint-disable-next-line camelcase
 config.therapeuticsInterval = process.env.THERAPEUTICS_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
 config.ebolaInterval = process.env.EBOLA_INTERVAL || 864e5;

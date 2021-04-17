@@ -25,7 +25,7 @@ setInterval(excecuteScraperVaccine, config.vaccineInterval);
 // Update vaccine data every  24 hours
 setInterval(excecuteScraperVaccineCoverage, config.vaccineCoverageInterval);
 // Update vaccine data every  24 hours
-setInterval(excecuteScraperVaccineStateCoverage, config.vaccineStateCoverageInterval);
+setInterval(excecuteScraperVaccineStateCoverage, config.vaccineCoverageInterval);
 // Update therapeutics data every 24 hours
 setInterval(executeScraperTherapeutics, config.therapeuticsInterval);
 // Update CDC Influenza data every  24 hours
