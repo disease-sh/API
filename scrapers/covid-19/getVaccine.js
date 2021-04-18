@@ -47,6 +47,19 @@ const groupVaccineDataByCountry = (vaccineData) => {
 	};
 };
 
+const groupVaccineDataByState = (vaccineData) => {
+	const groupedByStateVaccineDataObject = {};
+
+	vaccineData.forEach((timelineData) => {
+		if (groupedByStateVaccineDataObject[timelineData.location] === undefined) {
+			groupedByStateVaccineDataObject[timelineData.location] = [timelineData];
+		} else {
+			groupedByStateVaccineDataObject[timelineData.location].push(timelineData);
+		}
+	});
+	return groupedByStateVaccineDataObject;
+};
+
 /**
  * Formats vaccine coverage date from "YYYY:MM:DD" format to be consistent with other date formats returned by the API
  * @param {string} vaccineCoverageDate
@@ -101,7 +114,7 @@ const isVaccineCoverageDataLastUpdatedToday = (dateForLatestUpdate, dateToday) =
  * @returns {object}
  */
 
-const generateSpecificCountryVaccineData = (timelineData) => {
+const generateSpecificVaccineTimelineData = (timelineData) => {
 	/*
 	 All countries have missing value for daily_vaccinations field on the first day.
 	 This could be intentional omission because it is expected the total and daily
@@ -162,7 +175,7 @@ const generateSpecificCountryVaccineData = (timelineData) => {
 	const today = new Date(new Date().setHours(0, 0, 0, 0));
 
 	if (isVaccineCoverageDataLastUpdatedToday(lastVaccinationDate, today) === true) {
-		return { country: '', countryInfo: null, timeline };
+		return timeline;
 	}
 
 	// If data was last updated day/days before today, the remaining days without update must all have the last total
@@ -170,7 +183,7 @@ const generateSpecificCountryVaccineData = (timelineData) => {
 	lastVaccinationDate.setDate(lastVaccinationDate.getDate() + 1);
 	const { total: latestTotalVaccination } = timeline[Object.keys(timeline).slice(-1)[0]];
 	const updatedTimeline = getTimeline(lastVaccinationDate, today, latestTotalVaccination, timeline);
-	return { country: '', countryInfo: null, timeline: updatedTimeline };
+	return updatedTimeline;
 };
 
 /**
@@ -197,7 +210,11 @@ async function getVaccineCoverageData(keys, redis) {
 
 		Object.keys(groupedByCountryVaccineDataObject).forEach((iso3CountryCode) => {
 			const countryMetaData = countries.find((metaData) => metaData.iso3 === iso3CountryCode);
-			const specifiCountryVaccineData = generateSpecificCountryVaccineData(groupedByCountryVaccineDataObject[iso3CountryCode]);
+			const specifiCountryVaccineData = {
+				country: '',
+				countryInfo: null,
+				timeline: generateSpecificVaccineTimelineData(groupedByCountryVaccineDataObject[iso3CountryCode])
+			};
 			if (countryMetaData) {
 				specifiCountryVaccineData.country = countryMetaData.country;
 				specifiCountryVaccineData.countryInfo = countryMetaData;
@@ -206,7 +223,7 @@ async function getVaccineCoverageData(keys, redis) {
 		}
 		);
 		// iso3 country code used for the world in the dataset is OWID_WRL
-		const { timeline: worldVaccineCoverageData } = generateSpecificCountryVaccineData(worldVaccineDataObject.OWID_WRL);
+		const worldVaccineCoverageData = generateSpecificVaccineTimelineData(worldVaccineDataObject.OWID_WRL);
 		redis.set(
 			keys.vaccine_coverage,
 			JSON.stringify({ countries: countriesVaccineCoverageData, world: worldVaccineCoverageData })
@@ -266,4 +283,36 @@ const getVaccineData = async (keys, redis) => {
 	} while (dataExists === false && counter < 30);
 };
 
-module.exports = { getVaccineData, getVaccineCoverageData };
+/**
+ * Fills redis with vaccination state coverage data
+ * @param 	{string} 	keys	 Redis keys
+ * @param 	{Object} 	redis 	 Redis instance
+ */
+async function getVaccineStateCoverageData(keys, redis) {
+	try {
+		const data = await axios.get(
+			'https://covid.ourworldindata.org/data/vaccinations/us_state_vaccinations.csv'
+		);
+		const parsedVaccineData = await csv({
+			noheader: false,
+			output: 'json'
+		}).fromString(data.data);
+		const statesVaccineCoverageData = [];
+		const groupedByStateVaccineDataObject = groupVaccineDataByState(parsedVaccineData);
+		Object.keys(groupedByStateVaccineDataObject).forEach((stateCode) => {
+			const specifiStateVaccineData = {
+				state: stateCode,
+				timeline: generateSpecificVaccineTimelineData(groupedByStateVaccineDataObject[stateCode])
+			};
+			statesVaccineCoverageData.push(specifiStateVaccineData);
+		});
+		redis.set(
+			keys.vaccine_state_coverage,
+			JSON.stringify({ states: statesVaccineCoverageData })
+		);
+	} catch (error) {
+		logger.err('Error: Requesting state vaccine coverage data failed!', error);
+	}
+}
+
+module.exports = { getVaccineData, getVaccineCoverageData, getVaccineStateCoverageData };
