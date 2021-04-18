@@ -297,7 +297,6 @@ async function getVaccineStateCoverageData(keys, redis) {
 			noheader: false,
 			output: 'json'
 		}).fromString(data.data);
-
 		const statesVaccineCoverageData = [];
 		const groupedByStateVaccineDataObject = groupVaccineDataByState(parsedVaccineData);
 		Object.keys(groupedByStateVaccineDataObject).forEach((stateCode) => {
