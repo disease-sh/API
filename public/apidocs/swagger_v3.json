@@ -1237,7 +1237,7 @@
           "200": {
             "description": "Status Ok",
             "schema": {
-              "$ref": "#/definitions/vaccineStateCoverage"
+              "$ref": "#/definitions/vaccineStatesCoverage"
             }
           }
         }
@@ -2229,55 +2229,48 @@
        }
     },
     "vaccineCountriesCoverage":{
-       "type":"array",
-       "items":{
-         "type":"object",
-         "properties":{
-           "country":{
-             "type":"string"
-           },
-           "timeline":{
-             "type":"object",
-             "properties":{
-               "date":{
-                 "type":"number"
-               }
-             }
-           }
-         }
-       }
+      "type":"array",
+      "items":{
+        "$ref": "#/definitions/vaccineCountryCoverage"
+      }
     },
     "vaccineCountryCoverage":{
-       "type":"object",
-       "properties":{
-         "country":{
-           "type":"string"
-         },
-         "timeline":{
-           "type":"object",
-           "properties":{
-             "date":{
-               "type":"number"
-             }
-           }
-         }
-       }
+      "type":"object",
+      "properties":{
+        "country":{
+          "type":"string"
+        },
+        "timeline":{
+          "type":"object",
+          "properties":{
+            "date":{
+              "type":"number"
+            }
+          }
+        }
+      }
+    },
+    "vaccineStatesCoverage": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/vaccineStateCoverage"
+      }
     },
     "vaccineStateCoverage":{
-       "type":"object",
-       "properties":{
-         "state":{
-           "type":"string"
-         },
-         "timeline":{
-           "type":"object",
-           "properties":{
-             "date":{
-               "type":"number"
-             }
-           }
-         }
-       }
+      "type":"object",
+      "properties":{
+        "state":{
+          "type":"string"
+        },
+        "timeline":{
+          "type":"object",
+          "properties":{
+            "date":{
+              "type":"number"
+            }
+          }
+        }
+      }
     },
     "therapeutics": {
       "properties": {
