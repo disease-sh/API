@@ -1416,7 +1416,6 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-<<<<<<< HEAD
             "content": {
               "application/json": {
                 "schema": {
@@ -1431,10 +1430,6 @@
                   }
                 }
               }
-=======
-            "schema": {
-              "$ref": "#/definitions/vaccineStatesCoverage"
->>>>>>> a31cf027d63c6e595a8af8817794a1f13edf3b01
             }
           }
         }
@@ -2563,107 +2558,10 @@
             }
           }
         }
-<<<<<<< HEAD
       },
       "therapeutic": {
         "properties": {
           "medicationClass": {
-=======
-      }
-    },
-    "phases": {
-      "properties": {
-        "phase": {
-          "type": "string"
-        },
-        "candidates": {
-          "type": "string"
-        }
-      }
-    },
-    "vaccineCoverage":{
-       "type":"object",
-       "properties":{
-         "date":{
-           "type":"number"
-         }
-       }
-    },
-    "vaccineCountriesCoverage":{
-      "type":"array",
-      "items":{
-        "$ref": "#/definitions/vaccineCountryCoverage"
-      }
-    },
-    "vaccineCountryCoverage":{
-      "type":"object",
-      "properties":{
-        "country":{
-          "type":"string"
-        },
-        "timeline":{
-          "type":"object",
-          "properties":{
-            "date":{
-              "type":"number"
-            }
-          }
-        }
-      }
-    },
-    "vaccineStatesCoverage": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/vaccineStateCoverage"
-      }
-    },
-    "vaccineStateCoverage":{
-      "type":"object",
-      "properties":{
-        "state":{
-          "type":"string"
-        },
-        "timeline":{
-          "type":"object",
-          "properties":{
-            "date":{
-              "type":"number"
-            }
-          }
-        }
-      }
-    },
-    "therapeutics": {
-      "properties": {
-        "source": {
-          "type": "string"
-        },
-        "totalCandidates": {
-          "type": "string"
-        },
-        "phases": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/phases"
-          }
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/therapeutic"
-          }
-        }
-      }
-    },
-    "therapeutic": {
-      "properties": {
-        "medicationClass": {
-          "type": "string"
-        },
-        "tradeName": {
-          "type": "array",
-          "items": {
->>>>>>> a31cf027d63c6e595a8af8817794a1f13edf3b01
             "type": "string"
           },
           "tradeName": {
