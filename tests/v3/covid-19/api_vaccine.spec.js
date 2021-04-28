@@ -72,6 +72,16 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 			});
 	});
 
+	it('/v3/covid-19/vaccine/coverage should return a list of full data objects', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/vaccine/coverage?fullData=true')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.equal(30);
+				assertFullDataTimelineStructure(res.body);
+				done();
+			});
+	});
 
 	it('/v3/covid-19/vaccine/coverage/countries should return countries vaccine coverage data', (done) => {
 		chai.request(app)
@@ -106,6 +116,21 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 				res.body[0].should.have.property('country');
 				res.body[0].should.have.property('timeline');
 				Object.keys(res.body[0].timeline).length.should.not.equal(0);
+				done();
+			});
+	});
+
+	it('/v3/covid-19/vaccine/coverage/countries should return full data for each country', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/vaccine/coverage/countries?fullData=true')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'array');
+				res.body.length.should.not.equal(0);
+				res.body[0].should.have.property('country');
+				res.body[0].should.have.property('timeline');
+				res.body[0].timeline.should.be.a('array');
+				res.body[0].timeline.length.should.equal(30);
+				assertFullDataTimelineStructure(res.body[0].timeline);
 				done();
 			});
 	});
@@ -192,3 +217,11 @@ describe('Testing /v3/covid-19/vaccine/ vaccine coverage', () => {
 		});
 	});
 });
+
+function assertFullDataTimelineStructure(fullDataTimeline) {
+	fullDataTimeline[0].should.have.property('total');
+	fullDataTimeline[0].should.have.property('daily');
+	fullDataTimeline[0].should.have.property('totalPerHundred');
+	fullDataTimeline[0].should.have.property('dailyPerMillion');
+	fullDataTimeline[0].should.have.property('date');
+}
