@@ -1,5 +1,5 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "version": "3.0.0",
     "title": "disease.sh Docs - An open API for disease-related statistics",
@@ -103,8 +103,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidAll"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidAll"
+                }
+              }
             }
           }
         }
@@ -158,8 +162,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidStates"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidStates"
+                }
+              }
             }
           }
         }
@@ -207,8 +215,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidState"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidState"
+                }
+              }
             }
           }
         }
@@ -278,8 +290,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidContinents"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidContinents"
+                }
+              }
             }
           }
         }
@@ -350,8 +366,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidContinent"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidContinent"
+                }
+              }
             }
           }
         }
@@ -421,8 +441,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidCountries"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidCountries"
+                }
+              }
             }
           }
         }
@@ -493,8 +517,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidCountry"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidCountry"
+                }
+              }
             }
           }
         }
@@ -554,8 +582,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidCountries"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidCountries"
+                }
+              }
             }
           }
         }
@@ -570,8 +602,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidJHUCountries"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidJHUCountries"
+                }
+              }
             }
           }
         }
@@ -586,8 +622,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidJHUCounties"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidJHUCounties"
+                }
+              }
             }
           }
         }
@@ -611,8 +651,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidJHUCounty"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidJHUCounties"
+                }
+              }
             }
           }
         }
@@ -636,8 +680,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidHistorical"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidHistorical"
+                }
+              }
             }
           }
         }
@@ -661,8 +709,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidHistoricalAll"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidHistoricalAll"
+                }
+              }
             }
           }
         }
@@ -693,8 +745,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidHistoricalCountry"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidHistoricalCountry"
+                }
+              }
             }
           }
         }
@@ -725,8 +781,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidHistoricalCountries"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidHistoricalCountries"
+                }
+              }
             }
           }
         }
@@ -764,8 +824,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidHistoricalProvince"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidHistoricalProvince"
+                }
+              }
             }
           }
         }
@@ -803,8 +867,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidHistoricalProvinces"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidHistoricalProvinces"
+                }
+              }
             }
           }
         }
@@ -820,8 +888,12 @@
         "responses": {
           "200": {
             "description": "Status OK",
-            "schema": {
-              "$ref": "#/definitions/covidHistoricalUSCounties"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidHistoricalUSCounties"
+                }   
+              }
             }
           }
         }
@@ -852,8 +924,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidHistoricalUSCounty"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidHistoricalUSCounty"
+                }
+              }
             }
           }
         }
@@ -877,8 +953,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidNYTState"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidNYTState"
+                }
+              }
             }
           }
         }
@@ -909,8 +989,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidNYTState"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidNYTState"
+                }
+              }
             }
           }
         }
@@ -934,8 +1018,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidNYTCounty"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidNYTCounty"
+                }
+              }
             }
           }
         }
@@ -966,8 +1054,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidNYTCounty"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidNYTCounty"
+                }
+              }
             }
           }
         }
@@ -982,8 +1074,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidNYTUSA"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidNYTUSA"
+                }
+              }
             }
           }
         }
@@ -999,8 +1095,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidAppleCountries"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidAppleCountries"
+                }
+              }
             }
           }
         }
@@ -1025,8 +1125,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidAppleSubregions"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidAppleSubregions"
+                }
+              }
             }
           }
         }
@@ -1058,8 +1162,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidAppleData"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidAppleData"
+                }
+              }
             }
           }
         }
@@ -1075,8 +1183,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/covidGov"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/covidGov"
+                }
+              }
             }
           }
         }
@@ -1125,8 +1237,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/vaccines"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/vaccines"
+                }
+              }
             }
           }
         }
@@ -1145,14 +1261,33 @@
             "description":
               "Number of days to return. Use 'all' for the full data set (e.g. 15, all, 24)",
             "type": "string"
+          },
+          {
+            "name": "fullData",
+            "in": "query",
+            "default": "false",
+            "description": "Flag indicating whether to return data type as simpleVaccineTimeline (false) or fullVaccineTimeline (true).",
+            "type": "string"
           }
         ],
         "summary": "Get total global COVID-19 vaccine doses administered. Sourced from https://covid.ourworldindata.org/",
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/vaccineCoverage"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/vaccineCoverage"
+                },
+                "examples": {
+                  "simpleTimeline": {
+                    "$ref": "#/components/examples/simpleVaccineTimeline"
+                  },
+                  "fullTimeline": {
+                    "$ref": "#/components/examples/fullVaccineTimeline"
+                  }
+                }
+              }
             }
           }
         }
@@ -1171,14 +1306,33 @@
             "description":
               "Number of days to return. Use 'all' for the full data set (e.g. 15, all, 24)",
             "type": "string"
+          },
+          {
+            "name": "fullData",
+            "in": "query",
+            "default": "false",
+            "description": "Flag indicating whether to return timeline data type as simpleVaccineTimeline (false) or fullVaccineTimeline (true).",
+            "type": "string"
           }
         ],
         "summary": "Get COVID-19 vaccine doses administered for all countries that have reported rolling out vaccination. Sourced  from https://covid.ourworldindata.org/",
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/vaccineCountriesCoverage"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/vaccineCountriesCoverage"
+                },
+                "examples": {
+                  "simpleTimeline": {
+                    "$ref": "#/components/examples/countriesSimpleVaccineTimeline"
+                  },
+                  "fullTimeline": {
+                    "$ref": "#/components/examples/countriesFullVaccineTimeline"
+                  }
+                }
+              }
             }
           }
         }
@@ -1204,14 +1358,33 @@
             "description":
               "Number of days to return. Use 'all' for the full data set (e.g. 15, all, 24)",
             "type": "string"
+          },
+          {
+            "name": "fullData",
+            "in": "query",
+            "default": "false",
+            "description": "Flag indicating whether to return timeline data type as simpleVaccineTimeline (false) or fullVaccineTimeline (true).",
+            "type": "string"
           }
         ],
         "summary": "Get COVID-19 vaccine doses administered for a country that has reported vaccination rollout. Sourced from https://covid.ourworldindata.org/",
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/vaccineCountryCoverage"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/vaccineCountryCoverage"
+                },
+                "examples": {
+                  "simpleTimeline": {
+                    "$ref": "#/components/examples/countrySimpleVaccineTimeline"
+                  },
+                  "fullTimeline": {
+                    "$ref": "#/components/examples/countryFullVaccineTimeline"
+                  }
+                }
+              }
             }
           }
         }
@@ -1230,14 +1403,33 @@
             "description":
               "Number of days to return. Use 'all' for the full data set (e.g. 15, all, 24)",
             "type": "string"
+          },
+          {
+            "name": "fullData",
+            "in": "query",
+            "default": "false",
+            "description": "Flag indicating whether to return timeline data type as simpleVaccineTimeline (false) or fullVaccineTimeline (true).",
+            "type": "string"
           }
         ],
         "summary": "Get COVID-19 vaccine doses administered for all states that have reported rolling out vaccination. Sourced  from https://covid.ourworldindata.org/",
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/vaccineStatesCoverage"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/vaccineStatesCoverage"
+                },
+                "examples": {
+                  "simpleTimeline": {
+                    "$ref": "#/components/examples/statesSimpleVaccineTimeline"
+                  },
+                  "fullTimeline": {
+                    "$ref": "#/components/examples/statesFullVaccineTimeline"
+                  }
+                }
+              }
             }
           }
         }
@@ -1263,14 +1455,33 @@
             "description":
               "Number of days to return. Use 'all' for the full data set (e.g. 15, all, 24)",
             "type": "string"
+          },
+          {
+            "name": "fullData",
+            "in": "query",
+            "default": "false",
+            "description": "Flag indicating whether to return timeline data type as simpleVaccineTimeline (false) or fullVaccineTimeline (true).",
+            "type": "string"
           }
         ],
         "summary": "Get COVID-19 vaccine doses administered for a state that has reported vaccination rollout. Sourced from https://covid.ourworldindata.org/",
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/vaccineStateCoverage"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/vaccineStateCoverage"
+                },
+                "examples": {
+                  "simpleTimeline": {
+                    "$ref": "#/components/examples/stateSimpleVaccineTimeline"
+                  },
+                  "fullTimeline": {
+                    "$ref": "#/components/examples/stateFullVaccineTimeline"
+                  }
+                }
+              }
             }
           }
         }
@@ -1285,8 +1496,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/therapeutics"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/therapeutics"
+                }
+              }
             }
           }
         }
@@ -1301,8 +1516,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/influenzaILINet"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/influenzaILINet"
+                }
+              }
             }
           }
         }
@@ -1317,8 +1536,12 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/influenzaUSCL"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/influenzaUSCL"
+                }
+              }
             }
           }
         }
@@ -1333,400 +1556,574 @@
         "responses": {
           "200": {
             "description": "Status Ok",
-            "schema": {
-              "$ref": "#/definitions/influenzaUSPHL"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/influenzaUSPHL"
+                }
+              }
             }
           }
         }
       }
     }
   },
-  "definitions": {
-    "covidAll": {
-      "properties": {
-        "updated": {
-          "type": "number"
-        },
-        "cases": {
-          "type": "number"
-        },
-        "todayCases": {
-          "type": "number"
-        },
-        "deaths": {
-          "type": "number"
-        },
-        "recovered": {
-          "type": "number"
-        },
-        "todayRecovered": {
-          "type": "number"
-        },
-        "active": {
-          "type": "number"
-        },
-        "critical": {
-          "type": "number"
-        },
-        "casesPerOneMillion": {
-          "type": "number"
-        },
-        "deathsPerOneMillion": {
-          "type": "number"
-        },
-        "tests": {
-          "type": "number"
-        },
-        "testsPerOneMillion": {
-          "type": "number"
-        },
-        "population": {
-          "type": "number"
-        },
-        "oneCasePerPeople": {
-          "type": "number"
-        },
-        "oneDeathPerPeople": {
-          "type": "number"
-        },
-        "oneTestPerPeople": {
-          "type": "number"
-        },
-        "activePerOneMillion": {
-          "type": "number"
-        },
-        "recoveredPerOneMillion": {
-          "type": "number"
-        },
-        "criticalPerOneMillion": {
-          "type": "number"
-        },
-        "affectedCountries": {
-          "type": "number"
+  "components": {
+    "schemas": {
+      "covidAll": {
+        "properties": {
+          "updated": {
+            "type": "number"
+          },
+          "cases": {
+            "type": "number"
+          },
+          "todayCases": {
+            "type": "number"
+          },
+          "deaths": {
+            "type": "number"
+          },
+          "recovered": {
+            "type": "number"
+          },
+          "todayRecovered": {
+            "type": "number"
+          },
+          "active": {
+            "type": "number"
+          },
+          "critical": {
+            "type": "number"
+          },
+          "casesPerOneMillion": {
+            "type": "number"
+          },
+          "deathsPerOneMillion": {
+            "type": "number"
+          },
+          "tests": {
+            "type": "number"
+          },
+          "testsPerOneMillion": {
+            "type": "number"
+          },
+          "population": {
+            "type": "number"
+          },
+          "oneCasePerPeople": {
+            "type": "number"
+          },
+          "oneDeathPerPeople": {
+            "type": "number"
+          },
+          "oneTestPerPeople": {
+            "type": "number"
+          },
+          "activePerOneMillion": {
+            "type": "number"
+          },
+          "recoveredPerOneMillion": {
+            "type": "number"
+          },
+          "criticalPerOneMillion": {
+            "type": "number"
+          },
+          "affectedCountries": {
+            "type": "number"
+          }
         }
-      }
-    },
-    "covidState": {
-      "properties": {
-        "state": {
-          "type": "string"
-        },
-        "updated": {
-          "type": "number"
-        },
-        "cases": {
-          "type": "number"
-        },
-        "todayCases": {
-          "type": "number"
-        },
-        "deaths": {
-          "type": "number"
-        },
-        "todayDeaths": {
-          "type": "number"
-        },
-        "active": {
-          "type": "number"
-        },
-        "casesPerOneMillion": {
-          "type": "number"
-        },
-        "deathsPerOneMillion": {
-          "type": "number"
-        },
-        "tests": {
-          "type": "number"
-        },
-        "testsPerOneMillion": {
-          "type": "number"
-        },
-        "population": {
-          "type": "number"
+      },
+      "covidState": {
+        "properties": {
+          "state": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "number"
+          },
+          "cases": {
+            "type": "number"
+          },
+          "todayCases": {
+            "type": "number"
+          },
+          "deaths": {
+            "type": "number"
+          },
+          "todayDeaths": {
+            "type": "number"
+          },
+          "active": {
+            "type": "number"
+          },
+          "casesPerOneMillion": {
+            "type": "number"
+          },
+          "deathsPerOneMillion": {
+            "type": "number"
+          },
+          "tests": {
+            "type": "number"
+          },
+          "testsPerOneMillion": {
+            "type": "number"
+          },
+          "population": {
+            "type": "number"
+          }
         }
-      }
-    },
-    "covidStates": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/covidState"
-      }
-    },
-    "covidContinent": {
-      "properties": {
-        "updated": {
-          "type": "number"
-        },
-        "cases": {
-          "type": "number"
-        },
-        "todayCases": {
-          "type": "number"
-        },
-        "deaths": {
-          "type": "number"
-        },
-        "todayDeaths": {
-          "type": "number"
-        },
-        "recovered": {
-          "type": "number"
-        },
-        "todayRecovered": {
-          "type": "number"
-        },
-        "active": {
-          "type": "number"
-        },
-        "critical": {
-          "type": "number"
-        },
-        "casesPerOneMillion": {
-          "type": "number"
-        },
-        "deathsPerOneMillion": {
-          "type": "number"
-        },
-        "tests": {
-          "type": "number"
-        },
-        "testsPerOneMillion": {
-          "type": "number"
-        },
-        "population": {
-          "type": "number"
-        },
-        "continent": {
-          "type": "string"
-        },
-        "activePerOneMillion": {
-          "type": "number"
-        },
-        "recoveredPerOneMillion": {
-          "type": "number"
-        },
-        "criticalPerOneMillion": {
-          "type": "number"
-        },
-        "continentInfo": {
-          "type": "object",
-          "properties": {
-            "lat": {
-              "type": "number"
-            },
-            "long": {
-              "type": "number"
+      },
+      "covidStates": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/covidState"
+        }
+      },
+      "covidContinent": {
+        "properties": {
+          "updated": {
+            "type": "number"
+          },
+          "cases": {
+            "type": "number"
+          },
+          "todayCases": {
+            "type": "number"
+          },
+          "deaths": {
+            "type": "number"
+          },
+          "todayDeaths": {
+            "type": "number"
+          },
+          "recovered": {
+            "type": "number"
+          },
+          "todayRecovered": {
+            "type": "number"
+          },
+          "active": {
+            "type": "number"
+          },
+          "critical": {
+            "type": "number"
+          },
+          "casesPerOneMillion": {
+            "type": "number"
+          },
+          "deathsPerOneMillion": {
+            "type": "number"
+          },
+          "tests": {
+            "type": "number"
+          },
+          "testsPerOneMillion": {
+            "type": "number"
+          },
+          "population": {
+            "type": "number"
+          },
+          "continent": {
+            "type": "string"
+          },
+          "activePerOneMillion": {
+            "type": "number"
+          },
+          "recoveredPerOneMillion": {
+            "type": "number"
+          },
+          "criticalPerOneMillion": {
+            "type": "number"
+          },
+          "continentInfo": {
+            "type": "object",
+            "properties": {
+              "lat": {
+                "type": "number"
+              },
+              "long": {
+                "type": "number"
+              }
+            }
+          },
+          "countries": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
-        },
-        "countries": {
-          "type": "array",
-          "items": {
+        }
+      },
+      "covidContinents": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/covidContinent"
+        }
+      },
+      "covidCountry": {
+        "properties": {
+          "updated": {
+            "type": "number"
+          },
+          "country": {
+            "type": "string"
+          },
+          "countryInfo": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "number",
+                "uniqueItems": true
+              },
+              "iso2": {
+                "type": "string",
+                "uniqueItems": true
+              },
+              "iso3": {
+                "type": "string",
+                "uniqueItems": true
+              },
+              "lat": {
+                "type": "number"
+              },
+              "long": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "string"
+              }
+            }
+          },
+          "cases": {
+            "type": "number"
+          },
+          "todayCases": {
+            "type": "number"
+          },
+          "deaths": {
+            "type": "number"
+          },
+          "todayDeaths": {
+            "type": "number"
+          },
+          "recovered": {
+            "type": "number"
+          },
+          "todayRecovered": {
+            "type": "number"
+          },
+          "active": {
+            "type": "number"
+          },
+          "critical": {
+            "type": "number"
+          },
+          "casesPerOneMillion": {
+            "type": "number"
+          },
+          "deathsPerOneMillion": {
+            "type": "number"
+          },
+          "tests": {
+            "type": "number"
+          },
+          "testsPerOneMillion": {
+            "type": "number"
+          },
+          "population": {
+            "type": "number"
+          },
+          "continent": {
+            "type": "number"
+          },
+          "oneCasePerPeople": {
+            "type": "number"
+          },
+          "oneDeathPerPeople": {
+            "type": "number"
+          },
+          "oneTestPerPeople": {
+            "type": "number"
+          },
+          "activePerOneMillion": {
+            "type": "number"
+          },
+          "recoveredPerOneMillion": {
+            "type": "number"
+          },
+          "criticalPerOneMillion": {
+            "type": "number"
+          }
+        }
+      },
+      "covidCountries": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/covidCountry"
+        }
+      },
+      "covidJHUCountries": {
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "stats": {
+            "type": "object",
+            "properties": {
+              "confirmed": {
+                "type": "number"
+              },
+              "deaths": {
+                "type": "number"
+              },
+              "recovered": {
+                "type": "number"
+              }
+            }
+          },
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              }
+            }
+          },
+          "province": {
             "type": "string"
           }
         }
-      }
-    },
-    "covidContinents": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/covidContinent"
-      }
-    },
-    "covidCountry": {
-      "properties": {
-        "updated": {
-          "type": "number"
-        },
-        "country": {
-          "type": "string"
-        },
-        "countryInfo": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "number",
-              "uniqueItems": true
-            },
-            "iso2": {
-              "type": "string",
-              "uniqueItems": true
-            },
-            "iso3": {
-              "type": "string",
-              "uniqueItems": true
-            },
-            "lat": {
-              "type": "number"
-            },
-            "long": {
-              "type": "number"
-            },
-            "flag": {
-              "type": "string"
+      },
+      "covidJHUCounty": {
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "stats": {
+            "type": "object",
+            "properties": {
+              "confirmed": {
+                "type": "number"
+              },
+              "deaths": {
+                "type": "number"
+              },
+              "recovered": {
+                "type": "number"
+              }
             }
-          }
-        },
-        "cases": {
-          "type": "number"
-        },
-        "todayCases": {
-          "type": "number"
-        },
-        "deaths": {
-          "type": "number"
-        },
-        "todayDeaths": {
-          "type": "number"
-        },
-        "recovered": {
-          "type": "number"
-        },
-        "todayRecovered": {
-          "type": "number"
-        },
-        "active": {
-          "type": "number"
-        },
-        "critical": {
-          "type": "number"
-        },
-        "casesPerOneMillion": {
-          "type": "number"
-        },
-        "deathsPerOneMillion": {
-          "type": "number"
-        },
-        "tests": {
-          "type": "number"
-        },
-        "testsPerOneMillion": {
-          "type": "number"
-        },
-        "population": {
-          "type": "number"
-        },
-        "continent": {
-          "type": "number"
-        },
-        "oneCasePerPeople": {
-          "type": "number"
-        },
-        "oneDeathPerPeople": {
-          "type": "number"
-        },
-        "oneTestPerPeople": {
-          "type": "number"
-        },
-        "activePerOneMillion": {
-          "type": "number"
-        },
-        "recoveredPerOneMillion": {
-          "type": "number"
-        },
-        "criticalPerOneMillion": {
-          "type": "number"
-        }
-      }
-    },
-    "covidCountries": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/covidCountry"
-      }
-    },
-    "covidJHUCountries": {
-      "properties": {
-        "country": {
-          "type": "string"
-        },
-        "county": {
-          "type": "string"
-        },
-        "updatedAt": {
-          "type": "string"
-        },
-        "stats": {
-          "type": "object",
-          "properties": {
-            "confirmed": {
-              "type": "number"
-            },
-            "deaths": {
-              "type": "number"
-            },
-            "recovered": {
-              "type": "number"
-            }
-          }
-        },
-        "coordinates": {
-          "type": "object",
-          "properties": {
-            "latitude": {
-              "type": "string"
-            },
-            "longitude": {
-              "type": "string"
-            }
-          }
-        },
-        "province": {
-          "type": "string"
-        }
-      }
-    },
-    "covidJHUCounty": {
-      "properties": {
-        "country": {
-          "type": "string"
-        },
-        "province": {
-          "type": "string"
-        },
-        "county": {
-          "type": "string"
-        },
-        "updatedAt": {
-          "type": "string"
-        },
-        "stats": {
-          "type": "object",
-          "properties": {
-            "confirmed": {
-              "type": "number"
-            },
-            "deaths": {
-              "type": "number"
-            },
-            "recovered": {
-              "type": "number"
-            }
-          }
-        },
-        "coordinates": {
-          "type": "object",
-          "properties": {
-            "latitude": {
-              "type": "string"
-            },
-            "longitude": {
-              "type": "string"
+          },
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              }
             }
           }
         }
-      }
-    },
-    "covidJHUCounties": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/covidJHUCounty"
-      }
-    },
-    "covidHistorical": {
-      "type": "array",
-      "items": {
-        "type": "object",
+      },
+      "covidJHUCounties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/covidJHUCounty"
+        }
+      },
+      "covidHistorical": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "country": {
+              "type": "string"
+            },
+            "province": {
+              "type": "string"
+            },
+            "timeline": {
+              "type": "object",
+              "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
+              "properties": {
+                "cases": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "deaths": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "recovered": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "covidHistoricalAll": {
+        "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
+        "properties": {
+          "cases": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "number"
+              }
+            }
+          },
+          "deaths": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "number"
+              }
+            }
+          },
+          "recovered": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "covidHistoricalCountry": {
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "province": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "timeline": {
+            "type": "object",
+            "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
+            "properties": {
+              "cases": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "number"
+                  }
+                }
+              },
+              "deaths": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "number"
+                  }
+                }
+              },
+              "recovered": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "covidHistoricalCountries": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/covidHistoricalCountry"
+        }
+      },
+      "covidHistoricalUSCounties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "covidHistoricalUSCounty": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "province": {
+              "type": "string"
+            },
+            "county": {
+              "type": "string"
+            },
+            "timeline": {
+              "type": "object",
+              "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
+              "properties": {
+                "cases": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "deaths": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "recovered": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "covidHistoricalProvince": {
         "properties": {
           "country": {
             "type": "string"
@@ -1765,613 +2162,606 @@
             }
           }
         }
-      }
-    },
-    "covidHistoricalAll": {
-      "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
-      "properties": {
-        "cases": {
-          "type": "object",
-          "properties": {
-            "date": {
-              "type": "number"
-            }
-          }
-        },
-        "deaths": {
-          "type": "object",
-          "properties": {
-            "date": {
-              "type": "number"
-            }
-          }
-        },
-        "recovered": {
-          "type": "object",
-          "properties": {
-            "date": {
-              "type": "number"
-            }
-          }
+      },
+      "covidHistoricalProvinces": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/covidHistoricalProvince"
         }
-      }
-    },
-    "covidHistoricalCountry": {
-      "properties": {
-        "country": {
-          "type": "string"
-        },
-        "province": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "timeline": {
+      },
+      "covidNYTState": {
+        "type": "array",
+        "items": {
           "type": "object",
-          "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
           "properties": {
+            "date": {
+              "type": "string",
+              "format": "date"
+            },
+            "state": {
+              "type": "string"
+            },
+            "fips": {
+              "type": "string"
+            },
             "cases": {
-              "type": "object",
-              "properties": {
-                "date": {
-                  "type": "number"
-                }
-              }
+              "type": "number"
             },
             "deaths": {
-              "type": "object",
-              "properties": {
-                "date": {
-                  "type": "number"
-                }
-              }
+              "type": "number"
+            }
+          }
+        }
+      },
+      "covidNYTCounty": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date"
             },
-            "recovered": {
+            "county": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "fips": {
+              "type": "string"
+            },
+            "cases": {
+              "type": "number"
+            },
+            "deaths": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "covidNYTUSA": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date"
+            },
+            "cases": {
+              "type": "number"
+            },
+            "deaths": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "covidAppleCountries": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "covidAppleSubregions": {
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "subregions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "covidAppleData": {
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "subregion": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
               "type": "object",
               "properties": {
+                "sub-region": {
+                  "type": "string"
+                },
+                "subregion_and_city": {
+                  "type": "string"
+                },
+                "geo_type": {
+                  "type": "string"
+                },
                 "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "driving": {
+                  "type": "number"
+                },
+                "transit": {
+                  "type": "number"
+                },
+                "walking": {
                   "type": "number"
                 }
               }
             }
           }
         }
-      }
-    },
-    "covidHistoricalCountries": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/covidHistoricalCountry"
-      }
-    },
-    "covidHistoricalUSCounties": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "covidHistoricalUSCounty": {
-      "type": "array",
-      "items": {
-        "type": "object",
+      },
+      "covidGov": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "influenzaILINet": {
         "properties": {
-          "province": {
+          "updated": {
+            "type": "number"
+          },
+          "source": {
             "type": "string"
           },
-          "county": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ILINet"
+            }
+          }
+        }
+      },
+      "ILINet": {
+        "properties": {
+          "week": {
             "type": "string"
           },
+          "age 5-24": {
+            "type": "number"
+          },
+          "age 25-49": {
+            "type": "number"
+          },
+          "age 50-64": {
+            "type": "number"
+          },
+          "age 64+": {
+            "type": "number"
+          },
+          "totalILI": {
+            "type": "number"
+          },
+          "totalPatients": {
+            "type": "number"
+          },
+          "percentUnweightedILI": {
+            "type": "number"
+          },
+          "percentWeightedILI": {
+            "type": "number"
+          }
+        }
+      },
+      "influenzaUSCL": {
+        "properties": {
+          "updated": {
+            "type": "number"
+          },
+          "source": {
+            "type": "string"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/USCL"
+            }
+          }
+        }
+      },
+      "USCL": {
+        "properties": {
+          "week": {
+            "type": "string"
+          },
+          "totalA": {
+            "type": "number"
+          },
+          "totalB": {
+            "type": "number"
+          },
+          "percentPositiveA": {
+            "type": "number"
+          },
+          "percentPositiveB": {
+            "type": "number"
+          },
+          "totalTests": {
+            "type": "number"
+          },
+          "percentPositive": {
+            "type": "number"
+          }
+        }
+      },
+      "vaccines": {
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "totalCandidates": {
+            "type": "string"
+          },
+          "phases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/phases"
+            }
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/vaccine"
+            }
+          }
+        }
+      },
+      "vaccine": {
+        "properties": {
+          "candidate": {
+            "type": "string"
+          },
+          "mechanism": {
+            "type": "string"
+          },
+          "sponsors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "details": {
+            "type": "string"
+          },
+          "trialPhase": {
+            "type": "string"
+          },
+          "institutions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "phases": {
+        "properties": {
+          "phase": {
+            "type": "string"
+          },
+          "candidates": {
+            "type": "string"
+          }
+        }
+      },
+      "vaccineCoverage":{
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/simpleVaccineTimeline"
+          },
+          {
+            "$ref": "#/components/schemas/fullVaccineTimeline"
+          }
+        ]
+      },
+      "vaccineCountriesCoverage":{
+        "type":"array",
+        "items":{
+          "$ref": "#/components/schemas/vaccineCountryCoverage"
+        }
+      },
+      "vaccineCountryCoverage":{
+        "type":"object",
+        "properties":{
+          "country":{
+            "type":"string"
+          },
+          "timeline":{
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/simpleVaccineTimeline"
+              },
+              {
+                "$ref": "#/components/schemas/fullVaccineTimeline"
+              }
+            ]
+          }
+        }
+      },
+      "vaccineStatesCoverage": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/vaccineStateCoverage"
+        }
+      },
+      "vaccineStateCoverage":{
+        "type":"object",
+        "properties":{
+          "state":{
+            "type":"string"
+          },
+          "timeline":{
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/simpleVaccineTimeline"
+              },
+              {
+                "$ref": "#/components/schemas/fullVaccineTimeline"
+              }
+            ]
+          }
+        }
+      },
+      "simpleVaccineTimeline": {
+        "type":"object",
+        "properties":{
+          "date":{
+            "type":"number"
+          }
+        }
+      },
+      "fullVaccineTimeline": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number"
+            },
+            "daily": {
+              "type": "number"
+            },
+            "totalPerHundred": {
+              "type": "number"
+            },
+            "dailyPerMillion": {
+              "type": "number"
+            },
+            "date": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "therapeutics": {
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "totalCandidates": {
+            "type": "string"
+          },
+          "phases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/phases"
+            }
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/therapeutic"
+            }
+          }
+        }
+      },
+      "therapeutic": {
+        "properties": {
+          "medicationClass": {
+            "type": "string"
+          },
+          "tradeName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "details": {
+            "type": "string"
+          },
+          "developerResearcher": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sponsors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "trialPhase": {
+            "type": "string"
+          },
+          "lastUpdate": {
+            "type": "string"
+          }
+        }
+      },
+      "influenzaUSPHL": {
+        "properties": {
+          "updated": {
+            "type": "number"
+          },
+          "source": {
+            "type": "string"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/USPHL"
+            }
+          }
+        }
+      },
+      "USPHL": {
+        "properties": {
+          "week": {
+            "type": "string"
+          },
+          "A(H3N2v)": {
+            "type": "number"
+          },
+          "A(H1N1)": {
+            "type": "number"
+          },
+          "A(H3)": {
+            "type": "number"
+          },
+          "A(unable to sub-type)+": {
+            "type": "number"
+          },
+          "A(Subtyping not performed)": {
+            "type": "number"
+          },
+          "B": {
+            "type": "number"
+          },
+          "BVIC": {
+            "type": "number"
+          },
+          "totalTests": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "examples": {
+      "countriesSimpleVaccineTimeline": {
+        "value": [
+          {
+            "country": "USA",
+            "timeline": {
+              "4/25/2021": 1000
+            }
+          }
+        ],
+        "summary": "Simple Vaccine Timeline"
+      },
+      "countriesFullVaccineTimeline": {
+        "value": [
+          {
+            "country": "USA",
+            "timeline": [
+              {
+                "total": 1000,
+                "daily": 1000,
+                "totalPerHundred": 1000,
+                "dailyPerMillion": 1000,
+                "date": "4/25/2021"
+              }
+            ]
+          }
+        ],
+        "summary": "Full Vaccine Timeline"
+      },
+      "countrySimpleVaccineTimeline": {
+        "value": {
+          "country": "USA",
           "timeline": {
-            "type": "object",
-            "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
-            "properties": {
-              "cases": {
-                "type": "object",
-                "properties": {
-                  "date": {
-                    "type": "number"
-                  }
-                }
-              },
-              "deaths": {
-                "type": "object",
-                "properties": {
-                  "date": {
-                    "type": "number"
-                  }
-                }
-              },
-              "recovered": {
-                "type": "object",
-                "properties": {
-                  "date": {
-                    "type": "number"
-                  }
-                }
-              }
+            "4/25/2021": 1000
+          }
+        },
+        "summary": "Simple Vaccine Timeline"
+      },
+      "countryFullVaccineTimeline": {
+        "value": {
+          "country": "USA",
+          "timeline": [
+            {
+              "total": 1000,
+              "daily": 1000,
+              "totalPerHundred": 1000,
+              "dailyPerMillion": 1000,
+              "date": "4/25/2021"
+            }
+          ]
+        },
+        "summary": "Full Vaccine Timeline"
+      },
+      "statesSimpleVaccineTimeline": {
+        "value": [
+          {
+            "state": "California",
+            "timeline": {
+              "4/25/2021": 1000
             }
           }
-        }
-      }
-    },
-    "covidHistoricalProvince": {
-      "properties": {
-        "country": {
-          "type": "string"
-        },
-        "province": {
-          "type": "string"
-        },
-        "timeline": {
-          "type": "object",
-          "description": "The amount of key-value pairs in 'cases', 'deaths' and 'recovered' is dependent on the 'lastdays' query",
-          "properties": {
-            "cases": {
-              "type": "object",
-              "properties": {
-                "date": {
-                  "type": "number"
-                }
+        ],
+        "summary": "Simple Vaccine Timeline"
+      },
+      "statesFullVaccineTimeline": {
+        "value": [
+          {
+            "state": "California",
+            "timeline": [
+              {
+                "total": 1000,
+                "daily": 1000,
+                "totalPerHundred": 1000,
+                "dailyPerMillion": 1000,
+                "date": "4/25/2021"
               }
-            },
-            "deaths": {
-              "type": "object",
-              "properties": {
-                "date": {
-                  "type": "number"
-                }
-              }
-            },
-            "recovered": {
-              "type": "object",
-              "properties": {
-                "date": {
-                  "type": "number"
-                }
-              }
+            ]
+          }
+        ],
+        "summary": "Full Vaccine Timeline"
+      },
+      "stateSimpleVaccineTimeline": {
+        "value": {
+          "state": "California",
+          "timeline": {
+            "4/25/2021": 1000
+          }
+        },
+        "summary": "Simple Vaccine Timeline"
+      },
+      "stateFullVaccineTimeline": {
+        "value": {
+          "state": "California",
+          "timeline": [
+            {
+              "total": 1000,
+              "daily": 1000,
+              "totalPerHundred": 1000,
+              "dailyPerMillion": 1000,
+              "date": "4/25/2021"
             }
+          ]
+        },
+        "summary": "Full Vaccine Timeline"
+      },
+      "simpleVaccineTimeline": {
+        "value": {
+          "4/25/2021": 1000
+        },
+        "summary": "Simple Vaccine Timeline"
+      },
+      "fullVaccineTimeline": {
+        "value": [
+          {
+            "total": 1000,
+            "daily": 1000,
+            "totalPerHundred": 1000,
+            "dailyPerMillion": 1000,
+            "date": "4/25/2021"
           }
-        }
-      }
-    },
-    "covidHistoricalProvinces": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/covidHistoricalProvince"
-      }
-    },
-    "covidNYTState": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "state": {
-            "type": "string"
-          },
-          "fips": {
-            "type": "string"
-          },
-          "cases": {
-            "type": "number"
-          },
-          "deaths": {
-            "type": "number"
-          }
-        }
-      }
-    },
-    "covidNYTCounty": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "county": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "fips": {
-            "type": "string"
-          },
-          "cases": {
-            "type": "number"
-          },
-          "deaths": {
-            "type": "number"
-          }
-        }
-      }
-    },
-    "covidNYTUSA": {
-      "type": "array",
-      "items": {
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "cases": {
-            "type": "number"
-          },
-          "deaths": {
-            "type": "number"
-          }
-        }
-      }
-    },
-    "covidAppleCountries": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "covidAppleSubregions": {
-      "properties": {
-        "country": {
-          "type": "string"
-        },
-        "subregions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "covidAppleData": {
-      "properties": {
-        "country": {
-          "type": "string"
-        },
-        "subregion": {
-          "type": "string"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "sub-region": {
-                "type": "string"
-              },
-              "subregion_and_city": {
-                "type": "string"
-              },
-              "geo_type": {
-                "type": "string"
-              },
-              "date": {
-                "type": "string",
-                "format": "date"
-              },
-              "driving": {
-                "type": "number"
-              },
-              "transit": {
-                "type": "number"
-              },
-              "walking": {
-                "type": "number"
-              }
-            }
-          }
-        }
-      }
-    },
-    "covidGov": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "influenzaILINet": {
-      "properties": {
-        "updated": {
-          "type": "number"
-        },
-        "source": {
-          "type": "string"
-        },
-        "data": {
-          "items": {
-            "$ref": "#/definitions/ILINet"
-          }
-        }
-      }
-    },
-    "ILINet": {
-      "properties": {
-        "week": {
-          "type": "string"
-        },
-        "age 5-24": {
-          "type": "number"
-        },
-        "age 25-49": {
-          "type": "number"
-        },
-        "age 50-64": {
-          "type": "number"
-        },
-        "age 64+": {
-          "type": "number"
-        },
-        "totalILI": {
-          "type": "number"
-        },
-        "totalPatients": {
-          "type": "number"
-        },
-        "percentUnweightedILI": {
-          "type": "number"
-        },
-        "percentWeightedILI": {
-          "type": "number"
-        }
-      }
-    },
-    "influenzaUSCL": {
-      "properties": {
-        "updated": {
-          "type": "number"
-        },
-        "source": {
-          "type": "string"
-        },
-        "data": {
-          "items": {
-            "$ref": "#/definitions/USCL"
-          }
-        }
-      }
-    },
-    "USCL": {
-      "properties": {
-        "week": {
-          "type": "string"
-        },
-        "totalA": {
-          "type": "number"
-        },
-        "totalB": {
-          "type": "number"
-        },
-        "percentPositiveA": {
-          "type": "number"
-        },
-        "percentPositiveB": {
-          "type": "number"
-        },
-        "totalTests": {
-          "type": "number"
-        },
-        "percentPositive": {
-          "type": "number"
-        }
-      }
-    },
-    "vaccines": {
-      "properties": {
-        "source": {
-          "type": "string"
-        },
-        "totalCandidates": {
-          "type": "string"
-        },
-        "phases": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/phases"
-          }
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/vaccine"
-          }
-        }
-      }
-    },
-    "vaccine": {
-      "properties": {
-        "candidate": {
-          "type": "string"
-        },
-        "mechanism": {
-          "type": "string"
-        },
-        "sponsors": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "details": {
-          "type": "string"
-        },
-        "trialPhase": {
-          "type": "string"
-        },
-        "institutions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "phases": {
-      "properties": {
-        "phase": {
-          "type": "string"
-        },
-        "candidates": {
-          "type": "string"
-        }
-      }
-    },
-    "vaccineCoverage":{
-       "type":"object",
-       "properties":{
-         "date":{
-           "type":"number"
-         }
-       }
-    },
-    "vaccineCountriesCoverage":{
-      "type":"array",
-      "items":{
-        "$ref": "#/definitions/vaccineCountryCoverage"
-      }
-    },
-    "vaccineCountryCoverage":{
-      "type":"object",
-      "properties":{
-        "country":{
-          "type":"string"
-        },
-        "timeline":{
-          "type":"object",
-          "properties":{
-            "date":{
-              "type":"number"
-            }
-          }
-        }
-      }
-    },
-    "vaccineStatesCoverage": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/vaccineStateCoverage"
-      }
-    },
-    "vaccineStateCoverage":{
-      "type":"object",
-      "properties":{
-        "state":{
-          "type":"string"
-        },
-        "timeline":{
-          "type":"object",
-          "properties":{
-            "date":{
-              "type":"number"
-            }
-          }
-        }
-      }
-    },
-    "therapeutics": {
-      "properties": {
-        "source": {
-          "type": "string"
-        },
-        "totalCandidates": {
-          "type": "string"
-        },
-        "phases": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/phases"
-          }
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/therapeutic"
-          }
-        }
-      }
-    },
-    "therapeutic": {
-      "properties": {
-        "medicationClass": {
-          "type": "string"
-        },
-        "tradeName": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "details": {
-          "type": "string"
-        },
-        "developerResearcher": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "sponsors": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "trialPhase": {
-          "type": "string"
-        },
-        "lastUpdate": {
-          "type": "string"
-        }
-      }
-    },
-    "influenzaUSPHL": {
-      "properties": {
-        "updated": {
-          "type": "number"
-        },
-        "source": {
-          "type": "string"
-        },
-        "data": {
-          "items": {
-            "$ref": "#/definitions/USPHL"
-          }
-        }
-      }
-    },
-    "USPHL": {
-      "properties": {
-        "week": {
-          "type": "string"
-        },
-        "A(H3N2v)": {
-          "type": "number"
-        },
-        "A(H1N1)": {
-          "type": "number"
-        },
-        "A(H3)": {
-          "type": "number"
-        },
-        "A(unable to sub-type)+": {
-          "type": "number"
-        },
-        "A(Subtyping not performed)": {
-          "type": "number"
-        },
-        "B": {
-          "type": "number"
-        },
-        "BVIC": {
-          "type": "number"
-        },
-        "totalTests": {
-          "type": "number"
-        }
+        ],
+        "summary": "Full Vaccine Timeline"
       }
     }
   },
