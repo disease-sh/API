@@ -31,15 +31,16 @@ const parseData = (data) => {
 			const { section, male, female } = entry;
 			return { section, male, female };
 		});
-	const byAgeAndGender = ['cases', 'deaths', 'onVentilators', 'critical'].map((type, i) => ({
-		[type]: {
+	const byAgeAndGender = {};
+	['cases', 'deaths', 'onVentilators', 'critical'].forEach((type, i) => {
+		byAgeAndGender[type] = {
 			allTime: getAgeGroupData(data[5 + i], 'מתחילת קורונה'),
 			oneYear: getAgeGroupData(data[5 + i], 'שנה'),
 			sixMonths: getAgeGroupData(data[5 + i], '6 חודשים'),
 			threeMonths: getAgeGroupData(data[5 + i], '3 חודשים'),
 			oneMonth: getAgeGroupData(data[5 + i], 'חודש אחרון')
-		}
-	}));
+		};
+	});
 	const translateColor = (color) => {
 		switch (true) {
 			case /אדום/.test(color): return 'red';
