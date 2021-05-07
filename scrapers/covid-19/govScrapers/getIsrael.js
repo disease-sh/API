@@ -54,7 +54,7 @@ const parseData = (data) => {
 	const deadPatientsPerDay = data[2].data;
 	const recoveredPerDay = data[3].data.splice(20, data[3].data.length - 1);
 	const testsPerDay = data[4].data.splice(11, data[4].data.length - 1);
-	const isTimelineSynced = patientsPerDay.date.match(dateRegex)[0] === testsPerDay.date.match(dateRegex)[0];
+	const isTimelineSynced = patientsPerDay[patientsPerDay.length - 1].date.match(dateRegex)[0] === testsPerDay[testsPerDay.length - 1].date.match(dateRegex)[0];
 	const timeline = patientsPerDay.map((elem, index) => ({
 		date: elem.date.match(dateRegex)[0],
 		newHospitalized: elem.new_hospitalized,
