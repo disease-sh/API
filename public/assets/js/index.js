@@ -211,6 +211,9 @@ document.getElementById('newsletterClose').addEventListener('click', () => {
 	localStorage.setItem('hideNewsletter', true);
 });
 
+const captchaToken = document
+	.querySelector('meta[name="captcha-token"]')
+	.getAttribute('content');
 const csrfToken = document
 	.querySelector('meta[name="csrf-token"]')
 	.getAttribute('content');
@@ -221,11 +224,11 @@ document
 		event.preventDefault();
 		document.getElementById('newsletterFormBtn').classList.add('is-loading');
 		const script = document.createElement('script');
-		script.src = `https://www.google.com/recaptcha/api.js?render=6LeYb-wUAAAAABsFwfLf5wtN9uRN5EqFtpS3ploJ`;
+		script.src = `https://www.google.com/recaptcha/api.js?render=${captchaToken}`;
 		script.addEventListener('load', () => {
 			grecaptcha.ready(() => {
 				grecaptcha
-					.execute('6LeYb-wUAAAAABsFwfLf5wtN9uRN5EqFtpS3ploJ', {
+					.execute(captchaToken, {
 						action: 'submit'
 					})
 					.then(async (token) => {

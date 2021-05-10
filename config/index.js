@@ -49,6 +49,9 @@ config.mailgunApiKey = process.env.MAILGUN_API_KEY;
 // RECAPTCHA SECRET (ONLY FOR PRODUCTION)
 config.captchaSecret = process.env.CAPTCHA_SECRET;
 
+// RECAPTCHA PUBLIC KEY (ONLY FOR PRODUCTION)
+config.captchaToken = process.env.CAPTCHA_TOKEN;
+
 module.exports = {
 	config,
 	keys,

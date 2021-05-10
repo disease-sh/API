@@ -41,7 +41,8 @@ app.set('view engine', 'ejs');
 app.use(require('cookie-parser')());
 
 app.get('/', csrfProtection, async (req, res) => res.render('index', {
-	csrfToken: req.csrfToken()
+	csrfToken: req.csrfToken(),
+	captchaToken: config.captchaToken
 }));
 
 app.get('/invite', async (req, res) =>
