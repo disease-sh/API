@@ -1,0 +1,85 @@
+.card {
+  transition: box-shadow 0.4s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0.5em 2em -0.125em rgba(10, 10, 10, 0.2),
+    0 0 0 1px rgba(10, 10, 10, 0.02);
+}
+
+.navbar-item.has-text-light:hover,
+.navbar-item.has-text-light:focus {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  color: white !important;
+}
+
+#captcha {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .navbar-item {
+    color: #363636 !important;
+  }
+
+  .navbar-item.has-text-light:hover,
+  .navbar-item.has-text-light:focus {
+    color: black !important;
+  }
+
+  .navbar-menu {
+    position: fixed;
+    top: 52px;
+    left: 0;
+    right: 0;
+    z-index: 20;
+  }
+
+  #newsletter {
+    display: none;
+  }
+}
+
+.navbar.scrolled {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+}
+
+.navbar.scrolled .navbar-brand {
+  opacity: 1 !important;
+  pointer-events: all;
+}
+
+.navIcon {
+  margin-right: 3px;
+  transform: translateY(2px) !important;
+}
+
+@media (max-width: 550px) {
+  .navbar,
+  .hero {
+    background-size: 550px !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .navbar,
+  .hero {
+    background-size: 850px !important;
+  }
+}
+
+.icon {
+  transform: translateY(4px);
+}
+
+@media (max-width: 768px) {
+  pre {
+    overflow: hidden;
+  }
+
+  #chart {
+    height: 150px;
+  }
+}
