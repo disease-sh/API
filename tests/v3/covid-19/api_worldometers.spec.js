@@ -123,7 +123,7 @@ describe('TESTING /v3/covid-19/continents', () => {
 		chai.request(app)
 			.get('/v3/covid-19/continents/oceania?strict=false')
 			.end((err, res) => {
-				testBasicProperties(err, res, 200, 'object')
+				testBasicProperties(err, res, 200, 'object');
 				done();
 			});
 	});
@@ -132,12 +132,11 @@ describe('TESTING /v3/covid-19/continents', () => {
 		chai.request(app)
 			.get('/v3/covid-19/continents/oceania?strict=true')
 			.end((err, res) => {
-				testBasicProperties(err, res, 404, 'object')
+				testBasicProperties(err, res, 404, 'object');
 				res.body.should.have.property('message');
 				done();
 			});
 	});
-
 });
 
 describe('TESTING /v3/covid-19/all', () => {
