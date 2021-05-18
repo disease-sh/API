@@ -4,7 +4,9 @@
 	],
 	"globals": {
 		"Atomics": "readonly",
-		"SharedArrayBuffer": "readonly"
+		"SharedArrayBuffer": "readonly",
+		"google": "readonly",
+		"grecaptcha": "readonly"
 	},
 	"rules": {
 		"no-unused-expressions": [
@@ -13,5 +15,12 @@
 				"allowTernary": true
 			}
 		]
-	}
+	},
+	"parserOptions": {
+        "sourceType": "module"
+	},
+    "env": {
+        "browser": true,
+        "node": true
+    }
 }

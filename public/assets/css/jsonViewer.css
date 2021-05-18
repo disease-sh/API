@@ -1,0 +1,154 @@
+/* html, body{
+    width: 100%;
+    height: 100%;
+} */
+
+.add-height {
+  height: auto !important;
+}
+
+.rotate90 {
+  transform: rotate(0deg) !important;
+}
+
+.jv-wrap {
+  display: flex;
+}
+
+.jv-folder {
+  cursor: pointer;
+}
+
+/* for light them */
+
+.jv-light-symbol {
+  color: #000;
+  font-weight: bold;
+}
+/* 
+.jv-light-con{
+    background: #fff;
+    color: #000;
+    font-family: monospace;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+} */
+
+.jv-light-current {
+  line-height: 30px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.jv-light-left {
+  display: inline-block;
+}
+
+.jv-light-rightString {
+  display: inline-block;
+  color: #7a3e9d;
+}
+
+.jv-light-rightBoolean {
+  display: inline-block;
+  color: #448c27;
+}
+
+.jv-light-rightNumber {
+  display: inline-block;
+  color: #f53232;
+}
+
+.jv-light-rightNull {
+  display: inline-block;
+  color: #9c5d27;
+}
+
+.jv-light-rightObj {
+  display: block !important;
+  overflow: hidden;
+  height: 0;
+}
+
+.jv-light-folder {
+  width: 0px;
+  display: inline-block;
+  margin-left: -15px;
+  text-align: center;
+  cursor: pointer;
+  height: 0px;
+  border: 4px solid transparent;
+  border-top: 8px solid #484d50;
+  position: absolute;
+  top: 11px;
+  transform-origin: 50% 25%;
+  transform: rotate(-90deg);
+}
+
+/* for dark theme */
+
+.jv-dark-con {
+  background: #272822;
+  color: #fff;
+  font-family: monospace;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.jv-dark-symbol {
+  color: #fff;
+  font-weight: bold;
+}
+
+.jv-dark-current {
+  line-height: 30px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.jv-dark-left {
+  display: inline-block;
+}
+
+.jv-dark-rightString {
+  display: inline-block;
+  color: #66d9ef;
+}
+
+.jv-dark-rightBoolean {
+  display: inline-block;
+  color: #a6e22e;
+}
+
+.jv-dark-rightNumber {
+  display: inline-block;
+  color: #f92672;
+}
+
+.jv-dark-rightNull {
+  display: inline-block;
+  color: #e6db74;
+}
+
+.jv-dark-rightObj {
+  display: block !important;
+  overflow: hidden;
+  height: 0;
+}
+
+.jv-dark-folder {
+  width: 0px;
+  display: inline-block;
+  margin-left: -15px;
+  text-align: center;
+  cursor: pointer;
+  height: 0px;
+  border: 4px solid transparent;
+  border-top: 8px solid #fff;
+  position: absolute;
+  top: 11px;
+  transform: rotate(-90deg);
+  transform-origin: 50% 25%;
+}
