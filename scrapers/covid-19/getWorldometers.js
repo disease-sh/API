@@ -79,6 +79,7 @@ const mapRows = (_, row) => {
 	entry.activePerOneMillion = toPerOneMillion(entry.population, entry.active);
 	entry.recoveredPerOneMillion = toPerOneMillion(entry.population, entry.recovered);
 	entry.criticalPerOneMillion = toPerOneMillion(entry.population, entry.critical);
+	entry.continent = entry.continent.replace(/\//g, '-');
 	return entry;
 };
 
