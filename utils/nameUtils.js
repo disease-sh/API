@@ -87,7 +87,7 @@ const getWorldometersData = (data, nameParam, strictMatching, continentMode) => 
 		if (!isText) {
 			return ctry.countryInfo && ctry.countryInfo._id === Number(nameParam);
 		} else if (strictMatching) {
-			if (ctry.continent.includes('/')) {
+			if (ctry.continent.includes('-')) {
 				return fuzzySearch(ctry, nameParam, standardizedName, selector);
 			} else {
 				return stringUtils.wordsStandardize(ctry[selector]) === standardizedName;

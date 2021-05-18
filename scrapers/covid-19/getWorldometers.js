@@ -24,6 +24,7 @@ const continentMapping = (element, countries) => {
 	element.activePerOneMillion = toPerOneMillion(element.population, element.active);
 	element.recoveredPerOneMillion = toPerOneMillion(element.population, element.recovered);
 	element.criticalPerOneMillion = toPerOneMillion(element.population, element.critical);
+	element.continent = element.continent.replace(/\//g, '-');
 	// eslint-disable-next-line no-unused-vars
 	const { country, countryInfo, oneCasePerPeople, oneDeathPerPeople, oneTestPerPeople, ...continentData } = element;
 	return continentData;
