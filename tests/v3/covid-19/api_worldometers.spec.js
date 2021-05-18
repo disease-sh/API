@@ -118,6 +118,33 @@ describe('TESTING /v3/covid-19/continents', () => {
 				done();
 			});
 	});
+
+	it('/v3/covid-19/continents/australia', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/continents/australia')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				done();
+			});
+	});
+
+	it('/v3/covid-19/continents/oceania?strict=true', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/continents/oceania?strict=true')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				done();
+			});
+	});
+
+	it('/v3/covid-19/continents/oceania?strict=false', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/continents/oceania?strict=false')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				done();
+			});
+	});
 });
 
 describe('TESTING /v3/covid-19/all', () => {

@@ -83,8 +83,19 @@ const getWorldometersData = (data, nameParam, strictMatching, continentMode) => 
 	const isText = isNaN(nameParam);
 	const countryInfo = isText ? getCountryData(nameParam) : {};
 	const standardizedName = stringUtils.wordsStandardize(countryInfo.country ? countryInfo.country : nameParam);
-	return data.find((ctry) => !isText ? ctry.countryInfo && ctry.countryInfo._id === Number(nameParam)
-		: strictMatching ? stringUtils.wordsStandardize(ctry[selector]) === standardizedName : fuzzySearch(ctry, nameParam, standardizedName, selector));
+	return data.find((ctry) => {
+		if (!isText) {
+			return ctry.countryInfo && ctry.countryInfo._id === Number(nameParam);
+		} else if (strictMatching) {
+			if (ctry.continent.includes('/')) {
+				return fuzzySearch(ctry, nameParam, standardizedName, selector);
+			} else {
+				return stringUtils.wordsStandardize(ctry[selector]) === standardizedName;
+			}
+		} else {
+			return fuzzySearch(ctry, nameParam, standardizedName, selector);
+		}
+	});
 };
 
 /**
