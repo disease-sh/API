@@ -145,6 +145,15 @@ describe('TESTING /v3/covid-19/continents', () => {
 				done();
 			});
 	});
+
+	it('/v3/covid-19/continents/australia-oceania', (done) => {
+		chai.request(app)
+			.get('/v3/covid-19/continents/australia-oceania')
+			.end((err, res) => {
+				testBasicProperties(err, res, 200, 'object');
+				done();
+			});
+	});
 });
 
 describe('TESTING /v3/covid-19/all', () => {
