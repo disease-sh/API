@@ -4,5 +4,5 @@ module.exports = {
 	'South America': { lat: -15.6551563, long: -100.7484231 },
 	Europe:	{	lat: 25.771324,	long: -35.6012256	},
 	Africa:	{	lat: 1.7383867,	long: -16.3094636	},
-	'Australia/Oceania': { lat: -8.6599161, long: 91.1469847 }
+	'Australia-Oceania': { lat: -8.6599161, long: 91.1469847 }
 };
