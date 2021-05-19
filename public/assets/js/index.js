@@ -223,6 +223,9 @@ document
 	.addEventListener('submit', async (event) => {
 		event.preventDefault();
 		document.getElementById('newsletterFormBtn').classList.add('is-loading');
+		document
+			.getElementById('newsletter')
+			.classList.remove('is-danger');
 		const script = document.createElement('script');
 		script.src = `https://www.google.com/recaptcha/api.js?render=${captchaToken}`;
 		script.addEventListener('load', () => {
@@ -256,7 +259,7 @@ document
 								const json = await response.json();
 								if (
 									!json.message
-                  || json.message !== 'Mailing list member has been created'
+									|| json.message !== 'Mailing list member has been created'
 								) { throw new Error(); }
 								document.getElementById('newsletterFormBtn').classList.remove('is-loading');
 								document
@@ -266,14 +269,14 @@ document
 									.getElementById('newsletterForm')
 									.classList.add('is-hidden');
 								document.getElementById('newsletterMessage').innerText
-                  = 'Thank you so much for joining!';
+									= 'Thank you so much for joining!';
 							} catch {
 								document.getElementById('newsletterFormBtn').classList.remove('is-loading');
 								document
 									.getElementById('newsletter')
 									.classList.add('is-danger');
 								document.getElementById('newsletterMessage').innerText
-                  = 'Oops! Please try again!';
+									= 'Oops! Please try again!';
 							}
 						} else {
 							document.getElementById('newsletterFormBtn').classList.remove('is-loading');
