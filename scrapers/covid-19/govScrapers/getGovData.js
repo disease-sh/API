@@ -1,6 +1,5 @@
 const canadaData = require('./getCanada');
 const italyData = require('./getItaly');
-const austriaData = require('./getAustria');
 const switzerlandData = require('./getSwitzerland');
 const nigeriaData = require('./getNigeria');
 const indiaData = require('./getIndia');
