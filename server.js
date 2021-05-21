@@ -7,7 +7,7 @@ const csrfProtection = require('csurf')({ cookie: true });
 const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const path = require('path');
-const { config, port, redis, scraper, keys } = require('./routes/instances');
+const { config, port } = require('./routes/instances');
 
 if (config.sentry_key) Sentry.init({ dsn: config.sentry_key });
 
@@ -42,7 +42,7 @@ app.use(require('cookie-parser')());
 
 app.get('/', csrfProtection, async (req, res) => res.render('index', {
 	csrfToken: req.csrfToken(),
-	chartData: await scraper.historical.getHistoricalAllDataV2(JSON.parse(await redis.get(keys.historical_v2)), 'all')
+	captchaToken: config.captchaToken
 }));
 
 app.get('/invite', async (req, res) =>
