@@ -4,7 +4,7 @@ const nameUtils = require('../../utils/nameUtils');
 const logger = require('../../utils/logger');
 
 const columns = ['index', 'country', 'cases', 'todayCases', 'deaths', 'todayDeaths', 'recovered', 'todayRecovered', 'active',
-	'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent', 'oneCasePerPeople', 'oneDeathPerPeople', 'oneTestPerPeople'];
+	'critical', 'casesPerOneMillion', 'deathsPerOneMillion', 'tests', 'testsPerOneMillion', 'population', 'continent', 'oneCasePerPeople', 'oneDeathPerPeople', 'oneTestPerPeople', '_', '_', '_'];
 
 const toPerOneMillion = (population, property) => property && parseFloat((1e6 / population * property).toFixed(2));
 
@@ -70,6 +70,10 @@ const mapRows = (_, row) => {
 				entry[selector] = cell.text();
 				break;
 			}
+			case 19:
+			case 20:
+			case 21:
+				break;
 			default:
 				entry[selector] = parseFloat(cell.text().replace(replaceRegex, '')) || null;
 		}
