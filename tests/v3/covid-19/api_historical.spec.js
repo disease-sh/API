@@ -156,7 +156,6 @@ describe('TESTING /v3/covid-19/historical', () => {
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'object');
 				res.body.province.length.should.equal(16);
-				Object.values(res.body.timeline.recovered)[29].should.not.equal(0);
 				done();
 			});
 	});
