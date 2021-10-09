@@ -40,6 +40,7 @@
     "csvtojson": "^2.0.10",
     "dotenv": "^8.2.0",
     "ejs": "3.0.2",
+    "eslint-config-prettier": "^8.3.0",
     "express": "^4.16.3",
     "ioredis": "*",
     "mailgun-js": "^0.22.0",
@@ -51,7 +52,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "concurrently": "^5.2.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.32.0",
     "mocha": "^7.2.0",
     "nodemon": "^2.0.4"
   }

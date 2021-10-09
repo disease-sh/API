@@ -8,7 +8,9 @@ async function apiFetch(url) {
 
 	let json;
 
-	if (requestCache[url]) { json = requestCache[url]; } else {
+	if (requestCache[url]) {
+		json = requestCache[url];
+	} else {
 		const response = await fetch(url);
 		json = await response.json();
 		requestCache[url] = json;
@@ -33,18 +35,12 @@ async function createLineChart(dataset) {
 	data.addColumn('datetime', 'Date');
 	data.addColumn('number', 'New Cases');
 	data.addColumn('number', 'Deaths');
-	data.addColumn('number', 'Recovered');
 
 	Object.keys(dataset.cases)
 		.filter((_, index) => index % 3 === 0)
 		.forEach((date) => {
 			data.addRows([
-				[
-					new Date(date),
-					dataset.cases[date],
-					dataset.deaths[date],
-					dataset.recovered[date]
-				]
+				[new Date(date), dataset.cases[date], dataset.deaths[date]]
 			]);
 		});
 
@@ -95,7 +91,9 @@ async function createGeoChart(dataset) {
 
 	data.addRows(
 		dataset.map((row) => [
-			row.country.replace('USA', 'United States').replace('UK', 'United Kingdom'),
+			row.country
+				.replace('USA', 'United States')
+				.replace('UK', 'United Kingdom'),
 			Object.values(row.timeline)[0]
 		])
 	);
@@ -204,7 +202,9 @@ function checkScroll() {
 document.addEventListener('scroll', checkScroll);
 checkScroll();
 
-if (!localStorage.getItem('hideNewsletter')) { document.getElementById('newsletter').classList.remove('is-hidden'); }
+if (!localStorage.getItem('hideNewsletter')) {
+	document.getElementById('newsletter').classList.remove('is-hidden');
+}
 
 document.getElementById('newsletterClose').addEventListener('click', () => {
 	document.getElementById('newsletter').classList.add('is-hidden');
@@ -223,9 +223,7 @@ document
 	.addEventListener('submit', async (event) => {
 		event.preventDefault();
 		document.getElementById('newsletterFormBtn').classList.add('is-loading');
-		document
-			.getElementById('newsletter')
-			.classList.remove('is-danger');
+		document.getElementById('newsletter').classList.remove('is-danger');
 		const script = document.createElement('script');
 		script.src = `https://www.google.com/recaptcha/api.js?render=${captchaToken}`;
 		script.addEventListener('load', () => {
@@ -258,28 +256,36 @@ document
 								);
 								const json = await response.json();
 								if (
-									!json.message
-									|| json.message !== 'Mailing list member has been created'
-								) { throw new Error(); }
-								document.getElementById('newsletterFormBtn').classList.remove('is-loading');
+									!json.message ||
+									json.message !== 'Mailing list member has been created'
+								) {
+									throw new Error();
+								}
+								document
+									.getElementById('newsletterFormBtn')
+									.classList.remove('is-loading');
 								document
 									.getElementById('newsletter')
 									.classList.add('is-success');
 								document
 									.getElementById('newsletterForm')
 									.classList.add('is-hidden');
-								document.getElementById('newsletterMessage').innerText
-									= 'Thank you so much for joining!';
+								document.getElementById('newsletterMessage').innerText =
+									'Thank you so much for joining!';
 							} catch {
-								document.getElementById('newsletterFormBtn').classList.remove('is-loading');
+								document
+									.getElementById('newsletterFormBtn')
+									.classList.remove('is-loading');
 								document
 									.getElementById('newsletter')
 									.classList.add('is-danger');
-								document.getElementById('newsletterMessage').innerText
-									= 'Oops! Please try again!';
+								document.getElementById('newsletterMessage').innerText =
+									'Oops! Please try again!';
 							}
 						} else {
-							document.getElementById('newsletterFormBtn').classList.remove('is-loading');
+							document
+								.getElementById('newsletterFormBtn')
+								.classList.remove('is-loading');
 						}
 					});
 			});
