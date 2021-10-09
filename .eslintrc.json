@@ -1,5 +1,7 @@
 {
-	"extends": ["@aero", "prettier"],
+	"extends": [
+		"@aero"
+	],
 	"globals": {
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly",
@@ -15,10 +17,10 @@
 		]
 	},
 	"parserOptions": {
-		"sourceType": "module"
+        "sourceType": "module"
 	},
-	"env": {
-		"browser": true,
-		"node": true
-	}
+    "env": {
+        "browser": true,
+        "node": true
+    }
 }

@@ -40,7 +40,11 @@ async function createLineChart(dataset) {
 		.filter((_, index) => index % 3 === 0)
 		.forEach((date) => {
 			data.addRows([
-				[new Date(date), dataset.cases[date], dataset.deaths[date]]
+				[
+					new Date(date),
+					dataset.cases[date],
+					dataset.deaths[date]
+				]
 			]);
 		});
 
@@ -256,8 +260,8 @@ document
 								);
 								const json = await response.json();
 								if (
-									!json.message ||
-									json.message !== 'Mailing list member has been created'
+									!json.message
+									|| json.message !== 'Mailing list member has been created'
 								) {
 									throw new Error();
 								}
@@ -270,8 +274,8 @@ document
 								document
 									.getElementById('newsletterForm')
 									.classList.add('is-hidden');
-								document.getElementById('newsletterMessage').innerText =
-									'Thank you so much for joining!';
+								document.getElementById('newsletterMessage').innerText
+									= 'Thank you so much for joining!';
 							} catch {
 								document
 									.getElementById('newsletterFormBtn')
@@ -279,8 +283,8 @@ document
 								document
 									.getElementById('newsletter')
 									.classList.add('is-danger');
-								document.getElementById('newsletterMessage').innerText =
-									'Oops! Please try again!';
+								document.getElementById('newsletterMessage').innerText
+									= 'Oops! Please try again!';
 							}
 						} else {
 							document
