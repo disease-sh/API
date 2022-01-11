@@ -9,6 +9,7 @@ const ukData = require('./getUK');
 const israelData = require('./getIsrael');
 const vietnamData = require('./getVietnam');
 const indonesiaData = require('./getIndonesia');
+const europeData = require('./getEuropeVariants');
 const nameUtils = require('../../../utils/nameUtils');
 
 const logger = require('../../../utils/logger');
@@ -43,7 +44,8 @@ const govData = async (keys, redis) => {
 			{ country: 'UK', fn: ukData },
 			{ country: 'Indonesia', fn: indonesiaData },
 			{ country: 'Israel', fn: israelData },
-			{ country: 'Vietnam', fn: vietnamData }
+			{ country: 'Vietnam', fn: vietnamData },
+			{ country: 'Europe', fn: europeData }
 		].map(_resolveData));
 
 		logger.info(`Updated gov data: ${(await redis.hkeys(keys.gov_countries)).length} government sources`);
