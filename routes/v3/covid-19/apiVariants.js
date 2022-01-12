@@ -7,19 +7,19 @@ const nameUtils = require('../../../utils/nameUtils');
 const { wordToBoolean } = require('../../../utils/stringUtils');
 const { redis, keys } = require('../../instances');
 
-router.get('/v3/covid-19/variants/europe/:query', async (req, res) => {
+router.get('/v3/covid-19/variants/countries/:query', async (req, res) => {
 	const { allowNull } = req.query;
-	const { country: countryName, yearWeek  } = req.params;
+	const { country: countryName, yearWeek, variant  } = req.params;
 	if (countryName) {
 		const standardizedCountryName = nameUtils.getCountryData(countryName.trim()).country || countryName.trim();
-		const data = JSON.parse(await redis.hget(keys.gov_countries, standardizedCountryName));
+		const data = JSON.parse(await redis.hget(keys.variants, standardizedCountryName));
 		if (data) {
 			res.send(!wordToBoolean(allowNull) ? nameUtils.transformNull(data) : data);
 		} else {
 			res.status(404).send({ message: `Country '${standardizedCountryName}' not found or no data found for country` });
 		}
 	} else {
-		res.send((await redis.hkeys(keys.gov_countries)).sort());
+		res.send((await redis.hkeys(keys.variants)).sort());
 	}
 });
 
