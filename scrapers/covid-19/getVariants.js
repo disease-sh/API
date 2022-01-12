@@ -1,6 +1,6 @@
 const axios = require('axios');
-const logger = require('../../../utils/logger');
-const csvUtils = require('../../../utils/csvUtils');
+const logger = require('../../utils/logger');
+const csvUtils = require('../../utils/csvUtils');
 
 const PATH = 'https://opendata.ecdc.europa.eu/covid19/virusvariant/csv/data.csv'
 
