@@ -7,7 +7,7 @@ const nameUtils = require('../../../utils/nameUtils');
 const { wordToBoolean } = require('../../../utils/stringUtils');
 const { redis, keys } = require('../../instances');
 
-router.get('/v3/covid-19/variants/countries/:query', async (req, res) => {
+router.get('/v3/covid-19/variants/countries/:country?', async (req, res) => {
 	const { allowNull } = req.query;
 	const { country: countryName, yearWeek, variant  } = req.params;
 	if (countryName) {
