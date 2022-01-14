@@ -31,33 +31,41 @@ const europeanCountriesData = async () => {
             percentVariant: parseFloat(country.percent_variant) || null,
         }));
     } catch (err) {
-        logger.err("Error: Requesting ECDPC Data failed!", err);
+        logger.err("Error: Requesting ECDC Data failed!", err);
         return null;
     }
 };
 
 const variantsData = async (keys, redis) => {
     try {
-        const countryData = await europeanCountriesData();
+        const countriesData = await europeanCountriesData();
 
-        if (countryData) {
-            const standardizedCountryName = nameUtils.getCountryData(
-                countryData.country.trim()
-            ).country;
+        const dataByCountry = countriesData
+            .map((obj) => obj.country)
+            .reduce((obj, country) => {
+                const groupByCountry = countriesData.filter(
+                    (item) => item.country === country
+                );
+                obj[country] = groupByCountry;
+                return obj;
+            }, {});
+
+        console.log(dataByCountry);
+
+        const uniquesCountries = countriesData
+            .map((country) => country.country)
+            .filter((value, index, self) => self.indexOf(value) === index);
+        console.log(uniquesCountries);
+
+        for (var i in uniquesCountries) {
             await redis.hset(
                 keys.variants,
-                standardizedCountryName,
-                JSON.stringify(countryData)
+                uniquesCountries[i],
+                JSON.stringify(dataByCountry[uniquesCountries[i]])
             );
-        } else {
-            logger.info(`${countryData.country} scraper has failed.`);
         }
-
-        logger.info(
-            `Updated ECDC data: ${(await redis.hkeys(keys.variants)).length}`
-        );
     } catch (err) {
-        logger.err("Error: Requesting ECDC data failed!", err);
+        logger.err("Error: Formating ECDC data failed!", err);
     }
 };
 
