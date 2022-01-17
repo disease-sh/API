@@ -9,7 +9,7 @@ const { redis, keys } = require('../../instances');
 
 router.get('/v3/covid-19/variants/countries/:country?', async (req, res) => {
 	const { allowNull } = req.query;
-	const { country: countryName, yearWeek, variant  } = req.params;
+	const { country: countryName  } = req.params;
 	if (countryName) {
 		const standardizedCountryName = nameUtils.getCountryData(countryName.trim()).country || countryName.trim();
 		const data = JSON.parse(await redis.hget(keys.variants, standardizedCountryName));
