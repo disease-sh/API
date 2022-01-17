@@ -24,18 +24,3 @@ router.get('/v3/covid-19/variants/countries/:country?', async (req, res) => {
 });
 
 module.exports = router;
-
-// *to here*
-
-// Take this code below as an example:
-// router.get('/v3/covid-19/countries/:query', async (req, res) => {
-// 	const { yesterday, twoDaysAgo, strict, allowNull } = req.query;
-// 	const { query } = req.params;
-// 	let countries = JSON.parse(await redis.get(wordToBoolean(yesterday) ? keys.yesterday_countries : wordToBoolean(twoDaysAgo) ? keys.twoDaysAgo_countries : keys.countries))
-// 		.filter(country => country.country.toLowerCase() !== 'world').map(fixApostrophe);
-// 	countries = splitQuery(query)
-// 		.map(country => nameUtils.getWorldometersData(countries, country, strict !== 'false'))
-// 		.filter(value => value).map(country => !wordToBoolean(allowNull) ? nameUtils.transformNull(country) : country);
-// 	if (countries.length > 0) res.send(countries.length === 1 ? countries[0] : countries);
-// 	else res.status(404).send({ message: 'Country not found or doesn\'t have any cases' });
-// });

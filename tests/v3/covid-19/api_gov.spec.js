@@ -71,34 +71,6 @@ describe.skip('TESTING /v3/covid-19/gov/canada', () => {
 	});
 });
 
-// here
-// describe.skip('TESTING /v3/covid-19/gov/europe variants', () => {
-// 	it('/v3/covid-19/gov/europe variants correct fields set', (done) => {
-// 		chai.request(app)
-// 			.get('/v3/covid-19/gov/canada')
-// 			.end((err, res) => {
-// 				testBasicProperties(err, res, 200, 'array');
-// 				res.body.length.should.be.above(1);
-// 				res.body.forEach((element) => {
-// 					element.should.have.property('updated');
-// 					element.should.have.property('country');
-// 					element.should.have.property('yearWeek');
-// 					element.should.have.property('source');
-// 					element.should.have.property('newCases');
-// 					element.should.have.property('numberSequenced');
-// 					element.should.have.property('percentSequenced');
-// 					element.should.have.property('validDenominator');
-// 					element.should.have.property('variant');
-// 					element.should.have.property('numberDetectionsVariant');
-// 					element.should.have.property('numberSequencedKnownVariant');
-// 					element.should.have.property('percentVariant');
-// 				});
-// 				done();
-// 			});
-// 	});
-// });
-// // here
-
 describe.skip('TESTING /v3/covid-19/gov/italy', () => {
 	it('/v3/covid-19/gov/italy correct amount of provinces', (done) => {
 		chai.request(app)

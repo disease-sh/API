@@ -50,8 +50,6 @@ const variantsData = async (keys, redis) => {
                 return obj;
             }, {});
 
-        console.log(dataByCountry);
-
         const uniquesCountries = countriesData
             .map((country) => country.country)
             .filter((value, index, self) => self.indexOf(value) === index);
