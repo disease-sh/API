@@ -1561,7 +1561,14 @@
         "summary": "Get COVID-19 ECDC reported data for a specific country",
         "responses": {
           "200": {
-            "description": "Status Ok"
+            "description": "Status Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/variantsCountriesECDC"
+                }
+              }
+            }
           }
         }
       }
@@ -2656,6 +2663,51 @@
         "type": "array",
         "items": {
           "type": "string"
+        }
+      },
+      "variantsCountriesECDC": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "updated": {
+              "type": "number",
+              "format": "date"
+            },
+            "country": {
+              "type": "string"
+            },
+            "yearWeek": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "newCases": {
+              "type": "number"
+            },
+            "numberSequenced": {
+              "type": "number"
+            },
+            "percentSequenced": {
+              "type": "number"
+            },
+            "validDenominator": {
+              "type": "string"
+            },
+            "variant": {
+              "type": "string"
+            },
+            "numberDetectionsVariant": {
+              "type": "number"
+            },
+            "numberSequencedKnownVariant": {
+              "type": "number"
+            },
+            "percentVariant": {
+              "type": "number"
+            }
+          }
         }
       },
       "influenzaUSPHL": {
