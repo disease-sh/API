@@ -3,42 +3,41 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../../server');
 const { testBasicProperties } = require('../../testingFunctions');
-const { should } = require('chai');
 
 chai.use(chaiHttp);
 
 const countries = [
-    "Austria",
-    "Belgium",
-    "Bulgaria",
-    "Croatia",
-    "Cyprus",
-    "Czechia",
-    "Denmark",
-    "Estonia",
-    "Finland",
-    "France",
-    "Germany",
-    "Greece",
-    "Hungary",
-    "Iceland",
-    "Ireland",
-    "Italy",
-    "Latvia",
-    "Liechtenstein",
-    "Lithuania",
-    "Luxembourg",
-    "Malta",
-    "Netherlands",
-    "Norway",
-    "Poland",
-    "Portugal",
-    "Romania",
-    "Slovakia",
-    "Slovenia",
-    "Spain",
-    "Sweden"
-  ];
+	'Austria',
+	'Belgium',
+	'Bulgaria',
+	'Croatia',
+	'Cyprus',
+	'Czechia',
+	'Denmark',
+	'Estonia',
+	'Finland',
+	'France',
+	'Germany',
+	'Greece',
+	'Hungary',
+	'Iceland',
+	'Ireland',
+	'Italy',
+	'Latvia',
+	'Liechtenstein',
+	'Lithuania',
+	'Luxembourg',
+	'Malta',
+	'Netherlands',
+	'Norway',
+	'Poland',
+	'Portugal',
+	'Romania',
+	'Slovakia',
+	'Slovenia',
+	'Spain',
+	'Sweden'
+];
 
 describe('TESTING /v3/covid-19/variants/countries general', () => {
 	it('/v3/covid-19/variants/countries/ correct countries', (done) => {
