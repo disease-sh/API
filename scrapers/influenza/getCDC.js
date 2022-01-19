@@ -5,9 +5,9 @@ const { getCurrentWeek } = require('../../utils/dateTimeUtils');
 
 const weekNums = [...Array(52).keys()];
 const weekNumber = weekNums.slice(getCurrentWeek() - 3)[0];
-const ILINetURL = `https://www.cdc.gov/flu/weekly/weeklyarchives2020-2021/data/senAllregt${weekNumber}.html`;
-const USPHLURL = `https://www.cdc.gov/flu/weekly/weeklyarchives2020-2021/data/whoAllregt_phl${weekNumber}.html`;
-const USCLURL = `https://www.cdc.gov/flu/weekly/weeklyarchives2020-2021/data/whoAllregt_cl${weekNumber}.html`;
+const ILINetURL = `https://www.cdc.gov/flu/weekly/weeklyarchives2021-2022/data/senAllregt${weekNumber}.html`;
+const USPHLURL = `https://www.cdc.gov/flu/weekly/weeklyarchives2021-2022/data/whoAllregt_phl${weekNumber}.html`;
+const USCLURL = `https://www.cdc.gov/flu/weekly/weeklyarchives2021-2022/data/whoAllregt_cl${weekNumber}.html`;
 
 const ILINetColumns = ['week', 'age 0-4', 'age 5-24', 'age 25-49', 'age 50-64', 'age 64+', 'totalILI', 'totalPatients', 'percentUnweightedILI', 'percentWeightedILI'];
 const USPHLColumns = ['week', 'A(H3N2v)', 'A(H1N1)', 'A(H3)', 'A(unable to sub-type)', 'A(Subtyping not performed)', 'B', 'BVIC', 'BYAM', 'totalTests'];
