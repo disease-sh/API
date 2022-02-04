@@ -26,14 +26,13 @@ jobs:
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
           repository: novelcovid/novelcovid-api
-          tags: latest
+          tags: type=schedule,pattern={{date 'YYYY-MM-DD-HH-mm'}}
       - name: Publish hashed tag to Registry
         uses: docker/build-push-action@v1
         with:
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
           repository: novelcovid/novelcovid-api
-          tag_with_sha: true
   merge-branch:
     if: github.repository == 'disease-sh/API'
     needs: publish
