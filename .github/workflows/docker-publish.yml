@@ -33,7 +33,7 @@ jobs:
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
           repository: novelcovid/novelcovid-api
-          tags: type=schedule,pattern={{date 'YYYY-MM-DD-HH-mm'}}
+          tags: latest
       - name: Publish hashed tag to Registry
         uses: docker/build-push-action@v1
         with:
