@@ -22,18 +22,15 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          # list of Docker images to use as base name for tags
-          images: |
-            novelcovid/novelcovid-api
-          # generate Docker tags based on the following events/attributes
+          images: 'novelcovid/novelcovid-api'
           tags: |
-            type=schedule
+            type=schedule,pattern={{date 'YYYYMMDD'}}
       - name: Publish calver tag to Registry
         uses: docker/build-push-action@v1
         with:
+          context: .
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
-          repository: novelcovid/novelcovid-api
           tags: ${{ steps.meta.outputs.tags }}
       - name: Publish latest to Registry
         uses: docker/build-push-action@v1
