@@ -22,8 +22,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ''
-          tags: |
+          images: 'novelcovid/novelcovid-api'
+          tag-semver: |
             schedule,pattern={{date 'YYYYMMDD'}}
       - name: Publish calver tag to Registry
         uses: docker/build-push-action@v1
@@ -31,7 +31,6 @@ jobs:
           context: .
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
-          repository: novelcovid/novelcovid-api
           tags: ${{ steps.meta.outputs.tags }}
       - name: Publish latest to Registry
         uses: docker/build-push-action@v1
