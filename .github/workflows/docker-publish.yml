@@ -22,9 +22,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: novelcovid/novelcovid-api
           tag-semver: |
-            {{raw}}
+            schedule,pattern={{date 'YYYYMMDD'}}
       - name: Publish calver tag to Registry
         uses: docker/build-push-action@v1
         with:
