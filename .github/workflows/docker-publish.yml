@@ -24,7 +24,7 @@ jobs:
         with:
           images: 'novelcovid/novelcovid-api'
           tag-semver: |
-            schedule,pattern={{date 'YYYYMMDD'}}
+            type=schedule,pattern={{date 'YYYYMMDD'}}
       - name: Publish calver tag to Registry
         uses: docker/build-push-action@v1
         with:
