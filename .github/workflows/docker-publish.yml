@@ -18,20 +18,17 @@ jobs:
       - uses: zcong1993/setup-timezone@master
         with:
           timezone: America/Denver
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: 'novelcovid/novelcovid-api'
-          tags: |
-            type=schedule,pattern={{date 'YYYYMMDD'}}
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       - name: Publish calver tag to Registry
         uses: docker/build-push-action@v1
         with:
           context: .
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
-          tags: ${{ steps.meta.outputs.tags }}
+          repository: novelcovid/novelcovid-api
+          tags: ${{ steps.date.outputs.date }}
       - name: Publish latest to Registry
         uses: docker/build-push-action@v1
         with:
