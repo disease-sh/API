@@ -31,6 +31,7 @@ jobs:
       - name: Publish calver tag to Registry
         uses: docker/build-push-action@v1
         with:
+          context: .
           username: ebwinters
           password: ${{ secrets.Docker_Token }}
           repository: novelcovid/novelcovid-api
