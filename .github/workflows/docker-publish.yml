@@ -3,7 +3,6 @@ on:
   push:
     branches: [master]
     paths-ignore:
-      - '.github/**'
       - 'README.md'
       - 'SECURITY.md'
       - 'TERMS.md'
