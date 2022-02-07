@@ -4,7 +4,6 @@ on:
     branches: [master]
     paths-ignore:
       - '.github/**'
-      - 'docker-publish.yml'
       - 'README.md'
       - 'SECURITY.md'
       - 'TERMS.md'
