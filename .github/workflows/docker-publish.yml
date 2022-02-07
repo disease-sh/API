@@ -23,7 +23,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ''
-          tag-semver: |
+          tags: |
             schedule,pattern={{date 'YYYYMMDD'}}
       - name: Publish calver tag to Registry
         uses: docker/build-push-action@v1
