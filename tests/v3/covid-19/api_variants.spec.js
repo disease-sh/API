@@ -6,7 +6,7 @@ const { testBasicProperties } = require('../../testingFunctions');
 
 chai.use(chaiHttp);
 
-const countries = [
+const variantCountries = [
 	'Austria',
 	'Belgium',
 	'Bulgaria',
@@ -45,8 +45,8 @@ describe('TESTING /v3/covid-19/variants/countries general', () => {
 			.get('/v3/covid-19/variants/countries')
 			.end((err, res) => {
 				testBasicProperties(err, res, 200, 'array');
-				res.body.length.should.be.equal(countries.length);
-				res.body.forEach((country) => countries.should.include(country));
+				res.body.length.should.be.equal(variantCountries.length);
+				res.body.forEach((country) => variantCountries.should.include(country));
 				done();
 			});
 	});

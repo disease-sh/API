@@ -53,9 +53,8 @@ const variantsData = async (keys, redis) => {
 		const uniquesCountries = countriesData
 			.map((country) => country.country)
 			.filter((value, index, self) => self.indexOf(value) === index);
-		console.log(uniquesCountries);
 
-		for (var i in uniquesCountries) {
+		for (let i in uniquesCountries) {
 			await redis.hset(
 				keys.variants,
 				uniquesCountries[i],
@@ -63,7 +62,7 @@ const variantsData = async (keys, redis) => {
 			);
 		}
 	} catch (err) {
-		logger.err('Error: Formating ECDC data failed!', err);
+		logger.err('Error: Formating Variants data failed!', err);
 	}
 };
 
