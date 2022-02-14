@@ -54,7 +54,7 @@ const variantsData = async (keys, redis) => {
 			.map((country) => country.country)
 			.filter((value, index, self) => self.indexOf(value) === index);
 
-		for (let i in uniquesCountries) {
+		for (var i in uniquesCountries) {
 			await redis.hset(
 				keys.variants,
 				uniquesCountries[i],
