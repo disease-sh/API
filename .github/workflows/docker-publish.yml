@@ -3,8 +3,6 @@ on:
   push:
     branches: [master]
     paths-ignore:
-      - '.github/**'
-      - 'docker-publish.yml'
       - 'README.md'
       - 'SECURITY.md'
       - 'TERMS.md'
@@ -20,6 +18,17 @@ jobs:
       - uses: zcong1993/setup-timezone@master
         with:
           timezone: America/Denver
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H-%M')"
+      - name: Publish calver tag to Registry
+        uses: docker/build-push-action@v1
+        with:
+          context: .
+          username: ebwinters
+          password: ${{ secrets.Docker_Token }}
+          repository: novelcovid/novelcovid-api
+          tags: ${{ steps.date.outputs.date }}
       - name: Publish latest to Registry
         uses: docker/build-push-action@v1
         with:
