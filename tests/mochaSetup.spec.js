@@ -1,9 +1,21 @@
-const { scraper: { executeScraper, executeScraperNYTData, excecuteScraperAppleData, excecuteScraperGov, excecuteScraperInfluenza, excecuteScraperVaccineCoverage, excecuteScraperVaccineStateCoverage },
-	redis } = require('../routes/instances');
+const {
+	scraper: {
+		executeScraper,
+		executeScraperNYTData,
+		excecuteScraperAppleData,
+		excecuteScraperGov,
+		excecuteScraperInfluenza,
+		excecuteScraperVaccineCoverage,
+		excecuteScraperVaccineStateCoverage,
+		executeScraperVariants
+	},
+	redis
+} = require('../routes/instances');
 const logger = require('../utils/logger');
 
 const [arg] = process.argv[5].split('/').slice(-1);
 const argValue = arg.substring(arg.indexOf('_') + 1, arg.indexOf('.'));
+console.log(argValue);
 const mapArgToScraper = {
 	worldometers: executeScraper,
 	jhucsse: executeScraper,
@@ -13,7 +25,8 @@ const mapArgToScraper = {
 	gov: excecuteScraperGov,
 	influenza: excecuteScraperInfluenza,
 	vaccine: excecuteScraperVaccineCoverage,
-	vaccinestate: excecuteScraperVaccineStateCoverage
+	vaccinestate: excecuteScraperVaccineStateCoverage,
+	variants: executeScraperVariants
 };
 
 // eslint-disable-next-line
@@ -30,6 +43,7 @@ before(async () => {
 		await excecuteScraperInfluenza();
 		await excecuteScraperVaccineCoverage();
 		await excecuteScraperVaccineStateCoverage();
+		await executeScraperVariants();
 		logger.info('Scraping all data finished.');
 	}
 });
