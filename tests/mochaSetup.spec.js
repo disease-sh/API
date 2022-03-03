@@ -4,7 +4,6 @@ const {
 		executeScraperNYTData,
 		excecuteScraperAppleData,
 		excecuteScraperGov,
-		excecuteScraperInfluenza,
 		excecuteScraperVaccineCoverage,
 		excecuteScraperVaccineStateCoverage,
 		executeScraperVariants
@@ -23,7 +22,6 @@ const mapArgToScraper = {
 	nyt: executeScraperNYTData,
 	apple: excecuteScraperAppleData,
 	gov: excecuteScraperGov,
-	influenza: excecuteScraperInfluenza,
 	vaccine: excecuteScraperVaccineCoverage,
 	vaccinestate: excecuteScraperVaccineStateCoverage,
 	variants: executeScraperVariants
@@ -40,7 +38,6 @@ before(async () => {
 		await executeScraperNYTData();
 		await excecuteScraperAppleData();
 		await excecuteScraperGov();
-		await excecuteScraperInfluenza();
 		await excecuteScraperVaccineCoverage();
 		await excecuteScraperVaccineStateCoverage();
 		await executeScraperVariants();
