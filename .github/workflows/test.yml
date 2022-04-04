@@ -14,7 +14,7 @@ on:
     branches:
       - '*'
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "0 */12 * * *"
 jobs:
   unittests:
     runs-on: ubuntu-latest
