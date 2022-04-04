@@ -19,6 +19,7 @@
   "vaccine_coverage": "covidapi:vaccine_coverage",
   "vaccine_state_coverage": "covidapi:vaccine_state_coverage",
   "therapeutics": "covidapi:therapeutics",
+  "variants":"covidapi:variants",
   "influenza_ILINET": "influenza:ILINET",
   "influenza_USPHL": "influenza:USPHL",
   "influenza_USCL": "influenza:USCL"
