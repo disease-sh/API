@@ -117,7 +117,7 @@ module.exports = [
 	{ country: 'Kenya', iso2: 'KE', iso3: 'KEN', id: 404, lat: 1, long: 38 },
 	{ country: 'Kiribati', iso2: 'KI', iso3: 'KIR', id: 296, lat: 1.4167, long: 173 },
 	{ country: 'Kosovo', iso2: 'XK', iso3: 'RKS', id: 895, lat: 42.6, long: 20.9 },
-	{ country: 'N. Korea', iso2: 'KP', iso3: 'PRK', id: 408, lat: 40, long: 127, possibleNames: ['Korea del Norte', 'North Korea', 'Korea, North', 'Democratic People\'s Republic of Korea'] },
+	{ country: 'N. Korea', iso2: 'KP', iso3: 'PRK', id: 408, lat: 40, long: 127, possibleNames: ['Korea del Norte', 'North Korea', 'Korea, North', 'Democratic People\'s Republic of Korea', 'DPRK'] },
 	{ country: 'S. Korea', iso2: 'KR', iso3: 'KOR', id: 410, lat: 37, long: 127.5, possibleNames: ['Korea del Sur', 'South Korea', 'Korea, South', 'Republic of Korea'] },
 	{ country: 'Kuwait', iso2: 'KW', iso3: 'KWT', id: 414, lat: 29.3375, long: 47.6581 },
 	{ country: 'Kyrgyzstan', iso2: 'KG', iso3: 'KGZ', id: 417, lat: 41, long: 75 },
