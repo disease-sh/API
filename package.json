@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@sentry/node": "5.12.2",
-    "axios": "^0.21.2",
+    "axios": "^1.6.0",
     "axios-cookiejar-support": "^1.0.1",
     "cheerio": "^0.22.0",
     "cookie-parser": "1.4.5",
