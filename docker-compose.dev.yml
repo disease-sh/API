@@ -1,9 +1,6 @@
-version: "3.7"
-
 services:
   redis:
     env_file: .env
-    container_name: covid-api-redis
     command:
       [
         "redis-server",
@@ -20,24 +17,20 @@ services:
   scraper:
     build: .
     image: covidapi-scraper
-    container_name: covid-api-scraper
     command: ["npm", "run", "start:scraper"]
-    restart: always
+    restart: unless-stopped
     environment: 
       - DOCKER=true
     env_file:
       - .env
-    networks:
-      - redis-net
     depends_on:
       - redis
 
   app:
     build: .
     image: covidapi-app
-    container_name: covid-api-server
     command: ["npm", "run", "start:devserver"]
-    restart: always
+    restart: unless-stopped
     environment: 
       - DOCKER=true
     env_file:
