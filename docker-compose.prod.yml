@@ -23,8 +23,6 @@ services:
       - DOCKER=true
     env_file:
       - .env
-    networks:
-      - redis-net
     depends_on:
       - redis
 
