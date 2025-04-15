@@ -25,6 +25,11 @@ Disease.sh is recommended by Postman [here](https://covid-19-apis.postman.com/)
 
 [![Run in Postman](https://run-beta.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/11144369-e27366d6-7699-46f4-b58e-2b2b2e637be5-Szf6Z9B3)
 
+## Run through [databar.ai](https://databar.ai)
+If you don't know how to use APIs, you can use disease.sh without code through the [databar.ai](https://databar.ai) platform.
+
+[![Run without code](https://databar.ai/external/ref_button.svg)](https://databar.ai/explore/open-disease-data-api?utm_source=diseasesh&utm_campaign=apiref)
+
 ## Documentation
 Disease.sh Documentation can be found [here](https://disease.sh/docs/)
 

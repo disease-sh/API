@@ -38,6 +38,8 @@ config.therapeuticsInterval = process.env.THERAPEUTICS_INTERVAL || 864e5;
 config.ebolaInterval = process.env.EBOLA_INTERVAL || 864e5;
 // eslint-disable-next-line camelcase
 config.cdcInterval = process.env.CDC_INTERVAL || 864e5;
+// eslint-disable-next-line camelcase
+config.variantInterval = process.env.VARIANT_INTERVAL || 864e5;
 
 // SENTRY KEY (ONLY FOR PRODUCTION)
 // eslint-disable-next-line camelcase

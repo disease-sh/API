@@ -14,7 +14,8 @@ const v3CovidTests = [
 	'tests/v3/covid-19/api_nyt.spec.js',
 	'tests/v3/covid-19/api_therapeutics.spec.js',
 	'tests/v3/covid-19/api_vaccine.spec.js',
-	'tests/v3/covid-19/api_worldometers.spec.js'
+	'tests/v3/covid-19/api_worldometers.spec.js',
+	'tests/v3/covid-19/api_variants.spec.js'
 ];
 
 // Influenza tests are broken
@@ -41,6 +42,7 @@ const fileNameToTestMap = {
 	'apiWorldometers.js': ['tests/v2/api_worldometers.spec.js', 'tests/v3/covid-19/api_worldometers.spec.js'],
 	'apiTherapeutics.js': ['tests/v3/covid-19/api_therapeutics.spec.js'],
 	'apiVaccine.js': ['tests/v3/covid-19/api_vaccine.spec.js'],
+	'apiVariants.js': ['tests/v3/covid-19/api_variants.spec.js'],
 	'instances.js': allTests,
 	'appleMobilityData.js': ['tests/v2/api_apple.spec.js', 'tests/v3/covid-19/api_apple.spec.js'],
 	'getVaccine.js': ['tests/v3/covid-19/api_vaccine.spec.js'],

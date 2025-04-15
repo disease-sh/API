@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   redis:
     container_name: covid-api-redis-test

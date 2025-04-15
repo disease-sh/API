@@ -1,9 +1,7 @@
-version: "3.7"
-
 services:
   redis:
+    restart: unless-stopped
     env_file: .env
-    container_name: covid-api-redis
     command:
       [
         "redis-server",
@@ -19,23 +17,20 @@ services:
 
   scraper:
     image: novelcovid/novelcovid-api:latest
-    container_name: covid-api-scraper
+    restart: unless-stopped
     command: ["npm", "run", "start:scraper"]
-    restart: always
     environment: 
       - DOCKER=true
     env_file:
       - .env
-    networks:
-      - redis-net
     depends_on:
       - redis
 
   app:
     image: novelcovid/novelcovid-api:latest
+    restart: unless-stopped
     container_name: covid-api-server
     command: ["npm", "start"]
-    restart: always
     environment: 
       - DOCKER=true
     env_file:

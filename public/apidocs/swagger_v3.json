@@ -45,6 +45,10 @@
       "description": "(COVID-19 therapeutic trial data from raps.org, updated every 24 hours)"
     },
     {
+      "name": "COVID-19: Variants",
+      "description": "(COVID-19 data from The European Surveillance System -TESSy, provided by [Austria, Belgium, Bulgaria, Croatia, Cyprus, Czechia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden]  https://www.ecdc.europa.eu and released by ECDC updated every week)"
+    },
+    {
       "name": "Influenza: CDC",
       "description": "(Influenza data reported by the United States CDC, updated every 24 hours)"
     }
@@ -1507,6 +1511,68 @@
         }
       }
     },
+    "/v3/covid-19/variants/countries/": {
+      "get": {
+        "tags": [
+          "COVID-19: Variants"
+        ],
+        "summary": "Get a list of supported countries for ECDC specific data",
+        "description": "Returns a list of supported country names",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/variantsECDC"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v3/covid-19/variants/countries/{country}": {
+      "get": {
+        "tags": [
+          "COVID-19: Variants"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "in": "path",
+            "required": true,
+            "description": "A valid country name from the /v3/covid-19/variants/countries/ endpoint",
+            "type": "string"
+          },
+          {
+            "name": "allowNull",
+            "in": "query",
+            "enum": [
+              "true",
+              "false",
+              "1",
+              "0"
+            ],
+            "description": "By default, if a value is missing, it is returned as 0. This allows nulls to be returned",
+            "type": "string"
+          }
+        ],
+        "summary": "Get COVID-19 ECDC reported data for a specific country",
+        "responses": {
+          "200": {
+            "description": "Status Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/variantsCountriesECDC"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v3/influenza/cdc/ILINet": {
       "get": {
         "tags": [
@@ -2590,6 +2656,57 @@
           },
           "lastUpdate": {
             "type": "string"
+          }
+        }
+      },
+      "variantsECDC": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "variantsCountriesECDC": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "updated": {
+              "type": "number",
+              "format": "date"
+            },
+            "country": {
+              "type": "string"
+            },
+            "yearWeek": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "newCases": {
+              "type": "number"
+            },
+            "numberSequenced": {
+              "type": "number"
+            },
+            "percentSequenced": {
+              "type": "number"
+            },
+            "validDenominator": {
+              "type": "string"
+            },
+            "variant": {
+              "type": "string"
+            },
+            "numberDetectionsVariant": {
+              "type": "number"
+            },
+            "numberSequencedKnownVariant": {
+              "type": "number"
+            },
+            "percentVariant": {
+              "type": "number"
+            }
           }
         }
       },
