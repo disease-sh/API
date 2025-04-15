@@ -27,16 +27,11 @@ const fillResult = (html, yesterday = false) => {
 	const stateColIndex = 1;
 	const dataColIndexes = {
 		cases: 2,
-		todayCases: 3,
-		deaths: 4,
-		todayDeaths: 5,
-		recovered: 6,
-		active: 7,
-		casesPerOneMillion: 8,
-		deathsPerOneMillion: 9,
-		tests: 10,
-		testsPerOneMillion: 11,
-		population: 12
+		deaths: 3,
+		recovered: 4,
+		casesPerOneMillion: 5,
+		deathsPerOneMillion: 6,
+		population: 7
 	};
 
 	return tableRows.map((row) => {

@@ -5,7 +5,7 @@ const Redis = require('ioredis');
 const logger = require('../utils/logger');
 const getWorldometerPage = require('../scrapers/covid-19/getWorldometers');
 const getStates = require('../scrapers/covid-19/getStates');
-const jhuLocations = require('../scrapers/covid-19/jhuLocations');
+// const jhuLocations = require('../scrapers/covid-19/jhuLocations');
 const historical = require('../scrapers/covid-19/historical');
 const nytData = require('../scrapers/covid-19/nytData');
 const appleData = require('../scrapers/covid-19/appleMobilityData');
@@ -31,7 +31,7 @@ module.exports = {
 	scraper: {
 		getWorldometerPage,
 		getStates,
-		jhuLocations,
+		// jhuLocations,
 		historical,
 		nytData,
 		appleData,
@@ -39,7 +39,7 @@ module.exports = {
 			await Promise.all([
 				getWorldometerPage(keys, redis),
 				getStates(keys, redis),
-				jhuLocations.jhudataV2(keys, redis),
+				// jhuLocations.jhudataV2(keys, redis),
 				historical.historicalV2(keys, redis),
 				historical.getHistoricalUSADataV2(keys, redis)
 			]);
