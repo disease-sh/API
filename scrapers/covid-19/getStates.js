@@ -8,6 +8,7 @@ const logger = require('../../utils/logger');
  * @returns {float} 			Value of cell
  */
 const parseNumberCell = (cell) => {
+	// console.log('CELL', cell);
 	const cellValue = cell.children.length !== 0 ? cell.children[0].data : '';
 	return parseFloat(cellValue.replace(/[,+\-\s]/g, '')) || null;
 };
@@ -27,21 +28,22 @@ const fillResult = (html, yesterday = false) => {
 	const stateColIndex = 1;
 	const dataColIndexes = {
 		cases: 2,
-		todayCases: 3,
-		deaths: 4,
-		todayDeaths: 5,
-		recovered: 6,
-		active: 7,
-		casesPerOneMillion: 8,
-		deathsPerOneMillion: 9,
-		tests: 10,
-		testsPerOneMillion: 11,
-		population: 12
+		// todayCases: 3,
+		deaths: 3,
+		// todayDeaths: 5,
+		recovered: 4,
+		// active: 7,
+		casesPerOneMillion: 5,
+		deathsPerOneMillion: 6,
+		// tests: 10,
+		// testsPerOneMillion: 11,
+		population: 7
 	};
 
 	return tableRows.map((row) => {
 		const cells = row.children.filter(el => el.name === 'td');
 		const stateData = { state: cheerio(cells[stateColIndex]).text().replace(/\n/g, '').trim(), updated: Date.now() };
+		// console.log('cells', cells);
 		// eslint-disable-next-line no-return-assign
 		Object.keys(dataColIndexes).forEach((property) => stateData[property] = parseNumberCell(cells[dataColIndexes[property]]));
 		return stateData;
